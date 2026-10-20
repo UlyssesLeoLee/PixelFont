@@ -130,7 +130,9 @@ def write_bdf(glyphs: list[GlyphData], ascent: int, descent: int, path: Path) ->
                 lines.append(_bdf_row_bytes(row_slice).hex().upper())
             lines.append("ENDCHAR")
         else:
-            lines += ["BITMAP", "ENDCHAR", "ENDCHAR"]
+            # 零墨迹字形 (如空格): BBX 0 0 0 0 + 空 BITMAP 段, 字符块只需要**一个**
+            # ENDCHAR。多写一个会让 STARTCHAR/ENDCHAR 配对失衡, 严格解析器直接报错。
+            lines += ["BITMAP", "ENDCHAR"]
     lines.append("ENDFONT")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return path
@@ -298,7 +300,7 @@ def _emit_rect(pen, x0: int, y0: int, x1: int, y1: int, ascent: int, px: int) ->
 def write_atlas(
     glyphs: list[GlyphData], ascent: int, descent: int, columns: int, outdir: Path
 ) -> tuple[Path, Path]:
-    cell_w = 12
+    cell_w = max(g.width for g in glyphs)
     cell_h = ascent + descent
     rows_n = (len(glyphs) + columns - 1) // columns
     W, H = columns * cell_w, rows_n * cell_h
@@ -312,7 +314,10 @@ def write_atlas(
             for x in range(g.width):
                 if row[x]:
                     img.putpixel((cx + x, cy + y), (255, 255, 255, 255))
-        meta.append([ord(g.ch), cx, cy, g.advance, 0 if g.category == "ascii" else 1])
+        # isWide 必须由**实际 advance** 决定, 不能由"字符分类"决定:
+        # 半角片假名 (U+FF61-FF9F) 和半角标点的 advance 是 6, 但只要分类不是 ascii
+        # 就会被标成全角 —— 引擎按图集推进就会整体错位。
+        meta.append([ord(g.ch), cx, cy, g.advance, 1 if g.advance == cell_w else 0])
     png = outdir / f"{PS_NAME}-atlas.png"
     img.save(png)
 

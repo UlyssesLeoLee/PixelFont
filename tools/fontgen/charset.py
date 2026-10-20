@@ -85,11 +85,23 @@ def build_charset() -> list[tuple[str, str]]:
 
 
 def build_stack() -> ScriptStack:
-    """B 方向: 汉字/标点走 SimHei 12, 拉丁与假名走 MS Gothic 12。"""
-    return ScriptStack(
+    """B 方向: 汉字/标点走 SimHei 12, 拉丁与假名走 MS Gothic 12。
+
+    双源的基线必须一致 —— 这是加在这里的硬门禁, 不是运行时才发现的巧合:
+    两个源的 ascent/descent 一旦不同 (换字体版本、换源字体就会发生), 假名会比
+    汉字高一格, 混排整行错位, 而且这种错位在单语样张里完全看不出来。
+    """
+    stack = ScriptStack(
         ideo=BitmapFont(path=SIMHEI, index=0, px=12),
         non_ideo=BitmapFont(path=MSGOTHIC, index=0, px=12),
     )
+    a, b = stack.ideo.metrics, stack.non_ideo.metrics
+    if (a.ascent, a.descent) != (b.ascent, b.descent):
+        raise SystemExit(
+            f"双源基线不一致: 汉字源 {a.ascent}/{a.descent} vs 拉丁源 {b.ascent}/{b.descent} "
+            f"—— 混排会错行, 拒绝构建"
+        )
+    return stack
 
 
 def gate_full_coverage(stack: ScriptStack, items: list[tuple[str, str]]) -> None:

@@ -92,12 +92,26 @@ class BitmapFont:
         return self._metrics.half_w, self._metrics.cell_h
 
     def is_wide(self, ch: str) -> bool:
-        """全角判定: 优先按 East Asian Width, 回退到 advance。"""
+        """全角判定: 以**源字体自己的 advance** 为准, EAW 只当旁证。
+
+        为什么不能只看 East Asian Width: EAW 把 '…'(U+2026) '×'(U+00D7) '÷'(U+00F7)
+        标成 'A'(ambiguous) —— 按非 CJK 惯例算半角。但 MS Gothic 里它们本来就是 12px
+        的全角字形。按 EAW 判半角, 就是把 12px 的字形塞进 6px 的格, 右半边整列墨迹被切掉:
+        '…' 只剩两个点, '×' 只剩左半边斜线, '÷' 只剩左半截。
+
+        源字体的 advance 是**事实**, EAW 是**约定** —— 事实优先。
+        EAW 只在拿不到实测 advance 时兜底。
+        """
+        if self.latin_force_half and ord(ch) < 0x80:
+            # ASCII 严格半角, 保证等宽网格不被字体的 Latin advance 破坏
+            return False
+        adv = round(self._font.getlength(ch))
+        if adv:
+            # 大于半角格就按全角给格: 宁可多留空白, 也绝不裁掉墨迹
+            return adv > self._metrics.half_w
         import unicodedata
 
-        if unicodedata.east_asian_width(ch) in ("W", "F"):
-            return True
-        return False
+        return unicodedata.east_asian_width(ch) in ("W", "F")
 
     def glyph(self, ch: str) -> Image.Image:
         """取单个字形的 cell 图 (L 模式, 0/255)。已按整数网格对齐并加粗/减细。"""
