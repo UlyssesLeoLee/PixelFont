@@ -1,0 +1,3483 @@
+{
+  "tool": "kana_probe",
+  "version": 1,
+  "generated_at": "2026-10-20T23:37:16.062204+00:00",
+  "label": "kana",
+  "inputs": {
+    "charset_total": 4140,
+    "kana_total": 255,
+    "hanzi_total": 3755,
+    "kana_hiragana": 93,
+    "kana_katakana": 96,
+    "kana_halfwidth": 63,
+    "kana_other": 3
+  },
+  "gauge": {
+    "checks": [
+      {
+        "id": "HALFWIDTH_GRID_FIT",
+        "name": "半角片假名 6px 格对齐 / 墨迹裁剪",
+        "scope": "U+FF61-FF9F",
+        "samples": 63,
+        "failures": 0,
+        "read_failures": 0,
+        "status": "PASS",
+        "notes": [
+          "几何量具: dx+掩膜宽 <= 6 且 dy+掩膜高 <= 13; 墨迹量具: 格内墨迹 == 源掩膜墨迹"
+        ]
+      },
+      {
+        "id": "MARK_INK",
+        "name": "浊点/手浊点/迭代记号墨量与位置",
+        "scope": "12 个记号字符",
+        "samples": 11,
+        "failures": 0,
+        "read_failures": 0,
+        "status": "PASS",
+        "notes": [
+          "判定依据: 墨迹 > 0 且 (组合记号在右上象限 / 间隔形记号墨迹包围盒 <= 6x6)"
+        ],
+        "rows": [
+          {
+            "char": "゙",
+            "cp": "U+3099",
+            "eaw": "W",
+            "advance": 12,
+            "ink": 4,
+            "ink_ratio": 0.0256,
+            "ink_bbox": [
+              8,
+              1,
+              10,
+              3
+            ],
+            "bbox_size": [
+              3,
+              3
+            ],
+            "mask": [
+              12,
+              10
+            ],
+            "offset": [
+              0,
+              1
+            ],
+            "art": "............\n.........#..\n........#.#.\n.........#..\n............\n............\n............\n............\n............\n............\n............\n............\n............"
+          },
+          {
+            "char": "゚",
+            "cp": "U+309A",
+            "eaw": "W",
+            "advance": 12,
+            "ink": 6,
+            "ink_ratio": 0.0385,
+            "ink_bbox": [
+              9,
+              1,
+              10,
+              3
+            ],
+            "bbox_size": [
+              2,
+              3
+            ],
+            "mask": [
+              12,
+              10
+            ],
+            "offset": [
+              0,
+              1
+            ],
+            "art": "............\n.........##.\n.........##.\n.........##.\n............\n............\n............\n............\n............\n............\n............\n............\n............"
+          },
+          {
+            "char": "゛",
+            "cp": "U+309B",
+            "eaw": "W",
+            "advance": 12,
+            "ink": 4,
+            "ink_ratio": 0.0256,
+            "ink_bbox": [
+              0,
+              1,
+              3,
+              3
+            ],
+            "bbox_size": [
+              4,
+              3
+            ],
+            "mask": [
+              12,
+              12
+            ],
+            "offset": [
+              0,
+              1
+            ],
+            "art": "............\n..#.........\n#..#........\n.#..........\n............\n............\n............\n............\n............\n............\n............\n............\n............"
+          },
+          {
+            "char": "゜",
+            "cp": "U+309C",
+            "eaw": "W",
+            "advance": 12,
+            "ink": 4,
+            "ink_ratio": 0.0256,
+            "ink_bbox": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "bbox_size": [
+              3,
+              3
+            ],
+            "mask": [
+              12,
+              12
+            ],
+            "offset": [
+              0,
+              1
+            ],
+            "art": "............\n.#..........\n#.#.........\n.#..........\n............\n............\n............\n............\n............\n............\n............\n............\n............"
+          },
+          {
+            "char": "・",
+            "cp": "U+30FB",
+            "eaw": "W",
+            "advance": 12,
+            "ink": 4,
+            "ink_ratio": 0.0256,
+            "ink_bbox": [
+              4,
+              5,
+              5,
+              6
+            ],
+            "bbox_size": [
+              2,
+              2
+            ],
+            "mask": [
+              12,
+              12
+            ],
+            "offset": [
+              0,
+              1
+            ],
+            "art": "............\n............\n............\n............\n............\n....##......\n....##......\n............\n............\n............\n............\n............\n............"
+          },
+          {
+            "char": "ー",
+            "cp": "U+30FC",
+            "eaw": "W",
+            "advance": 12,
+            "ink": 9,
+            "ink_ratio": 0.0577,
+            "ink_bbox": [
+              1,
+              5,
+              9,
+              6
+            ],
+            "bbox_size": [
+              9,
+              2
+            ],
+            "mask": [
+              12,
+              12
+            ],
+            "offset": [
+              0,
+              1
+            ],
+            "art": "............\n............\n............\n............\n............\n.#..........\n..########..\n............\n............\n............\n............\n............\n............"
+          },
+          {
+            "char": "ゝ",
+            "cp": "U+309D",
+            "eaw": "W",
+            "advance": 12,
+            "ink": 7,
+            "ink_ratio": 0.0449,
+            "ink_bbox": [
+              4,
+              4,
+              7,
+              8
+            ],
+            "bbox_size": [
+              4,
+              5
+            ],
+            "mask": [
+              12,
+              12
+            ],
+            "offset": [
+              0,
+              1
+            ],
+            "art": "............\n............\n............\n............\n....#.......\n....#.......\n.....#......\n......##....\n....##......\n............\n............\n............\n............"
+          },
+          {
+            "char": "ゞ",
+            "cp": "U+309E",
+            "eaw": "W",
+            "advance": 12,
+            "ink": 11,
+            "ink_ratio": 0.0705,
+            "ink_bbox": [
+              3,
+              2,
+              8,
+              8
+            ],
+            "bbox_size": [
+              6,
+              7
+            ],
+            "mask": [
+              12,
+              12
+            ],
+            "offset": [
+              0,
+              1
+            ],
+            "art": "............\n............\n.......#....\n.....#..#...\n...#..#.....\n...#........\n....#.......\n.....##.....\n...##.......\n............\n............\n............\n............"
+          },
+          {
+            "char": "ゟ",
+            "cp": "U+309F",
+            "eaw": "W",
+            "advance": 12,
+            "ink": 25,
+            "ink_ratio": 0.1603,
+            "ink_bbox": [
+              2,
+              1,
+              8,
+              9
+            ],
+            "bbox_size": [
+              7,
+              9
+            ],
+            "mask": [
+              12,
+              11
+            ],
+            "offset": [
+              0,
+              1
+            ],
+            "art": "............\n.....##.....\n.....####...\n.....#......\n....#.......\n....####....\n....#..##...\n...#....#...\n...##..##...\n..#..###....\n............\n............\n............"
+          },
+          {
+            "char": "ﾞ",
+            "cp": "U+FF9E",
+            "eaw": "H",
+            "advance": 6,
+            "ink": 4,
+            "ink_ratio": 0.0513,
+            "ink_bbox": [
+              1,
+              1,
+              3,
+              4
+            ],
+            "bbox_size": [
+              3,
+              4
+            ],
+            "mask": [
+              6,
+              12
+            ],
+            "offset": [
+              0,
+              1
+            ],
+            "art": "......\n..#...\n...#..\n.#....\n..#...\n......\n......\n......\n......\n......\n......\n......\n......"
+          },
+          {
+            "char": "ﾟ",
+            "cp": "U+FF9F",
+            "eaw": "H",
+            "advance": 6,
+            "ink": 6,
+            "ink_ratio": 0.0769,
+            "ink_bbox": [
+              1,
+              1,
+              3,
+              4
+            ],
+            "bbox_size": [
+              3,
+              4
+            ],
+            "mask": [
+              6,
+              12
+            ],
+            "offset": [
+              0,
+              1
+            ],
+            "art": "......\n..#...\n.#.#..\n.#.#..\n..#...\n......\n......\n......\n......\n......\n......\n......\n......"
+          }
+        ]
+      },
+      {
+        "id": "HIRA_KATA_PAIR",
+        "name": "平↔片一一对应墨量比值 / 同源",
+        "scope": "平假名 U+3041-3096 ↔ 片假名 +0x60",
+        "samples": 88,
+        "failures": 0,
+        "read_failures": 0,
+        "status": "PASS",
+        "notes": [
+          "平假名块 95 个码位, 剔除 7 个(字符集外或 Unicode 名称显示不对应), 实测 88 对"
+        ],
+        "extremes": [
+          {
+            "hira_cp": "U+306E",
+            "kata_cp": "U+30CE",
+            "hira": "の",
+            "kata": "ノ",
+            "hira_ink": 31,
+            "kata_ink": 10,
+            "hira_ratio": 0.1987,
+            "kata_ratio": 0.0641,
+            "ratio": 0.3226,
+            "same_source": true,
+            "hira_art": "............\n............\n...#####....\n..#..#..#...\n.#...#...#..\n.#...#....#.\n#....#....#.\n#...#.....#.\n#...#.....#.\n#..#.....#..\n.##.....#...\n......##....\n............",
+            "kata_art": "............\n............\n.......#....\n.......#....\n.......#....\n......#.....\n......#.....\n.....#......\n....#.......\n...#........\n.##.........\n............\n............"
+          },
+          {
+            "hira_cp": "U+306F",
+            "kata_cp": "U+30CF",
+            "hira": "は",
+            "kata": "ハ",
+            "hira_ink": 36,
+            "kata_ink": 16,
+            "hira_ratio": 0.2308,
+            "kata_ratio": 0.1026,
+            "ratio": 0.4444,
+            "same_source": true,
+            "hira_art": "............\n........#...\n#.......#...\n#...#######.\n#.......#...\n#.......#...\n#.......#...\n#.......#...\n#....####...\n#...#...##..\n#...#...#.#.\n#....###....\n............",
+            "kata_art": "............\n............\n............\n..#....#....\n..#.....#...\n..#.....#...\n..#......#..\n..#......#..\n.#.......#..\n.#.......#..\n#........#..\n............\n............"
+          },
+          {
+            "hira_cp": "U+3081",
+            "kata_cp": "U+30E1",
+            "hira": "め",
+            "kata": "メ",
+            "hira_ink": 37,
+            "kata_ink": 17,
+            "hira_ratio": 0.2372,
+            "kata_ratio": 0.109,
+            "ratio": 0.4595,
+            "same_source": true,
+            "hira_art": "............\n......#.....\n.#....#.....\n.#.######...\n.##...#..#..\n.#...#....#.\n#.#..#....#.\n#.#.#.....#.\n#..#......#.\n#.#.#....#..\n.#......##..\n......##....\n............",
+            "kata_art": "............\n............\n........#...\n........#...\n........#...\n..##...#....\n....##.#....\n......#.....\n.....#.#....\n....#...#...\n...#........\n.##.........\n............"
+          },
+          {
+            "hira_cp": "U+3046",
+            "kata_cp": "U+30A6",
+            "hira": "う",
+            "kata": "ウ",
+            "hira_ink": 19,
+            "kata_ink": 26,
+            "hira_ratio": 0.1218,
+            "kata_ratio": 0.1667,
+            "ratio": 1.3684,
+            "same_source": true,
+            "hira_art": "............\n...##.......\n.....##.....\n............\n....####....\n..##....#...\n........#...\n........#...\n........#...\n.......#....\n......#.....\n...###......\n............",
+            "kata_art": "............\n.....#......\n.....#......\n.#########..\n.#.......#..\n.#.......#..\n.#.......#..\n.#.......#..\n........#...\n........#...\n......##....\n...###......\n............"
+          },
+          {
+            "hira_cp": "U+3050",
+            "kata_cp": "U+30B0",
+            "hira": "ぐ",
+            "kata": "グ",
+            "hira_ink": 15,
+            "kata_ink": 26,
+            "hira_ratio": 0.0962,
+            "kata_ratio": 0.1667,
+            "ratio": 1.7333,
+            "same_source": true,
+            "hira_art": "............\n......#.....\n.....#......\n....#..#.#..\n...#...#.#..\n..#.........\n..#.........\n...#........\n....#.......\n.....#......\n......#.....\n.......#....\n............",
+            "kata_art": "............\n....#...#.#.\n....#...#.#.\n...#........\n...#######..\n..#......#..\n.#.......#..\n........#...\n........#...\n.......#....\n.....##.....\n..###.......\n............"
+          },
+          {
+            "hira_cp": "U+304F",
+            "kata_cp": "U+30AF",
+            "hira": "く",
+            "kata": "ク",
+            "hira_ink": 11,
+            "kata_ink": 21,
+            "hira_ratio": 0.0705,
+            "kata_ratio": 0.1346,
+            "ratio": 1.9091,
+            "same_source": true,
+            "hira_art": "............\n......#.....\n.....#......\n....#.......\n...#........\n..#.........\n..#.........\n...#........\n....#.......\n.....#......\n......#.....\n.......#....\n............",
+            "kata_art": "............\n....#.......\n....#.......\n....######..\n...#.....#..\n..#......#..\n.#......#...\n........#...\n.......#....\n......#.....\n....##......\n..##........\n............"
+          }
+        ],
+        "skipped_pairs": [
+          {
+            "hira": "U+3097",
+            "kata": "U+30F7",
+            "reason": "不在 kana 字符集内 (charset.py EXCLUDE)"
+          },
+          {
+            "hira": "U+3098",
+            "kata": "U+30F8",
+            "reason": "不在 kana 字符集内 (charset.py EXCLUDE)"
+          },
+          {
+            "hira": "U+3099",
+            "kata": "U+30F9",
+            "reason": "+0x60 两侧不是对应字符: COMBINING KATAKANA-HIRAGANA VOICED SOUND MARK ↔ KATAKANA LETTER VE"
+          },
+          {
+            "hira": "U+309A",
+            "kata": "U+30FA",
+            "reason": "+0x60 两侧不是对应字符: COMBINING KATAKANA-HIRAGANA SEMI-VOICED SOUND MARK ↔ KATAKANA LETTER VO"
+          },
+          {
+            "hira": "U+309B",
+            "kata": "U+30FB",
+            "reason": "+0x60 两侧不是对应字符: KATAKANA-HIRAGANA VOICED SOUND MARK ↔ KATAKANA MIDDLE DOT"
+          },
+          {
+            "hira": "U+309C",
+            "kata": "U+30FC",
+            "reason": "+0x60 两侧不是对应字符: KATAKANA-HIRAGANA SEMI-VOICED SOUND MARK ↔ KATAKANA-HIRAGANA PROLONGED SOUND MARK"
+          },
+          {
+            "hira": "U+309F",
+            "kata": "U+30FF",
+            "reason": "+0x60 两侧不是对应字符: HIRAGANA DIGRAPH YORI ↔ KATAKANA DIGRAPH KOTO"
+          }
+        ]
+      },
+      {
+        "id": "ADVANCE_EAW",
+        "name": "advance 与 East Asian Width 一致",
+        "scope": "全部 255 个假名",
+        "samples": 255,
+        "failures": 0,
+        "read_failures": 0,
+        "status": "PASS",
+        "notes": [
+          "期望值来自 unicodedata.east_asian_width: H→6, W/F→12"
+        ],
+        "rows": [
+          {
+            "char": "ぁ",
+            "cp": "U+3041",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "あ",
+            "cp": "U+3042",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ぃ",
+            "cp": "U+3043",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "い",
+            "cp": "U+3044",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ぅ",
+            "cp": "U+3045",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "う",
+            "cp": "U+3046",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ぇ",
+            "cp": "U+3047",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "え",
+            "cp": "U+3048",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ぉ",
+            "cp": "U+3049",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "お",
+            "cp": "U+304A",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "か",
+            "cp": "U+304B",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "が",
+            "cp": "U+304C",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "き",
+            "cp": "U+304D",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ぎ",
+            "cp": "U+304E",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "く",
+            "cp": "U+304F",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ぐ",
+            "cp": "U+3050",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "け",
+            "cp": "U+3051",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "げ",
+            "cp": "U+3052",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "こ",
+            "cp": "U+3053",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ご",
+            "cp": "U+3054",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "さ",
+            "cp": "U+3055",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ざ",
+            "cp": "U+3056",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "し",
+            "cp": "U+3057",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "じ",
+            "cp": "U+3058",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "す",
+            "cp": "U+3059",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ず",
+            "cp": "U+305A",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "せ",
+            "cp": "U+305B",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ぜ",
+            "cp": "U+305C",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "そ",
+            "cp": "U+305D",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ぞ",
+            "cp": "U+305E",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "た",
+            "cp": "U+305F",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "だ",
+            "cp": "U+3060",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ち",
+            "cp": "U+3061",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ぢ",
+            "cp": "U+3062",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "っ",
+            "cp": "U+3063",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "つ",
+            "cp": "U+3064",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "づ",
+            "cp": "U+3065",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "て",
+            "cp": "U+3066",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "で",
+            "cp": "U+3067",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "と",
+            "cp": "U+3068",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ど",
+            "cp": "U+3069",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "な",
+            "cp": "U+306A",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "に",
+            "cp": "U+306B",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ぬ",
+            "cp": "U+306C",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ね",
+            "cp": "U+306D",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "の",
+            "cp": "U+306E",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "は",
+            "cp": "U+306F",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ば",
+            "cp": "U+3070",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ぱ",
+            "cp": "U+3071",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ひ",
+            "cp": "U+3072",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "び",
+            "cp": "U+3073",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ぴ",
+            "cp": "U+3074",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ふ",
+            "cp": "U+3075",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ぶ",
+            "cp": "U+3076",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ぷ",
+            "cp": "U+3077",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "へ",
+            "cp": "U+3078",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "べ",
+            "cp": "U+3079",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ぺ",
+            "cp": "U+307A",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ほ",
+            "cp": "U+307B",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ぼ",
+            "cp": "U+307C",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ぽ",
+            "cp": "U+307D",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ま",
+            "cp": "U+307E",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "み",
+            "cp": "U+307F",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "む",
+            "cp": "U+3080",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "め",
+            "cp": "U+3081",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "も",
+            "cp": "U+3082",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ゃ",
+            "cp": "U+3083",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "や",
+            "cp": "U+3084",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ゅ",
+            "cp": "U+3085",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ゆ",
+            "cp": "U+3086",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ょ",
+            "cp": "U+3087",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "よ",
+            "cp": "U+3088",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ら",
+            "cp": "U+3089",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "り",
+            "cp": "U+308A",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "る",
+            "cp": "U+308B",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "れ",
+            "cp": "U+308C",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ろ",
+            "cp": "U+308D",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ゎ",
+            "cp": "U+308E",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "わ",
+            "cp": "U+308F",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ゐ",
+            "cp": "U+3090",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ゑ",
+            "cp": "U+3091",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "を",
+            "cp": "U+3092",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ん",
+            "cp": "U+3093",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ゔ",
+            "cp": "U+3094",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ゕ",
+            "cp": "U+3095",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ゖ",
+            "cp": "U+3096",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "゙",
+            "cp": "U+3099",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "゚",
+            "cp": "U+309A",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "゛",
+            "cp": "U+309B",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "゜",
+            "cp": "U+309C",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ゝ",
+            "cp": "U+309D",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ゞ",
+            "cp": "U+309E",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ゟ",
+            "cp": "U+309F",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "゠",
+            "cp": "U+30A0",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ァ",
+            "cp": "U+30A1",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ア",
+            "cp": "U+30A2",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ィ",
+            "cp": "U+30A3",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "イ",
+            "cp": "U+30A4",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ゥ",
+            "cp": "U+30A5",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ウ",
+            "cp": "U+30A6",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ェ",
+            "cp": "U+30A7",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "エ",
+            "cp": "U+30A8",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ォ",
+            "cp": "U+30A9",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "オ",
+            "cp": "U+30AA",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "カ",
+            "cp": "U+30AB",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ガ",
+            "cp": "U+30AC",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "キ",
+            "cp": "U+30AD",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ギ",
+            "cp": "U+30AE",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ク",
+            "cp": "U+30AF",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "グ",
+            "cp": "U+30B0",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ケ",
+            "cp": "U+30B1",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ゲ",
+            "cp": "U+30B2",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "コ",
+            "cp": "U+30B3",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ゴ",
+            "cp": "U+30B4",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "サ",
+            "cp": "U+30B5",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ザ",
+            "cp": "U+30B6",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "シ",
+            "cp": "U+30B7",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ジ",
+            "cp": "U+30B8",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ス",
+            "cp": "U+30B9",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ズ",
+            "cp": "U+30BA",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "セ",
+            "cp": "U+30BB",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ゼ",
+            "cp": "U+30BC",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ソ",
+            "cp": "U+30BD",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ゾ",
+            "cp": "U+30BE",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "タ",
+            "cp": "U+30BF",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ダ",
+            "cp": "U+30C0",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "チ",
+            "cp": "U+30C1",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヂ",
+            "cp": "U+30C2",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ッ",
+            "cp": "U+30C3",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ツ",
+            "cp": "U+30C4",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヅ",
+            "cp": "U+30C5",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "テ",
+            "cp": "U+30C6",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "デ",
+            "cp": "U+30C7",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ト",
+            "cp": "U+30C8",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ド",
+            "cp": "U+30C9",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ナ",
+            "cp": "U+30CA",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ニ",
+            "cp": "U+30CB",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヌ",
+            "cp": "U+30CC",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ネ",
+            "cp": "U+30CD",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ノ",
+            "cp": "U+30CE",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ハ",
+            "cp": "U+30CF",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "バ",
+            "cp": "U+30D0",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "パ",
+            "cp": "U+30D1",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヒ",
+            "cp": "U+30D2",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ビ",
+            "cp": "U+30D3",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ピ",
+            "cp": "U+30D4",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "フ",
+            "cp": "U+30D5",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ブ",
+            "cp": "U+30D6",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "プ",
+            "cp": "U+30D7",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヘ",
+            "cp": "U+30D8",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ベ",
+            "cp": "U+30D9",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ペ",
+            "cp": "U+30DA",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ホ",
+            "cp": "U+30DB",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ボ",
+            "cp": "U+30DC",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ポ",
+            "cp": "U+30DD",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "マ",
+            "cp": "U+30DE",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ミ",
+            "cp": "U+30DF",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ム",
+            "cp": "U+30E0",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "メ",
+            "cp": "U+30E1",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "モ",
+            "cp": "U+30E2",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ャ",
+            "cp": "U+30E3",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヤ",
+            "cp": "U+30E4",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ュ",
+            "cp": "U+30E5",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ユ",
+            "cp": "U+30E6",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ョ",
+            "cp": "U+30E7",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヨ",
+            "cp": "U+30E8",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ラ",
+            "cp": "U+30E9",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "リ",
+            "cp": "U+30EA",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ル",
+            "cp": "U+30EB",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "レ",
+            "cp": "U+30EC",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ロ",
+            "cp": "U+30ED",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヮ",
+            "cp": "U+30EE",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ワ",
+            "cp": "U+30EF",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヰ",
+            "cp": "U+30F0",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヱ",
+            "cp": "U+30F1",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヲ",
+            "cp": "U+30F2",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ン",
+            "cp": "U+30F3",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヴ",
+            "cp": "U+30F4",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヵ",
+            "cp": "U+30F5",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヶ",
+            "cp": "U+30F6",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヷ",
+            "cp": "U+30F7",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヸ",
+            "cp": "U+30F8",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヹ",
+            "cp": "U+30F9",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヺ",
+            "cp": "U+30FA",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "・",
+            "cp": "U+30FB",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ー",
+            "cp": "U+30FC",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヽ",
+            "cp": "U+30FD",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヾ",
+            "cp": "U+30FE",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "ヿ",
+            "cp": "U+30FF",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "｡",
+            "cp": "U+FF61",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "｢",
+            "cp": "U+FF62",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "｣",
+            "cp": "U+FF63",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "､",
+            "cp": "U+FF64",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "･",
+            "cp": "U+FF65",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｦ",
+            "cp": "U+FF66",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｧ",
+            "cp": "U+FF67",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｨ",
+            "cp": "U+FF68",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｩ",
+            "cp": "U+FF69",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｪ",
+            "cp": "U+FF6A",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｫ",
+            "cp": "U+FF6B",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｬ",
+            "cp": "U+FF6C",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｭ",
+            "cp": "U+FF6D",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｮ",
+            "cp": "U+FF6E",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｯ",
+            "cp": "U+FF6F",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｰ",
+            "cp": "U+FF70",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｱ",
+            "cp": "U+FF71",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｲ",
+            "cp": "U+FF72",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｳ",
+            "cp": "U+FF73",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｴ",
+            "cp": "U+FF74",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｵ",
+            "cp": "U+FF75",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｶ",
+            "cp": "U+FF76",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｷ",
+            "cp": "U+FF77",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｸ",
+            "cp": "U+FF78",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｹ",
+            "cp": "U+FF79",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｺ",
+            "cp": "U+FF7A",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｻ",
+            "cp": "U+FF7B",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｼ",
+            "cp": "U+FF7C",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｽ",
+            "cp": "U+FF7D",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｾ",
+            "cp": "U+FF7E",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ｿ",
+            "cp": "U+FF7F",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾀ",
+            "cp": "U+FF80",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾁ",
+            "cp": "U+FF81",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾂ",
+            "cp": "U+FF82",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾃ",
+            "cp": "U+FF83",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾄ",
+            "cp": "U+FF84",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾅ",
+            "cp": "U+FF85",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾆ",
+            "cp": "U+FF86",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾇ",
+            "cp": "U+FF87",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾈ",
+            "cp": "U+FF88",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾉ",
+            "cp": "U+FF89",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾊ",
+            "cp": "U+FF8A",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾋ",
+            "cp": "U+FF8B",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾌ",
+            "cp": "U+FF8C",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾍ",
+            "cp": "U+FF8D",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾎ",
+            "cp": "U+FF8E",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾏ",
+            "cp": "U+FF8F",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾐ",
+            "cp": "U+FF90",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾑ",
+            "cp": "U+FF91",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾒ",
+            "cp": "U+FF92",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾓ",
+            "cp": "U+FF93",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾔ",
+            "cp": "U+FF94",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾕ",
+            "cp": "U+FF95",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾖ",
+            "cp": "U+FF96",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾗ",
+            "cp": "U+FF97",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾘ",
+            "cp": "U+FF98",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾙ",
+            "cp": "U+FF99",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾚ",
+            "cp": "U+FF9A",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾛ",
+            "cp": "U+FF9B",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾜ",
+            "cp": "U+FF9C",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾝ",
+            "cp": "U+FF9D",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾞ",
+            "cp": "U+FF9E",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "ﾟ",
+            "cp": "U+FF9F",
+            "eaw": "H",
+            "advance": 6,
+            "expect": 6,
+            "bdf_dwidth": 6,
+            "atlas_advance": 6
+          },
+          {
+            "char": "々",
+            "cp": "U+3005",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "〆",
+            "cp": "U+3006",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          },
+          {
+            "char": "〇",
+            "cp": "U+3007",
+            "eaw": "W",
+            "advance": 12,
+            "expect": 12,
+            "bdf_dwidth": 12,
+            "atlas_advance": 12
+          }
+        ]
+      },
+      {
+        "id": "FULLWIDTH_OVERFLOW",
+        "name": "全角假名 12px 格越界 / 裁剪",
+        "scope": "EAW=W/F 的假名",
+        "samples": 192,
+        "failures": 0,
+        "read_failures": 0,
+        "status": "PASS",
+        "notes": [
+          "几何量具 + 墨迹量具 (格内墨迹必须 == 源掩膜墨迹)"
+        ]
+      },
+      {
+        "id": "ATLAS_WIDE_FLAG",
+        "name": "图集 isWide 标记 vs 实际 advance",
+        "scope": "全部 255 个假名",
+        "samples": 255,
+        "failures": 63,
+        "read_failures": 0,
+        "status": "FAIL",
+        "notes": []
+      },
+      {
+        "id": "BDF_STRUCTURE",
+        "name": "BDF 字符块结构配对",
+        "scope": "整份 BDF (4140 字形)",
+        "samples": 4140,
+        "failures": 1,
+        "read_failures": 0,
+        "status": "FAIL",
+        "notes": [
+          "STARTCHAR=4140 ENDCHAR=4141 CHARS声明=4140"
+        ]
+      },
+      {
+        "id": "SOURCE_FIDELITY",
+        "name": "假名位图 == non_ideo 源 且 != ideo 源",
+        "scope": "全部 255 个假名",
+        "samples": 255,
+        "failures": 0,
+        "read_failures": 0,
+        "status": "PASS",
+        "notes": [
+          "期望源 non_ideo = MS Gothic/Regular; 对照源 ideo = SimHei/Regular; 与 ideo 源恰好同形但同时与非 ideo 源一致 (良性) 0 个"
+        ]
+      },
+      {
+        "id": "KANA_HANZI_COLLISION",
+        "name": "假名 vs 汉字位图逐位相同碰撞",
+        "scope": "255 假名 × 3755 汉字",
+        "samples": 957525,
+        "failures": 0,
+        "read_failures": 0,
+        "status": "PASS",
+        "notes": [
+          "两两比较 255 × 3755 = 957525 次; 同形 1 对, 其中设计使然 1 对, 待查 0 对"
+        ]
+      },
+      {
+        "id": "SOURCE_ROUTING",
+        "name": "假名码位路由到 non_ideo 源",
+        "scope": "全部 255 个假名",
+        "samples": 255,
+        "failures": 0,
+        "read_failures": 0,
+        "status": "PASS",
+        "notes": [
+          "期望源: MS Gothic/Regular (msgothic.ttc index 0)"
+        ]
+      },
+      {
+        "id": "ARTIFACT_COVERAGE",
+        "name": "假名在 BDF / TTF cmap / 图集中的覆盖",
+        "scope": "全部 255 个假名",
+        "samples": 255,
+        "failures": 0,
+        "read_failures": 0,
+        "status": "PASS",
+        "notes": []
+      }
+    ],
+    "total_samples": 963294,
+    "total_failures": 64,
+    "total_read_failures": 0,
+    "thresholds": {
+      "MARK_MAX_BBOX": {
+        "value": "6x6 px",
+        "basis": "同一字体 (MS Gothic 12px) 内合法的间隔形浊点 U+309B / U+309C 实测墨迹包围盒 均为 4x3 px (ink 4 px), 半角浊点 U+FF9E / U+FF9F 为 3x4 px。取 6x6 作为宽松上界, 覆盖全部 11 个实测合法记号的包围盒 (最大 4x5)。"
+      },
+      "PAIR_INK_RATIO": {
+        "value": "[0.25, 4.0]",
+        "basis": "平↔片 88 对合法配对 (Unicode 名称归一后一致的才算对应) 的实测比值区间为 0.323 (U+306E の/ノ) .. 1.909 (U+304F く/ク)。该界是宽松护栏, 用于捕捉「整对路由到错误源」这种量级错误, 本批次实测 0 越界。"
+      },
+      "INK_LOST_TOLERANCE": {
+        "value": "0 px",
+        "basis": "粘贴后格内墨迹数必须与源字形墨迹数完全相等; 少 1 px 即为裁掉。"
+      }
+    },
+    "reliability": [
+      "输入消费: 字符集 4140 字全量建栈; 假名 255 字逐字栅格化 (复用同一 BitmapFont 缓存); 汉字 3755 字仅用于位图碰撞比对。",
+      "成品读取: BDF 读取成功: PixelFontPC98-12.bdf (658776 bytes); 图集 JSON 读取成功: PixelFontPC98-12-atlas.json (4140 个字形元数据); TTF cmap 读取成功: 4140 个码位",
+      "读取失败合计: 0 处 (读取失败 = 成品/字形取不到, 已单独计数, 不计入 PASS)。",
+      "所有失败项都带 ASCII art 或数值证据, 见 findings[].evidence 与 JSON 的 checks[].rows。"
+    ]
+  },
+  "findings": [
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "verdict": "真缺陷",
+      "title": "图集 isWide 标记与 advance 不符: 63 个假名",
+      "detail": "63 个假名的图集 isWide=1 但 advance=6 (半角). 其中 advance=6 的半角假名 63 个, 全部落在 U+FF61-FF9F 连续区间。",
+      "chars": [
+        {
+          "char": "｡",
+          "cp": "U+FF61",
+          "cp_int": 65377,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "｢",
+          "cp": "U+FF62",
+          "cp_int": 65378,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "｣",
+          "cp": "U+FF63",
+          "cp_int": 65379,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "､",
+          "cp": "U+FF64",
+          "cp_int": 65380,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "･",
+          "cp": "U+FF65",
+          "cp_int": 65381,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｦ",
+          "cp": "U+FF66",
+          "cp_int": 65382,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｧ",
+          "cp": "U+FF67",
+          "cp_int": 65383,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｨ",
+          "cp": "U+FF68",
+          "cp_int": 65384,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｩ",
+          "cp": "U+FF69",
+          "cp_int": 65385,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｪ",
+          "cp": "U+FF6A",
+          "cp_int": 65386,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｫ",
+          "cp": "U+FF6B",
+          "cp_int": 65387,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｬ",
+          "cp": "U+FF6C",
+          "cp_int": 65388,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｭ",
+          "cp": "U+FF6D",
+          "cp_int": 65389,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｮ",
+          "cp": "U+FF6E",
+          "cp_int": 65390,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｯ",
+          "cp": "U+FF6F",
+          "cp_int": 65391,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｰ",
+          "cp": "U+FF70",
+          "cp_int": 65392,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｱ",
+          "cp": "U+FF71",
+          "cp_int": 65393,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｲ",
+          "cp": "U+FF72",
+          "cp_int": 65394,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｳ",
+          "cp": "U+FF73",
+          "cp_int": 65395,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｴ",
+          "cp": "U+FF74",
+          "cp_int": 65396,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｵ",
+          "cp": "U+FF75",
+          "cp_int": 65397,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｶ",
+          "cp": "U+FF76",
+          "cp_int": 65398,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｷ",
+          "cp": "U+FF77",
+          "cp_int": 65399,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｸ",
+          "cp": "U+FF78",
+          "cp_int": 65400,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｹ",
+          "cp": "U+FF79",
+          "cp_int": 65401,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｺ",
+          "cp": "U+FF7A",
+          "cp_int": 65402,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｻ",
+          "cp": "U+FF7B",
+          "cp_int": 65403,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｼ",
+          "cp": "U+FF7C",
+          "cp_int": 65404,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｽ",
+          "cp": "U+FF7D",
+          "cp_int": 65405,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｾ",
+          "cp": "U+FF7E",
+          "cp_int": 65406,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ｿ",
+          "cp": "U+FF7F",
+          "cp_int": 65407,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾀ",
+          "cp": "U+FF80",
+          "cp_int": 65408,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾁ",
+          "cp": "U+FF81",
+          "cp_int": 65409,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾂ",
+          "cp": "U+FF82",
+          "cp_int": 65410,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾃ",
+          "cp": "U+FF83",
+          "cp_int": 65411,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾄ",
+          "cp": "U+FF84",
+          "cp_int": 65412,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾅ",
+          "cp": "U+FF85",
+          "cp_int": 65413,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾆ",
+          "cp": "U+FF86",
+          "cp_int": 65414,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾇ",
+          "cp": "U+FF87",
+          "cp_int": 65415,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾈ",
+          "cp": "U+FF88",
+          "cp_int": 65416,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾉ",
+          "cp": "U+FF89",
+          "cp_int": 65417,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾊ",
+          "cp": "U+FF8A",
+          "cp_int": 65418,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾋ",
+          "cp": "U+FF8B",
+          "cp_int": 65419,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾌ",
+          "cp": "U+FF8C",
+          "cp_int": 65420,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾍ",
+          "cp": "U+FF8D",
+          "cp_int": 65421,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾎ",
+          "cp": "U+FF8E",
+          "cp_int": 65422,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾏ",
+          "cp": "U+FF8F",
+          "cp_int": 65423,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾐ",
+          "cp": "U+FF90",
+          "cp_int": 65424,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾑ",
+          "cp": "U+FF91",
+          "cp_int": 65425,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾒ",
+          "cp": "U+FF92",
+          "cp_int": 65426,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾓ",
+          "cp": "U+FF93",
+          "cp_int": 65427,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾔ",
+          "cp": "U+FF94",
+          "cp_int": 65428,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾕ",
+          "cp": "U+FF95",
+          "cp_int": 65429,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾖ",
+          "cp": "U+FF96",
+          "cp_int": 65430,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾗ",
+          "cp": "U+FF97",
+          "cp_int": 65431,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾘ",
+          "cp": "U+FF98",
+          "cp_int": 65432,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾙ",
+          "cp": "U+FF99",
+          "cp_int": 65433,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾚ",
+          "cp": "U+FF9A",
+          "cp_int": 65434,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾛ",
+          "cp": "U+FF9B",
+          "cp_int": 65435,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾜ",
+          "cp": "U+FF9C",
+          "cp_int": 65436,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾝ",
+          "cp": "U+FF9D",
+          "cp_int": 65437,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾞ",
+          "cp": "U+FF9E",
+          "cp_int": 65438,
+          "advance": 6,
+          "isWide": 1
+        },
+        {
+          "char": "ﾟ",
+          "cp": "U+FF9F",
+          "cp_int": 65439,
+          "advance": 6,
+          "isWide": 1
+        }
+      ],
+      "suggestion": "build_font.py:315 `meta.append([ord(g.ch), cx, cy, g.advance, 0 if g.category == \"ascii\" else 1])` —— isWide 按“字符分类”写死, 应改为按实际 advance 推导: `1 if g.advance == cell_w else 0`。",
+      "evidence": {
+        "codepoint_range": "U+FF61-U+FF9F",
+        "contiguous": true,
+        "count": 63,
+        "advance_values": [
+          6
+        ],
+        "engine_advance_delta_px": 378,
+        "engine_advance_delta_note": "引擎若按 isWide*cell_w 推进, 这 63 个半角假名每个多占 6px, 整段串起来累计多占 378px (整整多出一倍的宽度)。"
+      }
+    },
+    {
+      "id": "BDF_STRUCTURE",
+      "severity": "error",
+      "verdict": "真缺陷",
+      "title": "BDF 字符块不配对: STARTCHAR 4140 个, ENDCHAR 4141 个 (多 1 个)",
+      "detail": "多余的 ENDCHAR 来自零宽字形的分支: 该分支写出了两个 ENDCHAR。受影响的码位: ['U+0020'] (全字符集里唯一没有墨迹的字符)。",
+      "chars": [
+        {
+          "char": " ",
+          "cp": "U+0020",
+          "category": "ascii"
+        }
+      ],
+      "suggestion": "build_font.py:133 `lines += [\"BITMAP\", \"ENDCHAR\", \"ENDCHAR\"]` → 改为 `lines += [\"BITMAP\", \"ENDCHAR\"]` (零宽字形只需一个 ENDCHAR)。",
+      "evidence": {
+        "startchar": 4140,
+        "endchar": 4141,
+        "chars_declared": 4140,
+        "zero_width_glyphs": [
+          "U+0020"
+        ]
+      }
+    },
+    {
+      "id": "KANA_HANZI_BITMAP_COLLISION",
+      "severity": "info",
+      "verdict": "预期行为",
+      "title": "假名 'ニ' (U+30CB) 与汉字 '二' (U+4E8C) 位图逐位相同 —— 属设计使然",
+      "detail": "Unicode 名称: 假名 = KATAKANA LETTER NI; 汉字 = CJK UNIFIED IDEOGRAPH-4E8C。片假名 ニ (KATAKANA LETTER NI) 的字形就是汉字 二 的草书形, 两者同形是字形设计本身, 不是路由串源。已用独立渲染器 (GDI+/DirectWrite, 完全不经 FreeType) 复核: U+30CB 与 U+4E8C 在该渲染器下同样是两根横杠。另: 假名侧路由到 non_ideo 源 (MS Gothic/Regular), 汉字侧路由到 ideo 源 (SimHei/Regular); 两者恰好 12px MONO 栅格化到同一张位图。已用 SOURCE_FIDELITY 客观量具排除串源: 该假名的位图与 non_ideo 源逐位一致、与 ideo 源不一致。",
+      "chars": [
+        {
+          "char": "ニ",
+          "cp": "U+30CB",
+          "name": "KATAKANA LETTER NI",
+          "side": "kana"
+        },
+        {
+          "char": "二",
+          "cp": "U+4E8C",
+          "name": "CJK UNIFIED IDEOGRAPH-4E8C",
+          "side": "hanzi"
+        }
+      ],
+      "suggestion": "无需修改 —— 这是片假名/汉字同形的固有事实, 属预期行为。",
+      "evidence": {
+        "kana_art": "............\n............\n............\n..########..\n............\n............\n............\n............\n............\n............\n.##########.\n............\n............",
+        "hanzi_art": "............\n............\n............\n..########..\n............\n............\n............\n............\n............\n............\n.##########.\n............\n............",
+        "ttc_cross_check": {
+          "fonts": [
+            {
+              "index": 0,
+              "name": "MS Gothic",
+              "ink": 18,
+              "ink_bbox": [
+                1,
+                3,
+                10,
+                10
+              ],
+              "bbox_size": [
+                10,
+                8
+              ],
+              "ink_row_groups": 2,
+              "art": "............\n............\n............\n..########..\n............\n............\n............\n............\n............\n............\n.##########.\n............\n............"
+            },
+            {
+              "index": 1,
+              "name": "MS UI Gothic",
+              "ink": 14,
+              "ink_bbox": [
+                0,
+                3,
+                7,
+                11
+              ],
+              "bbox_size": [
+                8,
+                9
+              ],
+              "ink_row_groups": 2,
+              "art": "............\n............\n............\n.######.....\n............\n............\n............\n............\n............\n............\n............\n########....\n............"
+            },
+            {
+              "index": 2,
+              "name": "MS PGothic",
+              "ink": 18,
+              "ink_bbox": [
+                0,
+                3,
+                9,
+                10
+              ],
+              "bbox_size": [
+                10,
+                8
+              ],
+              "ink_row_groups": 2,
+              "art": "............\n............\n............\n.########...\n............\n............\n............\n............\n............\n............\n##########..\n............\n............"
+            }
+          ],
+          "all_same_shape": false,
+          "summary": "3 个字体渲染: MS Gothic: ink=18 bbox=[10, 8] 墨迹2段; MS UI Gothic: ink=14 bbox=[8, 9] 墨迹2段; MS PGothic: ink=18 bbox=[10, 8] 墨迹2段 (三者像素略有差异, 形状同为 2 段独立横画)",
+          "equivalent_codepoint": {
+            "cp": "U+4E8C",
+            "name": "CJK UNIFIED IDEOGRAPH-4E8C",
+            "ink": 20,
+            "ink_bbox": [
+              0,
+              3,
+              10,
+              10
+            ],
+            "bbox_size": [
+              11,
+              8
+            ],
+            "ink_row_groups": 2,
+            "art": "............\n............\n............\n.#########..\n............\n............\n............\n............\n............\n............\n###########.\n............\n............",
+            "note": "与该假名字形同形的汉字 (片假名由汉字草书演变而来, 同形是设计本身)"
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "errors": 2,
+    "warnings": 0,
+    "infos": 1,
+    "verdict": "FAIL",
+    "findings_digest": "7579d5847642cf4474fcb1082382c90229e6f34e110adaefbc9dc904d6c09085"
+  }
+}

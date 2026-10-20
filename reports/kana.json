@@ -1,0 +1,906 @@
+{
+  "tool": "regress",
+  "version": 1,
+  "generated_at": "2026-10-20T23:12:17.966437+00:00",
+  "selection": {
+    "cats": [
+      "kana"
+    ],
+    "slice": "",
+    "batch_size": 100,
+    "label": "kana"
+  },
+  "inputs": {
+    "charset_total": 4140,
+    "chars_selected": 255,
+    "chars_checked": 255,
+    "batches": 3,
+    "artifacts": {
+      "bdf": 658776,
+      "ttf": 1280908,
+      "atlas_png": 140278,
+      "atlas_json": 86866
+    },
+    "build_exit_code": 0
+  },
+  "reference": {
+    "density_median": 0.3141025641025641,
+    "density_mad": 0.04487179487179488,
+    "density_sigma": 0.07451868550751581,
+    "density_p95": 0.40384615384615385,
+    "density_max": 0.5512820512820513,
+    "ink_top_median": 1,
+    "ink_bottom_median": 11,
+    "cat_density_median": {
+      "ascii": 0.19230769230769232,
+      "punct": 0.07692307692307693,
+      "kana": 0.16666666666666666,
+      "hanzi": 0.32051282051282054
+    },
+    "chars": 4140
+  },
+  "anomalies": [
+    {
+      "id": "BDF_STRUCTURE",
+      "severity": "error",
+      "detail": "STARTCHAR 4140 个但 ENDCHAR 4141 个 —— 字符块结构不配对"
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'｡' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF61",
+      "char": "｡",
+      "category": "kana",
+      "batch": 1,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'｢' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF62",
+      "char": "｢",
+      "category": "kana",
+      "batch": 1,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'｣' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF63",
+      "char": "｣",
+      "category": "kana",
+      "batch": 1,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'､' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF64",
+      "char": "､",
+      "category": "kana",
+      "batch": 1,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'･' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF65",
+      "char": "･",
+      "category": "kana",
+      "batch": 1,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｦ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF66",
+      "char": "ｦ",
+      "category": "kana",
+      "batch": 1,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｧ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF67",
+      "char": "ｧ",
+      "category": "kana",
+      "batch": 1,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｨ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF68",
+      "char": "ｨ",
+      "category": "kana",
+      "batch": 1,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｩ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF69",
+      "char": "ｩ",
+      "category": "kana",
+      "batch": 1,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｪ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF6A",
+      "char": "ｪ",
+      "category": "kana",
+      "batch": 1,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｫ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF6B",
+      "char": "ｫ",
+      "category": "kana",
+      "batch": 1,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｬ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF6C",
+      "char": "ｬ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｭ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF6D",
+      "char": "ｭ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｮ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF6E",
+      "char": "ｮ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｯ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF6F",
+      "char": "ｯ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｰ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF70",
+      "char": "ｰ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｱ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF71",
+      "char": "ｱ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｲ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF72",
+      "char": "ｲ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｳ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF73",
+      "char": "ｳ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｴ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF74",
+      "char": "ｴ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｵ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF75",
+      "char": "ｵ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｶ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF76",
+      "char": "ｶ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｷ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF77",
+      "char": "ｷ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｸ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF78",
+      "char": "ｸ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｹ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF79",
+      "char": "ｹ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｺ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF7A",
+      "char": "ｺ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｻ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF7B",
+      "char": "ｻ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｼ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF7C",
+      "char": "ｼ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｽ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF7D",
+      "char": "ｽ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｾ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF7E",
+      "char": "ｾ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ｿ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF7F",
+      "char": "ｿ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾀ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF80",
+      "char": "ﾀ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾁ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF81",
+      "char": "ﾁ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾂ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF82",
+      "char": "ﾂ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾃ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF83",
+      "char": "ﾃ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾄ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF84",
+      "char": "ﾄ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾅ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF85",
+      "char": "ﾅ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾆ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF86",
+      "char": "ﾆ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾇ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF87",
+      "char": "ﾇ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾈ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF88",
+      "char": "ﾈ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾉ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF89",
+      "char": "ﾉ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾊ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF8A",
+      "char": "ﾊ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾋ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF8B",
+      "char": "ﾋ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾌ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF8C",
+      "char": "ﾌ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾍ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF8D",
+      "char": "ﾍ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾎ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF8E",
+      "char": "ﾎ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾏ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF8F",
+      "char": "ﾏ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾐ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF90",
+      "char": "ﾐ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾑ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF91",
+      "char": "ﾑ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾒ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF92",
+      "char": "ﾒ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾓ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF93",
+      "char": "ﾓ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾔ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF94",
+      "char": "ﾔ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾕ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF95",
+      "char": "ﾕ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾖ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF96",
+      "char": "ﾖ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾗ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF97",
+      "char": "ﾗ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾘ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF98",
+      "char": "ﾘ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾙ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF99",
+      "char": "ﾙ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾚ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF9A",
+      "char": "ﾚ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾛ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF9B",
+      "char": "ﾛ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾜ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF9C",
+      "char": "ﾜ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾝ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF9D",
+      "char": "ﾝ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾞ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF9E",
+      "char": "ﾞ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'ﾟ' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+FF9F",
+      "char": "ﾟ",
+      "category": "kana",
+      "batch": 2,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    }
+  ],
+  "batch_stats": [
+    {
+      "batch": 0,
+      "chars": 100,
+      "density_median": 0.1731,
+      "density_max": 0.2821,
+      "ink_top_median": 1,
+      "ink_bottom_median": 11,
+      "wide_ratio": 1.0,
+      "empty_ink": 0
+    },
+    {
+      "batch": 1,
+      "chars": 100,
+      "density_median": 0.1474,
+      "density_max": 0.2436,
+      "ink_top_median": 2,
+      "ink_bottom_median": 11,
+      "wide_ratio": 0.89,
+      "empty_ink": 0
+    },
+    {
+      "batch": 2,
+      "chars": 55,
+      "density_median": 0.1923,
+      "density_max": 0.3205,
+      "ink_top_median": 2,
+      "ink_bottom_median": 11,
+      "wide_ratio": 0.0545,
+      "empty_ink": 0
+    }
+  ],
+  "summary": {
+    "errors": 64,
+    "warnings": 0,
+    "infos": 0,
+    "verdict": "FAIL"
+  }
+}
