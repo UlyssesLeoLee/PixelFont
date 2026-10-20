@@ -784,32 +784,46 @@ def selftest(root: Path) -> int:
                 return bag2
 
             # 1) 图集 PNG 翻一个像素 -> MISMATCH_ATLAS
+            #    注入点必须落在**被测字符**上, 否则检测器压根不会去看那个格子。
             shutil.rmtree(tmp)
             shutil.copytree(dist, tmp)
             img = Image.open(art.atlas_png).convert("RGBA")
             px = img.load()
             data = json.loads(art.atlas_json.read_text(encoding="utf-8"))
-            cp0, gx, gy, _, _ = data["glyphs"][5]
+            sel_cps = {ord(ch) for ch, _ in sel}
+            victim = next(m for m in data["glyphs"] if m[0] in sel_cps)
+            cp0, gx, gy, _, _ = victim
             old = px[gx, gy]
             px[gx, gy] = (255, 255, 255, 255) if old[3] == 0 else (0, 0, 0, 0)
             img.save(art.atlas_png)
+            landed = Image.open(art.atlas_png).convert("RGBA").getpixel((gx, gy)) != old
             bag2 = sel_check(art)
-            ok = "MISMATCH_ATLAS" in bag2.ids()
+            ok = landed and "MISMATCH_ATLAS" in bag2.ids()
             print(f"  [{'PASS' if ok else 'FAIL'}] 图集翻像素 -> MISMATCH_ATLAS")
             if not ok:
                 failures.append("图集翻像素")
 
             # 2) 图集 isWide 标错 -> ATLAS_WIDE_MISMATCH
+            #    注意: 这一条曾经是假阳性 —— 旧产物里所有 advance=6 的字符本来就被
+            #    错标成全角, 于是"标错"是空操作, 检测器报的却是**早已存在**的错。
+            #    现在产物本身是对的, 注入才真正制造出新的不一致。
             shutil.rmtree(tmp)
             shutil.copytree(dist, tmp)
             data = json.loads(art.atlas_json.read_text(encoding="utf-8"))
-            for m_ in data["glyphs"]:
-                if m_[3] == 6:
-                    m_[4] = 1
-                    break
+            victim = next((m for m in data["glyphs"] if m[3] == 6 and m[0] in sel_cps), None)
+            if victim:
+                victim[4] = 1
             art.atlas_json.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+            landed = bool(
+                victim
+                and next(
+                    (m[4] for m in json.loads(art.atlas_json.read_text(encoding="utf-8"))["glyphs"] if m[0] == victim[0]),
+                    None,
+                )
+                == 1
+            )
             bag2 = sel_check(art)
-            ok = "ATLAS_WIDE_MISMATCH" in bag2.ids()
+            ok = landed and "ATLAS_WIDE_MISMATCH" in bag2.ids()
             print(f"  [{'PASS' if ok else 'FAIL'}] 图集 isWide 标错 -> ATLAS_WIDE_MISMATCH")
             if not ok:
                 failures.append("图集 isWide 标错")
@@ -857,32 +871,47 @@ def selftest(root: Path) -> int:
             from fontTools.ttLib import TTFont
 
             tt = TTFont(str(art.ttf))
-            tmap = tt["cmap"].tables[0].cmap
             victim = sel[0][0]
             for t in tt["cmap"].tables:
-                if ord(victim) in t.cmap:
-                    del t.cmap[ord(victim)]
-                    break
+                t.cmap.pop(ord(victim), None)
             tt.save(str(art.ttf))
+            landed = ord(victim) not in TTFont(str(art.ttf)).getBestCmap()
             bag2 = sel_check(art)
-            ok = "CMAP_MISSING" in bag2.ids()
+            ok = landed and "CMAP_MISSING" in bag2.ids()
             print(f"  [{'PASS' if ok else 'FAIL'}] TTF 删 cmap -> CMAP_MISSING")
             if not ok:
                 failures.append("TTF 删 cmap")
 
             # 6) TTF 改 lsb -> TTF_LSB_MISMATCH
+            #    目标字符必须挑 lsb **非 0** 的: lsb 本来就是 0 的字符 (" 之类),
+            #    把它设成 0 等于没改 —— 注入不落地, 用例就成了空转的假阳性。
+            #    这一条曾经真的假阳性过: 早期版本 hmtx 的 (advance, lsb) 取反了,
+            #    检测器拿 advance 去比 lsb, 报的是"每个字符都错", 正好把空操作盖住了。
             shutil.rmtree(tmp)
             shutil.copytree(dist, tmp)
             tt = TTFont(str(art.ttf))
             hm = tt["hmtx"]
-            target = sel[2][0]
             ttcmap = tt.getBestCmap()
-            name = ttcmap.get(ord(target))
-            if name:
+            target = None
+            for ch, _ in sel:
+                nm = ttcmap.get(ord(ch))
+                if nm and hm.metrics.get(nm, (0, 0))[1] != 0:
+                    target = (ch, nm)
+                    break
+            if target:
+                ch, name = target
+                orig_lsb = hm.metrics[name][1]
                 hm.metrics[name] = (hm.metrics[name][0], 0)
             tt.save(str(art.ttf))
+            # 注入必须真的落进文件 —— 否则这个用例什么都没测
+            landed = False
+            if target:
+                ch, name = target
+                tt_chk = TTFont(str(art.ttf))
+                new_lsb = tt_chk["hmtx"].metrics.get(tt_chk.getBestCmap().get(ord(ch)), (0, 0))[1]
+                landed = new_lsb == 0 and orig_lsb != 0
             bag2 = sel_check(art)
-            ok = "TTF_LSB_MISMATCH" in bag2.ids()
+            ok = landed and "TTF_LSB_MISMATCH" in bag2.ids()
             print(f"  [{'PASS' if ok else 'FAIL'}] TTF 改 lsb -> TTF_LSB_MISMATCH")
             if not ok:
                 failures.append("TTF 改 lsb")
