@@ -1,0 +1,608 @@
+{
+  "tool": "hanzi_b_probe",
+  "version": 1,
+  "generated_at": "2026-10-20T23:22:51.430993+00:00",
+  "lane": "agent/reg-hanzi-b",
+  "selection": {
+    "cats": [
+      "hanzi"
+    ],
+    "slice": "1900:3755",
+    "label": "hanzi_b",
+    "scope_first_cp": "U+7261",
+    "scope_last_cp": "U+5EA7"
+  },
+  "inputs": {
+    "charset_total": 4140,
+    "hanzi_total": 3755,
+    "chars_in_scope": 1855,
+    "grid": {
+      "cell_w": 12,
+      "cell_h": 13,
+      "half_w": 6,
+      "ascent": 11,
+      "descent": 2
+    },
+    "artifacts": {
+      "bdf": {
+        "path": "dist/PixelFontPC98-12.bdf",
+        "bytes": 658776,
+        "sha256": "9fdb12615614d41f95c6b1a3b8bfe57fd2f9175bff718cb3376d58b5e0668c14"
+      },
+      "ttf": {
+        "path": "dist/PixelFontPC98-12.ttf",
+        "bytes": 1280908,
+        "sha256": "067fbad314684b944e39d9476bf4b72adafcbdedcb9976c8ae781217cec74767"
+      },
+      "atlas_png": {
+        "path": "dist/PixelFontPC98-12-atlas.png",
+        "bytes": 140278,
+        "sha256": "1fa6eed2394ba1ad91630c9d01bf63213485ea94a4dc197db2fab91c666c21ff"
+      },
+      "atlas_json": {
+        "path": "dist/PixelFontPC98-12-atlas.json",
+        "bytes": 86866,
+        "sha256": "e942b28a74c3171f431812638315c0d08dc8178bbc4fa620cf438746f19834aa"
+      }
+    }
+  },
+  "gauge": [
+    {
+      "id": "A3",
+      "title": "图集 PNG 尺寸与元数据 columns/rows/size 一致",
+      "samples": 7,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "7 项标量比对 (PNG 实际尺寸 + 元数据自洽 + 与栅格化器度量)"
+    },
+    {
+      "id": "A1",
+      "title": "图集单元格原点 == (列*12, 行*13) 且与元数据一致",
+      "samples": 4140,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "遍历元数据 glyphs 全量 4140 条, 按数组下标反推列/行"
+    },
+    {
+      "id": "A2",
+      "title": "图集墨迹不渗邻格 (结构: 墨迹列 < advance) + 批内逐像素相等",
+      "samples": 4140,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "结构层消费 4140 格; 像素层消费 1855 字 (本 lane 批次), 共 289380 次像素比对"
+    },
+    {
+      "id": "A4",
+      "title": "图集墨迹像素 RGB 恒为 (255,255,255)",
+      "samples": 645840,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "扫描全部 4140 格 × 156 px"
+    },
+    {
+      "id": "B1",
+      "title": ".notdef 空心方框 (2 环 / 相反绕向 / 非零填充栅格化 / 尺寸)",
+      "samples": 1,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "对 .notdef 做 6 项判定: 环数、x 范围、y 范围、绕向、栅格化比对、中心为空"
+    },
+    {
+      "id": "B2",
+      "title": "hhea.ascent/descent 与 OS/2 usWinAscent/usWinDescent 一致",
+      "samples": 6,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "6 项标量比对 (hhea 2 + usWin 2 + sTypo 2), 期望值 = ascent*64 / descent*64"
+    },
+    {
+      "id": "B3",
+      "title": "gasp 表存在且 12ppem 的 range == 0 (单色)",
+      "samples": 1,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "查表存在性 + gaspRange[12] 标量比对"
+    },
+    {
+      "id": "B4",
+      "title": "maxp.maxPoints/maxContours/numGlyphs 与实际 glyf 一致",
+      "samples": 4141,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "逐个字形取轮廓点数/轮廓数 (共 4141 个字形, 含 .notdef), 与 maxp 三个字段比对"
+    },
+    {
+      "id": "C1",
+      "title": "BDF 头字段 (FONTBOUNDINGBOX / FONT_ASCENT / FONT_DESCENT / CHARS) 与实际字符数一致",
+      "samples": 5,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "读 1 个头 + 4140 个字符块; 期望值取自栅格化器度量 (ascent=11 descent=2 cell=12x13)"
+    },
+    {
+      "id": "C2",
+      "title": "BDF 每块恰好一个 ENDCHAR / BBX 高度 == BITMAP 行数 / 行位宽 == ceil(w/8)*2 / 填充位为 0",
+      "samples": 4140,
+      "failures": 1,
+      "read_errors": 0,
+      "note": "消费 4140 个字符块 + 43805 个 BITMAP 数据行 (每行 3 项判定: 长度/十六进制/填充位)"
+    },
+    {
+      "id": "C3",
+      "title": "零墨迹字形清单 + 逐块 ENDCHAR 计数",
+      "samples": 4140,
+      "failures": 1,
+      "read_errors": 0,
+      "note": "扫描全部 4140 个字符块的 BBX 宽; 命中 1 个零墨迹字形"
+    },
+    {
+      "id": "C4",
+      "title": "建议修法回灌: 修正后的 BDF 仍被解析器接受, 且像素不变",
+      "samples": 1,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "在内存里删掉多余 ENDCHAR, 交给两个独立解析器 (本探针 + regress.decode_bdf) 与生产门禁 build_font.verify_bdf 复核"
+    },
+    {
+      "id": "D1",
+      "title": "批内汉字位图唯一性 (1855 字两两比对)",
+      "samples": 1855,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "消费 1855 个汉字的位图签名 (12x13 元组), 相同签名归组"
+    },
+    {
+      "id": "D2",
+      "title": "对照项: 全字符集跨类别同位图 (合法) + 全 3755 汉字内部同位图",
+      "samples": 4140,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "消费 4140 个全字符集位图签名; 跨类别同位图 1 组, 全汉字内部同位图 0 组 (均不计入失败)"
+    }
+  ],
+  "gauge_by_id": {
+    "A3": {
+      "id": "A3",
+      "title": "图集 PNG 尺寸与元数据 columns/rows/size 一致",
+      "samples": 7,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "7 项标量比对 (PNG 实际尺寸 + 元数据自洽 + 与栅格化器度量)"
+    },
+    "A1": {
+      "id": "A1",
+      "title": "图集单元格原点 == (列*12, 行*13) 且与元数据一致",
+      "samples": 4140,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "遍历元数据 glyphs 全量 4140 条, 按数组下标反推列/行"
+    },
+    "A2": {
+      "id": "A2",
+      "title": "图集墨迹不渗邻格 (结构: 墨迹列 < advance) + 批内逐像素相等",
+      "samples": 4140,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "结构层消费 4140 格; 像素层消费 1855 字 (本 lane 批次), 共 289380 次像素比对"
+    },
+    "A4": {
+      "id": "A4",
+      "title": "图集墨迹像素 RGB 恒为 (255,255,255)",
+      "samples": 645840,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "扫描全部 4140 格 × 156 px"
+    },
+    "B1": {
+      "id": "B1",
+      "title": ".notdef 空心方框 (2 环 / 相反绕向 / 非零填充栅格化 / 尺寸)",
+      "samples": 1,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "对 .notdef 做 6 项判定: 环数、x 范围、y 范围、绕向、栅格化比对、中心为空"
+    },
+    "B2": {
+      "id": "B2",
+      "title": "hhea.ascent/descent 与 OS/2 usWinAscent/usWinDescent 一致",
+      "samples": 6,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "6 项标量比对 (hhea 2 + usWin 2 + sTypo 2), 期望值 = ascent*64 / descent*64"
+    },
+    "B3": {
+      "id": "B3",
+      "title": "gasp 表存在且 12ppem 的 range == 0 (单色)",
+      "samples": 1,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "查表存在性 + gaspRange[12] 标量比对"
+    },
+    "B4": {
+      "id": "B4",
+      "title": "maxp.maxPoints/maxContours/numGlyphs 与实际 glyf 一致",
+      "samples": 4141,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "逐个字形取轮廓点数/轮廓数 (共 4141 个字形, 含 .notdef), 与 maxp 三个字段比对"
+    },
+    "C1": {
+      "id": "C1",
+      "title": "BDF 头字段 (FONTBOUNDINGBOX / FONT_ASCENT / FONT_DESCENT / CHARS) 与实际字符数一致",
+      "samples": 5,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "读 1 个头 + 4140 个字符块; 期望值取自栅格化器度量 (ascent=11 descent=2 cell=12x13)"
+    },
+    "C2": {
+      "id": "C2",
+      "title": "BDF 每块恰好一个 ENDCHAR / BBX 高度 == BITMAP 行数 / 行位宽 == ceil(w/8)*2 / 填充位为 0",
+      "samples": 4140,
+      "failures": 1,
+      "read_errors": 0,
+      "note": "消费 4140 个字符块 + 43805 个 BITMAP 数据行 (每行 3 项判定: 长度/十六进制/填充位)"
+    },
+    "C3": {
+      "id": "C3",
+      "title": "零墨迹字形清单 + 逐块 ENDCHAR 计数",
+      "samples": 4140,
+      "failures": 1,
+      "read_errors": 0,
+      "note": "扫描全部 4140 个字符块的 BBX 宽; 命中 1 个零墨迹字形"
+    },
+    "C4": {
+      "id": "C4",
+      "title": "建议修法回灌: 修正后的 BDF 仍被解析器接受, 且像素不变",
+      "samples": 1,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "在内存里删掉多余 ENDCHAR, 交给两个独立解析器 (本探针 + regress.decode_bdf) 与生产门禁 build_font.verify_bdf 复核"
+    },
+    "D1": {
+      "id": "D1",
+      "title": "批内汉字位图唯一性 (1855 字两两比对)",
+      "samples": 1855,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "消费 1855 个汉字的位图签名 (12x13 元组), 相同签名归组"
+    },
+    "D2": {
+      "id": "D2",
+      "title": "对照项: 全字符集跨类别同位图 (合法) + 全 3755 汉字内部同位图",
+      "samples": 4140,
+      "failures": 0,
+      "read_errors": 0,
+      "note": "消费 4140 个全字符集位图签名; 跨类别同位图 1 组, 全汉字内部同位图 0 组 (均不计入失败)"
+    }
+  },
+  "gauge_selftest": {
+    "ran": true,
+    "cases": [
+      {
+        "case": "图集元数据 x 挪 1px -> ATLAS_ORIGIN_MISMATCH",
+        "expected": "ATLAS_ORIGIN_MISMATCH",
+        "fired": [
+          "ATLAS_ORIGIN_MISMATCH"
+        ],
+        "ok": true
+      },
+      {
+        "case": "半角格空白区点墨 -> ATLAS_INK_LEAK",
+        "expected": "ATLAS_INK_LEAK",
+        "fired": [
+          "ATLAS_INK_LEAK"
+        ],
+        "ok": true
+      },
+      {
+        "case": "格子内翻 1 像素 -> ATLAS_PIXEL_MISMATCH",
+        "expected": "ATLAS_PIXEL_MISMATCH",
+        "fired": [
+          "ATLAS_PIXEL_MISMATCH"
+        ],
+        "ok": true
+      },
+      {
+        "case": "墨色改成红 -> ATLAS_INK_COLOR",
+        "expected": "ATLAS_INK_COLOR",
+        "fired": [
+          "ATLAS_INK_COLOR"
+        ],
+        "ok": true
+      },
+      {
+        "case": ".notdef 改成单环实心 -> TTF_NOTDEF_NOT_BOX",
+        "expected": "TTF_NOTDEF_NOT_BOX",
+        "fired": [
+          "TTF_NOTDEF_NOT_BOX"
+        ],
+        "ok": true
+      },
+      {
+        "case": "hhea.ascent 改 7 -> TTF_METRICS_MISMATCH",
+        "expected": "TTF_METRICS_MISMATCH",
+        "fired": [
+          "TTF_METRICS_MISMATCH"
+        ],
+        "ok": true
+      },
+      {
+        "case": "删掉 gasp 表 -> TTF_NO_GASP",
+        "expected": "TTF_NO_GASP",
+        "fired": [
+          "TTF_NO_GASP"
+        ],
+        "ok": true
+      },
+      {
+        "case": "gasp 12ppem 改 2 -> TTF_GASP_NOT_MONO",
+        "expected": "TTF_GASP_NOT_MONO",
+        "fired": [
+          "TTF_GASP_NOT_MONO"
+        ],
+        "ok": true
+      },
+      {
+        "case": "maxp.maxPoints 改 9999 -> TTF_MAXP_POINTS_MISMATCH",
+        "expected": "TTF_MAXP_POINTS_MISMATCH",
+        "fired": [
+          "TTF_MAXP_POINTS_MISMATCH"
+        ],
+        "ok": true
+      },
+      {
+        "case": "BDF CHARS 写错 -> BDF_HEADER_MISMATCH",
+        "expected": "BDF_HEADER_MISMATCH",
+        "fired": [
+          "BDF_ENDCHAR_PAIRING",
+          "BDF_HEADER_MISMATCH",
+          "BDF_ZERO_INK_DOUBLE_ENDCHAR"
+        ],
+        "ok": true
+      },
+      {
+        "case": "BDF 塞多余 ENDCHAR -> BDF_ENDCHAR_PAIRING",
+        "expected": "BDF_ENDCHAR_PAIRING",
+        "fired": [
+          "BDF_ENDCHAR_PAIRING",
+          "BDF_ZERO_INK_DOUBLE_ENDCHAR"
+        ],
+        "ok": true
+      },
+      {
+        "case": "BDF 行填充位置 1 -> BDF_ROW_PADDING",
+        "expected": "BDF_ROW_PADDING",
+        "fired": [
+          "BDF_ENDCHAR_PAIRING",
+          "BDF_ROW_PADDING",
+          "BDF_ZERO_INK_DOUBLE_ENDCHAR"
+        ],
+        "ok": true
+      },
+      {
+        "case": "两个不同汉字同位图 -> HANZI_DUPLICATE_BITMAP",
+        "expected": "HANZI_DUPLICATE_BITMAP",
+        "fired": [
+          "HANZI_DUPLICATE_BITMAP"
+        ],
+        "ok": true
+      }
+    ],
+    "cases_total": 13,
+    "cases_ok": 13,
+    "cases_failed": 0
+  },
+  "atlas": {
+    "meta": {
+      "columns": 32,
+      "rows": 130,
+      "cell": [
+        12,
+        13
+      ],
+      "png_size": [
+        384,
+        1690
+      ],
+      "glyph_count": 4140
+    }
+  },
+  "ttf": {
+    "evidence": {
+      "B1": {
+        "numberOfContours": 2,
+        "xMin": 0,
+        "xMax": 768,
+        "yMin": -128,
+        "yMax": 704,
+        "expect_xMin": 0,
+        "expect_xMax": 768,
+        "expect_yMin": -128,
+        "expect_yMax": 704,
+        "contour_signed_areas": [
+          638976.0,
+          -450560.0
+        ],
+        "rasterized": "############\n#..........#\n#..........#\n#..........#\n#..........#\n#..........#\n#..........#\n#..........#\n#..........#\n#..........#\n#..........#\n#..........#\n############",
+        "expected_hollow_box": "############\n#..........#\n#..........#\n#..........#\n#..........#\n#..........#\n#..........#\n#..........#\n#..........#\n#..........#\n#..........#\n#..........#\n############"
+      },
+      "B2": [
+        [
+          "hhea.ascent",
+          704,
+          704
+        ],
+        [
+          "OS/2.usWinAscent",
+          704,
+          704
+        ],
+        [
+          "OS/2.sTypoAscender",
+          704,
+          704
+        ],
+        [
+          "-hhea.descent",
+          128,
+          128
+        ],
+        [
+          "OS/2.usWinDescent",
+          128,
+          128
+        ],
+        [
+          "-OS/2.sTypoDescender",
+          128,
+          128
+        ]
+      ],
+      "B4": {
+        "maxp_maxPoints": 176,
+        "actual_maxPoints": 176,
+        "maxp_maxContours": 44,
+        "actual_maxContours": 44,
+        "maxp_numGlyphs": 4141,
+        "glyph_order_len": 4141,
+        "max_points_glyph": "uni5220",
+        "max_contours_glyph": "uni5220",
+        "empty_glyphs": 1
+      }
+    }
+  },
+  "bdf": {
+    "blocks": 4140,
+    "header": {
+      "FONT": "-PF-PixelFontPC98-Medium-R-Normal--12-1200-72-72-c-1000-ISO10646-1",
+      "SIZE": "12 72 72",
+      "FONTBOUNDINGBOX": "12 13 0 -2",
+      "FONT_ASCENT": "11",
+      "FONT_DESCENT": "2",
+      "CHARS": "4140"
+    },
+    "zero_ink": [
+      {
+        "cp": "U+0020",
+        "endchar_count": 2,
+        "bitmap_present": true,
+        "bitmap_rows": 0,
+        "line": 12
+      }
+    ],
+    "fix_sim": {
+      "errors": [],
+      "checked": [
+        {
+          "parser": "hanzi_b_probe.parse_bdf_strict",
+          "blocks": 4140,
+          "issues": 0,
+          "endchar_mismatch": 0,
+          "ok": true
+        },
+        {
+          "parser": "regress.decode_bdf",
+          "parsed_glyphs": 4140,
+          "issues": 0,
+          "ok": true
+        },
+        {
+          "parser": "build_font.verify_bdf",
+          "ok": true,
+          "detail": "生产回读门禁通过"
+        }
+      ],
+      "endchar_removed": 1,
+      "variant_no_bitmap": {
+        "parsed_glyphs": 4140,
+        "parsed_glyphs_after": 4139,
+        "space_found_after": false,
+        "note": "去掉 BITMAP 段 -> regress.decode_bdf 少收 1 个码位, 该码位会被误报 BDF_MISSING"
+      }
+    }
+  },
+  "uniqueness": {
+    "batch_dups": [],
+    "cross_category": [
+      {
+        "members": [
+          {
+            "char": "ニ",
+            "cp": "U+30CB",
+            "cat": "kana"
+          },
+          {
+            "char": "二",
+            "cp": "U+4E8C",
+            "cat": "hanzi"
+          }
+        ],
+        "art": "............\n............\n............\n..########..\n............\n............\n............\n............\n............\n............\n.##########.\n............\n............"
+      }
+    ],
+    "cross_category_total": 1,
+    "hanzi_all_dups": [],
+    "hanzi_all_dups_total": 0
+  },
+  "anomalies": [
+    {
+      "id": "BDF_ENDCHAR_PAIRING",
+      "severity": "error",
+      "detail": "1 个字符块的 ENDCHAR 数量不是 1 (首个: U+0020 写了 2 个 ENDCHAR)",
+      "cp": "U+0020",
+      "char": " ",
+      "evidence": {
+        "examples": [
+          {
+            "cp": "U+0020",
+            "endchar_count": 2,
+            "line": 12
+          }
+        ],
+        "total": 1
+      },
+      "suggested_fix": "tools/fontgen/build_font.py:133 —— 零墨迹分支的 lines += [\"BITMAP\", \"ENDCHAR\", \"ENDCHAR\"] 少写一个 ENDCHAR"
+    },
+    {
+      "id": "BDF_ZERO_INK_DOUBLE_ENDCHAR",
+      "severity": "error",
+      "detail": "1 个零墨迹字形的字符块里写了多个 ENDCHAR (U+0020 写了 2 个); 全字符集共 1 个零墨迹字形, 中招的只有这 1 个",
+      "cp": "U+0020",
+      "char": " ",
+      "evidence": {
+        "zero_ink_glyphs": [
+          {
+            "cp": "U+0020",
+            "endchar_count": 2,
+            "bitmap_present": true,
+            "bitmap_rows": 0,
+            "line": 12
+          }
+        ],
+        "broken": [
+          {
+            "cp": "U+0020",
+            "endchar_count": 2,
+            "bitmap_present": true,
+            "bitmap_rows": 0,
+            "line": 12
+          }
+        ],
+        "root_cause": "tools/fontgen/build_font.py:133 —— 零墨迹分支写的是 ['BITMAP', 'ENDCHAR', 'ENDCHAR']"
+      },
+      "suggested_fix": "tools/fontgen/build_font.py:133 改为 lines += [\"BITMAP\", \"ENDCHAR\"] (保留 BITMAP 关键字: 去掉它会让 regress.decode_bdf 收不到该码位, 空格会被误报 BDF_MISSING)"
+    }
+  ],
+  "assumptions": [
+    "本探针不重建成品时, 校验对象是 dist/ 里已有的产物 —— 报告里记了每个产物的 sha256, 结论只对那一份产物成立。",
+    "结构级判定的参照系是栅格化器度量 (charset.build_stack): cell 12x13, 基线 11/2; 成品里的头字段若与之不符, 以栅格化器为准 (成品是派生物)。",
+    "A 路墨迹比较以 alpha 通道为判据 (元数据声明 \"白色 + alpha\"), RGB 另作 A4 单列检查。",
+    "环境内无第三方 BDF 解析器 (bdflib / X11 bdftopcf 均未安装), 因此 C4 的\"修法回灌\"由本探针严格解析器 + regress.decode_bdf + 生产门禁 build_font.verify_bdf 三方判定。",
+    "D 组位图唯一性只在汉字之间比对; 跨类别同位图 (如片假名「ニ」与汉字「二」) 按任务约定视为合法。"
+  ],
+  "summary": {
+    "errors": 2,
+    "warnings": 0,
+    "infos": 0,
+    "verdict": "FAIL"
+  }
+}
