@@ -1375,7 +1375,15 @@ def main() -> int:
           f"读取失败 {report['gauge']['total_read_failures']} 处")
     for f in findings:
         print(f"  - {f['id']}: {f['title']}")
-    print(f"  报告: {out.relative_to(ROOT)} / {md.relative_to(ROOT)}")
+    # 报告路径可能在仓库外 (例如写到临时目录做对比), relative_to 会直接抛异常 ——
+    # 探针跑完全部检查却在最后一行崩掉, 是最让人误判的一种失败。
+    def _display(p: Path) -> str:
+        try:
+            return str(p.relative_to(ROOT))
+        except ValueError:
+            return str(p)
+
+    print(f"  报告: {_display(out)} / {_display(md)}")
     print(f"  findings_digest: {report['summary']['findings_digest']}")
     return 1 if errors else 0
 
