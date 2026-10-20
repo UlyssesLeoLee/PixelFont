@@ -1,0 +1,254 @@
+{
+  "tool": "regress",
+  "version": 1,
+  "generated_at": "2026-10-20T23:21:46.421658+00:00",
+  "selection": {
+    "cats": [
+      "ascii",
+      "punct"
+    ],
+    "slice": "",
+    "batch_size": 100,
+    "label": "ascii+punct"
+  },
+  "inputs": {
+    "charset_total": 4140,
+    "chars_selected": 130,
+    "chars_checked": 130,
+    "batches": 2,
+    "artifacts": {
+      "bdf": 658776,
+      "ttf": 1280908,
+      "atlas_png": 140278,
+      "atlas_json": 86866
+    },
+    "build_exit_code": 0
+  },
+  "reference": {
+    "density_median": 0.3141025641025641,
+    "density_mad": 0.04487179487179488,
+    "density_sigma": 0.07451868550751581,
+    "density_p95": 0.40384615384615385,
+    "density_max": 0.5512820512820513,
+    "ink_top_median": 1,
+    "ink_bottom_median": 11,
+    "cat_density_median": {
+      "ascii": 0.19230769230769232,
+      "punct": 0.07692307692307693,
+      "kana": 0.16666666666666666,
+      "hanzi": 0.32051282051282054
+    },
+    "chars": 4140
+  },
+  "anomalies": [
+    {
+      "id": "BDF_STRUCTURE",
+      "severity": "error",
+      "detail": "STARTCHAR 4140 个但 ENDCHAR 4141 个 —— 字符块结构不配对"
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'·' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+00B7",
+      "char": "·",
+      "category": "punct",
+      "batch": 0,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'—' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+2014",
+      "char": "—",
+      "category": "punct",
+      "batch": 0,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "CLIP_RIGHT",
+      "severity": "error",
+      "detail": "'…' 源字形 12x12 起点(0,1) 超出 6x13 的格 —— 右侧/底部墨迹被裁掉",
+      "cp": "U+2026",
+      "char": "…",
+      "category": "punct",
+      "batch": 0,
+      "evidence": {
+        "mask": [
+          12,
+          12
+        ],
+        "offset": [
+          0,
+          1
+        ],
+        "cell": [
+          6,
+          13
+        ]
+      }
+    },
+    {
+      "id": "SOURCE_ADVANCE_MISMATCH",
+      "severity": "warn",
+      "detail": "'…' 源字体实测 advance=12, 但分配到的格宽=6 (EAW=A)",
+      "cp": "U+2026",
+      "char": "…",
+      "category": "punct",
+      "batch": 0,
+      "evidence": {
+        "src_advance": 12,
+        "cell": 6,
+        "eaw": "A"
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'…' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+2026",
+      "char": "…",
+      "category": "punct",
+      "batch": 0,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "CLIP_RIGHT",
+      "severity": "error",
+      "detail": "'×' 源字形 12x12 起点(0,1) 超出 6x13 的格 —— 右侧/底部墨迹被裁掉",
+      "cp": "U+00D7",
+      "char": "×",
+      "category": "punct",
+      "batch": 1,
+      "evidence": {
+        "mask": [
+          12,
+          12
+        ],
+        "offset": [
+          0,
+          1
+        ],
+        "cell": [
+          6,
+          13
+        ]
+      }
+    },
+    {
+      "id": "SOURCE_ADVANCE_MISMATCH",
+      "severity": "warn",
+      "detail": "'×' 源字体实测 advance=12, 但分配到的格宽=6 (EAW=A)",
+      "cp": "U+00D7",
+      "char": "×",
+      "category": "punct",
+      "batch": 1,
+      "evidence": {
+        "src_advance": 12,
+        "cell": 6,
+        "eaw": "A"
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'×' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+00D7",
+      "char": "×",
+      "category": "punct",
+      "batch": 1,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    },
+    {
+      "id": "CLIP_RIGHT",
+      "severity": "error",
+      "detail": "'÷' 源字形 12x12 起点(0,1) 超出 6x13 的格 —— 右侧/底部墨迹被裁掉",
+      "cp": "U+00F7",
+      "char": "÷",
+      "category": "punct",
+      "batch": 1,
+      "evidence": {
+        "mask": [
+          12,
+          12
+        ],
+        "offset": [
+          0,
+          1
+        ],
+        "cell": [
+          6,
+          13
+        ]
+      }
+    },
+    {
+      "id": "SOURCE_ADVANCE_MISMATCH",
+      "severity": "warn",
+      "detail": "'÷' 源字体实测 advance=12, 但分配到的格宽=6 (EAW=A)",
+      "cp": "U+00F7",
+      "char": "÷",
+      "category": "punct",
+      "batch": 1,
+      "evidence": {
+        "src_advance": 12,
+        "cell": 6,
+        "eaw": "A"
+      }
+    },
+    {
+      "id": "ATLAS_WIDE_MISMATCH",
+      "severity": "error",
+      "detail": "'÷' 图集 isWide=1 但 advance=6 (全角=12/半角=6)",
+      "cp": "U+00F7",
+      "char": "÷",
+      "category": "punct",
+      "batch": 1,
+      "evidence": {
+        "advance": 6,
+        "isWide": 1
+      }
+    }
+  ],
+  "batch_stats": [
+    {
+      "batch": 0,
+      "chars": 100,
+      "density_median": 0.1795,
+      "density_max": 0.359,
+      "ink_top_median": 2,
+      "ink_bottom_median": 10,
+      "wide_ratio": 0.02,
+      "empty_ink": 0
+    },
+    {
+      "batch": 1,
+      "chars": 30,
+      "density_median": 0.1026,
+      "density_max": 0.2564,
+      "ink_top_median": 2,
+      "ink_bottom_median": 10,
+      "wide_ratio": 0.9333,
+      "empty_ink": 0
+    }
+  ],
+  "summary": {
+    "errors": 9,
+    "warnings": 3,
+    "infos": 0,
+    "verdict": "FAIL"
+  }
+}
