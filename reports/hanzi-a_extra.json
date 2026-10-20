@@ -1,0 +1,1368 @@
+{
+  "tool": "hanzi_a_probe",
+  "version": 1,
+  "generated_at": "2026-10-20T23:33:49.272276+00:00",
+  "lane": "agent/reg-hanzi-a",
+  "batch": {
+    "label": "hanzi_0-1900",
+    "chars": 1900,
+    "hanzi_total": 3755,
+    "charset_total": 4140,
+    "first_cp": "U+554A",
+    "last_cp": "U+62C7",
+    "source_font": "C:\\Windows\\Fonts\\simhei.ttf"
+  },
+  "inputs": {
+    "items_consumed": 4140,
+    "hanzi_consumed": 1900,
+    "glyphs_rendered_mono": 3800,
+    "gray_renders": 1900,
+    "read_failures": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0
+    }
+  },
+  "checks": {
+    "A_uniqueness": {
+      "checked": 1900,
+      "read_failures": 0,
+      "distinct_bitmaps": 1900,
+      "exact_duplicate_groups": 0,
+      "exact_duplicate_members": 0,
+      "near_duplicate_pairs_le2": 0,
+      "pairs_le5": 2,
+      "min_pairwise_distance": {
+        "dist_px": 4,
+        "chars": [
+          "凡",
+          "几"
+        ],
+        "codes": [
+          "U+51E1",
+          "U+51E0"
+        ],
+        "note": "批内两两之间的最小位图距离 —— 用来证明近重复检测器确实在跑"
+      },
+      "near_duplicate_top": [],
+      "negative_control": {
+        "pair": [
+          "ニ",
+          "二"
+        ],
+        "codes": [
+          "U+30CB",
+          "U+4E8C"
+        ],
+        "same_bitmap": true,
+        "detail": "片假名「ニ」与汉字「二」在两个源字体里画得一样 —— 跨类别同图合法, 本探针不在跨类别范围内比对",
+        "verdict": "检测器可响 (阴性对照通过): 能找出位图相同的字符对"
+      },
+      "verdict": "PASS"
+    },
+    "B_source_fidelity": {
+      "stride": 37,
+      "samples": 52,
+      "samples_expected": 52,
+      "gray_rendered": 1900,
+      "gray_read_failures": 0,
+      "identity_mismatches": 0,
+      "identity_strict_hits": 50,
+      "identity_near_ties": 2,
+      "identity_noise_band": [
+        2,
+        23
+      ],
+      "tie_margin": 3,
+      "threshold": 128,
+      "diff_px_median": 10,
+      "diff_px_max": 62,
+      "diff_px_min": 2,
+      "aligned_diff_px_max": 23,
+      "best_shift_histogram": {
+        "dy=1,dx=0": 9,
+        "dy=0,dx=0": 43
+      },
+      "mono_covered_ratio_min": 1.0,
+      "gray_ink_uncovered_max": 0,
+      "top10": [
+        {
+          "char": "冕",
+          "cp": "U+5195",
+          "diff_px": 62,
+          "diff_px_best_aligned": 16,
+          "best_shift": [
+            1,
+            0
+          ],
+          "row_multiset_dist": 10,
+          "col_multiset_dist": 31,
+          "mono_ink": 58,
+          "gray_ink": 44,
+          "gray_perimeter": 43,
+          "mono_covered_ratio": 1.0,
+          "mono_covered": 58,
+          "mono_ink_total": 58,
+          "gray_ink_uncovered": 0,
+          "nearest_char": "冕",
+          "nearest_char_cp": "U+5195",
+          "nearest_dist_aligned": 16,
+          "runner_up_char": "皇",
+          "runner_up_dist_aligned": 25,
+          "true_char_dist_aligned": 16,
+          "runner_mono_hamming": null,
+          "identity_ok": true,
+          "identity_strict": true,
+          "identity_near_tie": false,
+          "verdict": "抗锯齿/栅格化固有差异 (预期行为)",
+          "ascii_art": "............   ............\n..########..   ............\n..######.#..   ..#....#.#..\n..######.#..   ..#.####.#..\n...#........   ..#.####.#..\n..#.####....   ...#........\n.#########..   ..#....#....\n..#..#...#..   .#########..\n..#######...   ..#..##..#..\n...##.#...#.   ..#.###.....\n.##...#####.   ...##.#.....\n............   .##....####.\n............   ............"
+        },
+        {
+          "char": "颈",
+          "cp": "U+9888",
+          "diff_px": 58,
+          "diff_px_best_aligned": 4,
+          "best_shift": [
+            1,
+            0
+          ],
+          "row_multiset_dist": 4,
+          "col_multiset_dist": 40,
+          "mono_ink": 51,
+          "gray_ink": 49,
+          "gray_perimeter": 49,
+          "mono_covered_ratio": 1.0,
+          "mono_covered": 51,
+          "mono_ink_total": 51,
+          "gray_ink_uncovered": 0,
+          "nearest_char": "颈",
+          "nearest_char_cp": "U+9888",
+          "nearest_dist_aligned": 4,
+          "runner_up_char": "颅",
+          "runner_up_dist_aligned": 15,
+          "true_char_dist_aligned": 4,
+          "runner_mono_hamming": null,
+          "identity_ok": true,
+          "identity_strict": true,
+          "identity_near_tie": false,
+          "verdict": "抗锯齿/栅格化固有差异 (预期行为)",
+          "ascii_art": "............   ............\n.##########.   ............\n...#...#....   .####.#####.\n..###.#####.   ...#...#....\n.##.#.#...#.   ..###.#####.\n......#.#.#.   .#..###...#.\n.####.#.#.#.   ......#.#.#.\n...#..#.#.#.   ..###.#.#.#.\n...#...#....   ...#..#.#.#.\n.####.##.##.   ...#...#....\n.....#....#.   .####.##.##.\n............   .....#....#.\n............   ............"
+        },
+        {
+          "char": "眉",
+          "cp": "U+7709",
+          "diff_px": 58,
+          "diff_px_best_aligned": 16,
+          "best_shift": [
+            1,
+            0
+          ],
+          "row_multiset_dist": 3,
+          "col_multiset_dist": 31,
+          "mono_ink": 61,
+          "gray_ink": 47,
+          "gray_perimeter": 47,
+          "mono_covered_ratio": 1.0,
+          "mono_covered": 61,
+          "mono_ink_total": 61,
+          "gray_ink_uncovered": 0,
+          "nearest_char": "眉",
+          "nearest_char_cp": "U+7709",
+          "nearest_dist_aligned": 16,
+          "runner_up_char": "盾",
+          "runner_up_dist_aligned": 22,
+          "true_char_dist_aligned": 16,
+          "runner_mono_hamming": null,
+          "identity_ok": true,
+          "identity_strict": true,
+          "identity_near_tie": false,
+          "verdict": "抗锯齿/栅格化固有差异 (预期行为)",
+          "ascii_art": "............   ............\n..#########.   ............\n..#...#...#.   ..#...#...#.\n..#########.   ..#...#...#.\n..#.........   ..#########.\n..#.#######.   ..#.........\n..#.#######.   ..#.#....##.\n..#.#.....#.   ..#.#######.\n.##.#######.   ..#.#.....#.\n.#..#.....#.   .#..#######.\n.#..#######.   .#..#....##.\n............   .#..#....##.\n............   ............"
+        },
+        {
+          "char": "量",
+          "cp": "U+91CF",
+          "diff_px": 55,
+          "diff_px_best_aligned": 23,
+          "best_shift": [
+            1,
+            0
+          ],
+          "row_multiset_dist": 12,
+          "col_multiset_dist": 40,
+          "mono_ink": 77,
+          "gray_ink": 60,
+          "gray_perimeter": 44,
+          "mono_covered_ratio": 1.0,
+          "mono_covered": 77,
+          "mono_ink_total": 77,
+          "gray_ink_uncovered": 0,
+          "nearest_char": "董",
+          "nearest_char_cp": "U+8463",
+          "nearest_dist_aligned": 22,
+          "runner_up_char": "警",
+          "runner_up_dist_aligned": 23,
+          "true_char_dist_aligned": 23,
+          "runner_mono_hamming": 36,
+          "identity_ok": true,
+          "identity_strict": false,
+          "identity_near_tie": true,
+          "verdict": "近形字并列 (12px 分辨率极限), 非路由错误",
+          "ascii_art": "............   ............\n..########..   ............\n..########..   ..##....##..\n..########..   ..##....##..\n.##########.   ...######...\n..########..   .##########.\n..########..   ..########..\n..#..#...#..   ..########..\n...######...   ..##.##.##..\n..########..   .....##.....\n.##########.   .....##.....\n............   .##########.\n............   ............"
+        },
+        {
+          "char": "顾",
+          "cp": "U+987E",
+          "diff_px": 48,
+          "diff_px_best_aligned": 8,
+          "best_shift": [
+            1,
+            0
+          ],
+          "row_multiset_dist": 7,
+          "col_multiset_dist": 24,
+          "mono_ink": 53,
+          "gray_ink": 47,
+          "gray_perimeter": 47,
+          "mono_covered_ratio": 1.0,
+          "mono_covered": 53,
+          "mono_ink_total": 53,
+          "gray_ink_uncovered": 0,
+          "nearest_char": "顾",
+          "nearest_char_cp": "U+987E",
+          "nearest_dist_aligned": 8,
+          "runner_up_char": "颅",
+          "runner_up_dist_aligned": 19,
+          "true_char_dist_aligned": 8,
+          "runner_mono_hamming": null,
+          "identity_ok": true,
+          "identity_strict": true,
+          "identity_near_tie": false,
+          "verdict": "抗锯齿/栅格化固有差异 (预期行为)",
+          "ascii_art": "............   ............\n.####.#####.   ............\n.#.....#....   .####.#####.\n.#.##.#####.   .#..........\n.#.##.#...#.   .#.########.\n.#.##.#.#.#.   .#.#..#...#.\n.#.##.#.#.#.   .#.#..#.#.#.\n.#.#..#.#.#.   .#.##.#.#.#.\n.#.##..#..#.   .#.#..#.#.#.\n#..#...#.#..   .#.##.......\n.....##...#.   ...#...#.#..\n............   ......#...#.\n............   ............"
+        },
+        {
+          "char": "局",
+          "cp": "U+5C40",
+          "diff_px": 46,
+          "diff_px_best_aligned": 6,
+          "best_shift": [
+            1,
+            0
+          ],
+          "row_multiset_dist": 0,
+          "col_multiset_dist": 27,
+          "mono_ink": 51,
+          "gray_ink": 45,
+          "gray_perimeter": 45,
+          "mono_covered_ratio": 1.0,
+          "mono_covered": 51,
+          "mono_ink_total": 51,
+          "gray_ink_uncovered": 0,
+          "nearest_char": "局",
+          "nearest_char_cp": "U+5C40",
+          "nearest_dist_aligned": 6,
+          "runner_up_char": "届",
+          "runner_up_dist_aligned": 17,
+          "true_char_dist_aligned": 6,
+          "runner_mono_hamming": null,
+          "identity_ok": true,
+          "identity_strict": true,
+          "identity_near_tie": false,
+          "verdict": "抗锯齿/栅格化固有差异 (预期行为)",
+          "ascii_art": "............   ............\n..########..   ............\n..#......#..   ..#......#..\n..########..   ..#......#..\n..#.........   ..########..\n..#########.   ..#.........\n..#.####..#.   ..#########.\n..#.#..#..#.   ..#.####..#.\n..#.#..#..#.   ..#.#..#..#.\n.#..####..#.   ..#.#..#..#.\n.#.......##.   .#..####..#.\n............   .#.......##.\n............   ............"
+        },
+        {
+          "char": "珐",
+          "cp": "U+73D0",
+          "diff_px": 45,
+          "diff_px_best_aligned": 9,
+          "best_shift": [
+            1,
+            0
+          ],
+          "row_multiset_dist": 5,
+          "col_multiset_dist": 23,
+          "mono_ink": 41,
+          "gray_ink": 34,
+          "gray_perimeter": 31,
+          "mono_covered_ratio": 1.0,
+          "mono_covered": 41,
+          "mono_ink_total": 41,
+          "gray_ink_uncovered": 0,
+          "nearest_char": "珐",
+          "nearest_char_cp": "U+73D0",
+          "nearest_dist_aligned": 9,
+          "runner_up_char": "话",
+          "runner_up_dist_aligned": 23,
+          "true_char_dist_aligned": 9,
+          "runner_mono_hamming": null,
+          "identity_ok": true,
+          "identity_strict": true,
+          "identity_near_tie": false,
+          "verdict": "抗锯齿/栅格化固有差异 (预期行为)",
+          "ascii_art": "............   ............\n.......#....   ............\n.###.######.   .......#....\n..#....#....   ..#...#####.\n..#....#....   ..#....#....\n.###.######.   ..#....#....\n..#....#....   .###.######.\n..#...#.....   ..#....#....\n..###.#..#..   ..#...#.....\n.#...#....#.   ..##..#..#..\n.....######.   .#...#...##.\n............   .....#....#.\n............   ............"
+        },
+        {
+          "char": "啊",
+          "cp": "U+554A",
+          "diff_px": 34,
+          "diff_px_best_aligned": 10,
+          "best_shift": [
+            1,
+            0
+          ],
+          "row_multiset_dist": 8,
+          "col_multiset_dist": 21,
+          "mono_ink": 61,
+          "gray_ink": 51,
+          "gray_perimeter": 51,
+          "mono_covered_ratio": 1.0,
+          "mono_covered": 61,
+          "mono_ink_total": 61,
+          "gray_ink_uncovered": 0,
+          "nearest_char": "啊",
+          "nearest_char_cp": "U+554A",
+          "nearest_dist_aligned": 10,
+          "runner_up_char": "凋",
+          "runner_up_dist_aligned": 27,
+          "true_char_dist_aligned": 10,
+          "runner_mono_hamming": null,
+          "identity_ok": true,
+          "identity_strict": true,
+          "identity_near_tie": false,
+          "verdict": "抗锯齿/栅格化固有差异 (预期行为)",
+          "ascii_art": "............   ............\n.##.########   ............\n.##.##....#.   .##.#######.\n.##.##.##.#.   .##.##....#.\n.##.##.##.#.   .#..##.##.#.\n.##.##.##.#.   .#..##.#..#.\n.##.##.##.#.   .#..##.#..#.\n.##.#.###.#.   .#..#..#..#.\n.##.##....#.   .##.#.###.#.\n.#..#.....#.   .##.##....#.\n....#....##.   ....#.....#.\n............   ....#....##.\n............   ............"
+        },
+        {
+          "char": "即",
+          "cp": "U+5373",
+          "diff_px": 34,
+          "diff_px_best_aligned": 6,
+          "best_shift": [
+            1,
+            0
+          ],
+          "row_multiset_dist": 4,
+          "col_multiset_dist": 20,
+          "mono_ink": 51,
+          "gray_ink": 47,
+          "gray_perimeter": 47,
+          "mono_covered_ratio": 1.0,
+          "mono_covered": 51,
+          "mono_ink_total": 51,
+          "gray_ink_uncovered": 0,
+          "nearest_char": "即",
+          "nearest_char_cp": "U+5373",
+          "nearest_dist_aligned": 6,
+          "runner_up_char": "卯",
+          "runner_up_dist_aligned": 18,
+          "true_char_dist_aligned": 6,
+          "runner_mono_hamming": null,
+          "identity_ok": true,
+          "identity_strict": true,
+          "identity_near_tie": false,
+          "verdict": "抗锯齿/栅格化固有差异 (预期行为)",
+          "ascii_art": "............   ............\n.#####.####.   ............\n.#...#.#..#.   .#####.####.\n.#####.#..#.   .#...#.#..#.\n.#...#.#..#.   .#####.#..#.\n.#...#.#..#.   .#...#.#..#.\n.####..#..#.   .##..#.#..#.\n.#..#..#..#.   .#.....#..#.\n.#..##.#.##.   .#..#..#..#.\n.###.#.#....   .#..##.#.##.\n.#.....#....   .##..#.#....\n............   .......#....\n............   ............"
+        },
+        {
+          "char": "辈",
+          "cp": "U+8F88",
+          "diff_px": 18,
+          "diff_px_best_aligned": 18,
+          "best_shift": [
+            0,
+            0
+          ],
+          "row_multiset_dist": 9,
+          "col_multiset_dist": 12,
+          "mono_ink": 59,
+          "gray_ink": 45,
+          "gray_perimeter": 45,
+          "mono_covered_ratio": 1.0,
+          "mono_covered": 59,
+          "mono_ink_total": 59,
+          "gray_ink_uncovered": 0,
+          "nearest_char": "辈",
+          "nearest_char_cp": "U+8F88",
+          "nearest_dist_aligned": 18,
+          "runner_up_char": "韭",
+          "runner_up_dist_aligned": 26,
+          "true_char_dist_aligned": 18,
+          "runner_mono_hamming": null,
+          "identity_ok": true,
+          "identity_strict": true,
+          "identity_near_tie": false,
+          "verdict": "抗锯齿/栅格化固有差异 (预期行为)",
+          "ascii_art": "............   ............\n....#..#....   ............\n.####..####.   .####..####.\n.####..####.   ..###..###..\n....#..#....   ....#..#....\n.####..####.   .####..####.\n....#.......   ....##......\n..########..   ...##.#.....\n..##.#......   ..##.##.....\n...######...   .....##.....\n############   .##########.\n.....#......   ............\n............   ............"
+        }
+      ],
+      "verdict": "PASS"
+    },
+    "C_ink_distribution": {
+      "checked": 1900,
+      "read_failures": 0,
+      "median": 0.3205,
+      "p95": 0.4103,
+      "max": 0.5513,
+      "min": 0.109,
+      "mean": 0.3196,
+      "over_60pct": 0,
+      "over_60pct_and_zero_counter": 0,
+      "baseline": {
+        "ink_top_min": 1,
+        "ink_top_max": 3,
+        "ink_top_median": 1,
+        "ink_bottom_min": 10,
+        "ink_bottom_max": 11,
+        "ink_bottom_median": 11,
+        "note": "13 行格内, 基线在第 11 行 (ascent=11); 汉字墨迹应始终落在第 11 行及其上方"
+      },
+      "top5": [
+        {
+          "char": "蠢",
+          "cp": "U+8822",
+          "ink_ratio": 0.5513,
+          "ink_px": 86,
+          "counters": 5,
+          "ascii_art": "............\n.....#......\n.##########.\n..########..\n.##########.\n...######...\n.##########.\n...######...\n.##########.\n.#.#.##.#.#.\n.####.#####.\n.##########.\n............"
+        },
+        {
+          "char": "矗",
+          "cp": "U+77D7",
+          "ink_ratio": 0.5128,
+          "ink_px": 80,
+          "counters": 4,
+          "ascii_art": "............\n............\n..########..\n..###.###...\n...######...\n...######...\n.##########.\n.##########.\n.#..#.#...#.\n.####.#####.\n.####.#####.\n############\n............"
+        },
+        {
+          "char": "量",
+          "cp": "U+91CF",
+          "ink_ratio": 0.4936,
+          "ink_px": 77,
+          "counters": 2,
+          "ascii_art": "............\n..########..\n..########..\n..########..\n.##########.\n..########..\n..########..\n..#..#...#..\n...######...\n..########..\n.##########.\n............\n............"
+        },
+        {
+          "char": "蔓",
+          "cp": "U+8513",
+          "ink_ratio": 0.4936,
+          "ink_px": 77,
+          "counters": 6,
+          "ascii_art": "............\n....#..#....\n.###########\n..########..\n..########..\n..########..\n.##########.\n.#..#..#..#.\n..##.##.##..\n..#######...\n....##.#....\n.##########.\n............"
+        },
+        {
+          "char": "颤",
+          "cp": "U+98A4",
+          "ink_ratio": 0.4872,
+          "ink_px": 76,
+          "counters": 2,
+          "ascii_art": "............\n...#........\n###########.\n.#####..#...\n.#####.####.\n.#####.##.#.\n.#####.##.#.\n.#####.##.#.\n.#...#.##.#.\n.#####..#...\n..###..#.##.\n.######...##\n............"
+        }
+      ],
+      "bottom5": [
+        {
+          "char": "卜",
+          "cp": "U+535C",
+          "ink_ratio": 0.109,
+          "ink_px": 17,
+          "counters": 0,
+          "ascii_art": "............\n.....#......\n.....#......\n.....#......\n.....#......\n.....#.##...\n.....#..##..\n.....#...##.\n.....#......\n.....#......\n.....#......\n.....#......\n............"
+        },
+        {
+          "char": "二",
+          "cp": "U+4E8C",
+          "ink_ratio": 0.1154,
+          "ink_px": 18,
+          "counters": 0,
+          "ascii_art": "............\n............\n............\n..########..\n............\n............\n............\n............\n............\n............\n.##########.\n............\n............"
+        },
+        {
+          "char": "厂",
+          "cp": "U+5382",
+          "ink_ratio": 0.1154,
+          "ink_px": 18,
+          "counters": 0,
+          "ascii_art": "............\n............\n..#########.\n..#.........\n..#.........\n..#.........\n..#.........\n..#.........\n..#.........\n..#.........\n.#..........\n.#..........\n............"
+        },
+        {
+          "char": "丁",
+          "cp": "U+4E01",
+          "ink_ratio": 0.1282,
+          "ink_px": 20,
+          "counters": 0,
+          "ascii_art": "............\n............\n.##########.\n.....#......\n.....#......\n.....#......\n.....#......\n.....#......\n.....#......\n.....#......\n.....#......\n....##......\n............"
+        },
+        {
+          "char": "八",
+          "cp": "U+516B",
+          "ink_ratio": 0.1346,
+          "ink_px": 21,
+          "counters": 0,
+          "ascii_art": "............\n....#..#....\n....#..#....\n....#..#....\n...#...#....\n...#....#...\n...#....#...\n...#....#...\n..#......#..\n.#.......##.\n.#........#.\n............\n............"
+        }
+      ],
+      "reference": {
+        "dense_probe": "語龍鬱撃戰鑑",
+        "dense_probe_ink_12px": 0.3921,
+        "dense_probe_ink_16px": 0.356,
+        "dense_probe_detail_12px": [
+          {
+            "char": "語",
+            "cp": "U+8A9E",
+            "ink_ratio": 0.359
+          },
+          {
+            "char": "龍",
+            "cp": "U+9F8D",
+            "ink_ratio": 0.4423
+          },
+          {
+            "char": "鬱",
+            "cp": "U+9B31",
+            "ink_ratio": 0.359
+          },
+          {
+            "char": "撃",
+            "cp": "U+6483",
+            "ink_ratio": 0.4423
+          },
+          {
+            "char": "戰",
+            "cp": "U+6230",
+            "ink_ratio": 0.3462
+          },
+          {
+            "char": "鑑",
+            "cp": "U+9451",
+            "ink_ratio": 0.4038
+          }
+        ],
+        "doc_reference_16px": 0.29,
+        "doc_reference_16px_matches": false,
+        "doc_reference_check": {
+          "doc_16px_dense": 0.29,
+          "doc_16px_dense_measured": 0.356,
+          "doc_16px_dense_reproduces": false,
+          "doc_16px_bold": 0.76,
+          "doc_16px_bold_measured": 0.7604,
+          "doc_16px_bold_reproduces": true,
+          "doc_limit": 0.6,
+          "measured_12px_bold": 0.812,
+          "doc_12px_higher_than_16px_holds": true,
+          "calibers": {
+            "simhei_16px": {
+              "font": "SimHei/Regular",
+              "px": 16,
+              "cell": "16x17",
+              "ascent_descent": "14/3",
+              "cell_ratio": 0.356,
+              "square_ratio": 0.3783,
+              "bbox_ratio": 0.4723
+            },
+            "simhei_12px": {
+              "font": "SimHei/Regular",
+              "px": 12,
+              "cell": "12x13",
+              "ascent_descent": "11/2",
+              "cell_ratio": 0.3921,
+              "square_ratio": 0.4248,
+              "bbox_ratio": 0.5258
+            },
+            "simsun_16px": {
+              "font": "SimSun/Regular",
+              "px": 16,
+              "cell": "16x17",
+              "ascent_descent": "14/3",
+              "cell_ratio": 0.3542,
+              "square_ratio": 0.3763,
+              "bbox_ratio": 0.4061
+            },
+            "any_caliber_reaches_29pct": false
+          }
+        },
+        "limit": 0.6,
+        "limit_source": "tools/fontgen/bitfont.py:270-273"
+      },
+      "verdict": "PASS"
+    },
+    "D_artifact_crosscheck": {
+      "bdf": {
+        "startchar": 4140,
+        "endchar": 4141,
+        "paired": false,
+        "broken_blocks": [
+          {
+            "name": "STARTCHAR uni0020",
+            "enc": "32",
+            "endchar": 2
+          }
+        ],
+        "broken_count": 1
+      },
+      "atlas": {
+        "checked": 1900,
+        "read_failures": 0,
+        "mismatched_glyphs": 0
+      },
+      "dist_present": true
+    }
+  },
+  "anomalies": [
+    {
+      "id": "B_DIFF_TOP",
+      "severity": "info",
+      "detail": "'冕' U+5195 单色点阵 vs 源字体灰度阈值化差 62 px (最佳平移 [1, 0] 后 16 px; 最近邻='冕' U+5195) —— 抗锯齿/栅格化固有差异 (预期行为)",
+      "chars": [
+        "冕"
+      ],
+      "codes": [
+        "U+5195"
+      ],
+      "evidence": {
+        "char": "冕",
+        "cp": "U+5195",
+        "diff_px": 62,
+        "diff_px_best_aligned": 16,
+        "best_shift": [
+          1,
+          0
+        ],
+        "row_multiset_dist": 10,
+        "col_multiset_dist": 31,
+        "mono_ink": 58,
+        "gray_ink": 44,
+        "gray_perimeter": 43,
+        "mono_covered_ratio": 1.0,
+        "mono_covered": 58,
+        "mono_ink_total": 58,
+        "gray_ink_uncovered": 0,
+        "nearest_char": "冕",
+        "nearest_char_cp": "U+5195",
+        "nearest_dist_aligned": 16,
+        "runner_up_char": "皇",
+        "runner_up_dist_aligned": 25,
+        "true_char_dist_aligned": 16,
+        "runner_mono_hamming": null,
+        "identity_ok": true,
+        "identity_strict": true,
+        "identity_near_tie": false,
+        "verdict": "抗锯齿/栅格化固有差异 (预期行为)"
+      },
+      "ascii_art": "............   ............\n..########..   ............\n..######.#..   ..#....#.#..\n..######.#..   ..#.####.#..\n...#........   ..#.####.#..\n..#.####....   ...#........\n.#########..   ..#....#....\n..#..#...#..   .#########..\n..#######...   ..#..##..#..\n...##.#...#.   ..#.###.....\n.##...#####.   ...##.#.....\n............   .##....####.\n............   ............",
+      "classification": "预期行为 (栅格化固有差异)",
+      "suggested_fix": "无需修改: MONO 栅格化与灰度渲染的取整/覆盖阈值差异, 由 FreeType hinting 决定"
+    },
+    {
+      "id": "B_DIFF_TOP",
+      "severity": "info",
+      "detail": "'颈' U+9888 单色点阵 vs 源字体灰度阈值化差 58 px (最佳平移 [1, 0] 后 4 px; 最近邻='颈' U+9888) —— 抗锯齿/栅格化固有差异 (预期行为)",
+      "chars": [
+        "颈"
+      ],
+      "codes": [
+        "U+9888"
+      ],
+      "evidence": {
+        "char": "颈",
+        "cp": "U+9888",
+        "diff_px": 58,
+        "diff_px_best_aligned": 4,
+        "best_shift": [
+          1,
+          0
+        ],
+        "row_multiset_dist": 4,
+        "col_multiset_dist": 40,
+        "mono_ink": 51,
+        "gray_ink": 49,
+        "gray_perimeter": 49,
+        "mono_covered_ratio": 1.0,
+        "mono_covered": 51,
+        "mono_ink_total": 51,
+        "gray_ink_uncovered": 0,
+        "nearest_char": "颈",
+        "nearest_char_cp": "U+9888",
+        "nearest_dist_aligned": 4,
+        "runner_up_char": "颅",
+        "runner_up_dist_aligned": 15,
+        "true_char_dist_aligned": 4,
+        "runner_mono_hamming": null,
+        "identity_ok": true,
+        "identity_strict": true,
+        "identity_near_tie": false,
+        "verdict": "抗锯齿/栅格化固有差异 (预期行为)"
+      },
+      "ascii_art": "............   ............\n.##########.   ............\n...#...#....   .####.#####.\n..###.#####.   ...#...#....\n.##.#.#...#.   ..###.#####.\n......#.#.#.   .#..###...#.\n.####.#.#.#.   ......#.#.#.\n...#..#.#.#.   ..###.#.#.#.\n...#...#....   ...#..#.#.#.\n.####.##.##.   ...#...#....\n.....#....#.   .####.##.##.\n............   .....#....#.\n............   ............",
+      "classification": "预期行为 (栅格化固有差异)",
+      "suggested_fix": "无需修改: MONO 栅格化与灰度渲染的取整/覆盖阈值差异, 由 FreeType hinting 决定"
+    },
+    {
+      "id": "B_DIFF_TOP",
+      "severity": "info",
+      "detail": "'眉' U+7709 单色点阵 vs 源字体灰度阈值化差 58 px (最佳平移 [1, 0] 后 16 px; 最近邻='眉' U+7709) —— 抗锯齿/栅格化固有差异 (预期行为)",
+      "chars": [
+        "眉"
+      ],
+      "codes": [
+        "U+7709"
+      ],
+      "evidence": {
+        "char": "眉",
+        "cp": "U+7709",
+        "diff_px": 58,
+        "diff_px_best_aligned": 16,
+        "best_shift": [
+          1,
+          0
+        ],
+        "row_multiset_dist": 3,
+        "col_multiset_dist": 31,
+        "mono_ink": 61,
+        "gray_ink": 47,
+        "gray_perimeter": 47,
+        "mono_covered_ratio": 1.0,
+        "mono_covered": 61,
+        "mono_ink_total": 61,
+        "gray_ink_uncovered": 0,
+        "nearest_char": "眉",
+        "nearest_char_cp": "U+7709",
+        "nearest_dist_aligned": 16,
+        "runner_up_char": "盾",
+        "runner_up_dist_aligned": 22,
+        "true_char_dist_aligned": 16,
+        "runner_mono_hamming": null,
+        "identity_ok": true,
+        "identity_strict": true,
+        "identity_near_tie": false,
+        "verdict": "抗锯齿/栅格化固有差异 (预期行为)"
+      },
+      "ascii_art": "............   ............\n..#########.   ............\n..#...#...#.   ..#...#...#.\n..#########.   ..#...#...#.\n..#.........   ..#########.\n..#.#######.   ..#.........\n..#.#######.   ..#.#....##.\n..#.#.....#.   ..#.#######.\n.##.#######.   ..#.#.....#.\n.#..#.....#.   .#..#######.\n.#..#######.   .#..#....##.\n............   .#..#....##.\n............   ............",
+      "classification": "预期行为 (栅格化固有差异)",
+      "suggested_fix": "无需修改: MONO 栅格化与灰度渲染的取整/覆盖阈值差异, 由 FreeType hinting 决定"
+    },
+    {
+      "id": "B_DIFF_TOP",
+      "severity": "info",
+      "detail": "'量' U+91CF 单色点阵 vs 源字体灰度阈值化差 55 px (最佳平移 [1, 0] 后 23 px; 最近邻='董' U+8463) —— 近形字并列 (12px 分辨率极限), 非路由错误",
+      "chars": [
+        "量"
+      ],
+      "codes": [
+        "U+91CF"
+      ],
+      "evidence": {
+        "char": "量",
+        "cp": "U+91CF",
+        "diff_px": 55,
+        "diff_px_best_aligned": 23,
+        "best_shift": [
+          1,
+          0
+        ],
+        "row_multiset_dist": 12,
+        "col_multiset_dist": 40,
+        "mono_ink": 77,
+        "gray_ink": 60,
+        "gray_perimeter": 44,
+        "mono_covered_ratio": 1.0,
+        "mono_covered": 77,
+        "mono_ink_total": 77,
+        "gray_ink_uncovered": 0,
+        "nearest_char": "董",
+        "nearest_char_cp": "U+8463",
+        "nearest_dist_aligned": 22,
+        "runner_up_char": "警",
+        "runner_up_dist_aligned": 23,
+        "true_char_dist_aligned": 23,
+        "runner_mono_hamming": 36,
+        "identity_ok": true,
+        "identity_strict": false,
+        "identity_near_tie": true,
+        "verdict": "近形字并列 (12px 分辨率极限), 非路由错误"
+      },
+      "ascii_art": "............   ............\n..########..   ............\n..########..   ..##....##..\n..########..   ..##....##..\n.##########.   ...######...\n..########..   .##########.\n..########..   ..########..\n..#..#...#..   ..########..\n...######...   ..##.##.##..\n..########..   .....##.....\n.##########.   .....##.....\n............   .##########.\n............   ............",
+      "classification": "预期行为 (栅格化固有差异)",
+      "suggested_fix": "无需修改: MONO 栅格化与灰度渲染的取整/覆盖阈值差异, 由 FreeType hinting 决定"
+    },
+    {
+      "id": "B_DIFF_TOP",
+      "severity": "info",
+      "detail": "'顾' U+987E 单色点阵 vs 源字体灰度阈值化差 48 px (最佳平移 [1, 0] 后 8 px; 最近邻='顾' U+987E) —— 抗锯齿/栅格化固有差异 (预期行为)",
+      "chars": [
+        "顾"
+      ],
+      "codes": [
+        "U+987E"
+      ],
+      "evidence": {
+        "char": "顾",
+        "cp": "U+987E",
+        "diff_px": 48,
+        "diff_px_best_aligned": 8,
+        "best_shift": [
+          1,
+          0
+        ],
+        "row_multiset_dist": 7,
+        "col_multiset_dist": 24,
+        "mono_ink": 53,
+        "gray_ink": 47,
+        "gray_perimeter": 47,
+        "mono_covered_ratio": 1.0,
+        "mono_covered": 53,
+        "mono_ink_total": 53,
+        "gray_ink_uncovered": 0,
+        "nearest_char": "顾",
+        "nearest_char_cp": "U+987E",
+        "nearest_dist_aligned": 8,
+        "runner_up_char": "颅",
+        "runner_up_dist_aligned": 19,
+        "true_char_dist_aligned": 8,
+        "runner_mono_hamming": null,
+        "identity_ok": true,
+        "identity_strict": true,
+        "identity_near_tie": false,
+        "verdict": "抗锯齿/栅格化固有差异 (预期行为)"
+      },
+      "ascii_art": "............   ............\n.####.#####.   ............\n.#.....#....   .####.#####.\n.#.##.#####.   .#..........\n.#.##.#...#.   .#.########.\n.#.##.#.#.#.   .#.#..#...#.\n.#.##.#.#.#.   .#.#..#.#.#.\n.#.#..#.#.#.   .#.##.#.#.#.\n.#.##..#..#.   .#.#..#.#.#.\n#..#...#.#..   .#.##.......\n.....##...#.   ...#...#.#..\n............   ......#...#.\n............   ............",
+      "classification": "预期行为 (栅格化固有差异)",
+      "suggested_fix": "无需修改: MONO 栅格化与灰度渲染的取整/覆盖阈值差异, 由 FreeType hinting 决定"
+    },
+    {
+      "id": "B_DIFF_TOP",
+      "severity": "info",
+      "detail": "'局' U+5C40 单色点阵 vs 源字体灰度阈值化差 46 px (最佳平移 [1, 0] 后 6 px; 最近邻='局' U+5C40) —— 抗锯齿/栅格化固有差异 (预期行为)",
+      "chars": [
+        "局"
+      ],
+      "codes": [
+        "U+5C40"
+      ],
+      "evidence": {
+        "char": "局",
+        "cp": "U+5C40",
+        "diff_px": 46,
+        "diff_px_best_aligned": 6,
+        "best_shift": [
+          1,
+          0
+        ],
+        "row_multiset_dist": 0,
+        "col_multiset_dist": 27,
+        "mono_ink": 51,
+        "gray_ink": 45,
+        "gray_perimeter": 45,
+        "mono_covered_ratio": 1.0,
+        "mono_covered": 51,
+        "mono_ink_total": 51,
+        "gray_ink_uncovered": 0,
+        "nearest_char": "局",
+        "nearest_char_cp": "U+5C40",
+        "nearest_dist_aligned": 6,
+        "runner_up_char": "届",
+        "runner_up_dist_aligned": 17,
+        "true_char_dist_aligned": 6,
+        "runner_mono_hamming": null,
+        "identity_ok": true,
+        "identity_strict": true,
+        "identity_near_tie": false,
+        "verdict": "抗锯齿/栅格化固有差异 (预期行为)"
+      },
+      "ascii_art": "............   ............\n..########..   ............\n..#......#..   ..#......#..\n..########..   ..#......#..\n..#.........   ..########..\n..#########.   ..#.........\n..#.####..#.   ..#########.\n..#.#..#..#.   ..#.####..#.\n..#.#..#..#.   ..#.#..#..#.\n.#..####..#.   ..#.#..#..#.\n.#.......##.   .#..####..#.\n............   .#.......##.\n............   ............",
+      "classification": "预期行为 (栅格化固有差异)",
+      "suggested_fix": "无需修改: MONO 栅格化与灰度渲染的取整/覆盖阈值差异, 由 FreeType hinting 决定"
+    },
+    {
+      "id": "B_DIFF_TOP",
+      "severity": "info",
+      "detail": "'珐' U+73D0 单色点阵 vs 源字体灰度阈值化差 45 px (最佳平移 [1, 0] 后 9 px; 最近邻='珐' U+73D0) —— 抗锯齿/栅格化固有差异 (预期行为)",
+      "chars": [
+        "珐"
+      ],
+      "codes": [
+        "U+73D0"
+      ],
+      "evidence": {
+        "char": "珐",
+        "cp": "U+73D0",
+        "diff_px": 45,
+        "diff_px_best_aligned": 9,
+        "best_shift": [
+          1,
+          0
+        ],
+        "row_multiset_dist": 5,
+        "col_multiset_dist": 23,
+        "mono_ink": 41,
+        "gray_ink": 34,
+        "gray_perimeter": 31,
+        "mono_covered_ratio": 1.0,
+        "mono_covered": 41,
+        "mono_ink_total": 41,
+        "gray_ink_uncovered": 0,
+        "nearest_char": "珐",
+        "nearest_char_cp": "U+73D0",
+        "nearest_dist_aligned": 9,
+        "runner_up_char": "话",
+        "runner_up_dist_aligned": 23,
+        "true_char_dist_aligned": 9,
+        "runner_mono_hamming": null,
+        "identity_ok": true,
+        "identity_strict": true,
+        "identity_near_tie": false,
+        "verdict": "抗锯齿/栅格化固有差异 (预期行为)"
+      },
+      "ascii_art": "............   ............\n.......#....   ............\n.###.######.   .......#....\n..#....#....   ..#...#####.\n..#....#....   ..#....#....\n.###.######.   ..#....#....\n..#....#....   .###.######.\n..#...#.....   ..#....#....\n..###.#..#..   ..#...#.....\n.#...#....#.   ..##..#..#..\n.....######.   .#...#...##.\n............   .....#....#.\n............   ............",
+      "classification": "预期行为 (栅格化固有差异)",
+      "suggested_fix": "无需修改: MONO 栅格化与灰度渲染的取整/覆盖阈值差异, 由 FreeType hinting 决定"
+    },
+    {
+      "id": "B_DIFF_TOP",
+      "severity": "info",
+      "detail": "'啊' U+554A 单色点阵 vs 源字体灰度阈值化差 34 px (最佳平移 [1, 0] 后 10 px; 最近邻='啊' U+554A) —— 抗锯齿/栅格化固有差异 (预期行为)",
+      "chars": [
+        "啊"
+      ],
+      "codes": [
+        "U+554A"
+      ],
+      "evidence": {
+        "char": "啊",
+        "cp": "U+554A",
+        "diff_px": 34,
+        "diff_px_best_aligned": 10,
+        "best_shift": [
+          1,
+          0
+        ],
+        "row_multiset_dist": 8,
+        "col_multiset_dist": 21,
+        "mono_ink": 61,
+        "gray_ink": 51,
+        "gray_perimeter": 51,
+        "mono_covered_ratio": 1.0,
+        "mono_covered": 61,
+        "mono_ink_total": 61,
+        "gray_ink_uncovered": 0,
+        "nearest_char": "啊",
+        "nearest_char_cp": "U+554A",
+        "nearest_dist_aligned": 10,
+        "runner_up_char": "凋",
+        "runner_up_dist_aligned": 27,
+        "true_char_dist_aligned": 10,
+        "runner_mono_hamming": null,
+        "identity_ok": true,
+        "identity_strict": true,
+        "identity_near_tie": false,
+        "verdict": "抗锯齿/栅格化固有差异 (预期行为)"
+      },
+      "ascii_art": "............   ............\n.##.########   ............\n.##.##....#.   .##.#######.\n.##.##.##.#.   .##.##....#.\n.##.##.##.#.   .#..##.##.#.\n.##.##.##.#.   .#..##.#..#.\n.##.##.##.#.   .#..##.#..#.\n.##.#.###.#.   .#..#..#..#.\n.##.##....#.   .##.#.###.#.\n.#..#.....#.   .##.##....#.\n....#....##.   ....#.....#.\n............   ....#....##.\n............   ............",
+      "classification": "预期行为 (栅格化固有差异)",
+      "suggested_fix": "无需修改: MONO 栅格化与灰度渲染的取整/覆盖阈值差异, 由 FreeType hinting 决定"
+    },
+    {
+      "id": "B_DIFF_TOP",
+      "severity": "info",
+      "detail": "'即' U+5373 单色点阵 vs 源字体灰度阈值化差 34 px (最佳平移 [1, 0] 后 6 px; 最近邻='即' U+5373) —— 抗锯齿/栅格化固有差异 (预期行为)",
+      "chars": [
+        "即"
+      ],
+      "codes": [
+        "U+5373"
+      ],
+      "evidence": {
+        "char": "即",
+        "cp": "U+5373",
+        "diff_px": 34,
+        "diff_px_best_aligned": 6,
+        "best_shift": [
+          1,
+          0
+        ],
+        "row_multiset_dist": 4,
+        "col_multiset_dist": 20,
+        "mono_ink": 51,
+        "gray_ink": 47,
+        "gray_perimeter": 47,
+        "mono_covered_ratio": 1.0,
+        "mono_covered": 51,
+        "mono_ink_total": 51,
+        "gray_ink_uncovered": 0,
+        "nearest_char": "即",
+        "nearest_char_cp": "U+5373",
+        "nearest_dist_aligned": 6,
+        "runner_up_char": "卯",
+        "runner_up_dist_aligned": 18,
+        "true_char_dist_aligned": 6,
+        "runner_mono_hamming": null,
+        "identity_ok": true,
+        "identity_strict": true,
+        "identity_near_tie": false,
+        "verdict": "抗锯齿/栅格化固有差异 (预期行为)"
+      },
+      "ascii_art": "............   ............\n.#####.####.   ............\n.#...#.#..#.   .#####.####.\n.#####.#..#.   .#...#.#..#.\n.#...#.#..#.   .#####.#..#.\n.#...#.#..#.   .#...#.#..#.\n.####..#..#.   .##..#.#..#.\n.#..#..#..#.   .#.....#..#.\n.#..##.#.##.   .#..#..#..#.\n.###.#.#....   .#..##.#.##.\n.#.....#....   .##..#.#....\n............   .......#....\n............   ............",
+      "classification": "预期行为 (栅格化固有差异)",
+      "suggested_fix": "无需修改: MONO 栅格化与灰度渲染的取整/覆盖阈值差异, 由 FreeType hinting 决定"
+    },
+    {
+      "id": "B_DIFF_TOP",
+      "severity": "info",
+      "detail": "'辈' U+8F88 单色点阵 vs 源字体灰度阈值化差 18 px (最佳平移 [0, 0] 后 18 px; 最近邻='辈' U+8F88) —— 抗锯齿/栅格化固有差异 (预期行为)",
+      "chars": [
+        "辈"
+      ],
+      "codes": [
+        "U+8F88"
+      ],
+      "evidence": {
+        "char": "辈",
+        "cp": "U+8F88",
+        "diff_px": 18,
+        "diff_px_best_aligned": 18,
+        "best_shift": [
+          0,
+          0
+        ],
+        "row_multiset_dist": 9,
+        "col_multiset_dist": 12,
+        "mono_ink": 59,
+        "gray_ink": 45,
+        "gray_perimeter": 45,
+        "mono_covered_ratio": 1.0,
+        "mono_covered": 59,
+        "mono_ink_total": 59,
+        "gray_ink_uncovered": 0,
+        "nearest_char": "辈",
+        "nearest_char_cp": "U+8F88",
+        "nearest_dist_aligned": 18,
+        "runner_up_char": "韭",
+        "runner_up_dist_aligned": 26,
+        "true_char_dist_aligned": 18,
+        "runner_mono_hamming": null,
+        "identity_ok": true,
+        "identity_strict": true,
+        "identity_near_tie": false,
+        "verdict": "抗锯齿/栅格化固有差异 (预期行为)"
+      },
+      "ascii_art": "............   ............\n....#..#....   ............\n.####..####.   .####..####.\n.####..####.   ..###..###..\n....#..#....   ....#..#....\n.####..####.   .####..####.\n....#.......   ....##......\n..########..   ...##.#.....\n..##.#......   ..##.##.....\n...######...   .....##.....\n############   .##########.\n.....#......   ............\n............   ............",
+      "classification": "预期行为 (栅格化固有差异)",
+      "suggested_fix": "无需修改: MONO 栅格化与灰度渲染的取整/覆盖阈值差异, 由 FreeType hinting 决定"
+    },
+    {
+      "id": "B_IDENTITY_NEAR_TIE",
+      "severity": "info",
+      "detail": "'量' U+91CF 的最近邻是 '董' U+8463 (22 px) 而非自身 (23 px), 差距 1 px 落在栅格化噪声带 (2-23 px) 内; 且两字的**生成点图**相差 36 px (> 2), 不是同一张图 —— 12px 分辨率下近形字不可区分, 非路由错误",
+      "chars": [
+        "量",
+        "董"
+      ],
+      "codes": [
+        "U+91CF",
+        "U+8463"
+      ],
+      "evidence": {
+        "char": "量",
+        "cp": "U+91CF",
+        "diff_px": 55,
+        "diff_px_best_aligned": 23,
+        "best_shift": [
+          1,
+          0
+        ],
+        "row_multiset_dist": 12,
+        "col_multiset_dist": 40,
+        "mono_ink": 77,
+        "gray_ink": 60,
+        "gray_perimeter": 44,
+        "mono_covered_ratio": 1.0,
+        "mono_covered": 77,
+        "mono_ink_total": 77,
+        "gray_ink_uncovered": 0,
+        "nearest_char": "董",
+        "nearest_char_cp": "U+8463",
+        "nearest_dist_aligned": 22,
+        "runner_up_char": "警",
+        "runner_up_dist_aligned": 23,
+        "true_char_dist_aligned": 23,
+        "runner_mono_hamming": 36,
+        "identity_ok": true,
+        "identity_strict": false,
+        "identity_near_tie": true
+      },
+      "ascii_art": "............   ............\n..########..   ............\n..########..   ..##....##..\n..########..   ..##....##..\n.##########.   ...######...\n..########..   .##########.\n..########..   ..########..\n..#..#...#..   ..########..\n...######...   ..##.##.##..\n..########..   .....##.....\n.##########.   .....##.....\n............   .##########.\n............   ............",
+      "classification": "预期行为 (12px 分辨率极限)",
+      "suggested_fix": "无需修改; A 检查 (批内位图两两唯一, 无汉明≤2 对) 已排除路由错误"
+    },
+    {
+      "id": "B_IDENTITY_NEAR_TIE",
+      "severity": "info",
+      "detail": "'桂' U+6842 的最近邻是 '挂' U+6302 (7 px) 而非自身 (10 px), 差距 3 px 落在栅格化噪声带 (2-23 px) 内; 且两字的**生成点图**相差 10 px (> 2), 不是同一张图 —— 12px 分辨率下近形字不可区分, 非路由错误",
+      "chars": [
+        "桂",
+        "挂"
+      ],
+      "codes": [
+        "U+6842",
+        "U+6302"
+      ],
+      "evidence": {
+        "char": "桂",
+        "cp": "U+6842",
+        "diff_px": 10,
+        "diff_px_best_aligned": 10,
+        "best_shift": [
+          0,
+          0
+        ],
+        "row_multiset_dist": 6,
+        "col_multiset_dist": 10,
+        "mono_ink": 47,
+        "gray_ink": 41,
+        "gray_perimeter": 38,
+        "mono_covered_ratio": 1.0,
+        "mono_covered": 47,
+        "mono_ink_total": 47,
+        "gray_ink_uncovered": 0,
+        "nearest_char": "挂",
+        "nearest_char_cp": "U+6302",
+        "nearest_dist_aligned": 7,
+        "runner_up_char": "桂",
+        "runner_up_dist_aligned": 10,
+        "true_char_dist_aligned": 10,
+        "runner_mono_hamming": 10,
+        "identity_ok": true,
+        "identity_strict": false,
+        "identity_near_tie": true
+      },
+      "ascii_art": "............   ............\n..#....#....   .......#....\n..#....#....   ..#....#....\n..#..######.   ..#..#####..\n.####..#....   .###...#....\n..#..######.   ..#..######.\n..##........   ..###.......\n.##.#..#....   .##.#..#....\n.##..######.   .##..######.\n..#....#....   ..#....#....\n..#....#....   ..#....##...\n..#..##.###.   ..#.........\n............   ............",
+      "classification": "预期行为 (12px 分辨率极限)",
+      "suggested_fix": "无需修改; A 检查 (批内位图两两唯一, 无汉明≤2 对) 已排除路由错误"
+    },
+    {
+      "id": "B_VERTICAL_OFFSET",
+      "severity": "info",
+      "detail": "9/52 个抽样字的单色点阵与源字体灰度渲染存在 1 行整体错位 (最佳平移 dy=1) —— 1-bit MONO 栅格化把横笔吸附到像素网格, 与灰度渲染的亚像素位置差半像素即翻到相邻行",
+      "chars": [
+        "冕",
+        "颈",
+        "眉",
+        "量",
+        "顾",
+        "局",
+        "珐",
+        "啊",
+        "即"
+      ],
+      "codes": [
+        "U+5195",
+        "U+9888",
+        "U+7709",
+        "U+91CF",
+        "U+987E",
+        "U+5C40",
+        "U+73D0",
+        "U+554A",
+        "U+5373"
+      ],
+      "evidence": {
+        "count": 9,
+        "total": 52,
+        "chars": [
+          {
+            "char": "冕",
+            "cp": "U+5195",
+            "diff_px": 62,
+            "diff_px_best_aligned": 16,
+            "best_shift": [
+              1,
+              0
+            ]
+          },
+          {
+            "char": "颈",
+            "cp": "U+9888",
+            "diff_px": 58,
+            "diff_px_best_aligned": 4,
+            "best_shift": [
+              1,
+              0
+            ]
+          },
+          {
+            "char": "眉",
+            "cp": "U+7709",
+            "diff_px": 58,
+            "diff_px_best_aligned": 16,
+            "best_shift": [
+              1,
+              0
+            ]
+          },
+          {
+            "char": "量",
+            "cp": "U+91CF",
+            "diff_px": 55,
+            "diff_px_best_aligned": 23,
+            "best_shift": [
+              1,
+              0
+            ]
+          },
+          {
+            "char": "顾",
+            "cp": "U+987E",
+            "diff_px": 48,
+            "diff_px_best_aligned": 8,
+            "best_shift": [
+              1,
+              0
+            ]
+          },
+          {
+            "char": "局",
+            "cp": "U+5C40",
+            "diff_px": 46,
+            "diff_px_best_aligned": 6,
+            "best_shift": [
+              1,
+              0
+            ]
+          },
+          {
+            "char": "珐",
+            "cp": "U+73D0",
+            "diff_px": 45,
+            "diff_px_best_aligned": 9,
+            "best_shift": [
+              1,
+              0
+            ]
+          },
+          {
+            "char": "啊",
+            "cp": "U+554A",
+            "diff_px": 34,
+            "diff_px_best_aligned": 10,
+            "best_shift": [
+              1,
+              0
+            ]
+          },
+          {
+            "char": "即",
+            "cp": "U+5373",
+            "diff_px": 34,
+            "diff_px_best_aligned": 6,
+            "best_shift": [
+              1,
+              0
+            ]
+          }
+        ]
+      },
+      "ascii_art": "",
+      "classification": "预期行为 (FreeType MONO hinting 的固有结果)",
+      "suggested_fix": "无需修改: 项目刻意选 MONO 目标以复刻 GDI 单色文字 (tools/fontgen/bitfont.py:7-10); 若改为按源字形 bbox 做垂直对齐, 会破坏“纯整数网格”原则 (bitfont.py:24-37), 且 1-bit 12px 本就存在 ±1 行的精度上限"
+    },
+    {
+      "id": "C_DOC_REFERENCE_MISMATCH",
+      "severity": "warn",
+      "detail": "**代码原话** (tools/fontgen/bitfont.py:272, measure_density 文档): “实测 SimHei 16px 为 29%, 一旦做 1px 膨胀就到 76%”。**本次实测** (工程自己的 bitfont.measure_density, ink/(cell_w x cell_h)): 16px = 35.6% —— 与注释差 +6.6% (实测是注释的 1.23 倍), **该数字不可复现**。16px 换口径实测: cell 口径 35.6% (cell=16x17, ascent/descent=14/3), 16x16 正方形口径 37.8%, 墨迹包围盒口径 47.2%; 换字体实测: SimSun 16px cell 口径 35.4% (cell=16x17) —— 三种口径都到不了 29%, 所以不是单纯的口径差异, 更可能是早期未校准的估算值/旧版本数值 (过期注释)。同段另两个数: “1px 膨胀就到 76%” 可复现 (实测 76.0%); “12px 更高” 成立 (12px = 39.2%); “60% 以上基本等于不可用” 方向成立 (12px + 1px 膨胀 = 81.2%)",
+      "chars": [
+        "語",
+        "龍",
+        "鬱",
+        "撃",
+        "戰",
+        "鑑"
+      ],
+      "codes": [
+        "U+8A9E",
+        "U+9F8D",
+        "U+9B31",
+        "U+6483",
+        "U+6230",
+        "U+9451"
+      ],
+      "evidence": {
+        "doc_16px_dense": 0.29,
+        "doc_16px_dense_measured": 0.356,
+        "doc_16px_dense_reproduces": false,
+        "doc_16px_bold": 0.76,
+        "doc_16px_bold_measured": 0.7604,
+        "doc_16px_bold_reproduces": true,
+        "doc_limit": 0.6,
+        "measured_12px_bold": 0.812,
+        "doc_12px_higher_than_16px_holds": true,
+        "calibers": {
+          "simhei_16px": {
+            "font": "SimHei/Regular",
+            "px": 16,
+            "cell": "16x17",
+            "ascent_descent": "14/3",
+            "cell_ratio": 0.356,
+            "square_ratio": 0.3783,
+            "bbox_ratio": 0.4723
+          },
+          "simhei_12px": {
+            "font": "SimHei/Regular",
+            "px": 12,
+            "cell": "12x13",
+            "ascent_descent": "11/2",
+            "cell_ratio": 0.3921,
+            "square_ratio": 0.4248,
+            "bbox_ratio": 0.5258
+          },
+          "simsun_16px": {
+            "font": "SimSun/Regular",
+            "px": 16,
+            "cell": "16x17",
+            "ascent_descent": "14/3",
+            "cell_ratio": 0.3542,
+            "square_ratio": 0.3763,
+            "bbox_ratio": 0.4061
+          },
+          "any_caliber_reaches_29pct": false
+        }
+      },
+      "ascii_art": "",
+      "classification": "文档与实测不符 (过期注释, 非运行时缺陷)",
+      "suggested_fix": "tools/fontgen/bitfont.py:272 —— 把 “29%” 改成实测口径值 35.6% (cell 口径, 与 measure_density 一致) 并写明口径, 或按 16x16 口径写 37.8%; 同段的 76% 与 60% 阈值保持不动。本 lane 不改源码, 交由集成者统一修正注释"
+    },
+    {
+      "id": "D_BDF_STRUCTURE",
+      "severity": "error",
+      "detail": "BDF STARTCHAR 4140 个但 ENDCHAR 4141 个 —— 字符块结构不配对; 首个异常块 STARTCHAR uni0020 ENCODING 32 有 2 个 ENDCHAR",
+      "chars": [],
+      "codes": [],
+      "evidence": {
+        "startchar": 4140,
+        "endchar": 4141,
+        "broken": [
+          {
+            "name": "STARTCHAR uni0020",
+            "enc": "32",
+            "endchar": 2
+          }
+        ]
+      },
+      "ascii_art": "",
+      "classification": "真缺陷 (成品格式非法)",
+      "suggested_fix": "tools/fontgen/build_font.py:133 —— 零墨迹字形分支写了两个 ENDCHAR, 应改为 lines += [\"BITMAP\", \"ENDCHAR\"] (只留一个 ENDCHAR)"
+    }
+  ],
+  "summary": {
+    "errors": 1,
+    "warnings": 1,
+    "infos": 13,
+    "verdict": "FAIL",
+    "check_verdicts": {
+      "A_uniqueness": "PASS",
+      "B_source_fidelity": "PASS",
+      "C_ink_distribution": "PASS"
+    }
+  },
+  "content_sha256": "1bbd44982b3f4c4780d4f3d04bbc97d6798d557c5b79aab1e212ea89660a3ff4"
+}
