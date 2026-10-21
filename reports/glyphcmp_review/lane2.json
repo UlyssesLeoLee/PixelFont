@@ -1,0 +1,63 @@
+{
+  "lane": 2,
+  "sheets": [
+    "glyphcmp_006.png",
+    "glyphcmp_007.png",
+    "glyphcmp_008.png",
+    "glyphcmp_009.png",
+    "glyphcmp_010.png",
+    "glyphcmp_011.png"
+  ],
+  "chars_reviewed": 576,
+  "findings": [
+    {
+      "cp": "U+77D7",
+      "char": "矗",
+      "kind": "DEGRADED",
+      "reason": "「直×3」中上两个「直」糊成实心横带、第三个「直」的「目」框只剩竖笔，Fusion 与 Unifont 都能分出三个「直」的封闭框。",
+      "confidence": "medium"
+    },
+    {
+      "cp": "U+8822",
+      "char": "蠢",
+      "kind": "DEGRADED",
+      "reason": "上半「春」8 行几乎全是满行横带（墨量 86/110≈78%），两个「虫」的框全部丢失，Fusion 仍可辨「三/日/虫」、Unifont 更清晰。",
+      "confidence": "medium"
+    },
+    {
+      "cp": "U+53E0",
+      "char": "叠",
+      "kind": "DEGRADED",
+      "reason": "下部「且」被填实成实心块、上部三个「又」糊成横带（封闭框 3 vs 两个参考各 6），两个参考都能分出「且」的框与「冖」。",
+      "confidence": "medium"
+    }
+  ],
+  "unsure": [
+    {
+      "cp": "U+6A0A",
+      "char": "樊",
+      "kind": "DEGRADED",
+      "reason": "上部「林+爻」退化为对称网格（我方封闭框 0 个，Fusion 8 个），仅下部「大」可辨；两参考本身也不清晰，不足以判定我方明显劣于参考。",
+      "confidence": "low"
+    },
+    {
+      "cp": "U+7BE1",
+      "char": "篡",
+      "kind": "DEGRADED",
+      "reason": "中部「算」内部竖笔粘连成实心行（封闭框 2 vs Fusion 5），但整体轮廓与 Fusion 仍同构，劣化幅度介于轻微差异与结构丢失之间。",
+      "confidence": "low"
+    },
+    {
+      "cp": "U+9910",
+      "char": "餐",
+      "kind": "DEGRADED",
+      "reason": "上部「歺+又」与 Fusion 同样糊成团、墨量相当，下部「食」尚可辨，判为可接受但因 12px 密集字仍存疑。",
+      "confidence": "low"
+    }
+  ],
+  "summary": {
+    "identity": 0,
+    "degraded": 3,
+    "chars_reviewed": 576
+  }
+}

@@ -20,7 +20,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from PIL import Image, ImageDraw  # noqa: E402
 
 from bitfont import BitmapFont, ScriptStack  # noqa: E402
-from charset import build_charset, build_stack, gate_full_coverage  # noqa: E402
+from charset import build_charset, build_stack, gate_full_coverage, gate_ideo_route  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 OUTDIR = ROOT / "dist"
@@ -598,6 +598,7 @@ def main() -> None:
     items = build_charset()
     stack = build_stack()
     gate_full_coverage(stack, items)
+    gate_ideo_route(stack, items)
     m = stack.metrics
     print(f"字符集 {len(items)} 字, 网格 {m.cell_w}x{m.cell_h}, 基线 {m.ascent}/{m.descent}")
 

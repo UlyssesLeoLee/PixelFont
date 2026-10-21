@@ -5,5 +5,12 @@ __pycache__/
 # 构建产物 (每次构建重新生成, 不入版本库)
 dist/
 
+# 第三方参考字体二进制 (来源与校验和见 docs/reference-fonts.md)
+third_party/
+
+# 字形对照图: 44 张 PNG, 由 tools/fontgen/gen_glyphcmp_sheets.py 一条命令重新生成
+# (约 4.3 MB 二进制产物; 复核结论本身在 reports/glyphcmp_review/ 里, 已入库)
+reports/glyphcmp_png/
+
 # 回归测试的临时工作目录
 .tmp/

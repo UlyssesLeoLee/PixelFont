@@ -14,11 +14,17 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+import numpy
 from PIL import Image, ImageFont
 
 # 单色渲染出的核心缓冲区里可能出现的值; 统一压成 0 / 255
 _ON = 255
 _OFF = 0
+
+
+def _as_bool(img: Image.Image) -> "numpy.ndarray":
+    """L 模式图 -> 布尔数组 (墨迹为 True)。"""
+    return numpy.array(img, dtype=bool)
 
 
 @dataclass
@@ -221,17 +227,26 @@ class ScriptStack:
 
     latin/kana  -> non_ideo 源 (MS Gothic 等)
     CJK 汉字     -> ideo 源   (SimHei / SimSun 等)
+    ideo 路由   -> non_ideo 源 (走 route 名单, 见 charset.ideo_route)
+
+    route 的存在理由: SimHei 是**平滑轮廓字体**, 12px 下密笔画汉字的部件横画会粘连,
+    把「日」「目」这类部件的字腔整个填死 —— 整字渲染成一块白块。
+    MS Gothic 的 12px 是**原生点阵位图**(80 年代手工点的), 字腔是活的。
+    所以对这类字改用 non_ideo 源的原生位图。名单与判据见 charset.ideo_route。
     """
 
-    def __init__(self, ideo: BitmapFont, non_ideo: BitmapFont):
+    def __init__(self, ideo: BitmapFont, non_ideo: BitmapFont, route: set[int] | None = None):
         self.ideo = ideo
         self.non_ideo = non_ideo
         self.metrics = ideo.metrics  # 网格以汉字源为准, 全角由 ideo 决定
         self.name = f"{ideo.name} + {non_ideo.name}"
         self.weight = ideo.weight
+        self.route = set(route or ())
 
     def _pick(self, ch: str) -> BitmapFont:
         cp = ord(ch)
+        if cp in self.route:
+            return self.non_ideo
         if cp < 0x2E80 or _is_kana(cp):
             # 拉丁 / 标点 / 假名 —— 优先用 PC-98 味更正的源
             return self.non_ideo
@@ -267,6 +282,43 @@ def to_ascii(img: Image.Image, ink: str = "#", paper: str = ".") -> str:
     for y in range(img.height):
         rows.append("".join(ink if px[x, y] > 0 else paper for x in range(img.width)))
     return "\n".join(rows)
+
+
+def count_holes(img: Image.Image) -> int:
+    """字腔数: 被墨迹完全包围的白区连通分量数 (4 邻域), 按墨迹外接矩形计。
+
+    为什么要单独量这个:
+        墨量是**面积**的函数, 包围盒一大就摊薄, 分辨不出"笔画粘连";
+        字腔是**拓扑**的 —— 腔还在就是还在, 填死了就是 0, 与面积无关。
+        12px 下 SimHei 把「日」这类部件的字腔填死, 就是靠这个指标发现的。
+    """
+    a = _as_bool(img)
+    ys, xs = numpy.nonzero(a)
+    if len(xs) == 0:
+        return 0
+    a = a[ys.min() : ys.max() + 1, xs.min() : xs.max() + 1]
+    h, w = a.shape
+    seen = numpy.zeros_like(a)
+    n = 0
+    for y0 in range(h):
+        for x0 in range(w):
+            if seen[y0, x0] or a[y0, x0]:
+                continue
+            stack = [(y0, x0)]
+            seen[y0, x0] = True
+            touch = False
+            while stack:
+                y, x = stack.pop()
+                if y == 0 or y == h - 1 or x == 0 or x == w - 1:
+                    touch = True
+                for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                    ny, nx = y + dy, x + dx
+                    if 0 <= ny < h and 0 <= nx < w and not seen[ny, nx] and not a[ny, nx]:
+                        seen[ny, nx] = True
+                        stack.append((ny, nx))
+            if not touch:
+                n += 1
+    return n
 
 
 # 密笔画基准字: 用它们测墨量, 因为稀疏字 (一/口) 无论怎么加粗都看不出问题

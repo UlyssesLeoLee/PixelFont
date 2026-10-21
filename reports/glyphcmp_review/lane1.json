@@ -1,0 +1,133 @@
+{
+  "lane": 1,
+  "sheets": [
+    "glyphcmp_000.png",
+    "glyphcmp_001.png",
+    "glyphcmp_002.png",
+    "glyphcmp_003.png",
+    "glyphcmp_004.png",
+    "glyphcmp_005.png"
+  ],
+  "chars_reviewed": 576,
+  "findings": [
+    {
+      "cp": "U+66B4",
+      "char": "暴",
+      "kind": "DEGRADED",
+      "reason": "上部「日」4 行整块实心、内部两横完全丢失，下部「共／氺」笔画粘连；Fusion 与 Unifont 都能清楚分出「日」内的两横与下部各笔。",
+      "confidence": "high"
+    },
+    {
+      "cp": "U+7206",
+      "char": "爆",
+      "kind": "DEGRADED",
+      "reason": "右侧「暴」的「日」部 3 行实心化、字腔消失；Fusion 的「日」保留 2 个清楚字腔，Unifont 同样分明。",
+      "confidence": "high"
+    },
+    {
+      "cp": "U+96F9",
+      "char": "雹",
+      "kind": "DEGRADED",
+      "reason": "「雨」头上 3 行几乎整行实心、4 个点画消失，下部「包」糊成整块仅剩一个小孔；Fusion 的雨字头与包结构清楚可分。",
+      "confidence": "high"
+    },
+    {
+      "cp": "U+9F3B",
+      "char": "鼻",
+      "kind": "DEGRADED",
+      "reason": "「自」与「田」全部塌成实心块，全字只剩 1 个字腔（Fusion／Unifont 各 6 个）；两个参考都清楚分出横画与田的四格。",
+      "confidence": "high"
+    },
+    {
+      "cp": "U+74E3",
+      "char": "瓣",
+      "kind": "DEGRADED",
+      "reason": "两侧「辛」与中间「瓜」的笔画互相粘连交错，部件边界丢失、整体呈密块；Fusion 与 Unifont 清楚分出辛＋瓜＋辛。",
+      "confidence": "medium"
+    }
+  ],
+  "unsure": [
+    {
+      "cp": "U+554A",
+      "char": "啊",
+      "kind": "DEGRADED",
+      "reason": "最左「口」塌成 2px 宽的实心竖条（字腔 1，参考各 4），但右部「阿」仍可辨，属局部塌陷。",
+      "confidence": "low"
+    },
+    {
+      "cp": "U+618B",
+      "char": "憋",
+      "kind": "DEGRADED",
+      "reason": "上部「敝」笔画并笔（字腔 1，参考各 3），下部「心」尚可辨。",
+      "confidence": "low"
+    },
+    {
+      "cp": "U+5965",
+      "char": "奥",
+      "kind": "DEGRADED",
+      "reason": "囗 内「米」的中横整行实心、4 个点画不可分（字腔 3 vs 8），但外框与下部「大」保留。",
+      "confidence": "low"
+    },
+    {
+      "cp": "U+9738",
+      "char": "霸",
+      "kind": "DEGRADED",
+      "reason": "「雨」头首行整行实心、点画消失，「革」部密实（字腔 3 vs 8），整体轮廓仍可辨。",
+      "confidence": "low"
+    },
+    {
+      "cp": "U+9CD6",
+      "char": "鳖",
+      "kind": "DEGRADED",
+      "reason": "下部「鱼」的「田」两行实心化（字腔 4 vs 7），上部「敝」尚存结构。",
+      "confidence": "low"
+    },
+    {
+      "cp": "U+84D6",
+      "char": "蓖",
+      "kind": "DEGRADED",
+      "reason": "上部「艹＋田」并成横带、田的四格不可分，下部「比」仍清楚。",
+      "confidence": "low"
+    },
+    {
+      "cp": "U+978D",
+      "char": "鞍",
+      "kind": "DEGRADED",
+      "reason": "「革」部并笔（字腔 2 vs 6），「安」部尚可辨。",
+      "confidence": "low"
+    },
+    {
+      "cp": "U+7FF1",
+      "char": "翱",
+      "kind": "DEGRADED",
+      "reason": "「羽」部笔画挤成竖密块、「白／大」并笔（字腔 2 vs 6／5），整体仍可辨。",
+      "confidence": "low"
+    },
+    {
+      "cp": "U+853C",
+      "char": "蔼",
+      "kind": "DEGRADED",
+      "reason": "右侧「謁」的「曰」并成实心块（字腔 2 vs 6），「艹／讠」尚可辨。",
+      "confidence": "low"
+    },
+    {
+      "cp": "U+8912",
+      "char": "褒",
+      "kind": "DEGRADED",
+      "reason": "中部「呆」的「口＋木」并笔（字腔 1 vs 3），「衣」部尚可辨。",
+      "confidence": "low"
+    },
+    {
+      "cp": "U+81C2",
+      "char": "臂",
+      "kind": "DEGRADED",
+      "reason": "下部「月」中间两行糊成实心、内侧两个字腔消失，外框与「辟」仍在。",
+      "confidence": "low"
+    }
+  ],
+  "summary": {
+    "identity": 0,
+    "degraded": 5,
+    "chars_reviewed": 576
+  }
+}

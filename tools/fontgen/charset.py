@@ -84,16 +84,48 @@ def build_charset() -> list[tuple[str, str]]:
     return out
 
 
-def build_stack() -> ScriptStack:
+def load_ideo_route() -> tuple[dict[int, str], str]:
+    """读 ideo_route.json —— 需要改用非汉字源渲染的码位名单。
+
+    名单的判据与出处见 docs/glyph-identity-verification.md:
+        SimHei 是平滑轮廓字体, 12px 下密笔画汉字的部件横画会粘连, 把「日」「目」
+        这类部件的字腔整个填死, 整字渲染成一块白块; MS Gothic 的 12px 是原生
+        点阵位图, 字腔是活的。对这些字改用 MS Gothic 的原生位图。
+
+    名单存成文件而不是硬编码在代码里, 是因为它**必须能被重新推导**:
+    换源字体版本后要重跑推导脚本核对, 而不是靠人肉维护一张表。
+
+    返回 (码位 -> 理由, 模式)。模式决定门禁查什么:
+        "blob" 只切整字塌陷的字; "all" 全部覆盖。
+    """
+    import json
+
+    p = Path(__file__).parent / "ideo_route.json"
+    if not p.exists():
+        return {}, "blob"
+    d = json.loads(p.read_text(encoding="utf-8"))
+    route = {
+        (int(k[2:], 16) if isinstance(k, str) and k.upper().startswith("U+") else int(k)): v
+        for k, v in d.get("route", {}).items()
+    }
+    return route, d.get("mode", "blob")
+
+
+def build_stack(route: dict[int, str] | None = None) -> ScriptStack:
     """B 方向: 汉字/标点走 SimHei 12, 拉丁与假名走 MS Gothic 12。
 
     双源的基线必须一致 —— 这是加在这里的硬门禁, 不是运行时才发现的巧合:
     两个源的 ascent/descent 一旦不同 (换字体版本、换源字体就会发生), 假名会比
     汉字高一格, 混排整行错位, 而且这种错位在单语样张里完全看不出来。
+
+    route: 需要改走非汉字源的码位 (见 load_ideo_route)。
     """
+    if route is None:
+        route, _mode = load_ideo_route()
     stack = ScriptStack(
         ideo=BitmapFont(path=SIMHEI, index=0, px=12),
         non_ideo=BitmapFont(path=MSGOTHIC, index=0, px=12),
+        route=set(route),
     )
     a, b = stack.ideo.metrics, stack.non_ideo.metrics
     if (a.ascent, a.descent) != (b.ascent, b.descent):
@@ -102,6 +134,52 @@ def build_stack() -> ScriptStack:
             f"—— 混排会错行, 拒绝构建"
         )
     return stack
+
+
+def gate_ideo_route(stack: ScriptStack, items: list[tuple[str, str]]) -> None:
+    """ideo 路由名单的有效性门禁: 名单里的每一个字都必须**仍然**满足切源理由。
+
+    模式 "blob" (只切整字塌陷的字) 的切源理由:
+        汉字源渲染出来的字**一个腔都没有** (整字塌成白块),
+        而非汉字源渲染出来的字**有腔**。
+    模式 "all" (全覆盖) 的切源理由:
+        非汉字源渲染出来的字**有腔** (否则切过去只会更糟)。
+
+    为什么要门禁: 名单是按"当前两个源字体"推导出来的。换了 SimHei / MS Gothic 的
+    版本, 某个字可能已经不再塌陷 —— 那时切过去反而会引入不必要的风格差异。
+    这种事不能靠人记得回头看一眼, 所以在这里硬拦。
+    """
+    if not stack.route:
+        return
+    from bitfont import count_holes
+
+    _route, mode = load_ideo_route()
+    bad: list[str] = []
+    for ch, _cat in items:
+        cp = ord(ch)
+        if cp not in stack.route:
+            continue
+        if stack.ideo.glyph(ch).width == 0:
+            bad.append(f"U+{cp:04X} {ch!r} 汉字源没有字形")
+            continue
+        h_ideo = count_holes(stack.ideo.glyph(ch))
+        h_alt = count_holes(stack.non_ideo.glyph(ch))
+        if mode == "blob" and h_ideo > 0:
+            bad.append(
+                f"U+{cp:04X} {ch!r} 汉字源已能渲出 {h_ideo} 个字腔, 不再塌陷 —— "
+                f"切源理由已不成立, 请重新推导名单"
+            )
+        if h_alt <= 0:
+            bad.append(
+                f"U+{cp:04X} {ch!r} 非汉字源也画不出字腔 ({h_alt}) —— "
+                f"切过去没用, 应从名单移除"
+            )
+    if bad:
+        head = "\n  ".join(bad[:40])
+        raise SystemExit(
+            f"ideo 路由名单失效, 共 {len(bad)} 个码位:\n  {head}"
+            + ("\n  ..." if len(bad) > 40 else "")
+        )
 
 
 def gate_full_coverage(stack: ScriptStack, items: list[tuple[str, str]]) -> None:
@@ -136,6 +214,8 @@ def main() -> None:
         print(f"  {cat:<6} {n}")
     gate_full_coverage(stack, items)
     print("缺字门禁: 通过 (全部字符在对应源字体中均有字形)")
+    gate_ideo_route(stack, items)
+    print(f"ideo 路由门禁: 通过 ({len(stack.route)} 个码位改走非汉字源, 切源理由均成立)")
 
 
 if __name__ == "__main__":

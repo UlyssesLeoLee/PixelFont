@@ -1,0 +1,197 @@
+{
+  "tool": "calibrate_detector",
+  "generated_at": "2026-10-21T07:17:15.447198+00:00",
+  "inputs": {
+    "screen_json": "reports\\glyphcmp_screen.json",
+    "review_dir": "reports\\glyphcmp_review",
+    "lanes": [
+      "lane1: 576 字",
+      "lane2: 576 字"
+    ],
+    "chars_reviewed": 1152,
+    "screen_findings": 147
+  },
+  "recall": {
+    "confirmed_degraded": {
+      "total": 8,
+      "caught": 2,
+      "missed": 6,
+      "missed_list": [
+        "U+7206",
+        "U+74E3",
+        "U+77D7",
+        "U+8822",
+        "U+96F9",
+        "U+9F3B"
+      ]
+    },
+    "unsure": {
+      "total": 14,
+      "caught": 2,
+      "missed": 12
+    }
+  },
+  "by_check": {
+    "STRUCTURE_OUTLIER": {
+      "confirmed": 2,
+      "unsure": 1
+    },
+    "COUNTER_LOST": {
+      "confirmed": 0,
+      "unsure": 1
+    }
+  },
+  "rows": {
+    "confirmed": [
+      {
+        "cp": "U+53E0",
+        "char": "叠",
+        "auto": [
+          "STRUCTURE_OUTLIER"
+        ],
+        "caught": true
+      },
+      {
+        "cp": "U+66B4",
+        "char": "暴",
+        "auto": [
+          "STRUCTURE_OUTLIER"
+        ],
+        "caught": true
+      },
+      {
+        "cp": "U+7206",
+        "char": "爆",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+74E3",
+        "char": "瓣",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+77D7",
+        "char": "矗",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+8822",
+        "char": "蠢",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+96F9",
+        "char": "雹",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+9F3B",
+        "char": "鼻",
+        "auto": [],
+        "caught": false
+      }
+    ],
+    "unsure": [
+      {
+        "cp": "U+554A",
+        "char": "啊",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+5965",
+        "char": "奥",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+618B",
+        "char": "憋",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+6A0A",
+        "char": "樊",
+        "auto": [
+          "COUNTER_LOST"
+        ],
+        "caught": true
+      },
+      {
+        "cp": "U+7BE1",
+        "char": "篡",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+7FF1",
+        "char": "翱",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+81C2",
+        "char": "臂",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+84D6",
+        "char": "蓖",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+853C",
+        "char": "蔼",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+8912",
+        "char": "褒",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+9738",
+        "char": "霸",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+978D",
+        "char": "鞍",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+9910",
+        "char": "餐",
+        "auto": [
+          "STRUCTURE_OUTLIER"
+        ],
+        "caught": true
+      },
+      {
+        "cp": "U+9CD6",
+        "char": "鳖",
+        "auto": [],
+        "caught": false
+      }
+    ]
+  },
+  "unlabelled_auto_findings": [],
+  "limitations": [
+    "自动判据对'整字塌成白块'可靠 (COUNTER_LOST: 我方字腔 0 而参考 > 0)",
+    "自动判据对'局部塌陷'不可靠 —— 目视判 DEGRADED 的「瓣」「雹」我方腔数反比参考多",
+    "腔数/方块类指标与分辨率强相关, 只能做候选排序, 不能直接下判定",
+    "最终判定仍以目视复核为准; 自动检查的职责是筛出高危, 不是替代目视"
+  ]
+}

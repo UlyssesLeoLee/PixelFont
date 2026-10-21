@@ -1,0 +1,1137 @@
+{
+  "tool": "compare_refs_screen",
+  "generated_at": "2026-10-21T07:21:32.398584+00:00",
+  "selection": {
+    "cats": [
+      "<all>"
+    ],
+    "slice": "",
+    "label": "全量 4140 字 x 4 套参考 (含 ideo 路由 56 字)"
+  },
+  "inputs": {
+    "chars_selected": 4140,
+    "ours_glyphs": 4139,
+    "refs": {
+      "ark-pixel-zh_hans": 25356,
+      "fusion-pixel-zh_hans": 37410,
+      "zpix": 22228,
+      "unifont-16": 58909
+    }
+  },
+  "findings": [
+    {
+      "id": "EXACT_COLLIDE",
+      "severity": "error",
+      "ref": "ark-pixel-zh_hans",
+      "cp": "U+3099",
+      "char": "゙",
+      "detail": "与参考字体的 U+302A '〪' 逐像素完全相同"
+    },
+    {
+      "id": "EXACT_COLLIDE",
+      "severity": "error",
+      "ref": "ark-pixel-zh_hans",
+      "cp": "U+309C",
+      "char": "゜",
+      "detail": "与参考字体的 U+302A '〪' 逐像素完全相同"
+    },
+    {
+      "id": "EXACT_COLLIDE",
+      "severity": "error",
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+3099",
+      "char": "゙",
+      "detail": "与参考字体的 U+302A '〪' 逐像素完全相同"
+    },
+    {
+      "id": "EXACT_COLLIDE",
+      "severity": "error",
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+309C",
+      "char": "゜",
+      "detail": "与参考字体的 U+302A '〪' 逐像素完全相同"
+    },
+    {
+      "id": "EXACT_COLLIDE",
+      "severity": "error",
+      "ref": "unifont-16",
+      "cp": "U+3002",
+      "char": "。",
+      "detail": "与参考字体的 U+302D '〭' 逐像素完全相同"
+    },
+    {
+      "id": "EXACT_COLLIDE",
+      "severity": "error",
+      "ref": "unifont-16",
+      "cp": "U+FF0D",
+      "char": "－",
+      "detail": "与参考字体的 U+07FA 'ߺ' 逐像素完全相同"
+    },
+    {
+      "id": "EXACT_COLLIDE",
+      "severity": "error",
+      "ref": "unifont-16",
+      "cp": "U+FF1D",
+      "char": "＝",
+      "detail": "与参考字体的 U+0333 '̳', U+2017 '‗' 逐像素完全相同"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+unifont",
+      "cp": "U+309A",
+      "char": "゚",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+unifont",
+      "cp": "U+30BF",
+      "char": "タ",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+unifont",
+      "cp": "U+30C0",
+      "char": "ダ",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+unifont",
+      "cp": "U+FF80",
+      "char": "ﾀ",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion",
+      "cp": "U+FF94",
+      "char": "ﾔ",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "error",
+      "ref": "zpix+unifont",
+      "cp": "U+57C3",
+      "char": "埃",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:0, fusion:0, zpix:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块), 备选源可救回 (字腔 1)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion",
+      "cp": "U+8884",
+      "char": "袄",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:2, fusion:2, zpix:0, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix+unifont",
+      "cp": "U+8C24",
+      "char": "谤",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+6BD9",
+      "char": "毙",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:2, fusion:2, zpix:2, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix+unifont",
+      "cp": "U+60ED",
+      "char": "惭",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:5, fusion:5, zpix:3, unifont:2 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix+unifont",
+      "cp": "U+7B56",
+      "char": "策",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:3, fusion:3, zpix:4, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块), 备选源同样无腔 —— 12px 网格的固有极限"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+9F7F",
+      "char": "齿",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "zpix+unifont",
+      "cp": "U+9093",
+      "char": "邓",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:0, fusion:0, zpix:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix+unifont",
+      "cp": "U+680B",
+      "char": "栋",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:2, fusion:2, zpix:2, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix+unifont",
+      "cp": "U+961F",
+      "char": "队",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+6124",
+      "char": "愤",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:4, fusion:4, zpix:3, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+4FD8",
+      "char": "俘",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:2, fusion:2, zpix:1, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块), 备选源同样无腔 —— 12px 网格的固有极限"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+6D6E",
+      "char": "浮",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:2, fusion:2, zpix:1, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块), 备选源同样无腔 —— 12px 网格的固有极限"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+5C97",
+      "char": "岗",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:2, fusion:2, zpix:2, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix+unifont",
+      "cp": "U+987E",
+      "char": "顾",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion",
+      "cp": "U+8017",
+      "char": "耗",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块), 备选源同样无腔 —— 12px 网格的固有极限"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix+unifont",
+      "cp": "U+5B63",
+      "char": "季",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:2, fusion:2, zpix:2, unifont:2 —— 字腔被笔画填死 (该字在我们这儿渲染成白块), 备选源同样无腔 —— 12px 网格的固有极限"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix+unifont",
+      "cp": "U+6B7C",
+      "char": "歼",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+8350",
+      "char": "荐",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:2, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块), 备选源同样无腔 —— 12px 网格的固有极限"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion",
+      "cp": "U+5251",
+      "char": "剑",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+unifont",
+      "cp": "U+5320",
+      "char": "匠",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块), 备选源同样无腔 —— 12px 网格的固有极限"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+8F83",
+      "char": "较",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion",
+      "cp": "U+8BEB",
+      "char": "诫",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "zpix+unifont",
+      "cp": "U+9888",
+      "char": "颈",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:0, fusion:0, zpix:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+4FA9",
+      "char": "侩",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion",
+      "cp": "U+5389",
+      "char": "厉",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "zpix+unifont",
+      "cp": "U+6D9F",
+      "char": "涟",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:0, fusion:0, zpix:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix+unifont",
+      "cp": "U+90BB",
+      "char": "邻",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+unifont",
+      "cp": "U+6DCB",
+      "char": "淋",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块), 备选源同样无腔 —— 12px 网格的固有极限"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+7984",
+      "char": "禄",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块), 备选源同样无腔 —— 12px 网格的固有极限"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "fusion+zpix",
+      "cp": "U+5B6A",
+      "char": "孪",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 fusion:1, zpix:1, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion",
+      "cp": "U+607C",
+      "char": "恼",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:3, fusion:3, zpix:0, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+6D53",
+      "char": "浓",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix+unifont",
+      "cp": "U+8D2B",
+      "char": "贫",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+unifont",
+      "cp": "U+6865",
+      "char": "桥",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+4EB2",
+      "char": "亲",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+8F7B",
+      "char": "轻",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:2, fusion:2, zpix:1, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+529D",
+      "char": "劝",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix+unifont",
+      "cp": "U+8D4F",
+      "char": "赏",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion",
+      "cp": "U+8BD5",
+      "char": "试",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion",
+      "cp": "U+8BC9",
+      "char": "诉",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion",
+      "cp": "U+849C",
+      "char": "蒜",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:2, fusion:2, zpix:0, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块), 备选源同样无腔 —— 12px 网格的固有极限"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+unifont",
+      "cp": "U+6843",
+      "char": "桃",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块), 备选源同样无腔 —— 12px 网格的固有极限"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+70F7",
+      "char": "烷",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:2, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion",
+      "cp": "U+829C",
+      "char": "芜",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion",
+      "cp": "U+4F11",
+      "char": "休",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块), 备选源同样无腔 —— 12px 网格的固有极限"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+83B9",
+      "char": "莹",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:3, fusion:3, zpix:3, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+9884",
+      "char": "预",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+8018",
+      "char": "耘",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:2, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块), 备选源同样无腔 —— 12px 网格的固有极限"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix+unifont",
+      "cp": "U+6655",
+      "char": "晕",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:5, fusion:5, zpix:4, unifont:2 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix+unifont",
+      "cp": "U+531D",
+      "char": "匝",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块), 备选源同样无腔 —— 12px 网格的固有极限"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion",
+      "cp": "U+5F20",
+      "char": "张",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix+unifont",
+      "cp": "U+5E10",
+      "char": "帐",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion",
+      "cp": "U+8D75",
+      "char": "赵",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix+unifont",
+      "cp": "U+90D1",
+      "char": "郑",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "error",
+      "ref": "zpix+unifont",
+      "cp": "U+5236",
+      "char": "制",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:0, fusion:0, zpix:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块), 备选源可救回 (字腔 1)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+unifont",
+      "cp": "U+8BCC",
+      "char": "诌",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:0, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "warn",
+      "ref": "ark+fusion+zpix",
+      "cp": "U+5760",
+      "char": "坠",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, fusion:1, zpix:1, unifont:0 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "ark-pixel-zh_hans",
+      "cp": "U+66B4",
+      "char": "暴",
+      "detail": "竖笔画数与参考相差 -22 (参考中位差 -3, 阈值 2.97)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "ark-pixel-zh_hans",
+      "cp": "U+53E0",
+      "char": "叠",
+      "detail": "竖笔画数与参考相差 -21 (参考中位差 -3, 阈值 2.97)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "ark-pixel-zh_hans",
+      "cp": "U+7586",
+      "char": "疆",
+      "detail": "竖笔画数与参考相差 -22 (参考中位差 -3, 阈值 2.97)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "ark-pixel-zh_hans",
+      "cp": "U+91CF",
+      "char": "量",
+      "detail": "竖笔画数与参考相差 -28 (参考中位差 -3, 阈值 2.97)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "ark-pixel-zh_hans",
+      "cp": "U+9713",
+      "char": "霓",
+      "detail": "竖笔画数与参考相差 -21 (参考中位差 -3, 阈值 2.97)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "ark-pixel-zh_hans",
+      "cp": "U+79BD",
+      "char": "禽",
+      "detail": "竖笔画数与参考相差 -21 (参考中位差 -3, 阈值 2.97)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "ark-pixel-zh_hans",
+      "cp": "U+718F",
+      "char": "熏",
+      "detail": "竖笔画数与参考相差 -22 (参考中位差 -3, 阈值 2.97)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "ark-pixel-zh_hans",
+      "cp": "U+7F6E",
+      "char": "置",
+      "detail": "竖笔画数与参考相差 -21 (参考中位差 -3, 阈值 2.97)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+66B4",
+      "char": "暴",
+      "detail": "竖笔画数与参考相差 -22 (参考中位差 -3, 阈值 2.97)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+9910",
+      "char": "餐",
+      "detail": "竖笔画数与参考相差 -24 (参考中位差 -3, 阈值 2.97)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+53E0",
+      "char": "叠",
+      "detail": "竖笔画数与参考相差 -21 (参考中位差 -3, 阈值 2.97)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+7586",
+      "char": "疆",
+      "detail": "竖笔画数与参考相差 -22 (参考中位差 -3, 阈值 2.97)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+91CF",
+      "char": "量",
+      "detail": "竖笔画数与参考相差 -28 (参考中位差 -3, 阈值 2.97)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+9713",
+      "char": "霓",
+      "detail": "竖笔画数与参考相差 -21 (参考中位差 -3, 阈值 2.97)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+79BD",
+      "char": "禽",
+      "detail": "竖笔画数与参考相差 -21 (参考中位差 -3, 阈值 2.97)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+718F",
+      "char": "熏",
+      "detail": "竖笔画数与参考相差 -22 (参考中位差 -3, 阈值 2.97)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+7F6E",
+      "char": "置",
+      "detail": "竖笔画数与参考相差 -21 (参考中位差 -3, 阈值 2.97)"
+    }
+  ],
+  "coverage": {
+    "ark-pixel-zh_hans": [
+      "U+4FCA",
+      "U+5238",
+      "U+52BF",
+      "U+5373",
+      "U+5506",
+      "U+55E1",
+      "U+560E",
+      "U+56F1",
+      "U+57A6",
+      "U+57AB",
+      "U+5956",
+      "U+5B6A",
+      "U+5B7D",
+      "U+5CBF",
+      "U+5CE6",
+      "U+5CFB",
+      "U+5D4C",
+      "U+5E18",
+      "U+5ECA",
+      "U+5F0A",
+      "U+5F5D",
+      "U+5FBD",
+      "U+6020",
+      "U+604B",
+      "U+6050",
+      "U+6073",
+      "U+60A0",
+      "U+60D1",
+      "U+6108",
+      "U+6148",
+      "U+6168",
+      "U+618B",
+      "U+61A8",
+      "U+61BE",
+      "U+6267",
+      "U+62D6",
+      "U+62F3",
+      "U+631A",
+      "U+631B",
+      "U+642C",
+      "U+6447",
+      "U+6482",
+      "U+6487",
+      "U+64AC",
+      "U+64BC",
+      "U+64CE",
+      "U+655D",
+      "U+659C",
+      "U+65BD",
+      "U+65CB",
+      "U+65E2",
+      "U+67F4",
+      "U+6868",
+      "U+6881",
+      "U+68A8",
+      "U+68AD",
+      "U+693D",
+      "U+6982",
+      "U+6994",
+      "U+6A47",
+      "U+6BC1",
+      "U+6C50",
+      "U+6D46",
+      "U+6D5A",
+      "U+6DA9",
+      "U+6DEB",
+      "U+6E89",
+      "U+6EAA",
+      "U+6EC1",
+      "U+6EDA",
+      "U+6EE6",
+      "U+7099",
+      "U+70ED",
+      "U+7136",
+      "U+715E",
+      "U+71C3",
+      "U+7281",
+      "U+7476",
+      "U+74EE",
+      "U+75B5",
+      "U+7682",
+      "U+7737",
+      "U+77A5",
+      "U+77AC",
+      "U+77FD",
+      "U+788C",
+      "U+78D0",
+      "U+7A3D",
+      "U+7A46",
+      "U+7A8D",
+      "U+7A91",
+      "U+7A97",
+      "U+7AE3",
+      "U+7B4F",
+      "U+7B51",
+      "U+7BC6",
+      "U+7C07",
+      "U+7CB1",
+      "U+7D27",
+      "U+7D2B",
+      "U+7EAB",
+      "U+7EB5",
+      "U+7F18",
+      "U+7FC1",
+      "U+7FD4",
+      "U+805A",
+      "U+806A",
+      "U+81C3",
+      "U+821C",
+      "U+82D4",
+      "U+836F",
+      "U+8389",
+      "U+8471",
+      "U+84D6",
+      "U+853D",
+      "U+854A",
+      "U+859B",
+      "U+85E4",
+      "U+8611",
+      "U+865E",
+      "U+86EE",
+      "U+86F0",
+      "U+88F4",
+      "U+8A8A",
+      "U+8B66",
+      "U+8B6C",
+      "U+8C23",
+      "U+8C62",
+      "U+8D38",
+      "U+8D58",
+      "U+8D61",
+      "U+903E",
+      "U+9065",
+      "U+907F",
+      "U+90CE",
+      "U+9171",
+      "U+9178",
+      "U+9274",
+      "U+965B",
+      "U+9699",
+      "U+96A7",
+      "U+96C0",
+      "U+96CC",
+      "U+96CD",
+      "U+96FE",
+      "U+9910",
+      "U+9A8F",
+      "U+9AA4",
+      "U+9CD6",
+      "U+9E93"
+    ],
+    "fusion-pixel-zh_hans": [],
+    "zpix": [
+      "U+3094",
+      "U+3095",
+      "U+3096",
+      "U+3099",
+      "U+309A",
+      "U+309F",
+      "U+30A0",
+      "U+30F7",
+      "U+30F8",
+      "U+30F9",
+      "U+30FA",
+      "U+30FF"
+    ],
+    "unifont-16": []
+  },
+  "counter_holes": {
+    "ours_mean": 2.167,
+    "ref_mean": {
+      "ark-pixel-zh_hans": 3.467,
+      "fusion-pixel-zh_hans": 2.833,
+      "zpix": 3.691,
+      "unifont-16": 2.241
+    },
+    "counter_lost_count": 63
+  },
+  "style_diffs": [
+    {
+      "ref": "ark-pixel-zh_hans",
+      "cp": "U+002E",
+      "char": ".",
+      "rel": 0.75,
+      "ink_ours": 4,
+      "ink_ref": 1
+    },
+    {
+      "ref": "ark-pixel-zh_hans",
+      "cp": "U+003A",
+      "char": ":",
+      "rel": 0.75,
+      "ink_ours": 8,
+      "ink_ref": 2
+    },
+    {
+      "ref": "ark-pixel-zh_hans",
+      "cp": "U+003B",
+      "char": ";",
+      "rel": 0.5,
+      "ink_ours": 8,
+      "ink_ref": 4
+    },
+    {
+      "ref": "ark-pixel-zh_hans",
+      "cp": "U+005C",
+      "char": "\\",
+      "rel": 0.5238095238095238,
+      "ink_ours": 21,
+      "ink_ref": 10
+    },
+    {
+      "ref": "ark-pixel-zh_hans",
+      "cp": "U+FF0E",
+      "char": "．",
+      "rel": -0.5,
+      "ink_ours": 2,
+      "ink_ref": 4
+    },
+    {
+      "ref": "ark-pixel-zh_hans",
+      "cp": "U+FF01",
+      "char": "！",
+      "rel": -0.5,
+      "ink_ours": 7,
+      "ink_ref": 14
+    },
+    {
+      "ref": "ark-pixel-zh_hans",
+      "cp": "U+FF64",
+      "char": "､",
+      "rel": -0.5,
+      "ink_ours": 2,
+      "ink_ref": 4
+    },
+    {
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+002E",
+      "char": ".",
+      "rel": 0.75,
+      "ink_ours": 4,
+      "ink_ref": 1
+    },
+    {
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+003A",
+      "char": ":",
+      "rel": 0.75,
+      "ink_ours": 8,
+      "ink_ref": 2
+    },
+    {
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+003B",
+      "char": ";",
+      "rel": 0.5,
+      "ink_ours": 8,
+      "ink_ref": 4
+    },
+    {
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+005C",
+      "char": "\\",
+      "rel": 0.5238095238095238,
+      "ink_ours": 21,
+      "ink_ref": 10
+    },
+    {
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+FF0E",
+      "char": "．",
+      "rel": -0.5,
+      "ink_ours": 2,
+      "ink_ref": 4
+    },
+    {
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+FF01",
+      "char": "！",
+      "rel": -0.5,
+      "ink_ours": 7,
+      "ink_ref": 14
+    },
+    {
+      "ref": "fusion-pixel-zh_hans",
+      "cp": "U+FF64",
+      "char": "､",
+      "rel": -0.5,
+      "ink_ours": 2,
+      "ink_ref": 4
+    },
+    {
+      "ref": "zpix",
+      "cp": "U+0027",
+      "char": "'",
+      "rel": 0.5,
+      "ink_ours": 4,
+      "ink_ref": 2
+    },
+    {
+      "ref": "zpix",
+      "cp": "U+002E",
+      "char": ".",
+      "rel": 0.5,
+      "ink_ours": 4,
+      "ink_ref": 2
+    },
+    {
+      "ref": "zpix",
+      "cp": "U+003A",
+      "char": ":",
+      "rel": 0.5,
+      "ink_ours": 8,
+      "ink_ref": 4
+    },
+    {
+      "ref": "zpix",
+      "cp": "U+005C",
+      "char": "\\",
+      "rel": 0.5714285714285714,
+      "ink_ours": 21,
+      "ink_ref": 9
+    },
+    {
+      "ref": "unifont-16",
+      "cp": "U+005C",
+      "char": "\\",
+      "rel": 0.5238095238095238,
+      "ink_ours": 21,
+      "ink_ref": 10
+    },
+    {
+      "ref": "unifont-16",
+      "cp": "U+005E",
+      "char": "^",
+      "rel": -0.5,
+      "ink_ours": 3,
+      "ink_ref": 6
+    },
+    {
+      "ref": "unifont-16",
+      "cp": "U+2026",
+      "char": "…",
+      "rel": 0.5,
+      "ink_ours": 12,
+      "ink_ref": 6
+    },
+    {
+      "ref": "unifont-16",
+      "cp": "U+3001",
+      "char": "、",
+      "rel": -0.5,
+      "ink_ours": 3,
+      "ink_ref": 6
+    },
+    {
+      "ref": "unifont-16",
+      "cp": "U+FF0E",
+      "char": "．",
+      "rel": -0.5,
+      "ink_ours": 2,
+      "ink_ref": 4
+    },
+    {
+      "ref": "unifont-16",
+      "cp": "U+FF01",
+      "char": "！",
+      "rel": -0.6111111111111112,
+      "ink_ours": 7,
+      "ink_ref": 18
+    },
+    {
+      "ref": "unifont-16",
+      "cp": "U+FFE5",
+      "char": "￥",
+      "rel": -0.5348837209302325,
+      "ink_ours": 20,
+      "ink_ref": 43
+    },
+    {
+      "ref": "unifont-16",
+      "cp": "U+309C",
+      "char": "゜",
+      "rel": -0.5,
+      "ink_ours": 4,
+      "ink_ref": 8
+    },
+    {
+      "ref": "unifont-16",
+      "cp": "U+30FB",
+      "char": "・",
+      "rel": -0.6666666666666666,
+      "ink_ours": 4,
+      "ink_ref": 12
+    },
+    {
+      "ref": "unifont-16",
+      "cp": "U+FF64",
+      "char": "､",
+      "rel": -0.6666666666666666,
+      "ink_ours": 2,
+      "ink_ref": 6
+    }
+  ],
+  "summary": {
+    "findings": 87,
+    "by_id": {
+      "EXACT_COLLIDE": 7,
+      "COUNTER_LOST": 63,
+      "STRUCTURE_OUTLIER": 17
+    },
+    "by_severity": {
+      "error": 9,
+      "warn": 78
+    }
+  }
+}

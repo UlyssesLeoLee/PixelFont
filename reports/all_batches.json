@@ -1,7 +1,7 @@
 {
   "tool": "regress_all",
   "version": 1,
-  "generated_at": "2026-10-20T23:54:07.805389+00:00",
+  "generated_at": "2026-10-21T07:22:12.455366+00:00",
   "selection": {
     "label": "all-batches",
     "cats": [
@@ -19,7 +19,7 @@
   "reference": {
     "density_median": 0.3141025641025641,
     "density_mad": 0.04487179487179488,
-    "density_sigma": 0.0745643571184349,
+    "density_sigma": 0.07453087177934896,
     "density_p95": 0.40384615384615385,
     "density_max": 0.5512820512820513,
     "ink_top_median": 1,
@@ -213,7 +213,7 @@
         {
           "batch": 8,
           "chars": 100,
-          "density_median": 0.3141,
+          "density_median": 0.3205,
           "density_max": 0.4872,
           "ink_top_median": 1,
           "ink_bottom_median": 11,
@@ -254,7 +254,7 @@
           "batch": 12,
           "chars": 100,
           "density_median": 0.3269,
-          "density_max": 0.4872,
+          "density_max": 0.4808,
           "ink_top_median": 1,
           "ink_bottom_median": 11,
           "wide_ratio": 1.0,
@@ -381,7 +381,7 @@
         {
           "batch": 4,
           "chars": 100,
-          "density_median": 0.3141,
+          "density_median": 0.3205,
           "density_max": 0.4615,
           "ink_top_median": 1,
           "ink_bottom_median": 11,
@@ -421,7 +421,7 @@
         {
           "batch": 8,
           "chars": 100,
-          "density_median": 0.3141,
+          "density_median": 0.3205,
           "density_max": 0.4679,
           "ink_top_median": 1,
           "ink_bottom_median": 11,
@@ -451,7 +451,7 @@
         {
           "batch": 11,
           "chars": 100,
-          "density_median": 0.3141,
+          "density_median": 0.3205,
           "density_max": 0.4872,
           "ink_top_median": 1,
           "ink_bottom_median": 11,
@@ -501,7 +501,7 @@
         {
           "batch": 16,
           "chars": 100,
-          "density_median": 0.3205,
+          "density_median": 0.3141,
           "density_max": 0.4551,
           "ink_top_median": 1,
           "ink_bottom_median": 11,
