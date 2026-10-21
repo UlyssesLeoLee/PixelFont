@@ -14,8 +14,8 @@
 ```bash
 python tools/fontgen/fetch_ref_fonts.py            # 下载参考字体到 third_party/ref_fonts/
 python tools/fontgen/fetch_ref_fonts.py --verify   # 只校验本地已有文件的 sha256
-python tools/fontgen/vendor_ark_pixel.py           # 裁剪并验证生产源 Ark Pixel
-python tools/fontgen/vendor_ark_pixel.py --check   # 只验证已入库的裁剪版
+python tools/fontgen/vendor_fusion_pixel.py           # 裁剪并验证生产源 Ark Pixel
+python tools/fontgen/vendor_fusion_pixel.py --check   # 只验证已入库的裁剪版
 ```
 
 ## 为什么是这四套
@@ -108,19 +108,25 @@ Cubic 11 / Galmuri 落在日文与韩文变体上，简体变体没用到。
 
 ## 生产源（参与构建，入库）
 
-### Ark Pixel Font 12px 简体 — v2026.10.16（裁剪版）
+### Fusion Pixel Font 12px 简体 — v2026.10.16（裁剪版，**生产源**）
 
-- 上游来源 / 版本 / 许可证 / sha256：见上面「Ark Pixel Font 12px — v2026.10.16」一节
-- 入库文件：`vendor/ark-pixel-12px/ark-pixel-12px-monospaced-zh_hans-subset.ttf`
-- 大小：730 512 字节（未裁剪的原始文件 5 132 788 字节）
-- sha256：`220c656957a2ce00bd00a4abc0e78086f0c479d6da547b5722a03ce3ae0d988b`
-- 许可证：`vendor/ark-pixel-12px/OFL.txt`（SIL Open Font License 1.1 全文，随附）
-- 裁剪脚本：`tools/fontgen/vendor_ark_pixel.py`
+- 上游来源 / 版本 / 归档 sha256：见上面「Fusion Pixel Font 12px — v2026.10.16」一节
+- 入库文件：`vendor/fusion-pixel-12px/fusion-pixel-12px-monospaced-zh_hans-subset.ttf`
+- 大小：763 556 字节（未裁剪的原始文件 7 135 828 字节）
+- sha256：`3a015e53a2923403ad19a216c5f10a0a503d6a74f744c174af34c9ed1f0761f2`
+- 许可证：`vendor/fusion-pixel-12px/LICENSES/` 下三份
+  （Ark Pixel OFL / Cubic 11 OFL / Galmuri LICENSE）—— Fusion 是缝合字体，三份都要随附
+- 裁剪脚本：`tools/fontgen/vendor_fusion_pixel.py`
 
-**裁剪做了什么**：只保留本项目 4140 个码位的字形，不动轮廓、不动 hinting。
-`--check` 会做两项验证，缺一不可：
+**为什么生产源用 Fusion 而不是 Ark**：实测 Fusion 的简体版与 Ark 的**结构**完全相同
+（3605 个共有汉字逐个一致），但**覆盖**多 12054 个码位。对我们 4140 个码位：
+Ark 覆盖 3990（缺 150），**Fusion 覆盖全部 4140**；而共有部分
+**3989/3989 位图逐字节相同** —— 换源对已有字**零画风变化**，
+却让原先没得选的 150 个字有了真正的点阵字形。
 
-1. 裁剪前后的渲染**逐像素一致**（实测 3990 个字形，0 处不一致）；
+`--check` 做两项验证，缺一不可：
+
+1. 裁剪前后**逐像素一致**（实测 4140 个字形，0 处不一致）；
 2. 裁剪版的 cmap == 原字体 cmap ∩ 本项目字符集（少一个就是裁剪把字弄丢了，
    多一个就是裁剪没生效）。
 
@@ -128,16 +134,16 @@ Cubic 11 / Galmuri 落在日文与韩文变体上，简体变体没用到。
 > 写成 `U+4E01` 会被静默忽略一部分 —— 那 150 个码位随后退化成 `.notdef`，
 > 而 `.notdef` 是空心豆腐框、自带 1 个"字腔"，会让"这个源能画"变成假阳性。
 
-**为什么必须入库**：Ark Pixel 现在是**生产源**，它的原生点阵直接进到成品里。
-不入库就等于构建依赖"这台机器上恰好下载过 Ark Pixel"，换台机器构建不出同一个结果。
+**为什么必须入库**：Ark/Fusion 作为**生产源**，它的原生点阵直接进到成品里。
+不入库就等于构建依赖"这台机器上恰好下载过它"，换台机器构建不出同一个结果。
 （参考字体则相反 —— 它们不参与构建，所以只记清单。）
 
 ## 许可证义务
 
 | 字体 | 是否随本仓库分发 | 义务 |
 |---|---|---|
-| Ark Pixel（**生产源**，`vendor/`） | **是** | OFL-1.1：保留版权与许可证声明，随附 OFL 全文（已放在 `vendor/ark-pixel-12px/OFL.txt`），不得单独售卖字体本身，不得用保留字体名 |
-| Fusion Pixel | 否 | 若将来打包分发，需保留 OFL 声明 |
+| Fusion Pixel（**生产源**，`vendor/`） | **是** | OFL-1.1：保留版权与许可证声明，随附 OFL 全文（已放在 `vendor/fusion-pixel-12px/OFL.txt`），不得单独售卖字体本身，不得用保留字体名 |
+| Fusion Pixel 原始包 | 否 | 若将来打包分发，需保留 OFL 声明 |
 | Zpix | 否 | 若将来打包分发，需保留 MIT 许可声明 |
 | GNU Unifont | 否 | GPL-2.0+ 字体嵌入例外；按例外条款随附声明即可 |
 

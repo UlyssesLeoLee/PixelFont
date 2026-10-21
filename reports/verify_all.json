@@ -2,7 +2,7 @@
   "steps": [
     {
       "step": "生产源",
-      "label": "生产源自检 (Ark Pixel 裁剪版: 逐像素一致 + cmap 覆盖)",
+      "label": "生产源自检 (Fusion Pixel 裁剪版: 逐像素一致 + cmap 覆盖)",
       "status": "PASS",
       "returncode": 0
     },
@@ -26,7 +26,7 @@
     },
     {
       "step": "名单",
-      "label": "路由名单自检 (重新推导一遍, 与入库名单比对)",
+      "label": "路由名单自检 (按名单自述的输入重新推导, 与入库名单比对)",
       "status": "PASS",
       "returncode": 0
     }
@@ -44,24 +44,24 @@
         "zpix",
         "unifont-16"
       ],
-      "命中": 80,
+      "命中": 64,
       "按判据": {
         "EXACT_COLLIDE": 3,
-        "OWN_COLLIDE": 8,
+        "OWN_COLLIDE": 7,
         "COUNTER_LOST": 13,
-        "STRUCTURE_OUTLIER": 56
+        "STRUCTURE_OUTLIER": 41
       },
       "按级别": {
-        "warn": 78,
+        "warn": 62,
         "error": 2
       }
     },
     "目视复核": {
-      "消费 lane 产物": 4,
-      "复核字数": 2304,
-      "身份错误": 0,
-      "确认劣化": 29,
-      "存疑": 41
+      "消费 lane 产物": 8,
+      "复核字数": 4140,
+      "身份错误": 1,
+      "确认劣化": 32,
+      "存疑": 109
     }
   },
   "verdict": "PASS"

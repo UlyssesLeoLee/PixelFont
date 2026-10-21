@@ -27,8 +27,8 @@ TOOLS = ROOT / "tools" / "fontgen"
 
 STEPS: list[tuple[str, list[str], str]] = [
     (
-        "生产源自检 (Ark Pixel 裁剪版: 逐像素一致 + cmap 覆盖)",
-        [str(TOOLS / "vendor_ark_pixel.py"), "--check"],
+        "生产源自检 (Fusion Pixel 裁剪版: 逐像素一致 + cmap 覆盖)",
+        [str(TOOLS / "vendor_fusion_pixel.py"), "--check"],
         "生产源",
     ),
     (
@@ -54,7 +54,7 @@ STEPS: list[tuple[str, list[str], str]] = [
         "硬检查",
     ),
     (
-        "路由名单自检 (重新推导一遍, 与入库名单比对)",
+        "路由名单自检 (按名单自述的输入重新推导, 与入库名单比对)",
         [
             str(TOOLS / "derive_ideo_route.py"),
             "--per-char",
@@ -86,6 +86,16 @@ def main() -> int:
             print(f"== {i}/{len(STEPS)} {label} —— 跳过")
             results.append({"step": tag, "label": label, "status": "SKIPPED"})
             continue
+        if tag == "名单":
+            # 名单自述了它是用什么输入推出来的 (可能含目视复核驱动的强制覆盖),
+            # 自检必须用**同一份输入**重推, 否则会误报"名单与推导结果不一致"。
+            rp = ROOT / "tools" / "fontgen" / "ideo_route.json"
+            if rp.exists():
+                rd = json.loads(rp.read_text(encoding="utf-8"))
+                fr = (rd.get("inputs") or {}).get("force_from_review")
+                if fr:
+                    cmd = cmd + ["--force-from-review", fr]
+                    print(f"   (按名单自述的输入补上 --force-from-review {fr})")
         print(f"== {i}/{len(STEPS)} {label} ==")
         rc, out = run(cmd)
         tail = "\n".join(out.strip().splitlines()[-14:])

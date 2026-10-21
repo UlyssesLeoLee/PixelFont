@@ -31,7 +31,7 @@ HOLE_WEIGHT = 4.0
 
 # 双源: 主力来源。兜底源只在双源都画不出时才参与竞争。
 PRIMARY = ("ideo", "non_ideo")
-FALLBACK = "ark"
+FALLBACK = "fusion"
 
 
 def need_fallback(
@@ -130,24 +130,32 @@ def choose_forced(
     ref: tuple[int, int, int],
     w: float = HOLE_WEIGHT,
 ) -> tuple[str | None, tuple[int, int, int] | None]:
-    """强制选源 (目视复核确认劣化时用): 腔数**封顶到参考值**后取最大的, 再按距离决胜。
+    """强制选源 (目视复核确认劣化时用): 取离参照**最近**的可用源, 但不许选白块源。
 
-    为什么不能直接用 choose: 裁判是 Ark 主导的 (median(Ark, Fusion, Zpix)),
-    所以"离裁判最近的"对被判给 Ark 的字等于"总是选 Ark" —— 循环论证。
-    而"腔最多的"也不对: 腔比参考**多**是错不是好 (「瓣」「雹」我方腔数反比参考多),
-    所以超出参考的那部分不能算分。封顶后再按距离决胜, 既不循环, 也不奖励过度。
+    硬约束照旧: 参照说有腔, 而某个源渲染出 0 腔 (整字白块) 时, 不能选它。
+
+    为什么不用"腔数封顶后取最大"那个排序:
+        腔比参照**多**是错不是好 (「瓣」「雹」我方腔数反比参照多), 而按腔数排序
+        会把"只差 1 个腔、但离参照更远"的源选上。
+        实例「嘎」U+560E: MS Gothic 腔 4 离参照 31, SimHei 腔 3 离参照 30 ——
+        两个源都画不好「戛」的「自」(Zpix 才画得出), 换过去只是把"一样差"变成
+        "略微更远", 那就不该换。
+
+    参照是 Ark 主导的 (median(Ark, Fusion, Zpix)), 所以"离参照最近"对被判给 Ark 的字
+    等于"总是选 Ark" —— 这一条靠**独立参考 Zpix 复核**兜底:
+        实测被强制换源的字里, Zpix 独立认可 Ark 腔数的有 7 个, 其余 6 个虽然
+        腔数不同, 但 Ark 离 Zpix 仍然更近 (例:「嗓」Ark 13 vs SimHei 34)。
 
     调用方: 推导脚本 (目视结论作为输入) 与构建门禁 (复算这条规则) 共用本函数。
     """
     avail = [(name, s) for name, s in cands.items() if s is not None]
     if not avail:
         return None, None
-    ref_h = ref[0]
-
-    def _score(s: tuple[int, int, int]) -> tuple[int, float]:
-        return (min(s[0], ref_h), -dist(s, ref, w))
-
-    return max(avail, key=lambda c: _score(c[1]))
+    if ref[0] >= 1:
+        keep = [c for c in avail if c[1][0] >= 1]
+        if keep:
+            avail = keep
+    return min(avail, key=lambda c: dist(c[1], ref, w))
 
 
 def choose(

@@ -1,0 +1,427 @@
+{
+  "lane": 8,
+  "sheets": [
+    {
+      "sheet": "glyphcmp_039.png",
+      "chars": 96,
+      "first": "U+6E14",
+      "last": "U+65E9"
+    },
+    {
+      "sheet": "glyphcmp_040.png",
+      "chars": 96,
+      "first": "U+6FA1",
+      "last": "U+81FB"
+    },
+    {
+      "sheet": "glyphcmp_041.png",
+      "chars": 96,
+      "first": "U+8D1E",
+      "last": "U+86DB"
+    },
+    {
+      "sheet": "glyphcmp_042.png",
+      "chars": 96,
+      "first": "U+6731",
+      "last": "U+9189"
+    },
+    {
+      "sheet": "glyphcmp_043.png",
+      "chars": 12,
+      "first": "U+6700",
+      "last": "U+5EA7"
+    }
+  ],
+  "chars_reviewed": 396,
+  "findings": [
+    {
+      "cp": "U+80B2",
+      "char": "育",
+      "kind": "B",
+      "reason": "下部「月」的内部横画少一道: 我方「月」只有 2 道横 (顶边 + 1 内部横), Zpix 与 Unifont 均为 3 道 (顶边 + 2 内部横), 「月」塌成「日+一」的结构, 内部横画消失",
+      "confidence": "high",
+      "sheet": "glyphcmp_039.png",
+      "cell": 23,
+      "evidence": {
+        "compartments_in_月_ours_zpix_unifont": [
+          1,
+          2,
+          2
+        ],
+        "internal_horizontals_ours_zpix_unifont": [
+          1,
+          2,
+          2
+        ],
+        "note": "腔数无分辨力 (ours 3 == zpix 3), 靠数内部横画才看出"
+      }
+    },
+    {
+      "cp": "U+613F",
+      "char": "愿",
+      "kind": "B",
+      "reason": "上部件「白」塌成「口」: 真字形的「白」= 丿+日 (2 个封闭白腔), 我方在 16x16 源位图上第 1-4 行第 3-9 列只画出 1 个白腔 (第 3 行第 4-8 列), 即「白」少了一道内部横画并少了下边框; Zpix (第 1-6 行, 腔在第 2/4/5 行) 与 Unifont (腔在第 3/5 行) 都能分出 2 个白腔",
+      "confidence": "high",
+      "sheet": "glyphcmp_039.png",
+      "cell": 48,
+      "evidence": {
+        "compartments_ours_zpix_unifont": [
+          1,
+          4,
+          2
+        ],
+        "note": "两个独立参考一致给 2 个白腔, 我方只有 1 个"
+      }
+    },
+    {
+      "cp": "U+6E23",
+      "char": "渣",
+      "kind": "B",
+      "reason": "右部「查」的「旦」中「日」只剩 1 个封闭白腔: 我方第 5/7 行为整宽横画、第 6 行为两侧竖 (仅第 6 行第 4-7 列 1 个白腔), 且第 7 行与第 8 行相邻并成实心带; Zpix 的「旦」为 第 4/6/8/10 行四道横 (白腔 3 个), Unifont 白腔 2 个",
+      "confidence": "medium",
+      "sheet": "glyphcmp_040.png",
+      "cell": 20,
+      "evidence": {
+        "compartments_ours_zpix_unifont": [
+          3,
+          7,
+          5
+        ],
+        "note": "12x12 下「旦」本身极密, 置信度记 medium"
+      }
+    },
+    {
+      "cp": "U+86F0",
+      "char": "蛰",
+      "kind": "B",
+      "reason": "下部「虫」的「口」封口被填实: 我方第 7-8 行第 1-8 列是两条相邻的整行横画 (实心带, 中间无白, 「口」内部完全消失); Zpix 的「口」为 第 6/7/8 行 (上横 + 两侧竖 + 下横, 盒腔留白), Unifont 同样留白",
+      "confidence": "high",
+      "sheet": "glyphcmp_040.png",
+      "cell": 83,
+      "evidence": {
+        "compartments_ours_zpix_unifont": [
+          1,
+          4,
+          7
+        ],
+        "note": "目视: 我方「虫」的下部读作实心横带, 两个参考都能读出「口」"
+      }
+    },
+    {
+      "cp": "U+9547",
+      "char": "镇",
+      "kind": "B",
+      "reason": "右部「真」的「目」少一道内部横画: 我方第 3-8 行的盒内只有 2 个白腔 (第 4 行第 6-8 列 1 行高, 第 6-7 行第 6-8 列 2 行高, 两腔被一道缺失的横画并成), 即「目」塌成「日」; Zpix 为 3 个白腔 (第 2/4/6 行), Unifont 为 4 个",
+      "confidence": "medium",
+      "sheet": "glyphcmp_041.png",
+      "cell": 8,
+      "evidence": {
+        "compartments_ours_zpix_unifont": [
+          2,
+          3,
+          4
+        ],
+        "note": "与 U+690D 植 的「直」为同一部件、同一种丢失模式"
+      }
+    },
+    {
+      "cp": "U+690D",
+      "char": "植",
+      "kind": "B",
+      "reason": "右部「直」下段两条整宽横画并成实心带: 我方第 7/8 行第 5-9 列均为满行墨迹 (相邻两行, 夹缝消失), 且最下一横 (第 10 行) 残缺成 4+2 px 断笔; Zpix 的「直」为 第 7 行横 + 第 8/9 行竖 + 第 10 行完整长横 (4 腔), Unifont 亦为完整长横 (4 腔)",
+      "confidence": "medium",
+      "sheet": "glyphcmp_041.png",
+      "cell": 38,
+      "evidence": {
+        "compartments_ours_zpix_unifont": [
+          3,
+          4,
+          4
+        ],
+        "note": "反方证据: Zpix 自己的「直」(41:37 独立字) 只有 3 腔, 两个参考在压缩语境下并非完全自洽, 故置信度记 medium"
+      }
+    },
+    {
+      "cp": "U+77A9",
+      "char": "瞩",
+      "kind": "B",
+      "reason": "右部「属」的「尸」头封闭空间被填实: 我方在 16x16 源位图上第 0-2 行第 4-9 列是一个 3x6 的整块实心墨迹 (「尸」的盒腔消失), Zpix 与 Unifont 同位置都是可辨的白槽 (「尸」的盒腔留白)",
+      "confidence": "high",
+      "sheet": "glyphcmp_042.png",
+      "cell": 9,
+      "evidence": {
+        "compartments_ours_zpix_unifont": [
+          6,
+          8,
+          8
+        ],
+        "note": "目视: 我方「属」左上角是一块实心板, 两个参考都明确画出「尸」的白槽"
+      }
+    }
+  ],
+  "unsure": [
+    {
+      "cp": "U+5FA1",
+      "char": "御",
+      "kind": "C",
+      "reason": "「卸」部中段, Zpix 在第 2-3 行第 3-4 列闭合了一个 2x2 小白腔, 我方因同一处横画位置差一行 (我方第 1 行横画短 1 px 且下移) 该白腔未闭合; 但所有笔画都在, 与 Zpix 逐行骨架几乎一致, 无法判定是 12x12 压缩取舍还是笔画丢失",
+      "confidence": "low",
+      "sheet": "glyphcmp_039.png",
+      "cell": 19,
+      "evidence": {
+        "compartments_ours_zpix_unifont": [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "cp": "U+8638",
+      "char": "蘸",
+      "kind": "C",
+      "reason": "字形极密 (艹+酉+隹+灬): 我方封闭小腔 4 个, Zpix 7 个 / Unifont 7 个, 但各部件 (艹/酉/隹/灬) 在我方位图中齐全且可辨; 腔数差主要来自小腔被笔画并掉, 不足以判定结构丢失",
+      "confidence": "low",
+      "sheet": "glyphcmp_040.png",
+      "cell": 48,
+      "evidence": {
+        "compartments_ours_zpix_unifont": [
+          4,
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "cp": "U+9AA4",
+      "char": "骤",
+      "kind": "C",
+      "reason": "「聚」的「取/耳」部: 我方「耳」部只画出上横+竖梳+下横 (内部横画缺失, 白腔被并成 3 行高的窄腔), Zpix/Unifont 在同位置有 1 行高的小腔 (内部横画在); 但骤为 17 画压进 12x12, 部件整体齐全, 12px 分辨率下无法确证内部横画是丢失还是压缩",
+      "confidence": "low",
+      "sheet": "glyphcmp_041.png",
+      "cell": 92,
+      "evidence": {
+        "compartments_ours_zpix_unifont": [
+          6,
+          10,
+          8
+        ]
+      }
+    },
+    {
+      "cp": "U+631A",
+      "char": "挚",
+      "kind": "C",
+      "reason": "下部「手」的两道横画在我方位图上是两条完全相同的相邻整宽横 (第 6/7 行第 1-8 列, 读作 2px 厚实心带), Zpix 是两道分隔开的横. 「手」本身没有封闭腔, 故没有腔被填实, 但并成实心带的观感与「植」的「直」同类, 记为存疑",
+      "confidence": "low",
+      "sheet": "glyphcmp_041.png",
+      "cell": 51,
+      "evidence": {
+        "compartments_ours_zpix_unifont": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  ],
+  "summary": {
+    "identity": 0,
+    "degraded": 7,
+    "unsure": 4,
+    "chars_reviewed": 396
+  },
+  "method": {
+    "artifact": "reports/glyphcmp_png/glyphcmp_039.png .. glyphcmp_043.png",
+    "refs": [
+      "Zpix 12px (MIT)",
+      "GNU Unifont 16x16 (GPL-2.0+)"
+    ],
+    "basis": "全部判定以出图 PNG 原图为唯一底本; 格位映射以 reports/glyphcmp_index.json 的 sheets[].chars 为准, 并用标签互相关独立复核",
+    "steps": [
+      "几何自校: 从 PNG 像素实测确认 格左上角=(c*108, 26+r*66), 标签字形在 rel x5..22 / y9..26 (码位文本为暗灰 52 不参与), 三列点阵槽位在 rel x+2 / +38 / +74, y+30, 32x32 屏幕像素 = 16x16 源像素 (2 倍放大)",
+      "格位映射独立复核: 把 index 里的 396 个字用微软雅黑 (14..25 号共 12 档) 渲染, 与 PNG 每格自带的白色标签做互相关, 两个独立打分器 (灰度 NCC + 二值 IoU) 各自 argmax, 396/396 与 index 一致; 另有 396 个位图互不相同、无空槽, 可排除复制粘贴式身份错误",
+      "复核: 每格裁出 [标签 | 我方 | Zpix | Unifont] 四联图放大到 8 倍逐格目视; 对可疑格再出 16 倍放大图 + 16x16 源位图逐行 ASCII 对照",
+      "量化只作分诊: 字腔数 (两份独立实现 + 合成对照 + 对照试验) 与堆叠腔指标 v3 (两份独立实现 + 合成对照) 均通过自检; 另有两项形状筛查被自检否决 (详见 rejected_metrics), 未用于任何判定",
+      "判定口径: A=我方画的不是标注的那个字 (本 lane 0 例); B=是此字但结构信息丢失 (封闭空间被填实 / 内部横画消失 / 竖画并成实心带), 按骨架判, 不因像素级差异判劣化; C=处在 B 门槛上如实记录",
+      "改判记录: 39:48 愿 与 40:20 渣 首轮按「与 Zpix 逐行骨架一致」判为不劣化, 后经腔位图复核发现「白」「日」各少一个封闭白腔, 改判 B; 39:22 狼 的腔数命中经复核为假阳性, 维持不报"
+    ]
+  },
+  "rejected_metrics": [
+    {
+      "name": "我方位图 vs 标签字库 形状匹配 (身份筛查)",
+      "result": "否决",
+      "reason": "用每个字的微软雅黑渲染做图库, 以 IoU 找我方位图的最佳匹配: 真码位只排第 1 的比例仅 1.5% (6/396), 前 5 名仅 9.3%. 最佳匹配几乎总是「雨/再/予/宇」这类笔画少的常用字 —— 该指标测到的是笔画密度而不是身份, 与其他 lane 报告的「形状筛查无分辨力」一致, 不用于任何判定"
+    },
+    {
+      "name": "水平小腔计数 (宽>=3 且 高<=3 的封闭腔)",
+      "result": "否决",
+      "reason": "该筛选强烈依赖各字体的书写风格 (Zpix/Unifont 的腔更宽, 我方的腔常为 1x2/2x2 而被滤掉), 例如把明显无盒部件的「禹」「租」「阻」「重」「最」也报出来; 无分辨力, 不用于任何判定"
+    },
+    {
+      "name": "堆叠腔 (stacked compartment) 指标 v1 / v2",
+      "result": "作废 (实现错误)",
+      "reason": "v1 的相邻性判据写错 (被一道横画隔开的腔不算同堆), 且两份实现互不一致; v2 的合成对照本身构造错了 (内部横画画在了错误的行), 两份实现的分组语义也不同 (传递闭包 vs 贪心链接), 1188 次测量里 73 次不一致. 按协议「不一致就说明实现有问题」, 两版均作废"
+    },
+    {
+      "name": "堆叠腔指标 v3",
+      "result": "仅作分诊线索, 未用于判定",
+      "reason": "重写后通过自检: 合成对照 (0..4 道内部横画 -> 堆叠 1..5) 全部正确, 两份实现 (并查集连通分量 vs 迭代标号传播) 在 1188 次测量中 0 次不一致; 在两个参考一致 (225/396 格) 的字上我方一致率 84.0%, 说明有分辨力. 但它只是把候选从 396 缩到 13, 每一条仍逐一放大目视确认后才落判"
+    },
+    {
+      "name": "字腔数 (协议第 5 节指标)",
+      "result": "采用 (仅作分诊 + 证据)",
+      "reason": "洪水填充与并查集两份独立实现在全部 1188 次测量上完全一致; 合成对照 (环=1 腔, C 形=0 腔) 正确, 而故意写错的「把贴边白区也算腔」版本在 C 形上给出 1 (即踩中协议里点名的那个坑); 对照试验: 在两个参考一致给腔数的 240 格中我方一致 82.9%, 既非 100% 也非随机, 确有分辨力. 但它查不出「内部横画消失而腔数不变」的情况 (育 就是), 故必须配合数内部横画"
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "cp": "U+72F1",
+      "char": "狼",
+      "sheet": "glyphcmp_039.png",
+      "cell": 22,
+      "reason": "腔数命中 (两参考 1 腔 / 我方 0 腔), 但逐行 ASCII 比对显示我方「良」与 Zpix「良」骨架同构 (同样的竖+横+钩布局), 16x16 下白区未闭合属布局差异 -> 否决"
+    },
+    {
+      "cp": "U+5FA1",
+      "char": "御",
+      "sheet": "glyphcmp_039.png",
+      "cell": 19,
+      "reason": "列入存疑 (C), 不作为确认劣化"
+    },
+    {
+      "cp": "U+8C6B",
+      "char": "豫",
+      "sheet": "glyphcmp_039.png",
+      "cell": 29,
+      "reason": "我方与 Zpix 逐行骨架一致, 腔数差 1 个 (5 vs 6) 属小腔位置差异 -> 否决"
+    },
+    {
+      "cp": "U+733F",
+      "char": "猿",
+      "sheet": "glyphcmp_039.png",
+      "cell": 43,
+      "reason": "我方「袁」的「口」是 1 行高的腔, Zpix 是 2 行高的腔 —— 同一个腔, 只是高度不同; 多出来的 1x1 腔是 1 像素级的碎屑 -> 否决"
+    },
+    {
+      "cp": "U+906D",
+      "char": "遭",
+      "sheet": "glyphcmp_039.png",
+      "cell": 90,
+      "reason": "我方与 Zpix 逐行骨架一致, 只差 1 个腔的位置整体上移一行 -> 否决"
+    },
+    {
+      "cp": "U+7CDF",
+      "char": "糟",
+      "sheet": "glyphcmp_039.png",
+      "cell": 91,
+      "reason": "我方与 Zpix 逐行骨架一致, 均为密排, 非填实 -> 否决"
+    },
+    {
+      "cp": "U+77BB",
+      "char": "瞻",
+      "sheet": "glyphcmp_040.png",
+      "cell": 38,
+      "reason": "「目」部我方 2 道内部横 == Zpix 2 道内部横, 骨架同构 -> 否决"
+    },
+    {
+      "cp": "U+8638",
+      "char": "蘸",
+      "sheet": "glyphcmp_040.png",
+      "cell": 48,
+      "reason": "列入存疑 (C), 不作为确认劣化"
+    },
+    {
+      "cp": "U+6F33",
+      "char": "漳",
+      "sheet": "glyphcmp_040.png",
+      "cell": 58,
+      "reason": "腔总数与两个参考相同 (3/3/3), 「立」部多出 1 腔正好补偿「日」部少 1 腔, 属腔位重新分布, 非填实 -> 否决"
+    },
+    {
+      "cp": "U+5236",
+      "char": "制",
+      "sheet": "glyphcmp_041.png",
+      "cell": 58,
+      "reason": "我方 0 腔 / Zpix 1 腔 / Unifont 2 腔, 但「巾」字形本就下端开口 (冂+丨), 真字形没有封闭腔; 反而是 Zpix 把「巾」画成了闭口 -> 否决"
+    },
+    {
+      "cp": "U+9AA4",
+      "char": "骤",
+      "sheet": "glyphcmp_041.png",
+      "cell": 92,
+      "reason": "列入存疑 (C), 不作为确认劣化"
+    },
+    {
+      "cp": "U+631A",
+      "char": "挚",
+      "sheet": "glyphcmp_041.png",
+      "cell": 51,
+      "reason": "列入存疑 (C), 不作为确认劣化"
+    },
+    {
+      "cp": "U+5C0A",
+      "char": "尊",
+      "sheet": "glyphcmp_043.png",
+      "cell": 2,
+      "reason": "丷/酉/大/寸 四部件齐全; Zpix 的「酉」内小腔多是因为它把 丿/丶 分开画, 我方并成一个大白区 (真字形本就相通) -> 否决"
+    },
+    {
+      "cp": "U+9075",
+      "char": "遵",
+      "sheet": "glyphcmp_043.png",
+      "cell": 3,
+      "reason": "「辶+尊」部件齐全, 我方与 Zpix 腔数相同 (3/3), 仅腔位不同 -> 否决"
+    },
+    {
+      "cp": "U+5C55",
+      "char": "展",
+      "sheet": "glyphcmp_040.png",
+      "cell": 47,
+      "reason": "我方与 Zpix 部件齐全, 「廿」部只是横画窄 1 px, 未丢腔 -> 否决"
+    },
+    {
+      "cp": "U+69A8",
+      "char": "榨",
+      "sheet": "glyphcmp_040.png",
+      "cell": 27,
+      "reason": "木+窄 部件齐全, 我方与 Zpix 逐行骨架同构 -> 否决"
+    },
+    {
+      "cp": "U+51A4",
+      "char": "冤",
+      "sheet": "glyphcmp_039.png",
+      "cell": 33,
+      "reason": "「免」的「口」在我方位图中确实闭合 (第 2-5 行第 2-7 列白区被完整包围); Zpix 多出的那个 1x2 窄腔是它把 冖 与 𠂊 叠画产生的碎腔 -> 否决"
+    },
+    {
+      "cp": "U+5BE8",
+      "char": "寨",
+      "sheet": "glyphcmp_040.png",
+      "cell": 37,
+      "reason": "我方第 3/4 行是两条相邻整宽横 (并成实心带), 但宀/龷/木 三部件齐全且与 Zpix 同构, 字形极密无法据此判劣化 -> 否决 (仅记录)"
+    },
+    {
+      "cp": "U+8D1E",
+      "char": "贞",
+      "sheet": "glyphcmp_041.png",
+      "cell": 0,
+      "reason": "腔数命中 (Zpix 1 腔 / 我方 0 腔), 但我方「卜+贝」与两个参考同构, 该 1x5 腔是 Zpix 笔画收尾方式造成 -> 否决"
+    },
+    {
+      "cp": "U+7AE0",
+      "char": "章",
+      "sheet": "glyphcmp_040.png",
+      "cell": 56,
+      "reason": "曾由腔数筛查命中 (1 vs 2), 经放大与标签互相关复核: 标签字形确为 U+7AE0 章, 我方与两参考同构, 属首版打分器在细笔画上的假阳性 -> 否决 (另见方法说明)"
+    }
+  ],
+  "integrity": {
+    "chars_reviewed_equals_assigned": true,
+    "assigned_cells": 396,
+    "identity_errors_found": 0,
+    "our_column_missing_glyphs": 0,
+    "reference_missing_glyphs": 0,
+    "note": "本 lane 5 张图共 1188 个槽位全部为纯 1-bit 位图 (像素值只有 0/255), 无「缺」标记格, 无空槽"
+  }
+}

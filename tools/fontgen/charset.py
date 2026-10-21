@@ -23,26 +23,32 @@ from coverage import cmap_for  # noqa: E402
 SIMHEI = r"C:\Windows\Fonts\simhei.ttf"
 MSGOTHIC = r"C:\Windows\Fonts\msgothic.ttc"
 
-# 第三个生产源: Ark Pixel 12px 简体 (OFL-1.1)。
+# 第三个生产源: Fusion Pixel 12px 简体 (OFL-1.1 + Cubic 11 OFL + Galmuri LICENSE)。
 #
-# 为什么需要第三个源: 前两个源都**画不出**某些简体字时, 只能退到 SimHei 的
-# 平滑轮廓, 而 12px 下它会把整字糊成白块 (实测 24 个汉字)。
-# Ark Pixel 是**原生点阵**字体, 字腔是活的, 正好补这个洞。
+# 为什么是 Fusion 而不是 Ark Pixel:
+#   实测 Fusion 的简体版与 Ark 的**结构**完全相同 (3605 个共有汉字逐个一致),
+#   但**覆盖**多 12054 个码位 —— 它把 Ark / Cubic 11 / Galmuri 缝进同一套字重体系。
+#   对我们 4140 个码位: Ark 覆盖 3990 (缺 150), **Fusion 覆盖全部 4140**。
+#   而共有部分**位图逐字节相同** (实测 3989/3989) ——
+#   所以换源对 3989 个字零画风变化, 却让原先没得选的 150 个字
+#   (酱/誊/鳖/蛰/嘎/撬/橇 ...) 有了真正的点阵字形。
+#   实测那 7 个仍未修的字, 换源后与**独立**参考 Unifont 的结构距离:
+#   Fusion 30-71  vs  SimHei 56-89 / MS Gothic 76-79 —— 明显更好。
+#   (Zpix 的字形是 13 宽, 放不进我们 12px 的全角格, 所以它当不了生产源。)
 #
 # 为什么裁剪后入库 (而不是像参考字体那样只记来源+sha256):
-# 参考字体只用于**校验**, 不参与构建, 所以不入库; 生产源必须入库 ——
-# 否则构建依赖一台机器上恰好装了某个字体, 换台机器就构建不出同一个结果。
-# 裁剪到本项目字符集后约 730 KB (未裁剪 5.1 MB), 逐像素渲染与原字体一致。
-# 许可证 OFL-1.1 一并入库, 见 vendor/ark-pixel-12px/OFL.txt。
-ARK_DIR = Path(__file__).resolve().parents[2] / "vendor" / "ark-pixel-12px"
-ARK_TTF = ARK_DIR / "ark-pixel-12px-monospaced-zh_hans-subset.ttf"
+# 参考字体只用于**校验**, 不参与构建, 所以不入库; 生产源参与构建, 不入库就等于
+# "构建依赖一台机器上恰好下载过某个字体", 换台机器构建不出同一个结果。
+# 裁剪到本项目字符集后约 746 KB, 三份许可证一并入库。
+ARK_DIR = Path(__file__).resolve().parents[2] / "vendor" / "fusion-pixel-12px"
+ARK_TTF = ARK_DIR / "fusion-pixel-12px-monospaced-zh_hans-subset.ttf"
 # 备选: 开发机上未裁剪的原始下载 (third_party/ref_fonts/, 不入库)
 ARK_FALLBACK = (
     Path(__file__).resolve().parents[2]
     / "third_party"
     / "ref_fonts"
-    / "ark-pixel-12px"
-    / "ark-pixel-12px-monospaced-zh_hans.ttf"
+    / "fusion-pixel-12px"
+    / "fusion-pixel-12px-monospaced-zh_hans.ttf"
 )
 
 # 显式排除的码位, 每一条都必须写明原因。
@@ -119,7 +125,7 @@ def load_ideo_route() -> tuple[dict[int, object], str, float]:
 
     返回 (码位 -> 名单条目, 模式, 字腔项权重)。条目内容随模式不同:
         "blob" 是理由字符串;
-        "per_char" 是 {"reason", "source", "sig_ideo", "sig_alt", "sig_ark"?, "sig_ref"}。
+        "per_char" 是 {"reason", "source", "sig_ideo", "sig_alt", "sig_fusion"?, "sig_ref"}。
     模式决定门禁查什么: "blob" 只切整字塌陷的字; "per_char" 逐字选源; "all" 全部覆盖。
     字腔项权重是逐字选源的距离函数里字腔那一项的系数 (见 route_rule.HOLE_WEIGHT);
     门禁要用它复算"当初那个选择现在还成不成立"。
@@ -258,7 +264,7 @@ def gate_ideo_route(stack: ScriptStack, items: list[tuple[str, str]]) -> None:
                 ),
             }
             if stack.third is not None:
-                cands["ark"] = sig_of(stack.third.glyph(ch)) if cp in ark_cps else None
+                cands["fusion"] = sig_of(stack.third.glyph(ch)) if cp in ark_cps else None
             if src not in cands:
                 bad.append(f"U+{cp:04X} {ch!r} 名单指定的源 {src!r} 不存在 —— 请重新推导")
                 continue
@@ -275,7 +281,7 @@ def gate_ideo_route(stack: ScriptStack, items: list[tuple[str, str]]) -> None:
             #    注意签名键的映射: 名单里 MS Gothic 存的是 "sig_alt" (历史名),
             #    源注册表里的键是 "non_ideo" —— 映射错了就永远查不到那个签名,
             #    于是 MS Gothic 换版本也不会被拦 (自审时真踩到过)。
-            sig_key = {"ideo": "sig_ideo", "non_ideo": "sig_alt", "ark": "sig_ark"}
+            sig_key = {"ideo": "sig_ideo", "non_ideo": "sig_alt", "fusion": "sig_fusion"}
             for k, cur in cands.items():
                 if cur is None:
                     continue

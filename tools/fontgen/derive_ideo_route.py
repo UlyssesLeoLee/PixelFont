@@ -257,7 +257,7 @@ def main() -> int:
             all_cands: dict[str, tuple[int, int, int] | None] = {
                 "ideo": s_id,
                 "non_ideo": s_mg,
-                "ark": s_ark,
+                "fusion": s_ark,
             }
             # 候选池规则在 route_rule.build_pool 里 —— 与构建门禁共用同一份实现,
             # 否则门禁会用另一套规则复核这份名单, 检查的就是不存在的事。
@@ -268,9 +268,18 @@ def main() -> int:
             # (「叠」的「且」框被填实, 但全字腔数只差 1), 自动判据抓不到。
             # 选源规则见 route_rule.choose_forced (推导与门禁共用同一份实现)。
             if cp in forced:
+                # 换源**之前**走的是哪个源 —— 强制规则要求"换过去不能离参照更远",
+                # 所以必须知道旧源。汉字的默认源是 SimHei (ideo)。
+                cur_name = "ideo"
+                rec0 = route.get(f"U+{cp:04X}")
+                if isinstance(rec0, dict):
+                    cur_name = str(rec0.get("source", "ideo"))
                 src, s_best = rr.choose_forced(all_cands, ref_sig[cp], args.hole_weight)
                 if src is not None and s_best is not None:
                     forced_applied.append((cp, forced[cp], src, list(s_best)))
+                    prev = cur_name
+                else:
+                    prev = cur_name
             if src is None or s_best is None:
                 n_keep += 1
                 d_new.append(d_id)
@@ -282,20 +291,20 @@ def main() -> int:
                 win[src] = win.get(src, 0) + 1
                 d_new.append(d_best)
                 parts = []
-                for k in ("ideo", "non_ideo", "ark"):
+                for k in ("ideo", "non_ideo", "fusion"):
                     if k in cands and cands[k] is not None:
                         parts.append(f"{k}={list(cands[k])}(距离 {dist(cands[k], ref_sig[cp]):g})")
                 why = (
                     f"逐字选源: 选 {src}, 参考 {list(ref_sig[cp])}; " + ", ".join(parts)
                 )
-                if "ark" in cands:
+                if "fusion" in cands:
                     why += " (双源都画不出, 由第三个像素源 Ark Pixel 兜底)"
                 route[f"U+{cp:04X}"] = {
                     "reason": why,
                     "source": src,
                     "sig_ideo": list(s_id),
                     "sig_alt": list(s_mg) if s_mg is not None else None,
-                    "sig_ark": list(s_ark) if s_ark is not None else None,
+                    "sig_fusion": list(s_ark) if s_ark is not None else None,
                     "sig_ref": list(ref_sig[cp]),
                     # 强制覆盖的标记: 门禁要用**同一条**强制规则复算,
                     # 否则门禁会用普通规则判"切源理由不成立"而拒构建。
@@ -332,7 +341,7 @@ def main() -> int:
             rec = route.get(f"U+{cp:04X}")
             if isinstance(rec, dict):
                 return {
-                    "ark": stack.third,
+                    "fusion": stack.third,
                     "non_ideo": stack.non_ideo,
                 }.get(str(rec.get("source")), stack.ideo)
             if cp < 0x2E80 or _is_kana(cp):
@@ -390,13 +399,13 @@ def main() -> int:
                     # 找一个能把 X 画对的源: 字腔数与参照一致, 且与当前画法不同
                     best = None
                     for sname, sobj in (
-                        ("ark", stack.third),
+                        ("fusion", stack.third),
                         ("non_ideo", stack.non_ideo),
                         ("ideo", stack.ideo),
                     ):
                         if sobj is None:
                             continue
-                        if sname == "ark" and cp not in ark_cps:
+                        if sname == "fusion" and cp not in ark_cps:
                             continue
                         if sname == "non_ideo" and cp not in non_ideo_cps:
                             continue
@@ -429,7 +438,7 @@ def main() -> int:
                         "sig_alt": list(_sig(np.array(stack.non_ideo.glyph(ch), dtype=np.uint8) > 0))
                         if cp in non_ideo_cps
                         else None,
-                        "sig_ark": list(_sig(np.array(stack.third.glyph(ch), dtype=np.uint8) > 0))
+                        "sig_fusion": list(_sig(np.array(stack.third.glyph(ch), dtype=np.uint8) > 0))
                         if cp in ark_cps
                         else None,
                         "sig_ref": list(ref_sig.get(cp) or [0, 0, 0]),
@@ -462,6 +471,12 @@ def main() -> int:
                   "必须切到有腔的源, 不看笔画数差 (0 腔是可见硬错误, 笔画差只是风格差异)",
         },
         "ref_votes_12px": list(REFS_12PX),
+        "inputs": {
+            # 名单自述"我是用什么输入推出来的" —— 构建门禁与 verify_all 的
+            # --check 必须用**同一份输入**重推, 否则会误报"名单与推导结果不一致"
+            # (实测踩过: 名单里含目视复核驱动的强制覆盖, 而自检没带那份输入)。
+            "force_from_review": args.force_from_review or None,
+        },
         "stats": {
             "switched": n_switch,
             "kept_simhei": n_keep,

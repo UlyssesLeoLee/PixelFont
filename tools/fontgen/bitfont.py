@@ -271,7 +271,7 @@ class ScriptStack:
         self.route = dict(route or {})
         self.sources: dict[str, BitmapFont] = {"ideo": ideo, "non_ideo": non_ideo}
         if third is not None:
-            self.sources["ark"] = third
+            self.sources["fusion"] = third
 
     def _pick(self, ch: str) -> BitmapFont:
         cp = ord(ch)

@@ -75,9 +75,9 @@ for arg in sys.argv[1:]:
         out.append("  MS Gothic             = (无此字)")
     sa = sig(ark.glyph(ch)) if cp in ark_cps else None
     if sa:
-        out.append(f"  Ark Pixel             = {sa}   距离 {dist(sa, ref):g}")
+        out.append(f"  Fusion Pixel         = {sa}   距离 {dist(sa, ref):g}")
     else:
-        out.append("  Ark Pixel             = (无此字)")
+        out.append("  Fusion Pixel         = (无此字)")
 
     # 按**生产规则**复算一次选择。
     # 规则必须来自 route_rule (推导脚本与构建门禁共用同一份实现) ——
@@ -85,15 +85,15 @@ for arg in sys.argv[1:]:
     cands = {
         "ideo": si,
         "non_ideo": sm,
-        "ark": sa,
+        "fusion": sa,
     }
     pool = rr.build_pool(cands, tuple(ref))
     picked, psig = rr.choose(pool, tuple(ref), hole_weight)
-    if "ark" in pool and "ark" not in ():
-        out.append("  (候选池: MS Gothic 缺此字形 -> 第三个像素源 Ark Pixel 参与竞争)")
+    if "fusion" in pool and "fusion" not in cands:
+        out.append("  (候选池: MS Gothic 缺此字形 -> 第三个像素源 Fusion Pixel 参与竞争)")
     out.append(
         "  按规则应选: "
-        + {"ideo": "SimHei", "non_ideo": "MS Gothic", "ark": "Ark Pixel"}.get(picked or "", "无")
+        + {"ideo": "SimHei", "non_ideo": "MS Gothic", "fusion": "Fusion Pixel"}.get(picked or "", "无")
     )
 
     rec = route.get(cp)

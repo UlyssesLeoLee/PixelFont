@@ -1,7 +1,7 @@
 {
   "tool": "regress_all",
   "version": 1,
-  "generated_at": "2026-10-21T10:18:32.793704+00:00",
+  "generated_at": "2026-10-21T12:04:06.288283+00:00",
   "selection": {
     "label": "all-batches",
     "cats": [
@@ -19,9 +19,9 @@
   "reference": {
     "density_median": 0.32051282051282054,
     "density_mad": 0.04487179487179482,
-    "density_sigma": 0.07595100946157687,
+    "density_sigma": 0.07597877438450479,
     "density_p95": 0.41025641025641024,
-    "density_max": 0.5064102564102564,
+    "density_max": 0.4935897435897436,
     "ink_top_median": 1,
     "ink_bottom_median": 11,
     "cat_density_median": {
@@ -184,7 +184,7 @@
           "batch": 5,
           "chars": 100,
           "density_median": 0.3269,
-          "density_max": 0.4872,
+          "density_max": 0.4487,
           "ink_top_median": 1,
           "ink_bottom_median": 11,
           "wide_ratio": 1.0,
@@ -213,7 +213,7 @@
         {
           "batch": 8,
           "chars": 100,
-          "density_median": 0.3205,
+          "density_median": 0.3333,
           "density_max": 0.4231,
           "ink_top_median": 1,
           "ink_bottom_median": 11,
@@ -264,7 +264,7 @@
           "batch": 13,
           "chars": 100,
           "density_median": 0.3397,
-          "density_max": 0.4167,
+          "density_max": 0.4423,
           "ink_top_median": 1,
           "ink_bottom_median": 11,
           "wide_ratio": 1.0,
@@ -512,7 +512,7 @@
           "batch": 17,
           "chars": 100,
           "density_median": 0.3205,
-          "density_max": 0.5064,
+          "density_max": 0.4936,
           "ink_top_median": 1,
           "ink_bottom_median": 11,
           "wide_ratio": 1.0,

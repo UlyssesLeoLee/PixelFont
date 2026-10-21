@@ -27,7 +27,7 @@ for key in ("degraded", "unsure_list"):
     for x in d.get(key, []):
         rows.append((key, x["cp"], x.get("char", ""), x.get("confidence", "")))
 
-SRC_NAME = {"ideo": "SimHei", "non_ideo": "MS Gothic", "ark": "Ark Pixel"}
+SRC_NAME = {"ideo": "SimHei", "non_ideo": "MS Gothic", "fusion": "Fusion Pixel"}
 
 
 def current_source(cp: str) -> str:

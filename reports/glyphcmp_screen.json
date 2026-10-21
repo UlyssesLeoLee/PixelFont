@@ -1,6 +1,6 @@
 {
   "tool": "compare_refs_screen",
-  "generated_at": "2026-10-21T10:38:49.707567+00:00",
+  "generated_at": "2026-10-21T12:04:25.453970+00:00",
   "selection": {
     "cats": [
       "<all>"
@@ -88,14 +88,6 @@
       "cp": "U+0060",
       "char": "`",
       "detail": "我方 U+0060 '`' 与 U+FF64 '､' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
-    },
-    {
-      "id": "OWN_COLLIDE",
-      "severity": "warn",
-      "ref": "ours",
-      "cp": "U+3099",
-      "char": "゙",
-      "detail": "我方 U+3099 '゙' 与 U+309C '゜' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
     },
     {
       "id": "OWN_COLLIDE",
@@ -213,24 +205,8 @@
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
       "ref": "zpix",
-      "cp": "U+554A",
-      "char": "啊",
-      "detail": "横笔画数与参考相差 -21 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "zpix",
       "cp": "U+7FDF",
       "char": "翟",
-      "detail": "横笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "zpix",
-      "cp": "U+6E89",
-      "char": "溉",
       "detail": "横笔画数与参考相差 -12 (绝对阈值 12)"
     },
     {
@@ -325,25 +301,9 @@
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
       "ref": "zpix",
-      "cp": "U+77A9",
-      "char": "瞩",
-      "detail": "横笔画数与参考相差 -14 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "zpix",
       "cp": "U+8198",
       "char": "膘",
       "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "zpix",
-      "cp": "U+9CD6",
-      "char": "鳖",
-      "detail": "竖笔画数与参考相差 -15 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
@@ -368,14 +328,6 @@
       "cp": "U+5960",
       "char": "奠",
       "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "zpix",
-      "cp": "U+53E0",
-      "char": "叠",
-      "detail": "竖笔画数与参考相差 -17 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
@@ -429,41 +381,9 @@
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
       "ref": "zpix",
-      "cp": "U+8205",
-      "char": "舅",
-      "detail": "竖笔画数与参考相差 -15 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "zpix",
       "cp": "U+5026",
       "char": "倦",
       "detail": "竖笔画数与参考相差 -14 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "zpix",
-      "cp": "U+57A6",
-      "char": "垦",
-      "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "zpix",
-      "cp": "U+6073",
-      "char": "恳",
-      "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "zpix",
-      "cp": "U+6482",
-      "char": "撂",
-      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
@@ -509,33 +429,9 @@
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
       "ref": "zpix",
-      "cp": "U+7CEF",
-      "char": "糯",
-      "detail": "竖笔画数与参考相差 -15 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "zpix",
       "cp": "U+666E",
       "char": "普",
       "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "zpix",
-      "cp": "U+6A47",
-      "char": "橇",
-      "detail": "竖笔画数与参考相差 -15 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "zpix",
-      "cp": "U+64AC",
-      "char": "撬",
-      "detail": "竖笔画数与参考相差 -15 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
@@ -581,14 +477,6 @@
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
       "ref": "zpix",
-      "cp": "U+8A8A",
-      "char": "誊",
-      "detail": "竖笔画数与参考相差 -20 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "zpix",
       "cp": "U+6316",
       "char": "挖",
       "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
@@ -621,14 +509,6 @@
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
       "ref": "zpix",
-      "cp": "U+80B2",
-      "char": "育",
-      "detail": "竖笔画数与参考相差 -14 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "zpix",
       "cp": "U+8087",
       "char": "肇",
       "detail": "竖笔画数与参考相差 -14 (绝对阈值 12)"
@@ -640,14 +520,6 @@
       "cp": "U+6EDE",
       "char": "滞",
       "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "zpix",
-      "cp": "U+77A9",
-      "char": "瞩",
-      "detail": "竖笔画数与参考相差 -14 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
@@ -676,7 +548,7 @@
     "unifont-16": []
   },
   "counter_holes": {
-    "ours_mean": 2.141,
+    "ours_mean": 2.15,
     "ref_mean": {
       "zpix": 3.691,
       "unifont-16": 2.241
@@ -798,15 +670,15 @@
     }
   ],
   "summary": {
-    "findings": 80,
+    "findings": 64,
     "by_id": {
       "EXACT_COLLIDE": 3,
-      "OWN_COLLIDE": 8,
+      "OWN_COLLIDE": 7,
       "COUNTER_LOST": 13,
-      "STRUCTURE_OUTLIER": 56
+      "STRUCTURE_OUTLIER": 41
     },
     "by_severity": {
-      "warn": 78,
+      "warn": 62,
       "error": 2
     }
   }
