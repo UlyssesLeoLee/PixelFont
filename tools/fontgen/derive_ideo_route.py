@@ -148,6 +148,14 @@ def main() -> int:
         help="逐字选源距离函数里字腔项的权重 (默认 1)。字腔是拓扑量, 不受字宽影响;"
         "横/竖笔画分段数受参考字体的分辨率与字宽影响, 天然有偏",
     )
+    ap.add_argument(
+        "--force-from-review",
+        default="",
+        help="目视复核产物 (summary.json): 里面确认劣化的字强制切到有腔的源。"
+        "这是把'目视发现的缺陷'接回自动推导的通道 —— 目视是唯一能发现"
+        "部件级塌陷的手段 (自动判据召回率只有 5/29), 但名单不能靠人肉维护, "
+        "所以把复核结论作为推导的**输入**",
+    )
     ap.add_argument("--check", action="store_true", help="只比对现有名单, 不写文件")
     ap.add_argument("--out", default=str(OUT), help="输出路径")
     args = ap.parse_args()
@@ -170,6 +178,19 @@ def main() -> int:
 
     route: dict[str, str] = {}
     skipped_no_alt = 0
+    # 目视复核确认劣化的字 -> 强制切到"有腔的源"。
+    # 目视是唯一能发现**部件级塌陷**的手段 (自动判据对那类缺陷召回率只有 5/29),
+    # 但名单不能靠人肉维护 —— 所以把复核结论作为推导的输入, 名单依然可重新推导。
+    forced: dict[int, str] = {}
+    if args.force_from_review:
+        rp = Path(args.force_from_review)
+        if not rp.exists():
+            print(f"找不到复核产物: {rp}", file=sys.stderr)
+            return 2
+        rv = json.loads(rp.read_text(encoding="utf-8"))
+        for x in rv.get("degraded", []):
+            forced[int(x["cp"][2:], 16)] = x.get("char", "")
+        print(f"目视复核输入: {rp} -> 确认劣化 {len(forced)} 个字")
     # 必须查 cmap, 不能只看渲染结果:
     # 源字体缺字时 FreeType 会画 .notdef —— 一个**空心矩形**的豆腐块,
     # 它自带 1 个"字腔", 会让"备选源能救回"这个判据把缺字也放进来。
@@ -212,6 +233,7 @@ def main() -> int:
         win = {}
         d_now = []
         d_new = []
+        forced_applied: list[tuple] = []
         for ch, _cat in hanzi:
             cp = ord(ch)
             if cp not in ref_sig:
@@ -241,6 +263,31 @@ def main() -> int:
             # 否则门禁会用另一套规则复核这份名单, 检查的就是不存在的事。
             cands = rr.build_pool(all_cands, ref_sig[cp])
             src, s_best = rr.choose(cands, ref_sig[cp], args.hole_weight)
+            # 目视确认劣化的字: 强制改用**更贴近参考**的源。
+            # 依据是目视结论本身 —— 部件级塌陷在总腔数上常常看不出来
+            # (「叠」的「且」框被填实, 但全字腔数只差 1), 自动判据抓不到。
+            #
+            # 评分不能直接用"腔最多的" —— 那是循环的 (裁判就是 Ark 主导的),
+            # 而且腔比参考多也是错 (「瓣」「雹」我方腔数反比参考多)。
+            # 用"腔数封顶到参考值": 封顶后取最大的, 再按距离决胜。
+            #   封顶的意义: 腔比参考多不加分 (超出参考的部分不算数)。
+            if cp in forced:
+                ref_h = ref_sig[cp][0]
+
+                def _score(name, s):
+                    return (min(s[0], ref_h), -dist(s, ref_sig[cp]))
+
+                best = None
+                for name in ("ark", "non_ideo", "ideo"):
+                    s = all_cands.get(name)
+                    if s is None:
+                        continue
+                    sc = _score(name, s)
+                    if best is None or sc > best[0]:
+                        best = (sc, name, s)
+                if best is not None:
+                    src, s_best = best[1], best[2]
+                    forced_applied.append((cp, forced[cp], src, list(s_best)))
             if src is None or s_best is None:
                 n_keep += 1
                 d_new.append(d_id)
@@ -273,6 +320,10 @@ def main() -> int:
                 d_new.append(d_best)
         print()
         print(f"逐字选源: 切 {n_switch} (来源分布 {win}), 保持 SimHei {n_keep}")
+        if forced_applied:
+            print(f"  目视确认劣化强制覆盖 {len(forced_applied)} 个:")
+            for cp, ch, src, sig in forced_applied:
+                print(f"    U+{cp:04X} {ch} -> {src} 签名 {sig}")
         print(
             "  与参考的结构距离: 现状均值 %.2f -> 选源后 %.2f; 完全吻合 %d -> %d"
             % (
