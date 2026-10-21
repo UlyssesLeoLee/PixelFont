@@ -37,7 +37,7 @@ from fontTools.ttLib import TTFont
 import charset as cs
 import route_rule as rr
 import verify_identity as vi
-from bitfont import count_holes
+from bitfont import _is_kana, count_holes
 from coverage import cmap_for
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -319,6 +319,129 @@ def main() -> int:
                 sum(1 for d in d_new if d == 0),
             )
         )
+
+        # ---- 字符身份规则: 我方把某个码位画成了另一个码位 ----
+        #
+        # 这类错误距离判据完全看不见 (画错的字符与对的字符结构上就是同一个,
+        # 距离自然是 0)。判据见 route_rule.identity_confused。
+        # 实例: MS Gothic 把 U+3099 ゙(浊点) 与 U+309C ゜(半浊点) 都画成 3x3 的圈,
+        # 参照说 ゙ 该是 0 腔(两撇)而 ゜ 是 1 腔(圈) —— 我方把浊点画成了半浊点。
+        ident_fixes: list[tuple[int, str, str, int, int]] = []
+
+        def cur_source(cp: int, ch: str):
+            rec = route.get(f"U+{cp:04X}")
+            if isinstance(rec, dict):
+                return {
+                    "ark": stack.third,
+                    "non_ideo": stack.non_ideo,
+                }.get(str(rec.get("source")), stack.ideo)
+            if cp < 0x2E80 or _is_kana(cp):
+                return stack.non_ideo
+            return stack.ideo
+
+        def crop_bytes(img):
+            a = np.array(img, dtype=np.uint8) > 0
+            ys, xs = np.nonzero(a)
+            if not len(xs):
+                return None
+            c = a[ys.min() : ys.max() + 1, xs.min() : xs.max() + 1]
+            return (c.shape, c.tobytes())
+
+        # 按位图指纹分组, 找出"我方画成同一个"的码位组
+        fp_groups: dict = {}
+        for ch, _cat in items:
+            cp = ord(ch)
+            f = cur_source(cp, ch)
+            if f is None:
+                continue
+            key = crop_bytes(f.glyph(ch))
+            if key is None:
+                continue
+            fp_groups.setdefault(key, []).append((cp, ch))
+
+        def ref_holes_of(cp: int) -> int | None:
+            hs = []
+            for name in REFS_12PX:
+                b = refs[name].get(cp)
+                if b is None:
+                    continue
+                s = _sig(b)
+                if s:
+                    hs.append(s[0])
+            if not hs:
+                return None
+            return int(np.median(hs))
+
+        for _key, group in fp_groups.items():
+            if len(group) < 2:
+                continue
+            for cp, ch in group:
+                if f"U+{cp:04X}" in route:
+                    continue
+                cur = cur_source(cp, ch)
+                our_h = _sig(np.array(cur.glyph(ch), dtype=np.uint8) > 0)[0]
+                for cp2, ch2 in group:
+                    if cp2 == cp:
+                        continue
+                    rx = ref_holes_of(cp)
+                    ry = ref_holes_of(cp2)
+                    if not rr.identity_confused(our_h, rx, ry):
+                        continue
+                    # 找一个能把 X 画对的源: 字腔数与参照一致, 且与当前画法不同
+                    best = None
+                    for sname, sobj in (
+                        ("ark", stack.third),
+                        ("non_ideo", stack.non_ideo),
+                        ("ideo", stack.ideo),
+                    ):
+                        if sobj is None:
+                            continue
+                        if sname == "ark" and cp not in ark_cps:
+                            continue
+                        if sname == "non_ideo" and cp not in non_ideo_cps:
+                            continue
+                        g = sobj.glyph(ch)
+                        sh = _sig(np.array(g, dtype=np.uint8) > 0)[0]
+                        if sh != rx:
+                            continue
+                        if crop_bytes(g) == crop_bytes(cur.glyph(ch)):
+                            continue
+                        rs = ref_sig.get(cp)
+                        d = dist(_sig(np.array(g, dtype=np.uint8) > 0), rs) if rs else 0
+                        if best is None or d < best[0]:
+                            best = (d, sname, sh)
+                    if best is None:
+                        continue
+                    d, sname, sh = best
+                    ident_fixes.append((cp, ch, sname, our_h, sh))
+                    route[f"U+{cp:04X}"] = {
+                        "reason": (
+                            f"字符身份: 我方把 U+{cp:04X} {ch!r} 画成了 U+{cp2:04X} {ch2!r} 的位图"
+                            f" (两者逐像素相同)。参照字体说 {ch!r} 应有 {rx} 腔而 {ch2!r} 有 {ry} 腔, "
+                            f"我方 {ch!r} 是 {our_h} 腔 —— 画成了另一个字符, 改用 {sname}"
+                        ),
+                        "source": sname,
+                        "identity_fix": True,
+                        "confused_with": f"U+{cp2:04X}",
+                        "sig_ideo": list(_sig(np.array(stack.ideo.glyph(ch), dtype=np.uint8) > 0))
+                        if stack.ideo.glyph(ch).width
+                        else None,
+                        "sig_alt": list(_sig(np.array(stack.non_ideo.glyph(ch), dtype=np.uint8) > 0))
+                        if cp in non_ideo_cps
+                        else None,
+                        "sig_ark": list(_sig(np.array(stack.third.glyph(ch), dtype=np.uint8) > 0))
+                        if cp in ark_cps
+                        else None,
+                        "sig_ref": list(ref_sig.get(cp) or [0, 0, 0]),
+                    }
+                    break
+
+        if ident_fixes:
+            print(f"  字符身份修正 {len(ident_fixes)} 个 (我方把某个码位画成了另一个码位):")
+            for cp, ch, sname, oh, sh in ident_fixes:
+                print(f"    U+{cp:04X} {ch} -> {sname}  (腔 {oh} -> {sh})")
+        else:
+            print("  字符身份修正: 无")
         doc = {
         "tool": "derive_ideo_route",
         "generated_at": datetime.now(timezone.utc).isoformat(),

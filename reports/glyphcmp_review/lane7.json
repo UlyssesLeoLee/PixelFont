@@ -33,11 +33,197 @@
     }
   ],
   "chars_reviewed": 480,
-  "findings": [],
-  "unsure": [],
+  "findings": [
+    {
+      "cp": "U+5BA3",
+      "char": "宣",
+      "kind": "B",
+      "reason": "「亘」里的「日」下半格被填实: 中横与底横相邻成一条实心带, 「日」内只剩 1 个封闭腔; Zpix 与 Unifont 的「日」都能分出上下 2 格 (各 2 腔)。整字仍读作「宣」, 但部件结构信息已丢 (腔 1 vs 2 / 2)",
+      "confidence": "high",
+      "position": "glyphcmp_036.png r2c3"
+    },
+    {
+      "cp": "U+718F",
+      "char": "熏",
+      "kind": "B",
+      "reason": "「里」内的「田」四格被并成两格: 我方「田」的分隔竖画比参考整体低一行 (笔画仍为 1px, 不是变粗), 4 个小格合并为 2 个大格; Zpix 4 腔、Unifont 4 腔, 我方仅 2 腔。「田」是「里」的可辨识特征, 隔间结构已丢",
+      "confidence": "medium",
+      "position": "glyphcmp_036.png r3c6"
+    },
+    {
+      "cp": "U+8845",
+      "char": "衅",
+      "kind": "B",
+      "reason": "「血」下部「皿」的两根内部竖画并入左壁, 左壁被压成 3px 厚的实心带, 隔间由 2 降为 1 (只剩 1 条纵向白缝); Zpix 与 Unifont 的「皿」都是 2 个隔间 (腔 3 vs 5 / 4)",
+      "confidence": "medium",
+      "position": "glyphcmp_035.png r5c10"
+    },
+    {
+      "cp": "U+61C8",
+      "char": "懈",
+      "kind": "B",
+      "reason": "「角」下部「用」的中间竖画并入左壁 (2px 厚实心带), 「用」由 4 格降为 2 格, 形态接近「目」; Zpix 与 Unifont 的「用」都能分出 4 格 (腔 4 vs 7 / 6)。其余部件 (忄/刀/牛) 结构完好",
+      "confidence": "medium",
+      "position": "glyphcmp_035.png r4c8"
+    },
+    {
+      "cp": "U+63D6",
+      "char": "揖",
+      "kind": "B",
+      "reason": "「咠」下部「耳」只画出 3 条完整横画 (第 4 条只剩 2px 残笔), 隔间 2 个; Zpix 与 Unifont 的「耳」都是 4 条横画 / 3 个隔间 (腔 3 vs 4 / 4)。「扌」与上部「口」完好",
+      "confidence": "medium",
+      "position": "glyphcmp_037.png r4c10"
+    }
+  ],
+  "unsure": [
+    {
+      "cp": "U+7A00",
+      "char": "稀",
+      "kind": "C",
+      "reason": "「希」下部「巾」内的白区未闭合, 只剩 2 个 1px 口袋 (Zpix 4 腔, Unifont 2 腔)。「禾」与「乂/布」的骨架完整可追踪, 笔画本身没有变粗或脱落",
+      "confidence": "low",
+      "position": "glyphcmp_034.png r2c11"
+    },
+    {
+      "cp": "U+88AD",
+      "char": "袭",
+      "kind": "C",
+      "reason": "「龙」内部的口袋被收成 1px (我方 1 腔, Zpix / Unifont 各 2 腔且均为 4px 口袋)。「龙」与「衣」的横竖骨架仍可辨, 属局部收窄",
+      "confidence": "low",
+      "position": "glyphcmp_034.png r4c0"
+    },
+    {
+      "cp": "U+60AC",
+      "char": "悬",
+      "kind": "C",
+      "reason": "「目」我方为 3 格 (与 Unifont 一致), Zpix 画成 4 格; 另「心」处 1 个口袋未闭合 (我方 3 腔, Zpix 5, Unifont 4)。整体骨架完整",
+      "confidence": "low",
+      "position": "glyphcmp_036.png r2c4"
+    },
+    {
+      "cp": "U+9157",
+      "char": "酗",
+      "kind": "C",
+      "reason": "「酉」上部隔间数我方 1, Zpix 2, Unifont 1 —— 两个参考彼此不一致, 不作判定。「酉」「凶」主体笔画齐全",
+      "confidence": "low",
+      "position": "glyphcmp_036.png r1c3"
+    },
+    {
+      "cp": "U+7EEA",
+      "char": "绪",
+      "kind": "C",
+      "reason": "「纟」内 1 块 7px 口袋未闭合 (两参考的「纟」都闭合); 右部「者」的「日」上下 2 格在三方一致。「纟」笔画变粗但未脱落",
+      "confidence": "low",
+      "position": "glyphcmp_036.png r1c11"
+    },
+    {
+      "cp": "U+9609",
+      "char": "阉",
+      "kind": "C",
+      "reason": "「奄」下部「电」的「日」内白区在我方合为 1 块 (我方 6 腔, Zpix / Unifont 各 7 腔), 差 1 腔; 「门」「大」骨架完好",
+      "confidence": "low",
+      "position": "glyphcmp_036.png r6c1"
+    },
+    {
+      "cp": "U+989C",
+      "char": "颜",
+      "kind": "C",
+      "reason": "「页」的「贝」下部开口 (简体正字法), 内部不形成封闭腔; Zpix 把「贝」画成闭合框 (9 腔), Unifont 用的是繁体「頁」(2 腔)。参考之间形制不一致, 属字形写法差异而非塌陷",
+      "confidence": "low",
+      "position": "glyphcmp_036.png r6c11"
+    },
+    {
+      "cp": "U+75A1",
+      "char": "疡",
+      "kind": "C",
+      "reason": "「勿」内 1 块 4px 口袋未闭合 (我方 0 腔, Zpix / Unifont 各 1 腔); 「疒」与「昜」主体笔画齐全",
+      "confidence": "low",
+      "position": "glyphcmp_037.png r1c3"
+    },
+    {
+      "cp": "U+9080",
+      "char": "邀",
+      "kind": "C",
+      "reason": "「敫」处口袋数我方 3, Zpix 7, Unifont 4 —— 参考彼此相差很大, 属「白/方/攵」笔画排布差异, 不作劣化判定。「辶」与「敫」轮廓可辨",
+      "confidence": "low",
+      "position": "glyphcmp_037.png r2c1"
+    },
+    {
+      "cp": "U+8170",
+      "char": "腰",
+      "kind": "C",
+      "reason": "「要」部 1 个 1px 口袋未闭合 (我方 6 腔, Zpix / Unifont 各 7 腔); 「月」的两个隔间在三方一致。「要」整体笔画齐全",
+      "confidence": "low",
+      "position": "glyphcmp_037.png r2c2"
+    },
+    {
+      "cp": "U+6DB2",
+      "char": "液",
+      "kind": "C",
+      "reason": "「夜」内 3 个小口袋中我方只闭合 2 个 (我方 2 腔, Zpix 3, Unifont 4); 差的是 1-2px 的白区, 笔画骨架无缺",
+      "confidence": "low",
+      "position": "glyphcmp_037.png r4c6"
+    },
+    {
+      "cp": "U+88D4",
+      "char": "裔",
+      "kind": "C",
+      "reason": "「冏」处 1 个 1-2px 口袋未闭合 (我方 6 腔, Zpix / Unifont 各 7 腔); 「衣」与「冏」主体完整",
+      "confidence": "low",
+      "position": "glyphcmp_037.png r7c9"
+    },
+    {
+      "cp": "U+9634",
+      "char": "阴",
+      "kind": "C",
+      "reason": "「阝」内那块 8-22px 白区我方未闭合 (我方 2 腔, Zpix / Unifont 各 3 腔); 右部「月」的两个隔间三方一致。属阝写法差异",
+      "confidence": "low",
+      "position": "glyphcmp_038.png r1c5"
+    },
+    {
+      "cp": "U+5F71",
+      "char": "影",
+      "kind": "C",
+      "reason": "「景」中「京」的「亠」处 3px 口袋未闭合 (我方 2 腔, Zpix / Unifont 各 3 腔); 「日」隔间三方一致, 「彡」完整",
+      "confidence": "low",
+      "position": "glyphcmp_038.png r3c6"
+    },
+    {
+      "cp": "U+786C",
+      "char": "硬",
+      "kind": "C",
+      "reason": "我方「石」的「口」是闭合的 (1 个 4px 腔), Zpix 同一处却与上方连通成 21px 开口区, Unifont 为 10px 闭合区 —— 差在石/更交界处, 我方结构反而更完整。「更」的「日」4 格三方一致",
+      "confidence": "low",
+      "position": "glyphcmp_038.png r3c8"
+    },
+    {
+      "cp": "U+5EB8",
+      "char": "庸",
+      "kind": "C",
+      "reason": "「肀」内 1 条竖画与 1 条横画未贯通 (行 6 少 2-3 px), 白区数我方 5 腔, Zpix 8, Unifont 7; 「用」部隔间一致。轮廓仍可辨",
+      "confidence": "low",
+      "position": "glyphcmp_038.png r4c3"
+    },
+    {
+      "cp": "U+5E7C",
+      "char": "幼",
+      "kind": "C",
+      "reason": "「幺」与「力」之间 1 块 4px 口袋未闭合 (我方 0 腔, Zpix / Unifont 各 1 腔); 两部件笔画齐全",
+      "confidence": "low",
+      "position": "glyphcmp_038.png r6c9"
+    },
+    {
+      "cp": "U+8206",
+      "char": "舆",
+      "kind": "C",
+      "reason": "顶部「𦥑」我方画成开放格架 (0 腔), Zpix 画成多个封闭小格 (7 腔), Unifont 仅 1 腔 —— Unifont 与我方一致, 判为写法差异而非塌陷; 「车」部完整",
+      "confidence": "low",
+      "position": "glyphcmp_038.png r7c5"
+    }
+  ],
   "summary": {
     "identity": 0,
-    "degraded": 0,
+    "degraded": 5,
     "chars_reviewed": 480
   },
   "method": {
@@ -50,7 +236,7 @@
     "steps": [
       "按协议第 3 节几何 (格 108x66, 表头 26, 点阵左上角 我方 x+2 / Zpix x+38 / Unifont x+74, y+30) 切出 16x16 源点阵",
       "每张对照表按左右 6 列切半、2x 最近邻放大逐格目视核对 (10 张放大图覆盖全部 480 格)",
-      "对 24 个腔数低于两个参考的候选格另做 8x 紧裁切条 (tight strip) 与 16x16 ASCII 点阵逐像素比对",
+      "对 24 个腔数低于两个参考的候选格逐个做 16x16 ASCII 点阵 + 腔区包围盒比对, 其中 5 个 B 候选另做 8x 同槽位点阵条 (三列同为 16x16 槽, 可直接比形) 目视复核",
       "字腔数按协议第 5 节定义实现 (4 邻域, 按墨迹外接矩形, 贴边白区不算腔), 三份独立实现 (BFS 洪水填充 / 并查集 / 扫描线游程合并) 交叉验证: 1440 次比较 0 处不一致",
       "身份 (A 类) 另做全语料最近邻筛查 (960 个参考字形), 命中低相似度红名单再逐个目视确认",
       "判定口径: 只在结构信息丢失 (部件封闭空间填实 / 横竖画并成实心带) 时判 B; 笔画粗密但骨架可追踪归 C; 字高不同不算缺陷"

@@ -303,6 +303,30 @@ def gate_ideo_route(stack: ScriptStack, items: list[tuple[str, str]]) -> None:
             #    否则门禁会判这些字"切源理由不成立"而拒构建。
             if rec.get("forced"):
                 picked, _psig = rr.choose_forced(cands, tuple(ref), hole_weight)
+            elif rec.get("identity_fix"):
+                # 字符身份修正的条目: 选源规则是"我方把 X 画成了 Y, 换个能画对 X 的源",
+                # 不是距离规则。门禁要复算的是这条规则的**结论**:
+                #   · 所选源的字腔数必须与参照一致 (它画对了这个码位)
+                #   · 且必须与另一个可用源不同 (消歧确实还在发生)
+                # 这两条都是可复算的, 不需要参考字体本身。
+                want = ref[0]
+                got = cands[src][0] if cands.get(src) is not None else None
+                others = [
+                    s[0]
+                    for k, s in cands.items()
+                    if k != src and s is not None
+                ]
+                if got != want:
+                    bad.append(
+                        f"U+{cp:04X} {ch!r} 字符身份修正已失效 "
+                        f"(所选源 {src} 的字腔数 {got} != 参照的 {want}) —— 请重新推导名单"
+                    )
+                elif want in others:
+                    bad.append(
+                        f"U+{cp:04X} {ch!r} 字符身份消歧已失效 "
+                        f"(另一个源也画成 {want} 腔, 与参照一致) —— 请重新推导名单"
+                    )
+                continue
             else:
                 pool = rr.build_pool(cands, tuple(ref))
                 picked, _psig = rr.choose(pool, tuple(ref), hole_weight)

@@ -98,6 +98,33 @@ def dist(s: tuple[int, int, int], t: tuple[int, int, int], w: float = HOLE_WEIGH
     return w * abs(s[0] - t[0]) + abs(s[1] - t[1]) + abs(s[2] - t[2])
 
 
+def identity_confused(
+    our_holes: int,
+    ref_holes_x: int | None,
+    ref_holes_y: int | None,
+) -> bool:
+    """我方是不是把码位 X 画成了另一个码位 Y?
+
+    三个条件都要满足, 否则不动:
+      1. 参照字体对 X 与 Y 的**字腔数不同** —— 参照能区分这两个码位。
+         (如果参照也画成同一个, 那就是该尺寸下天然同形, 不是我们的错。)
+      2. 我方 X 的字腔数 == 参照对 **Y** 的字腔数 —— 说明我方画出来的是 Y 那一侧。
+      3. 我方 X 的字腔数 != 参照对 X 的字腔数 —— 参照说 X 不是这样。
+
+    实例: U+3099 ゙(浊点) 与 U+309C ゜(半浊点) —— MS Gothic 把两个都画成 3x3 的圈,
+    参照说 ゙ 该是 0 腔(两撇)而 ゜ 是 1 腔(圈)。我方 ゙ 是 1 腔 == 参照的 ゜
+    -> 我方把浊点画成了半浊点, 属于**画错了字符**, 必须换源。
+
+    为什么要这条: 距离判据在这类情形上完全失效 —— 画错的字符与对的字符
+    结构上就是同一个, 距离自然也是 0。
+    """
+    if ref_holes_x is None or ref_holes_y is None:
+        return False
+    if ref_holes_x == ref_holes_y:
+        return False
+    return our_holes == ref_holes_y and our_holes != ref_holes_x
+
+
 def choose_forced(
     cands: dict[str, tuple[int, int, int] | None],
     ref: tuple[int, int, int],
