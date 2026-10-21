@@ -271,10 +271,15 @@ def gate_ideo_route(stack: ScriptStack, items: list[tuple[str, str]]) -> None:
             #    记录里是 None = "推导当时这个源根本没有这个字形"。
             #    现在这个源若有了字形, 是源覆盖变了 —— 不直接报错,
             #    由下面第 2 步"复算选择"来判定这个变化是否改变了结论。
+            #
+            #    注意签名键的映射: 名单里 MS Gothic 存的是 "sig_alt" (历史名),
+            #    源注册表里的键是 "non_ideo" —— 映射错了就永远查不到那个签名,
+            #    于是 MS Gothic 换版本也不会被拦 (自审时真踩到过)。
+            sig_key = {"ideo": "sig_ideo", "non_ideo": "sig_alt", "ark": "sig_ark"}
             for k, cur in cands.items():
                 if cur is None:
                     continue
-                old = rec["sig_ideo"] if k == "ideo" else rec.get("sig_" + k)
+                old = rec.get(sig_key.get(k, "sig_" + k))
                 if old is None:
                     continue
                 if list(old) != list(cur):
