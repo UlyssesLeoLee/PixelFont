@@ -266,27 +266,10 @@ def main() -> int:
             # 目视确认劣化的字: 强制改用**更贴近参考**的源。
             # 依据是目视结论本身 —— 部件级塌陷在总腔数上常常看不出来
             # (「叠」的「且」框被填实, 但全字腔数只差 1), 自动判据抓不到。
-            #
-            # 评分不能直接用"腔最多的" —— 那是循环的 (裁判就是 Ark 主导的),
-            # 而且腔比参考多也是错 (「瓣」「雹」我方腔数反比参考多)。
-            # 用"腔数封顶到参考值": 封顶后取最大的, 再按距离决胜。
-            #   封顶的意义: 腔比参考多不加分 (超出参考的部分不算数)。
+            # 选源规则见 route_rule.choose_forced (推导与门禁共用同一份实现)。
             if cp in forced:
-                ref_h = ref_sig[cp][0]
-
-                def _score(name, s):
-                    return (min(s[0], ref_h), -dist(s, ref_sig[cp]))
-
-                best = None
-                for name in ("ark", "non_ideo", "ideo"):
-                    s = all_cands.get(name)
-                    if s is None:
-                        continue
-                    sc = _score(name, s)
-                    if best is None or sc > best[0]:
-                        best = (sc, name, s)
-                if best is not None:
-                    src, s_best = best[1], best[2]
+                src, s_best = rr.choose_forced(all_cands, ref_sig[cp], args.hole_weight)
+                if src is not None and s_best is not None:
                     forced_applied.append((cp, forced[cp], src, list(s_best)))
             if src is None or s_best is None:
                 n_keep += 1
@@ -314,6 +297,9 @@ def main() -> int:
                     "sig_alt": list(s_mg) if s_mg is not None else None,
                     "sig_ark": list(s_ark) if s_ark is not None else None,
                     "sig_ref": list(ref_sig[cp]),
+                    # 强制覆盖的标记: 门禁要用**同一条**强制规则复算,
+                    # 否则门禁会用普通规则判"切源理由不成立"而拒构建。
+                    "forced": cp in forced,
                 }
             else:
                 n_keep += 1

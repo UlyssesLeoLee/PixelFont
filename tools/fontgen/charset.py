@@ -292,8 +292,15 @@ def gate_ideo_route(stack: ScriptStack, items: list[tuple[str, str]]) -> None:
             # 2) 复算选择: 用**同一条规则** (route_rule.build_pool + choose) 重算,
             #    确认当初那个选择现在依然成立。规则不在这里重写一遍 ——
             #    推导与门禁用同一份实现, 否则门禁检查的是不存在的事。
-            pool = rr.build_pool(cands, tuple(ref))
-            picked, psig = rr.choose(pool, tuple(ref), hole_weight)
+            #
+            #    名单里带 "forced" 的条目 (目视复核确认劣化, 强制改源) 用的是另一条
+            #    规则 (腔数封顶到参考值, 再按距离决胜) —— 门禁必须用**同一条**,
+            #    否则门禁会判这些字"切源理由不成立"而拒构建。
+            if rec.get("forced"):
+                picked, _psig = rr.choose_forced(cands, tuple(ref), hole_weight)
+            else:
+                pool = rr.build_pool(cands, tuple(ref))
+                picked, _psig = rr.choose(pool, tuple(ref), hole_weight)
             if picked != src:
                 bad.append(
                     f"U+{cp:04X} {ch!r} 切源理由已不成立 "

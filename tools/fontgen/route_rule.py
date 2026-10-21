@@ -98,6 +98,31 @@ def dist(s: tuple[int, int, int], t: tuple[int, int, int], w: float = HOLE_WEIGH
     return w * abs(s[0] - t[0]) + abs(s[1] - t[1]) + abs(s[2] - t[2])
 
 
+def choose_forced(
+    cands: dict[str, tuple[int, int, int] | None],
+    ref: tuple[int, int, int],
+    w: float = HOLE_WEIGHT,
+) -> tuple[str | None, tuple[int, int, int] | None]:
+    """强制选源 (目视复核确认劣化时用): 腔数**封顶到参考值**后取最大的, 再按距离决胜。
+
+    为什么不能直接用 choose: 裁判是 Ark 主导的 (median(Ark, Fusion, Zpix)),
+    所以"离裁判最近的"对被判给 Ark 的字等于"总是选 Ark" —— 循环论证。
+    而"腔最多的"也不对: 腔比参考**多**是错不是好 (「瓣」「雹」我方腔数反比参考多),
+    所以超出参考的那部分不能算分。封顶后再按距离决胜, 既不循环, 也不奖励过度。
+
+    调用方: 推导脚本 (目视结论作为输入) 与构建门禁 (复算这条规则) 共用本函数。
+    """
+    avail = [(name, s) for name, s in cands.items() if s is not None]
+    if not avail:
+        return None, None
+    ref_h = ref[0]
+
+    def _score(s: tuple[int, int, int]) -> tuple[int, float]:
+        return (min(s[0], ref_h), -dist(s, ref, w))
+
+    return max(avail, key=lambda c: _score(c[1]))
+
+
 def choose(
     cands: dict[str, tuple[int, int, int] | None],
     ref: tuple[int, int, int],
