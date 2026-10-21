@@ -1,0 +1,66 @@
+码位    字  类别  旧源 -> 新源
+U+3099  ゙  kana   MS Gothic/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+554A  啊  hanzi  MS Gothic/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+9CD6  鳖  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+806A  聪  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+57AB  垫  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+53E0  叠  hanzi  MS Gothic/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+560E  嘎  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+6E89  溉  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+86E4  蛤  hanzi  MS Gothic/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+6EDA  滚  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+6BC1  毁  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+9274  鉴  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+6D46  浆  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+6868  桨  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+5956  奖  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+9171  酱  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+85C9  藉  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+7D27  紧  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+8205  舅  hanzi  MS Gothic/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+60E7  惧  hanzi  MS Gothic/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+9A8F  骏  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+770B  看  hanzi  MS Gothic/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+57A6  垦  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+6073  恳  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+5CBF  岿  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+6482  撂  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+5CE6  峦  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+631B  挛  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+5B6A  孪  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+6EE6  滦  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+76F2  盲  hanzi  MS Gothic/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+8D38  贸  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+852B  蔫  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+7CEF  糯  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+6BD7  毗  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+6A47  橇  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+64AC  撬  hanzi  MS Gothic/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+56B7  嚷  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+70ED  热  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+7EAB  纫  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+55D3  嗓  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+6DA9  涩  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+8D61  赡  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+7701  省  hanzi  MS Gothic/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+52BF  势  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+8A8A  誊  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+55E1  嗡  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+96FE  雾  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+61C8  懈  hanzi  MS Gothic/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+8845  衅  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+5BA3  宣  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+718F  熏  hanzi  MS Gothic/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+836F  药  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+63D6  揖  hanzi  MS Gothic/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+80B2  育  hanzi  MS Gothic/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+7F18  缘  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+613F  愿  hanzi  MS Gothic/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+6E23  渣  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+86F0  蛰  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+690D  植  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+631A  挚  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+9AA4  骤  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+77A9  瞩  hanzi  MS Gothic/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+8D58  赘  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular
+U+7EB5  纵  hanzi  SimHei/Regular -> Fusion Pixel 12px Mono zh-Hans/Regular

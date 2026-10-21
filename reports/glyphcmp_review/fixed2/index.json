@@ -1,0 +1,53 @@
+{
+  "tool": "gen_glyphcmp_sheets",
+  "generated_at": "2026-10-21T12:19:22.130187+00:00",
+  "refs": [
+    "zpix",
+    "unifont-16"
+  ],
+  "cols": 4,
+  "rows": 8,
+  "per_sheet": 32,
+  "slot_w": 16,
+  "slot_h": 16,
+  "sheets": [
+    {
+      "sheet": "glyphcmp_000.png",
+      "chars": [
+        "U+52BF",
+        "U+55D3",
+        "U+55E1",
+        "U+56B7",
+        "U+5BA3",
+        "U+613F",
+        "U+61C8",
+        "U+631A",
+        "U+63D6",
+        "U+64AC",
+        "U+690D",
+        "U+6A47",
+        "U+6BD7",
+        "U+6DA9",
+        "U+6E23",
+        "U+70ED",
+        "U+718F",
+        "U+7701",
+        "U+77A9",
+        "U+7CEF",
+        "U+7EAB",
+        "U+7EB5",
+        "U+7F18",
+        "U+80B2",
+        "U+836F",
+        "U+86F0",
+        "U+8845",
+        "U+8A8A",
+        "U+8D58",
+        "U+8D61",
+        "U+96FE",
+        "U+9AA4"
+      ],
+      "count": 32
+    }
+  ]
+}
