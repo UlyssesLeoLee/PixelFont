@@ -1,0 +1,82 @@
+{
+  "lane": "fixed",
+  "sheets": [
+    {
+      "sheet": "fixed/glyphcmp_000.png",
+      "chars": 33,
+      "first": "U+3099",
+      "last": "U+9CD6"
+    },
+    {
+      "sheet": "fixed2/glyphcmp_000.png",
+      "chars": 32,
+      "first": "U+52BF",
+      "last": "U+9AA4"
+    }
+  ],
+  "chars_reviewed": 65,
+  "findings": [],
+  "unsure": [
+    {
+      "cp": "U+3099",
+      "char": "゙",
+      "kind": "C",
+      "reason": "**身份错误已修复**, 但按 brief 的字面口径仍记存疑。我方位图 = 3x2 的 `#.#` / `#.#` (两笔, 0 腔), 与同一字库里的 U+309C「半浊点゜」(3x3 空心环, 1 腔) **逐像素不同** —— lane1 报的 A 类身份错误(画成 U+309C)确已修掉; 字腔数 0 与 Unifont 的 0 一致, 也与「浊点=两笔、半浊点=环」的拓扑判据一致。剩余疑点: 两笔是**竖画**(Fusion/Ark 12px 的竖排浊点写法), Unifont 16px 是斜撇(两撇), MS Gothic 12px 是 3 像素楔形 —— 若严格要求「两撇」而非「两竖」, 需人工定夺。位图与 vendor Fusion 子集 12px 渲染逐字节相同(65/65), 说明竖画是源字体自身设计, 不是构建/裁剪问题。",
+      "confidence": "low"
+    },
+    {
+      "cp": "U+7CEF",
+      "char": "糯",
+      "kind": "C",
+      "reason": "结构可追踪, 但比两个参考少一笔。我方 11x11: 右部「需」= 雨(一 + 冂 + 4 点, 4 点齐全, 与 Zpix 同形) + 而(一 + 冂 + 2 根内竖), **而的底部钩笔(乚)缺失** —— Zpix 的最后一行是 `..#.#....##..`, Unifont 的最后一行是 `...#...#....##..`, 我方少这一行(2 像素), 故整字少一横底钩。雨的 4 点、而的框与 2 根内竖全部在位, 没有封闭空间被填实、没有笔画并成实心带, 按 A/B/C 口径不判 B, 记 C。位图与 vendor Fusion 子集逐字节相同, 缺笔来自源字体自身 12px 设计。",
+      "confidence": "low"
+    },
+    {
+      "cp": "U+8845",
+      "char": "衅",
+      "kind": "C",
+      "reason": "结构可追踪, 但比两个参考少一根内竖。我方 11x11 左部「血」的「皿」是 2 根内竖(列 x2/x4), Zpix 与 Unifont 各有 3 根 —— 皿 的内部竖画少 1 根, 故血 部的格数少。血 顶的撇在位, 皿 的框与内部竖画都在(没有整块填实, 也没有横画消失), 按口径不判 B, 记 C。位图与 vendor Fusion 子集逐字节相同, 少 1 根内竖是源字体 12px 栅格取舍。",
+      "confidence": "low"
+    }
+  ],
+  "summary": {
+    "identity": 0,
+    "degraded": 0,
+    "chars_reviewed": 65
+  },
+  "method": {
+    "artifact": "reports/glyphcmp_review/fixed/glyphcmp_000.png (33 格) + reports/glyphcmp_review/fixed2/glyphcmp_000.png (32 格)",
+    "refs": [
+      "Zpix 12px (MIT)",
+      "GNU Unifont 16x16 (GPL-2.0+)"
+    ],
+    "basis": "全部判定以出图 PNG 原图为唯一底本",
+    "steps": [
+      "格位映射取自 index JSON 的 sheets[0].chars (fixed/index_a.json + fixed2/index.json), 不靠图上低分辨率标签读码位; fixed/index.json 是 20:48 的旧产物(26 字), 与当前 PNG(21:19, 33 格)不对应, 已弃用。",
+      "列位映射独立核对: 按出图工具的几何 (scale=5, cell 270x114, 槽 16x16) 从 PNG 反解三列 —— 第 1 列 65/65 与当前构建的 stack 位图逐像素相同, 第 2 列 64/65 与 Zpix 参考位图逐像素相同(U+3099 该列画的是红色的『缺』, 属参考缺字), 第 3 列 65/65 与 Unifont 逐像素相同。列序『我方|Zpix|Uni』由此实证, 不是照抄表头。",
+      "目视复核: 65 格逐格过 —— 11 张 6 格对照图(标准微软雅黑 100px + 我方 8x + Zpix 5x + Unifont 5x) 全部过完, 再对 8 个重点字(酱/鳖/誊/蛰/嘎/撬/橇) + 结构距离最大的 12 个字做 12x 深放大对照, 共 6 张深放大图。",
+      "重点字逐像素核对: 7 个此前两个源都画不好的字(酱 U+9171 / 鳖 U+9CD6 / 誊 U+8A8A / 蛰 U+86F0 / 嘎 U+560E / 撬 U+64AC / 橇 U+6A47)与 ASCII 点阵逐行对照, 确认部件全部在位(鳖 的 鱼 部 田 已恢复四格分隔, 誊 的 言 部、撬/橇 的 毳 三毛 均可数)。",
+      "U+3099 专项: 我方位图 ASCII = 3x2 的 `#.#`/`#.#` (0 腔); 另取 MS Gothic / SimHei / Ark Pixel / Fusion Pixel 四个源各自 12px 的 U+3099 与 U+309C 点阵比对 —— 确认我方取的是 Fusion 的两笔浊点, 与 U+309C 的空心环(1 腔)完全不同。",
+      "量具自检: 字腔/竖段/横段用两份**独立实现**算 —— 实现 A = bitfont.count_holes/count_runs(栈式 DFS), 实现 B = 自写并查集两遍扫描 + 独立竖段/横段计数 —— 在 65 个字形上分歧 0 处, 扩展到 800 个参考字形上分歧仍为 0 处, 数字可用。",
+      "身份碰撞扫描: 把 65 个我方位图与 (a) 我方全字库 4140 字形 (b) Zpix 全 22228 字形 (c) Unifont 全 58909 字形 按 (形状, 字节) 归并比对 —— 与任何**别的**码位逐像素相同者 0 个, 确认无 A 类身份错误。",
+      "构建完整性核对: 65 个我方位图与 vendor/fusion-pixel-12px 子集字体在 12px (cell_ascent=11/cell_descent=2) 的渲染逐字节相同 65/65 —— 路由确实生效, 裁剪/基线/切源没有引入额外偏差; 因此我观察到的所有笔画级差异都来自 Fusion 源字体的自身 12px 设计。",
+      "换源前后对照: 用 git 取换源前基准 commit (eb901fe^) 的 ideo_route.json, 按 ScriptStack._pick 的真实逻辑(名单优先, 否则 假名/拉丁走 MS Gothic, 汉字走 SimHei)复原每个码位的旧源, 再逐字比旧位图与新位图。",
+      "按骨架判不按像素判: Zpix 画风比 Fusion 粗犷, 字腔数在 SimHei/MS Gothic(平滑轮廓 12px, 笔画粘连)与 Fusion(原生点阵, 笔画细)之间不可直接比大小 —— 腔数变化只作旁证, B 类一律要求目视确认『封闭空间被填实 / 笔画并成实心带 / 内部横画消失』三选一成立。"
+    ],
+    "aux_scripts": [
+      ".tmp/fixedlane2/extract.py (取位图 + PNG 我方列与 stack 位图 65/65 逐像素交叉核对)",
+      ".tmp/fixedlane2/scan.py (双实现结构签名 + 身份碰撞扫描)",
+      ".tmp/fixedlane2/column_check.py (PNG 三列的列位映射独立核对)",
+      ".tmp/fixedlane2/fusion_integrity.py (我方位图 vs vendor Fusion 子集 65/65)",
+      ".tmp/fixedlane2/source_change.py (换源前后旧源复原 + 位图逐字节比对)",
+      ".tmp/fixedlane2/distance.py (到最近独立参考的结构距离排序)",
+      ".tmp/fixedlane2/make_tiles.py / deepzoom.py / ascii_dump.py / dakuten.py (目视对照图与点阵)",
+      ".tmp/fixedlane2/component_check.py (部件级点阵对照, 鱼/田/鳖)"
+    ],
+    "premise_corrections": [
+      "brief 写的『其余 57 个是…(位图本应逐字节相同, 若不同要报出来)』与实测不符, 如实上报: 65 个字的旧源是 SimHei 49 个 + MS Gothic 16 个, 全部换到 Fusion Pixel, **逐字节相同 0 个 / 不同 65 个**。换源换了字族, 位图必然变化; 『逐字节相同』只对 Ark→Fusion 成立(Ark 与 Fusion 的共有码位位图相同), 而这 65 个里没有一个的旧源是 Ark。逐字表见 .tmp/fixedlane2/source_change.json。",
+      "brief 说的『8 个之前画不好的字』里, **嚎 U+568E 不在本次 65 格内** —— 它的旧源本来就是第三个像素源(Ark), 而 Ark 与 Fusion 的共有码位位图逐字节相同, 所以它换源后位图没变, 自然不在『换源后有变化的 65 个』里。实际需要确认的是 7 个: 酱/鳖/誊/蛰/嘎/撬/橇, 本 lane 已全部确认变好。",
+      "brief 说的『从 Ark 换成 Fusion』对这 65 个不成立(见上条); 另外 fixed/index.json 是过期索引(26 字, 20:48), 与当前 fixed/glyphcmp_000.png(21:19, 33 格)不对应, 权威索引是 fixed/index_a.json。"
+    ]
+  }
+}
