@@ -15,6 +15,20 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 
+# 各 lane 用的 kind 命名空间不统一 (lane1/2 用 "DEGRADED"/"IDENTITY",
+# lane3 用自己的 A/B 编号)。汇总器必须归一化, 而且**不能静默丢弃**认不出来的 kind ——
+# 认不出来就要报出来, 否则会出现"lane3 报了 13 条, 汇总只收到 8 条"这种账对不上的情况。
+KIND_MAP = {
+    "DEGRADED": "DEGRADED",
+    "B": "DEGRADED",
+    "IDENTITY": "IDENTITY",
+    "A": "IDENTITY",
+}
+
+
+def norm_kind(k: str) -> str:
+    return KIND_MAP.get(k, f"UNRECOGNIZED:{k}")
+
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="汇总字形目视复核结论")
@@ -33,12 +47,18 @@ def main() -> int:
     findings = []
     unsure = []
     total_chars = 0
+    unrecognized: list[dict] = []
     for p in files:
         d = json.loads(p.read_text(encoding="utf-8"))
         n = d.get("chars_reviewed", 0)
         total_chars += n
         f = d.get("findings", [])
         u = d.get("unsure", [])
+        for x in f + u:
+            if norm_kind(x.get("kind", "")) .startswith("UNRECOGNIZED"):
+                unrecognized.append(
+                    {"lane": d.get("lane", p.stem), "cp": x.get("cp"), "kind": x.get("kind")}
+                )
         lanes.append(
             {
                 "lane": d.get("lane", p.stem),
@@ -48,15 +68,23 @@ def main() -> int:
                 "confirmed": len(f),
                 "unsure": len(u),
                 "identity": d.get("summary", {}).get("identity", 0),
+                "kinds_raw": sorted({x.get("kind", "") for x in f + u}),
             }
         )
         for x in f:
-            findings.append({**x, "lane": d.get("lane", p.stem)})
+            findings.append({**x, "kind": norm_kind(x.get("kind", "")), "lane": d.get("lane", p.stem)})
         for x in u:
-            unsure.append({**x, "lane": d.get("lane", p.stem)})
+            unsure.append({**x, "kind": norm_kind(x.get("kind", "")), "lane": d.get("lane", p.stem)})
 
     identity = [x for x in findings + unsure if x.get("kind") == "IDENTITY"]
     degraded = [x for x in findings if x.get("kind") == "DEGRADED"]
+    # 汇总的每一条都要能对上号: 各 lane 报了多少, 汇总就得收到多少
+    lane_total = sum(l["confirmed"] for l in lanes)
+    if len(degraded) + len(identity) != lane_total:
+        print(
+            f"⚠ 对账不平: 各 lane 共报 {lane_total} 条, 汇总收到 {len(degraded) + len(identity)} 条",
+            file=sys.stderr,
+        )
 
     out = {
         "tool": "aggregate_glyphcmp_review",
@@ -71,8 +99,11 @@ def main() -> int:
             "identity_errors": len(identity),
             "degraded_confirmed": len(degraded),
             "unsure": len(unsure),
+            "lane_reported_total": lane_total,
+            "unrecognized_kinds": len(unrecognized),
         },
         "lanes": lanes,
+        "unrecognized_kinds": unrecognized,
         "identity_findings": identity,
         "degraded": sorted(degraded, key=lambda x: x["cp"]),
         "unsure_list": sorted(unsure, key=lambda x: x["cp"]),
@@ -86,9 +117,14 @@ def main() -> int:
     for l in lanes:
         print(
             f"    lane{l['lane']}: {l['chars_reviewed']} 字  身份错误 {l['identity']}  "
-            f"确认劣化 {l['confirmed']}  存疑 {l['unsure']}"
+            f"确认劣化 {l['confirmed']}  存疑 {l['unsure']}  (原始 kind: {l['kinds_raw']})"
         )
-    print(f"  合计: 身份错误 {len(identity)}  确认劣化 {len(degraded)}  存疑 {len(unsure)}")
+    print(
+        f"  合计: 身份错误 {len(identity)}  确认劣化 {len(degraded)}  存疑 {len(unsure)}  "
+        f"(各 lane 共报 {lane_total} 条)"
+    )
+    if unrecognized:
+        print(f"  ⚠ {len(unrecognized)} 条 kind 无法识别: {unrecognized[:5]}")
 
     if args.md:
         L = [

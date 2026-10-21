@@ -1,48 +1,80 @@
 {
   "tool": "calibrate_detector",
-  "generated_at": "2026-10-21T07:17:15.447198+00:00",
+  "generated_at": "2026-10-21T08:04:26.540456+00:00",
   "inputs": {
     "screen_json": "reports\\glyphcmp_screen.json",
     "review_dir": "reports\\glyphcmp_review",
     "lanes": [
       "lane1: 576 字",
-      "lane2: 576 字"
+      "lane2: 576 字",
+      "lane3: 576 字",
+      "lane4: 576 字"
     ],
-    "chars_reviewed": 1152,
-    "screen_findings": 147
+    "chars_reviewed": 2304,
+    "screen_findings": 93
   },
   "recall": {
     "confirmed_degraded": {
-      "total": 8,
-      "caught": 2,
-      "missed": 6,
+      "total": 29,
+      "caught": 5,
+      "missed": 24,
       "missed_list": [
+        "U+50F5",
+        "U+5180",
+        "U+66B4",
         "U+7206",
         "U+74E3",
+        "U+7586",
         "U+77D7",
+        "U+78E8",
+        "U+7A3D",
+        "U+7C27",
+        "U+7FB9",
+        "U+818F",
+        "U+845B",
         "U+8822",
+        "U+8986",
+        "U+8B66",
+        "U+91CF",
+        "U+9611",
         "U+96F9",
+        "U+970D",
+        "U+9732",
+        "U+9B54",
+        "U+9CDE",
         "U+9F3B"
       ]
     },
     "unsure": {
-      "total": 14,
-      "caught": 2,
-      "missed": 12
+      "total": 41,
+      "caught": 4,
+      "missed": 37
     }
   },
   "by_check": {
     "STRUCTURE_OUTLIER": {
-      "confirmed": 2,
-      "unsure": 1
+      "confirmed": 4,
+      "unsure": 3
     },
     "COUNTER_LOST": {
-      "confirmed": 0,
+      "confirmed": 1,
       "unsure": 1
     }
   },
   "rows": {
     "confirmed": [
+      {
+        "cp": "U+50F5",
+        "char": "僵",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+5180",
+        "char": "冀",
+        "auto": [],
+        "caught": false
+      },
       {
         "cp": "U+53E0",
         "char": "叠",
@@ -52,12 +84,26 @@
         "caught": true
       },
       {
-        "cp": "U+66B4",
-        "char": "暴",
+        "cp": "U+568E",
+        "char": "嚎",
         "auto": [
           "STRUCTURE_OUTLIER"
         ],
         "caught": true
+      },
+      {
+        "cp": "U+5B63",
+        "char": "季",
+        "auto": [
+          "COUNTER_LOST"
+        ],
+        "caught": true
+      },
+      {
+        "cp": "U+66B4",
+        "char": "暴",
+        "auto": [],
+        "caught": false
       },
       {
         "cp": "U+7206",
@@ -72,8 +118,58 @@
         "caught": false
       },
       {
+        "cp": "U+7586",
+        "char": "疆",
+        "auto": [],
+        "caught": false
+      },
+      {
         "cp": "U+77D7",
         "char": "矗",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+78E8",
+        "char": "磨",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+7A3D",
+        "char": "稽",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+7C27",
+        "char": "簧",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+7FB9",
+        "char": "羹",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+818F",
+        "char": "膏",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+8205",
+        "char": "舅",
+        "auto": [
+          "STRUCTURE_OUTLIER"
+        ],
+        "caught": true
+      },
+      {
+        "cp": "U+845B",
+        "char": "葛",
         "auto": [],
         "caught": false
       },
@@ -84,8 +180,64 @@
         "caught": false
       },
       {
+        "cp": "U+8986",
+        "char": "覆",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+8B66",
+        "char": "警",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+91CF",
+        "char": "量",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+9611",
+        "char": "阑",
+        "auto": [],
+        "caught": false
+      },
+      {
         "cp": "U+96F9",
         "char": "雹",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+970D",
+        "char": "霍",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+9732",
+        "char": "露",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+9B54",
+        "char": "魔",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+9C81",
+        "char": "鲁",
+        "auto": [
+          "STRUCTURE_OUTLIER"
+        ],
+        "caught": true
+      },
+      {
+        "cp": "U+9CDE",
+        "char": "鳞",
         "auto": [],
         "caught": false
       },
@@ -98,8 +250,24 @@
     ],
     "unsure": [
       {
+        "cp": "U+5320",
+        "char": "匠",
+        "auto": [
+          "COUNTER_LOST"
+        ],
+        "caught": true
+      },
+      {
         "cp": "U+554A",
         "char": "啊",
+        "auto": [
+          "STRUCTURE_OUTLIER"
+        ],
+        "caught": true
+      },
+      {
+        "cp": "U+56BC",
+        "char": "嚼",
         "auto": [],
         "caught": false
       },
@@ -110,22 +278,94 @@
         "caught": false
       },
       {
+        "cp": "U+5FBD",
+        "char": "徽",
+        "auto": [],
+        "caught": false
+      },
+      {
         "cp": "U+618B",
         "char": "憋",
         "auto": [],
         "caught": false
       },
       {
+        "cp": "U+61A8",
+        "char": "憨",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+6469",
+        "char": "摩",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+6897",
+        "char": "梗",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+68A6",
+        "char": "梦",
+        "auto": [],
+        "caught": false
+      },
+      {
         "cp": "U+6A0A",
         "char": "樊",
-        "auto": [
-          "COUNTER_LOST"
-        ],
-        "caught": true
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+6AAC",
+        "char": "檬",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+6D25",
+        "char": "津",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+7687",
+        "char": "皇",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+7B4B",
+        "char": "筋",
+        "auto": [],
+        "caught": false
       },
       {
         "cp": "U+7BE1",
         "char": "篡",
+        "auto": [
+          "STRUCTURE_OUTLIER"
+        ],
+        "caught": true
+      },
+      {
+        "cp": "U+7C4D",
+        "char": "籍",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+7CB3",
+        "char": "粳",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+7CDC",
+        "char": "糜",
         "auto": [],
         "caught": false
       },
@@ -148,8 +388,26 @@
         "caught": false
       },
       {
+        "cp": "U+84DF",
+        "char": "蓟",
+        "auto": [],
+        "caught": false
+      },
+      {
         "cp": "U+853C",
         "char": "蔼",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+85C9",
+        "char": "藉",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+8611",
+        "char": "蘑",
         "auto": [],
         "caught": false
       },
@@ -160,8 +418,38 @@
         "caught": false
       },
       {
+        "cp": "U+8D6B",
+        "char": "赫",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+9171",
+        "char": "酱",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+9175",
+        "char": "酵",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+9176",
+        "char": "酶",
+        "auto": [],
+        "caught": false
+      },
+      {
         "cp": "U+9738",
         "char": "霸",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+9761",
+        "char": "靡",
         "auto": [],
         "caught": false
       },
@@ -174,14 +462,44 @@
       {
         "cp": "U+9910",
         "char": "餐",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+9992",
+        "char": "馒",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+9AA1",
+        "char": "骡",
         "auto": [
           "STRUCTURE_OUTLIER"
         ],
         "caught": true
       },
       {
+        "cp": "U+9CB8",
+        "char": "鲸",
+        "auto": [],
+        "caught": false
+      },
+      {
         "cp": "U+9CD6",
         "char": "鳖",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+9E93",
+        "char": "麓",
+        "auto": [],
+        "caught": false
+      },
+      {
+        "cp": "U+9EBB",
+        "char": "麻",
         "auto": [],
         "caught": false
       }

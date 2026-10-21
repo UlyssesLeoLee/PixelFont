@@ -232,6 +232,16 @@ def screen(
         )
 
     # ---- STRUCTURE_OUTLIER: 横/竖笔画数与参考差得离谱 ----
+    #
+    # 为什么用**绝对阈值**而不是 z-score:
+    #   z-score 的尺度 (MAD) 会随总体分布集中而收紧。字体变好 -> 分布变集中 ->
+    #   MAD 变小 -> 同样 6 倍标准差对应的**绝对**偏差门槛跟着收紧 ->
+    #   离群数不降反升。实测: 换成逐字选源后, 绝对阈值 |差|>=12 的汉字从 204 降到 63,
+    #   而 z-score 判据的命中数却从 17 涨到 151 —— 那是量具在骗人, 不是字体变差。
+    #   跨版本比较必须用绝对量, 所以这里固定阈值 12。
+    #   12 的来由: 被填死的字比参考少 20 多个竖笔分段 (量 -28 / 舅 -24 / 暴 -22),
+    #   正常字只差 1-3 个; 12 落在两者之间, 且覆盖全部已确认的塌陷字。
+    STROKE_DELTA_THRESHOLD = 12
     for name, refs in refs_by_name.items():
         if name == "unifont-16":
             continue  # 16px 基准与 12px 的笔画数天然不同, 不参与离群判定
@@ -245,12 +255,8 @@ def screen(
         for label, arr in (("横笔画数", d_row), ("竖笔画数", d_col)):
             if not arr:
                 continue
-            vals = [v for _, v in arr]
-            med = float(np.median(vals))
-            mad = float(np.median([abs(v - med) for v in vals]))
-            scale = max(mad * 1.4826, 1.0)  # 笔画数是整数计数, 最小尺度 1
             for cp, v in arr:
-                if abs(v - med) / scale > 6:
+                if abs(v) >= STROKE_DELTA_THRESHOLD:
                     findings.append(
                         {
                             "id": "STRUCTURE_OUTLIER",
@@ -258,7 +264,7 @@ def screen(
                             "ref": name,
                             "cp": f"U+{cp:04X}",
                             "char": chr(cp),
-                            "detail": f"{label}与参考相差 {v:+.0f} (参考中位差 {med:+.0f}, 阈值 {scale:.2f})",
+                            "detail": f"{label}与参考相差 {v:+.0f} (绝对阈值 {STROKE_DELTA_THRESHOLD})",
                         }
                     )
 

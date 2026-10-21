@@ -1,19 +1,23 @@
 {
   "tool": "aggregate_glyphcmp_review",
-  "generated_at": "2026-10-21T07:25:13.619024+00:00",
+  "generated_at": "2026-10-21T08:06:16.765845+00:00",
   "inputs": {
     "review_dir": "reports\\glyphcmp_review",
     "lane_files": [
       "lane1.json",
-      "lane2.json"
+      "lane2.json",
+      "lane3.json",
+      "lane4.json"
     ],
-    "lanes_found": 2,
-    "chars_reviewed": 1152
+    "lanes_found": 4,
+    "chars_reviewed": 2304
   },
   "summary": {
     "identity_errors": 0,
-    "degraded_confirmed": 8,
-    "unsure": 14
+    "degraded_confirmed": 29,
+    "unsure": 41,
+    "lane_reported_total": 29,
+    "unrecognized_kinds": 0
   },
   "lanes": [
     {
@@ -30,7 +34,10 @@
       ],
       "confirmed": 5,
       "unsure": 11,
-      "identity": 0
+      "identity": 0,
+      "kinds_raw": [
+        "DEGRADED"
+      ]
     },
     {
       "lane": 2,
@@ -46,11 +53,99 @@
       ],
       "confirmed": 3,
       "unsure": 3,
-      "identity": 0
+      "identity": 0,
+      "kinds_raw": [
+        "DEGRADED"
+      ]
+    },
+    {
+      "lane": 3,
+      "file": "lane3.json",
+      "chars_reviewed": 576,
+      "sheets": [
+        {
+          "sheet": "glyphcmp_012.png",
+          "chars": 96,
+          "first": "U+8D74",
+          "last": "U+8D21"
+        },
+        {
+          "sheet": "glyphcmp_013.png",
+          "chars": 96,
+          "first": "U+5171",
+          "last": "U+64BC"
+        },
+        {
+          "sheet": "glyphcmp_014.png",
+          "chars": 96,
+          "first": "U+634D",
+          "last": "U+574F"
+        },
+        {
+          "sheet": "glyphcmp_015.png",
+          "chars": 96,
+          "first": "U+6B22",
+          "last": "U+6324"
+        },
+        {
+          "sheet": "glyphcmp_016.png",
+          "chars": 96,
+          "first": "U+51E0",
+          "last": "U+7126"
+        },
+        {
+          "sheet": "glyphcmp_017.png",
+          "chars": 96,
+          "first": "U+80F6",
+          "last": "U+51C0"
+        }
+      ],
+      "confirmed": 13,
+      "unsure": 16,
+      "identity": 0,
+      "kinds_raw": [
+        "B"
+      ]
+    },
+    {
+      "lane": 4,
+      "file": "lane4.json",
+      "chars_reviewed": 576,
+      "sheets": [
+        "glyphcmp_018.png",
+        "glyphcmp_019.png",
+        "glyphcmp_020.png",
+        "glyphcmp_021.png",
+        "glyphcmp_022.png",
+        "glyphcmp_023.png"
+      ],
+      "confirmed": 8,
+      "unsure": 11,
+      "identity": 0,
+      "kinds_raw": [
+        "DEGRADED"
+      ]
     }
   ],
+  "unrecognized_kinds": [],
   "identity_findings": [],
   "degraded": [
+    {
+      "cp": "U+50F5",
+      "char": "僵",
+      "kind": "DEGRADED",
+      "reason": "右侧「畺」整块糊成实心块(9 行全黑), Fusion 与 Unifont 均能清楚分出「田+三」结构",
+      "confidence": "high",
+      "lane": 3
+    },
+    {
+      "cp": "U+5180",
+      "char": "冀",
+      "kind": "DEGRADED",
+      "reason": "中间「異」的「田」字腔填死, 出现 3 行连续全黑, 参考中田的分隔笔画清晰",
+      "confidence": "medium",
+      "lane": 3
+    },
     {
       "cp": "U+53E0",
       "char": "叠",
@@ -58,6 +153,22 @@
       "reason": "下部「且」被填实成实心块、上部三个「又」糊成横带（封闭框 3 vs 两个参考各 6），两个参考都能分出「且」的框与「冖」。",
       "confidence": "medium",
       "lane": 2
+    },
+    {
+      "cp": "U+568E",
+      "char": "嚎",
+      "kind": "DEGRADED",
+      "reason": "「豪」中的「口」字腔填死, 参考中为空心口",
+      "confidence": "medium",
+      "lane": 3
+    },
+    {
+      "cp": "U+5B63",
+      "char": "季",
+      "kind": "DEGRADED",
+      "reason": "上部「禾」的丿与横连成实心长条, 整字无任何封闭字腔(两个参考各有 2 个)",
+      "confidence": "medium",
+      "lane": 3
     },
     {
       "cp": "U+66B4",
@@ -84,12 +195,76 @@
       "lane": 1
     },
     {
+      "cp": "U+7586",
+      "char": "疆",
+      "kind": "DEGRADED",
+      "reason": "右侧「畺」塌成实心块(6 行全黑), 参考能分出「弓+畺+土」",
+      "confidence": "high",
+      "lane": 3
+    },
+    {
       "cp": "U+77D7",
       "char": "矗",
       "kind": "DEGRADED",
       "reason": "「直×3」中上两个「直」糊成实心横带、第三个「直」的「目」框只剩竖笔，Fusion 与 Unifont 都能分出三个「直」的封闭框。",
       "confidence": "medium",
       "lane": 2
+    },
+    {
+      "cp": "U+78E8",
+      "char": "磨",
+      "kind": "DEGRADED",
+      "reason": "顶 7 行的「麻」部糊成实心白块，「林」的两个「木」完全不可辨，只有下部「石」可读；两参考的「广+林」分明（顶 7 行封闭白腔 1 vs 8，全字 2 vs 10）。",
+      "confidence": "medium",
+      "lane": 4
+    },
+    {
+      "cp": "U+7A3D",
+      "char": "稽",
+      "kind": "DEGRADED",
+      "reason": "「旨」下部「日」的字腔填死, 参考中「日」内横画清晰",
+      "confidence": "medium",
+      "lane": 3
+    },
+    {
+      "cp": "U+7C27",
+      "char": "簧",
+      "kind": "DEGRADED",
+      "reason": "中部「黄」的「田」字腔填死, 参考中田的分隔笔画清晰",
+      "confidence": "medium",
+      "lane": 3
+    },
+    {
+      "cp": "U+7FB9",
+      "char": "羹",
+      "kind": "DEGRADED",
+      "reason": "上部「羔/美」笔画连成整块, 参考中层次分明",
+      "confidence": "medium",
+      "lane": 3
+    },
+    {
+      "cp": "U+818F",
+      "char": "膏",
+      "kind": "DEGRADED",
+      "reason": "整字糊成实心块, 「口/冖/月」全部填死, 两个参考都能分出「亠+口+冖+月」四层结构",
+      "confidence": "high",
+      "lane": 3
+    },
+    {
+      "cp": "U+8205",
+      "char": "舅",
+      "kind": "DEGRADED",
+      "reason": "「臼」部糊成实心白块，左右两笔与内部横画全部丢失；Fusion 与 Unifont 都能分出「臼」的左右两半与内横（封闭白腔 0 vs 4）。",
+      "confidence": "medium",
+      "lane": 4
+    },
+    {
+      "cp": "U+845B",
+      "char": "葛",
+      "kind": "DEGRADED",
+      "reason": "「葛」左部的「曰」字腔填死, 参考中「曰」内横画清晰",
+      "confidence": "medium",
+      "lane": 3
     },
     {
       "cp": "U+8822",
@@ -100,12 +275,84 @@
       "lane": 2
     },
     {
+      "cp": "U+8986",
+      "char": "覆",
+      "kind": "DEGRADED",
+      "reason": "右下「复」的笔画连成一整块实心, 参考中可逐笔分开",
+      "confidence": "medium",
+      "lane": 3
+    },
+    {
+      "cp": "U+8B66",
+      "char": "警",
+      "kind": "DEGRADED",
+      "reason": "下部「言」的口字腔被填死成实心块(参考是空心口), 上部「敬」也糊成一块",
+      "confidence": "medium",
+      "lane": 3
+    },
+    {
+      "cp": "U+91CF",
+      "char": "量",
+      "kind": "DEGRADED",
+      "reason": "顶部「日」填实成实心白块，Fusion 的「日」有两个内腔、Unifont 更清晰（封闭白腔 2 vs 6）。",
+      "confidence": "medium",
+      "lane": 4
+    },
+    {
+      "cp": "U+9611",
+      "char": "阑",
+      "kind": "DEGRADED",
+      "reason": "门内「柬」被填成实心方块，「囗」里的「木」完全不可辨；两个参考的「柬」笔画分明（封闭白腔 1 vs 4）。",
+      "confidence": "medium",
+      "lane": 4
+    },
+    {
       "cp": "U+96F9",
       "char": "雹",
       "kind": "DEGRADED",
       "reason": "「雨」头上 3 行几乎整行实心、4 个点画消失，下部「包」糊成整块仅剩一个小孔；Fusion 的雨字头与包结构清楚可分。",
       "confidence": "high",
       "lane": 1
+    },
+    {
+      "cp": "U+970D",
+      "char": "霍",
+      "kind": "DEGRADED",
+      "reason": "「雨」内的四点被填成连续实心横排, 参考中四点与边框分明",
+      "confidence": "medium",
+      "lane": 3
+    },
+    {
+      "cp": "U+9732",
+      "char": "露",
+      "kind": "DEGRADED",
+      "reason": "「雨」部整体糊成实心白块，四点全丢；两参考的「雨」都还有点位与横折可辨（封闭白腔 4 vs 10）。",
+      "confidence": "medium",
+      "lane": 4
+    },
+    {
+      "cp": "U+9B54",
+      "char": "魔",
+      "kind": "DEGRADED",
+      "reason": "同「麻」部问题：顶部 7 行「广+林」并成一块白斑，两「木」不可辨；两参考的「林」笔画清晰（顶 7 行封闭白腔 2 vs 8，全字 3 vs 12）。",
+      "confidence": "medium",
+      "lane": 4
+    },
+    {
+      "cp": "U+9C81",
+      "char": "鲁",
+      "kind": "DEGRADED",
+      "reason": "「鱼」部「田」几乎填实、只剩一条窄缝，下部「日」也只剩窄缝；两参考的「田」「日」都有完整内腔（封闭白腔 3 vs 7）。",
+      "confidence": "medium",
+      "lane": 4
+    },
+    {
+      "cp": "U+9CDE",
+      "char": "鳞",
+      "kind": "DEGRADED",
+      "reason": "「鱼」部的「田」填实成实心块，「鱼」下半与「粦」挤在一起；两参考的「田」四格分明（封闭白腔 5 vs 11）。",
+      "confidence": "medium",
+      "lane": 4
     },
     {
       "cp": "U+9F3B",
@@ -118,12 +365,28 @@
   ],
   "unsure_list": [
     {
+      "cp": "U+5320",
+      "char": "匠",
+      "kind": "DEGRADED",
+      "reason": "「斤」的丿并入横画, 只少 1 个很小的字腔, 不足以判定 DEGRADED",
+      "confidence": "low",
+      "lane": 3
+    },
+    {
       "cp": "U+554A",
       "char": "啊",
       "kind": "DEGRADED",
       "reason": "最左「口」塌成 2px 宽的实心竖条（字腔 1，参考各 4），但右部「阿」仍可辨，属局部塌陷。",
       "confidence": "low",
       "lane": 1
+    },
+    {
+      "cp": "U+56BC",
+      "char": "嚼",
+      "kind": "DEGRADED",
+      "reason": "「爵」部笔画较密, 但仍可分出结构, 边界项",
+      "confidence": "low",
+      "lane": 3
     },
     {
       "cp": "U+5965",
@@ -134,12 +397,52 @@
       "lane": 1
     },
     {
+      "cp": "U+5FBD",
+      "char": "徽",
+      "kind": "DEGRADED",
+      "reason": "「徽」笔画密集, 与参考结构基本对应, 边界项",
+      "confidence": "low",
+      "lane": 3
+    },
+    {
       "cp": "U+618B",
       "char": "憋",
       "kind": "DEGRADED",
       "reason": "上部「敝」笔画并笔（字腔 1，参考各 3），下部「心」尚可辨。",
       "confidence": "low",
       "lane": 1
+    },
+    {
+      "cp": "U+61A8",
+      "char": "憨",
+      "kind": "DEGRADED",
+      "reason": "「敢」部笔画密集, 与参考结构基本对应, 边界项",
+      "confidence": "low",
+      "lane": 3
+    },
+    {
+      "cp": "U+6469",
+      "char": "摩",
+      "kind": "DEGRADED",
+      "reason": "「麻」部笔画明显拥挤、笔画偏重，但内部结构仍可追踪，未达到「糊成无内部结构的实心块」的门槛（顶 7 行封闭白腔 5 vs 4、全字 5 vs 7）。",
+      "confidence": "low",
+      "lane": 4
+    },
+    {
+      "cp": "U+6897",
+      "char": "梗",
+      "kind": "DEGRADED",
+      "reason": "「更」部比参考略密, 仍留有空腔, 边界项",
+      "confidence": "low",
+      "lane": 3
+    },
+    {
+      "cp": "U+68A6",
+      "char": "梦",
+      "kind": "DEGRADED",
+      "reason": "上「林」粘连较重、全字无封闭白区（0 vs 3），但轮廓与「夕」仍可追踪。",
+      "confidence": "low",
+      "lane": 4
     },
     {
       "cp": "U+6A0A",
@@ -150,12 +453,68 @@
       "lane": 2
     },
     {
+      "cp": "U+6AAC",
+      "char": "檬",
+      "kind": "DEGRADED",
+      "reason": "「蒙」部内部笔画粘连（3 vs 6），整体字形仍可辨。",
+      "confidence": "low",
+      "lane": 4
+    },
+    {
+      "cp": "U+6D25",
+      "char": "津",
+      "kind": "DEGRADED",
+      "reason": "「聿」的横画比 Fusion 粗, 但 12px 下该字横画本就密集, 归为轻微差异",
+      "confidence": "low",
+      "lane": 3
+    },
+    {
+      "cp": "U+7687",
+      "char": "皇",
+      "kind": "DEGRADED",
+      "reason": "「白」顶部的丿缺失(渲染成「日」), 属 12px 网格固有压力, 未达判定门槛",
+      "confidence": "low",
+      "lane": 3
+    },
+    {
+      "cp": "U+7B4B",
+      "char": "筋",
+      "kind": "DEGRADED",
+      "reason": "「竹+月」与参考结构基本对应, 边界项",
+      "confidence": "low",
+      "lane": 3
+    },
+    {
       "cp": "U+7BE1",
       "char": "篡",
       "kind": "DEGRADED",
       "reason": "中部「算」内部竖笔粘连成实心行（封闭框 2 vs Fusion 5），但整体轮廓与 Fusion 仍同构，劣化幅度介于轻微差异与结构丢失之间。",
       "confidence": "low",
       "lane": 2
+    },
+    {
+      "cp": "U+7C4D",
+      "char": "籍",
+      "kind": "DEGRADED",
+      "reason": "「竹」部与参考几乎逐像素对应, 仅「耒」略密, 边界项",
+      "confidence": "low",
+      "lane": 3
+    },
+    {
+      "cp": "U+7CB3",
+      "char": "粳",
+      "kind": "DEGRADED",
+      "reason": "「更」部比参考略密, 仍留有空腔, 边界项",
+      "confidence": "low",
+      "lane": 3
+    },
+    {
+      "cp": "U+7CDC",
+      "char": "糜",
+      "kind": "DEGRADED",
+      "reason": "「麻」部粘连较明显（5 vs 10），下部「米」仍可辨。",
+      "confidence": "low",
+      "lane": 4
     },
     {
       "cp": "U+7FF1",
@@ -182,12 +541,36 @@
       "lane": 1
     },
     {
+      "cp": "U+84DF",
+      "char": "蓟",
+      "kind": "DEGRADED",
+      "reason": "「鱼」比参考略密但仍留有空隙, 边界项",
+      "confidence": "low",
+      "lane": 3
+    },
+    {
       "cp": "U+853C",
       "char": "蔼",
       "kind": "DEGRADED",
       "reason": "右侧「謁」的「曰」并成实心块（字腔 2 vs 6），「艹／讠」尚可辨。",
       "confidence": "low",
       "lane": 1
+    },
+    {
+      "cp": "U+85C9",
+      "char": "藉",
+      "kind": "DEGRADED",
+      "reason": "「耒」横画比参考密, 「昔」仍可辨, 边界项",
+      "confidence": "low",
+      "lane": 3
+    },
+    {
+      "cp": "U+8611",
+      "char": "蘑",
+      "kind": "DEGRADED",
+      "reason": "「麻」部偏挤（5 vs 6），差异很小，保留存疑。",
+      "confidence": "low",
+      "lane": 4
     },
     {
       "cp": "U+8912",
@@ -198,12 +581,52 @@
       "lane": 1
     },
     {
+      "cp": "U+8D6B",
+      "char": "赫",
+      "kind": "DEGRADED",
+      "reason": "「赤+赤」笔画密集, 与参考结构基本对应, 边界项",
+      "confidence": "low",
+      "lane": 3
+    },
+    {
+      "cp": "U+9171",
+      "char": "酱",
+      "kind": "DEGRADED",
+      "reason": "「酉」顶部笔画粘连, 字形仍可辨, 边界项",
+      "confidence": "low",
+      "lane": 3
+    },
+    {
+      "cp": "U+9175",
+      "char": "酵",
+      "kind": "DEGRADED",
+      "reason": "「酉」内部腔体部分填死, 字形仍可辨, 边界项",
+      "confidence": "low",
+      "lane": 3
+    },
+    {
+      "cp": "U+9176",
+      "char": "酶",
+      "kind": "DEGRADED",
+      "reason": "「酉」部框内笔画粘连（4 vs 10），仍能辨出「酉」与「每」。",
+      "confidence": "low",
+      "lane": 4
+    },
+    {
       "cp": "U+9738",
       "char": "霸",
       "kind": "DEGRADED",
       "reason": "「雨」头首行整行实心、点画消失，「革」部密实（字腔 3 vs 8），整体轮廓仍可辨。",
       "confidence": "low",
       "lane": 1
+    },
+    {
+      "cp": "U+9761",
+      "char": "靡",
+      "kind": "DEGRADED",
+      "reason": "「麻」部笔画偏重（4 vs 8），两个「木」仍可分辨。",
+      "confidence": "low",
+      "lane": 4
     },
     {
       "cp": "U+978D",
@@ -222,12 +645,52 @@
       "lane": 2
     },
     {
+      "cp": "U+9992",
+      "char": "馒",
+      "kind": "DEGRADED",
+      "reason": "「曼」的内部笔画偏重（3 vs 6），整体可辨。",
+      "confidence": "low",
+      "lane": 4
+    },
+    {
+      "cp": "U+9AA1",
+      "char": "骡",
+      "kind": "DEGRADED",
+      "reason": "「马」部偏重、「累」的「田」内腔减少（4 vs 11），但笔画走向仍可追踪。",
+      "confidence": "low",
+      "lane": 4
+    },
+    {
+      "cp": "U+9CB8",
+      "char": "鲸",
+      "kind": "DEGRADED",
+      "reason": "「鱼」部比参考略密, 未见整块填死, 边界项",
+      "confidence": "low",
+      "lane": 3
+    },
+    {
       "cp": "U+9CD6",
       "char": "鳖",
       "kind": "DEGRADED",
       "reason": "下部「鱼」的「田」两行实心化（字腔 4 vs 7），上部「敝」尚存结构。",
       "confidence": "low",
       "lane": 1
+    },
+    {
+      "cp": "U+9E93",
+      "char": "麓",
+      "kind": "DEGRADED",
+      "reason": "上「林」笔画粘连较重（3 vs 7），下部「鹿」结构尚存。",
+      "confidence": "low",
+      "lane": 4
+    },
+    {
+      "cp": "U+9EBB",
+      "char": "麻",
+      "kind": "DEGRADED",
+      "reason": "独立成字的「麻」虽然全字没有封闭白区（0 vs 4），两个「木」仍能分辨，字形可读；与「磨/魔」的「麻」部退化程度不同。",
+      "confidence": "low",
+      "lane": 4
     }
   ]
 }

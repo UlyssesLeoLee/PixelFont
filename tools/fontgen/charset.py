@@ -84,7 +84,7 @@ def build_charset() -> list[tuple[str, str]]:
     return out
 
 
-def load_ideo_route() -> tuple[dict[int, str], str]:
+def load_ideo_route() -> tuple[dict[int, object], str, float]:
     """读 ideo_route.json —— 需要改用非汉字源渲染的码位名单。
 
     名单的判据与出处见 docs/glyph-identity-verification.md:
@@ -95,20 +95,23 @@ def load_ideo_route() -> tuple[dict[int, str], str]:
     名单存成文件而不是硬编码在代码里, 是因为它**必须能被重新推导**:
     换源字体版本后要重跑推导脚本核对, 而不是靠人肉维护一张表。
 
-    返回 (码位 -> 理由, 模式)。模式决定门禁查什么:
-        "blob" 只切整字塌陷的字; "all" 全部覆盖。
+    返回 (码位 -> 名单条目, 模式, 字腔项权重)。条目内容随模式不同:
+        "blob" 是理由字符串; "per_char" 是 {"reason", "sig_ideo", "sig_alt", "sig_ref"}。
+    模式决定门禁查什么: "blob" 只切整字塌陷的字; "per_char" 逐字选源; "all" 全部覆盖。
+    字腔项权重是逐字选源的距离函数里字腔那一项的系数 (见 derive_ideo_route.py --hole-weight);
+    门禁要用它复算"当初那个选择现在还成不成立"。
     """
     import json
 
     p = Path(__file__).parent / "ideo_route.json"
     if not p.exists():
-        return {}, "blob"
+        return {}, "blob", 1.0
     d = json.loads(p.read_text(encoding="utf-8"))
     route = {
         (int(k[2:], 16) if isinstance(k, str) and k.upper().startswith("U+") else int(k)): v
         for k, v in d.get("route", {}).items()
     }
-    return route, d.get("mode", "blob")
+    return route, d.get("mode", "blob"), float(d.get("hole_weight", 1.0))
 
 
 def build_stack(route: dict[int, str] | None = None) -> ScriptStack:
@@ -121,7 +124,7 @@ def build_stack(route: dict[int, str] | None = None) -> ScriptStack:
     route: 需要改走非汉字源的码位 (见 load_ideo_route)。
     """
     if route is None:
-        route, _mode = load_ideo_route()
+        route, _mode, _w = load_ideo_route()
     stack = ScriptStack(
         ideo=BitmapFont(path=SIMHEI, index=0, px=12),
         non_ideo=BitmapFont(path=MSGOTHIC, index=0, px=12),
@@ -144,6 +147,12 @@ def gate_ideo_route(stack: ScriptStack, items: list[tuple[str, str]]) -> None:
         而非汉字源渲染出来的字**有腔**。
     模式 "all" (全覆盖) 的切源理由:
         非汉字源渲染出来的字**有腔** (否则切过去只会更糟)。
+    模式 "per_char" (逐字选源) 的切源理由:
+        名单里**记录了推导当时的结构签名** (字腔/竖笔/横笔)。构建期重算一遍,
+        与记录不符就说明源字体版本变了 —— 切源依据已经过期, 必须重新推导。
+        这一步不需要参考字体 (参考侧的签名也记在名单里)。
+        签名一致还不够: 再用名单里记录的参考签名**复算一次距离比较**,
+        确认"切过去确实更好"这个判断现在依然成立。
 
     为什么要门禁: 名单是按"当前两个源字体"推导出来的。换了 SimHei / MS Gothic 的
     版本, 某个字可能已经不再塌陷 —— 那时切过去反而会引入不必要的风格差异。
@@ -151,9 +160,11 @@ def gate_ideo_route(stack: ScriptStack, items: list[tuple[str, str]]) -> None:
     """
     if not stack.route:
         return
-    from bitfont import count_holes
+    from bitfont import count_holes, count_runs
+    from coverage import cmap_for
 
-    _route, mode = load_ideo_route()
+    route, mode, hole_weight = load_ideo_route()
+    non_cps = cmap_for(stack.non_ideo.path, stack.non_ideo.index)
     bad: list[str] = []
     for ch, _cat in items:
         cp = ord(ch)
@@ -164,6 +175,55 @@ def gate_ideo_route(stack: ScriptStack, items: list[tuple[str, str]]) -> None:
             continue
         h_ideo = count_holes(stack.ideo.glyph(ch))
         h_alt = count_holes(stack.non_ideo.glyph(ch))
+        if mode == "per_char":
+            rec = route[cp]
+            if not isinstance(rec, dict) or "sig_ideo" not in rec:
+                bad.append(f"U+{cp:04X} {ch!r} 名单条目缺少签名记录 —— 请重新推导")
+                continue
+            if cp not in non_cps:
+                bad.append(f"U+{cp:04X} {ch!r} 非汉字源已不含此字形 —— 请重新推导名单")
+                continue
+            cur_id = [
+                h_ideo,
+                count_runs(stack.ideo.glyph(ch), "col"),
+                count_runs(stack.ideo.glyph(ch), "row"),
+            ]
+            cur_alt = [
+                h_alt,
+                count_runs(stack.non_ideo.glyph(ch), "col"),
+                count_runs(stack.non_ideo.glyph(ch), "row"),
+            ]
+            if list(rec["sig_ideo"]) != cur_id or list(rec["sig_alt"]) != cur_alt:
+                bad.append(
+                    f"U+{cp:04X} {ch!r} 结构签名与推导时不一致 "
+                    f"(记录 ideo={rec['sig_ideo']}/alt={rec['sig_alt']}, "
+                    f"现 ideo={cur_id}/alt={cur_alt}) —— 源字体版本变了, 请重新推导名单"
+                )
+                continue
+            ref = list(rec.get("sig_ref") or [])
+            if len(ref) != 3:
+                bad.append(f"U+{cp:04X} {ch!r} 名单条目缺少参考签名 —— 请重新推导")
+                continue
+
+            def _d(s):
+                return (
+                    hole_weight * abs(s[0] - ref[0])
+                    + abs(s[1] - ref[1])
+                    + abs(s[2] - ref[2])
+                )
+
+            # 切源理由有两种, 满足其一即成立:
+            #   a) 距离: 备选源比汉字源更贴近参考
+            #   b) 字腔硬约束: 参考该字有腔, 而汉字源渲染出 0 腔 (整字白块)
+            ok_by_dist = _d(cur_alt) < _d(cur_id)
+            ok_by_hole = ref[0] >= 1 and cur_id[0] == 0 and cur_alt[0] >= 1
+            if not (ok_by_dist or ok_by_hole):
+                bad.append(
+                    f"U+{cp:04X} {ch!r} 切源理由已不成立 "
+                    f"(alt 距离 {_d(cur_alt):g} >= ideo 距离 {_d(cur_id):g}, 参考 {ref}) —— "
+                    f"请重新推导名单"
+                )
+            continue
         if mode == "blob" and h_ideo > 0:
             bad.append(
                 f"U+{cp:04X} {ch!r} 汉字源已能渲出 {h_ideo} 个字腔, 不再塌陷 —— "

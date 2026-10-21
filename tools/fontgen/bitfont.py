@@ -276,6 +276,37 @@ class ScriptStack:
         return sum(self.advance(c) for c in text) + spacing * (len(text) - 1)
 
 
+def count_runs(img: Image.Image, axis: str = "col") -> int:
+    """笔画分段数: axis="col" 数竖笔画 (每列里的墨迹段), axis="row" 数横笔画。
+
+    12px 下密笔画汉字的部件横画会粘连, 竖笔画分段数骤降就是最灵敏的信号 ——
+    实测被填死的字比参考少 20 多个竖笔分段, 而正常字只差 1-3 个。
+    """
+    a = _as_bool(img)
+    ys, xs = numpy.nonzero(a)
+    if len(xs) == 0:
+        return 0
+    a = a[ys.min() : ys.max() + 1, xs.min() : xs.max() + 1]
+    n = 0
+    if axis == "col":
+        for x in range(a.shape[1]):
+            prev = False
+            for y in range(a.shape[0]):
+                cur = bool(a[y, x])
+                if cur and not prev:
+                    n += 1
+                prev = cur
+    else:
+        for y in range(a.shape[0]):
+            prev = False
+            for x in range(a.shape[1]):
+                cur = bool(a[y, x])
+                if cur and not prev:
+                    n += 1
+                prev = cur
+    return n
+
+
 def to_ascii(img: Image.Image, ink: str = "#", paper: str = ".") -> str:
     px = img.load()
     rows = []
