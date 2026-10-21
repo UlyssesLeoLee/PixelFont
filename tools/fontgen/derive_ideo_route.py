@@ -35,6 +35,7 @@ import numpy as np
 from fontTools.ttLib import TTFont
 
 import charset as cs
+import route_rule as rr
 import verify_identity as vi
 from bitfont import count_holes
 from coverage import cmap_for
@@ -174,6 +175,9 @@ def main() -> int:
     # 它自带 1 个"字腔", 会让"备选源能救回"这个判据把缺字也放进来。
     # (这个坑真踩过: 推导出的 95 个码位里有 39 个是 MS Gothic 根本没有的汉字。)
     non_ideo_cps = cmap_for(stack.non_ideo.path, stack.non_ideo.index)
+    ark_cps = (
+        cmap_for(stack.third.path, stack.third.index) if stack.third is not None else set()
+    )
 
     if args.per_char:
         # 逐字选源: 拿参考字体的结构签名中位数当裁判, 每个字选更贴近的那个源。
@@ -190,31 +194,22 @@ def main() -> int:
                 ref_sig[cp] = tuple(int(np.median([r[i] for r in rs])) for i in range(3))
 
         def dist(s, t):
-            w = args.hole_weight
-            return w * abs(s[0] - t[0]) + abs(s[1] - t[1]) + abs(s[2] - t[2])
+            return rr.dist(s, t, args.hole_weight)
 
-        def _holes_of(img):
-            a = _crop(np.array(img, dtype=np.uint8) > 0)
-            return None if a is None else _holes(a)
-
-        # 字腔硬约束: 参考字体说这个字该有腔, 而某个候选源渲染出 0 腔 (整字白块),
-        # 而另一个候选源有腔 —— 那就**必须**选有腔的那个, 不管笔画数差多少。
-        # 理由: 0 腔是**可见的硬错误**(整个字渲染成一块白块), 笔画数差只是风格差异。
-        # 实测: 不加这条约束时, 「粔」U+7CD5 被判给 SimHei (0 腔, 白块),
-        #       加了之后改判 MS Gothic (3 腔), 字腔保住了。
-        def pick(s_id, s_mg, ref):
-            cands = [(s_id, "ideo"), (s_mg, "alt")]
-            if ref[0] >= 1:
-                keep = [c for c in cands if c[0] is not None and c[0][0] >= 1]
-                if keep:
-                    cands = keep
-            cands = [c for c in cands if c[0] is not None]
-            if not cands:
-                return None
-            return min(cands, key=lambda c: dist(c[0], ref))
+        # 候选源规则 (C4) 见 route_rule.build_pool:
+        #   **双源优先, 只在双源都画不出时才让第三个像素源兜底**。
+        #   need_ark 的两种情形:
+        #     a) MS Gothic 根本没有这个字形 (只有 JIS 汉字的 PC-98 点阵,
+        #        简体专有字一个都没有) —— 那就只剩 SimHei 的平滑轮廓可用,
+        #        而它在 12px 下会把整字糊成白块 (实测 24 个汉字)。
+        #     b) 两个源都渲染出 0 腔 (整字白块) 而参考说该字有腔。
+        #   为什么不是"三个源全程竞争": 那会让 Ark Pixel 接管 3440 个汉字 (92%),
+        #   字体画风整体从"SimHei 栅格化 + PC-98 点阵"变成"现代中文像素字体为主"。
+        #   实测 C4 规则已做到 汉字白块 0 / 确认劣化 29/29 全覆盖。
 
         n_switch = 0
         n_keep = 0
+        win = {}
         d_now = []
         d_new = []
         for ch, _cat in hanzi:
@@ -232,37 +227,52 @@ def main() -> int:
                 a_mg = _crop(np.array(stack.non_ideo.glyph(ch), dtype=np.uint8) > 0)
                 if a_mg is not None:
                     s_mg = _sig(a_mg)
-            d_mg = dist(s_mg, ref_sig[cp]) if s_mg is not None else None
-            best = pick(s_id, s_mg, ref_sig[cp])
-            if best is None:
+            s_ark = None
+            if cp in ark_cps:
+                a_ark = _crop(np.array(stack.third.glyph(ch), dtype=np.uint8) > 0)
+                if a_ark is not None:
+                    s_ark = _sig(a_ark)
+            all_cands: dict[str, tuple[int, int, int] | None] = {
+                "ideo": s_id,
+                "non_ideo": s_mg,
+                "ark": s_ark,
+            }
+            # 候选池规则在 route_rule.build_pool 里 —— 与构建门禁共用同一份实现,
+            # 否则门禁会用另一套规则复核这份名单, 检查的就是不存在的事。
+            cands = rr.build_pool(all_cands, ref_sig[cp])
+            src, s_best = rr.choose(cands, ref_sig[cp], args.hole_weight)
+            if src is None or s_best is None:
                 n_keep += 1
                 d_new.append(d_id)
                 continue
-            s_best, src = best
             d_best = dist(s_best, ref_sig[cp])
-            if src == "alt":
+            if src != "ideo":
                 n_switch += 1
+                n_keep += 0
+                win[src] = win.get(src, 0) + 1
                 d_new.append(d_best)
+                parts = []
+                for k in ("ideo", "non_ideo", "ark"):
+                    if k in cands and cands[k] is not None:
+                        parts.append(f"{k}={list(cands[k])}(距离 {dist(cands[k], ref_sig[cp]):g})")
                 why = (
-                    f"MS Gothic 签名 {list(s_mg)} 比 SimHei {list(s_id)} "
-                    f"更贴近参考 {list(ref_sig[cp])} (距离 {d_mg} < {d_id})"
-                    if d_mg < d_id
-                    else (
-                        f"字腔硬约束: 参考该字有 {ref_sig[cp][0]} 腔, SimHei 渲染出 0 腔"
-                        f" (整字白块), 改用 MS Gothic 的 {s_mg[0]} 腔"
-                    )
+                    f"逐字选源: 选 {src}, 参考 {list(ref_sig[cp])}; " + ", ".join(parts)
                 )
+                if "ark" in cands:
+                    why += " (双源都画不出, 由第三个像素源 Ark Pixel 兜底)"
                 route[f"U+{cp:04X}"] = {
-                    "reason": "逐字选源: " + why,
+                    "reason": why,
+                    "source": src,
                     "sig_ideo": list(s_id),
-                    "sig_alt": list(s_mg),
+                    "sig_alt": list(s_mg) if s_mg is not None else None,
+                    "sig_ark": list(s_ark) if s_ark is not None else None,
                     "sig_ref": list(ref_sig[cp]),
                 }
             else:
                 n_keep += 1
                 d_new.append(d_best)
         print()
-        print(f"逐字选源: 切 {n_switch}, 保持 SimHei {n_keep}")
+        print(f"逐字选源: 切 {n_switch} (来源分布 {win}), 保持 SimHei {n_keep}")
         print(
             "  与参考的结构距离: 现状均值 %.2f -> 选源后 %.2f; 完全吻合 %d -> %d"
             % (
@@ -279,12 +289,16 @@ def main() -> int:
         "hole_weight": args.hole_weight,
         "criterion": {
             "mode": "per_char",
-            "1": "对每个汉字, 分别用 SimHei 与 MS Gothic 渲染, 取结构签名 (字腔数, 竖笔画数, 横笔画数)",
+            "1": "对每个汉字, 分别用 SimHei / MS Gothic / (必要时) Ark Pixel 渲染, "
+                  "取结构签名 (字腔数, 竖笔画数, 横笔画数)",
             "2": "参考字体的结构签名取 3 套 12px 参考 (Ark/Fusion/Zpix) 的中位数, 作为裁判",
-            "3": "MS Gothic 的签名更贴近裁判时切源, 否则保持 SimHei (逐字比较, 不预设哪个源更好)",
-            "4": f"距离 = {args.hole_weight:g}×|字腔差| + |竖笔差| + |横笔差|"
+            "3": "双源优先: MS Gothic 的签名更贴近裁判时切源, 否则保持 SimHei",
+            "4": "只有当 MS Gothic 没有该字形、或两个源都渲染成 0 腔白块时, "
+                  "才让 Ark Pixel 参与竞争 (双源都画不出来的字, 只能退到平滑轮廓, "
+                  "而 12px 下它会把整字糊成白块)",
+            "5": f"距离 = {args.hole_weight:g}×|字腔差| + |竖笔差| + |横笔差|"
                   " (字腔是拓扑量, 不受字宽/分辨率影响, 故给更高权重)",
-            "5": "字腔硬约束: 参考该字有腔而 SimHei 渲染出 0 腔 (整字白块) 时, "
+            "6": "字腔硬约束: 参考该字有腔而候选源渲染出 0 腔 (整字白块) 时, "
                   "必须切到有腔的源, 不看笔画数差 (0 腔是可见硬错误, 笔画差只是风格差异)",
         },
         "ref_votes_12px": list(REFS_12PX),

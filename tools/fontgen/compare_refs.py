@@ -149,6 +149,13 @@ def holes_of_glyph(img) -> int:
     return holes(a[ys.min() : ys.max() + 1, xs.min() : xs.max() + 1])
 
 
+def _same_bytes(a, b) -> bool:
+    """两个参考位图是否完全相同 (形状与尺寸都相同)。"""
+    if a is None or b is None:
+        return False
+    return a.shape == b.shape and a.tobytes() == b.tobytes()
+
+
 def screen(
     ours: dict[int, np.ndarray],
     refs_by_name: dict[str, dict[int, np.ndarray]],
@@ -174,16 +181,30 @@ def screen(
         for cp, arr in ours.items():
             others = [c for c in index.get((arr.shape[0], arr.shape[1], arr.tobytes()), []) if c != cp]
             if others:
+                # 严重度: **参考字体自己能不能区分这两个码位**。
+                #   参考也画得一模一样 -> 那是 Unicode 里的同形异义码位
+                #   (组合记号之间、带圈点与句点的不同码位), 12px 下必然一样,
+                #   不是缺陷 (warn, 只记录)。
+                #   参考能区分, 而我方与另一个码位混同 -> 我方把两个不同的字画成了
+                #   同一个, 那才是硬错误 (error)。
+                ref_same = all(
+                    _same_bytes(refs.get(cp), refs.get(c)) for c in others
+                )
                 findings.append(
                     {
                         "id": "EXACT_COLLIDE",
-                        "severity": "error",
+                        "severity": "warn" if ref_same else "error",
                         "ref": name,
                         "cp": f"U+{cp:04X}",
                         "char": chr(cp),
                         "detail": "与参考字体的 "
                         + ", ".join(f"U+{c:04X} {chr(c)!r}" for c in others[:4])
-                        + " 逐像素完全相同",
+                        + " 逐像素完全相同"
+                        + (
+                            " —— 但参考字体把它们也画成同一个, 属同形异义码位, 非缺陷"
+                            if ref_same
+                            else " —— 参考能区分这两个码位, 我方却混同, 是硬错误"
+                        ),
                     }
                 )
 
@@ -211,12 +232,28 @@ def screen(
         counter_lost.append((cp, votes))
     for cp, votes in counter_lost:
         alt = (alt_holes or {}).get(cp)
-        if alt is None:
-            sev, extra = "warn", " (该码位无备选源)"
-        elif alt > 0:
-            sev, extra = "error", f", 备选源可救回 (字腔 {alt})"
+        # 严重度按**独立参考的中位腔数**分档:
+        #   中位 >= 2  -> 结构性白块 (字里有日/目/田 这类必须封闭的部件),
+        #                  我方 0 腔 = 整字塌了, 是硬错误 (error)
+        #   中位 == 1  -> 1 像素级的边缘差异。实测这一档全都不是缺陷:
+        #                  逐字出图目视复核过 (埃/驰/邓/饿/颈/涟/氢/趋/疡/幼/舆/狱/制),
+        #                  汉字全部清晰可辨, 差别只是一个封闭空间的取舍
+        #                  (Zpix 把「舆」的「田」闭上了, 我们没闭) —— 12px 的边缘差异
+        #
+        # 为什么用中位而不是取最大: Unifont 是 16px, 天然有更多封闭空间
+        # (实测它与 12px 参考的结构距离均值 28), 取最大会把
+        # "Unifont 说 2 腔、Zpix 说 1 腔" 误判成结构性白块。
+        ref_med = float(np.median([h for _n, h in votes]))
+        if ref_med >= 2:
+            sev = "error"
         else:
-            sev, extra = "warn", ", 备选源同样无腔 —— 12px 网格的固有极限"
+            sev = "warn"
+        if alt is None:
+            extra = " (该码位无备选源)"
+        elif alt > 0:
+            extra = f", 备选源可救回 (字腔 {alt})"
+        else:
+            extra = ", 备选源同样无腔 —— 12px 网格的固有极限"
         findings.append(
             {
                 "id": "COUNTER_LOST",
@@ -226,7 +263,11 @@ def screen(
                 "char": chr(cp),
                 "detail": "我方字腔数 0, 但参考字体的字腔数为 "
                 + ", ".join(f"{n.split('-')[0]}:{h}" for n, h in votes)
-                + " —— 字腔被笔画填死 (该字在我们这儿渲染成白块)"
+                + (
+                    " —— 字腔被笔画填死 (该字在我们这儿渲染成白块)"
+                    if sev == "error"
+                    else " —— 参考中位腔数只有 1, 属 12px 下的边缘取舍, 非结构性白块"
+                )
                 + extra,
             }
         )
@@ -308,7 +349,12 @@ def screen(
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="生成字形对照表 (开源像素字体做目视比对尺子)")
-    ap.add_argument("--refs", default="ark-pixel-zh_hans,unifont-16", help="参考字体, 逗号分隔")
+    ap.add_argument(
+        "--refs",
+        default="zpix,unifont-16",
+        help="参考字体, 逗号分隔。默认用**与生产源独立**的两套: Zpix (MIT) + Unifont (GPL)。"
+        "不要用 ark-pixel-zh_hans —— Ark 现在是生产源, 拿它当基准等于自己和自己比",
+    )
     ap.add_argument("--cats", default="", help="类别: ascii,punct,kana,hanzi")
     ap.add_argument("--slice", dest="slice_", default="", help="切片 如 0:150")
     ap.add_argument("--out", default="", help="对照表输出路径 (md); --screen-only 时不需要")

@@ -1,6 +1,6 @@
 {
   "tool": "compare_refs_screen",
-  "generated_at": "2026-10-21T08:04:26.353029+00:00",
+  "generated_at": "2026-10-21T10:08:02.960770+00:00",
   "selection": {
     "cats": [
       "<all>"
@@ -12,7 +12,7 @@
     "chars_selected": 4140,
     "ours_glyphs": 4139,
     "refs": {
-      "ark-pixel-zh_hans": 25356,
+      "zpix": 22228,
       "unifont-16": 58909
     }
   },
@@ -20,26 +20,10 @@
     {
       "id": "EXACT_COLLIDE",
       "severity": "error",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+3099",
-      "char": "゙",
-      "detail": "与参考字体的 U+302A '〪' 逐像素完全相同"
-    },
-    {
-      "id": "EXACT_COLLIDE",
-      "severity": "error",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+309C",
-      "char": "゜",
-      "detail": "与参考字体的 U+302A '〪' 逐像素完全相同"
-    },
-    {
-      "id": "EXACT_COLLIDE",
-      "severity": "error",
       "ref": "unifont-16",
       "cp": "U+3002",
       "char": "。",
-      "detail": "与参考字体的 U+302D '〭' 逐像素完全相同"
+      "detail": "与参考字体的 U+302D '〭' 逐像素完全相同 —— 参考能区分这两个码位, 我方却混同, 是硬错误"
     },
     {
       "id": "EXACT_COLLIDE",
@@ -47,7 +31,7 @@
       "ref": "unifont-16",
       "cp": "U+FF0D",
       "char": "－",
-      "detail": "与参考字体的 U+07FA 'ߺ' 逐像素完全相同"
+      "detail": "与参考字体的 U+07FA 'ߺ' 逐像素完全相同 —— 参考能区分这两个码位, 我方却混同, 是硬错误"
     },
     {
       "id": "EXACT_COLLIDE",
@@ -55,332 +39,204 @@
       "ref": "unifont-16",
       "cp": "U+FF1D",
       "char": "＝",
-      "detail": "与参考字体的 U+0333 '̳', U+2017 '‗' 逐像素完全相同"
+      "detail": "与参考字体的 U+0333 '̳', U+2017 '‗' 逐像素完全相同 —— 参考能区分这两个码位, 我方却混同, 是硬错误"
     },
     {
       "id": "COUNTER_LOST",
       "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+309A",
-      "char": "゚",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+      "ref": "zpix+unifont",
+      "cp": "U+57C3",
+      "char": "埃",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 zpix:1, unifont:1 —— 参考中位腔数只有 1, 属 12px 下的边缘取舍, 非结构性白块, 备选源可救回 (字腔 1)"
     },
     {
       "id": "COUNTER_LOST",
       "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+30BF",
-      "char": "タ",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+      "ref": "zpix+unifont",
+      "cp": "U+9A70",
+      "char": "驰",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 zpix:1, unifont:1 —— 参考中位腔数只有 1, 属 12px 下的边缘取舍, 非结构性白块 (该码位无备选源)"
     },
     {
       "id": "COUNTER_LOST",
       "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+30C0",
-      "char": "ダ",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+      "ref": "zpix+unifont",
+      "cp": "U+9093",
+      "char": "邓",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 zpix:1, unifont:1 —— 参考中位腔数只有 1, 属 12px 下的边缘取舍, 非结构性白块 (该码位无备选源)"
     },
     {
       "id": "COUNTER_LOST",
       "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+FF80",
-      "char": "ﾀ",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+      "ref": "zpix+unifont",
+      "cp": "U+997F",
+      "char": "饿",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 zpix:1, unifont:2 —— 参考中位腔数只有 1, 属 12px 下的边缘取舍, 非结构性白块 (该码位无备选源)"
     },
     {
       "id": "COUNTER_LOST",
       "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+8C24",
-      "char": "谤",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+      "ref": "zpix+unifont",
+      "cp": "U+9888",
+      "char": "颈",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 zpix:1, unifont:1 —— 参考中位腔数只有 1, 属 12px 下的边缘取舍, 非结构性白块 (该码位无备选源)"
     },
     {
       "id": "COUNTER_LOST",
       "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+60ED",
-      "char": "惭",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:5, unifont:2 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+      "ref": "zpix+unifont",
+      "cp": "U+6D9F",
+      "char": "涟",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 zpix:1, unifont:1 —— 参考中位腔数只有 1, 属 12px 下的边缘取舍, 非结构性白块 (该码位无备选源)"
     },
     {
       "id": "COUNTER_LOST",
       "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+7B56",
-      "char": "策",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:3, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块), 备选源同样无腔 —— 12px 网格的固有极限"
+      "ref": "zpix+unifont",
+      "cp": "U+6C22",
+      "char": "氢",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 zpix:1, unifont:2 —— 参考中位腔数只有 1, 属 12px 下的边缘取舍, 非结构性白块 (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "error",
+      "ref": "zpix+unifont",
+      "cp": "U+8D8B",
+      "char": "趋",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 zpix:2, unifont:2 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
     },
     {
       "id": "COUNTER_LOST",
       "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+680B",
-      "char": "栋",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:2, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+      "ref": "zpix+unifont",
+      "cp": "U+75A1",
+      "char": "疡",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 zpix:1, unifont:1 —— 参考中位腔数只有 1, 属 12px 下的边缘取舍, 非结构性白块 (该码位无备选源)"
     },
     {
       "id": "COUNTER_LOST",
       "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+961F",
-      "char": "队",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+      "ref": "zpix+unifont",
+      "cp": "U+5E7C",
+      "char": "幼",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 zpix:1, unifont:1 —— 参考中位腔数只有 1, 属 12px 下的边缘取舍, 非结构性白块 (该码位无备选源)"
+    },
+    {
+      "id": "COUNTER_LOST",
+      "severity": "error",
+      "ref": "zpix+unifont",
+      "cp": "U+8206",
+      "char": "舆",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 zpix:7, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
     },
     {
       "id": "COUNTER_LOST",
       "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+987E",
-      "char": "顾",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+      "ref": "zpix+unifont",
+      "cp": "U+72F1",
+      "char": "狱",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 zpix:1, unifont:1 —— 参考中位腔数只有 1, 属 12px 下的边缘取舍, 非结构性白块 (该码位无备选源)"
     },
     {
       "id": "COUNTER_LOST",
       "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+5B63",
-      "char": "季",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:2, unifont:2 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
-    },
-    {
-      "id": "COUNTER_LOST",
-      "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+6B7C",
-      "char": "歼",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
-    },
-    {
-      "id": "COUNTER_LOST",
-      "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+5320",
-      "char": "匠",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
-    },
-    {
-      "id": "COUNTER_LOST",
-      "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+90BB",
-      "char": "邻",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
-    },
-    {
-      "id": "COUNTER_LOST",
-      "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+6DCB",
-      "char": "淋",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
-    },
-    {
-      "id": "COUNTER_LOST",
-      "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+8D2B",
-      "char": "贫",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
-    },
-    {
-      "id": "COUNTER_LOST",
-      "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+6865",
-      "char": "桥",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
-    },
-    {
-      "id": "COUNTER_LOST",
-      "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+8D4F",
-      "char": "赏",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
-    },
-    {
-      "id": "COUNTER_LOST",
-      "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+6843",
-      "char": "桃",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
-    },
-    {
-      "id": "COUNTER_LOST",
-      "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+6655",
-      "char": "晕",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:5, unifont:2 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
-    },
-    {
-      "id": "COUNTER_LOST",
-      "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+531D",
-      "char": "匝",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
-    },
-    {
-      "id": "COUNTER_LOST",
-      "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+5E10",
-      "char": "帐",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
-    },
-    {
-      "id": "COUNTER_LOST",
-      "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+90D1",
-      "char": "郑",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
-    },
-    {
-      "id": "COUNTER_LOST",
-      "severity": "warn",
-      "ref": "ark+unifont",
-      "cp": "U+8BCC",
-      "char": "诌",
-      "detail": "我方字腔数 0, 但参考字体的字腔数为 ark:1, unifont:1 —— 字腔被笔画填死 (该字在我们这儿渲染成白块) (该码位无备选源)"
+      "ref": "zpix+unifont",
+      "cp": "U+5236",
+      "char": "制",
+      "detail": "我方字腔数 0, 但参考字体的字腔数为 zpix:1, unifont:1 —— 参考中位腔数只有 1, 属 12px 下的边缘取舍, 非结构性白块, 备选源可救回 (字腔 1)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
+      "ref": "zpix",
       "cp": "U+554A",
       "char": "啊",
-      "detail": "横笔画数与参考相差 -16 (绝对阈值 12)"
+      "detail": "横笔画数与参考相差 -21 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+4FA7",
-      "char": "侧",
-      "detail": "横笔画数与参考相差 -16 (绝对阈值 12)"
+      "ref": "zpix",
+      "cp": "U+7FDF",
+      "char": "翟",
+      "detail": "横笔画数与参考相差 -12 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+98A4",
-      "char": "颤",
-      "detail": "横笔画数与参考相差 -14 (绝对阈值 12)"
+      "ref": "zpix",
+      "cp": "U+6E89",
+      "char": "溉",
+      "detail": "横笔画数与参考相差 -12 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+8D50",
-      "char": "赐",
+      "ref": "zpix",
+      "cp": "U+563F",
+      "char": "嘿",
       "detail": "横笔画数与参考相差 -13 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+8C03",
-      "char": "调",
+      "ref": "zpix",
+      "cp": "U+811A",
+      "char": "脚",
+      "detail": "横笔画数与参考相差 -13 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+5496",
+      "char": "咖",
       "detail": "横笔画数与参考相差 -12 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+8D29",
-      "char": "贩",
+      "ref": "zpix",
+      "cp": "U+5566",
+      "char": "啦",
       "detail": "横笔画数与参考相差 -12 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+89C2",
-      "char": "观",
-      "detail": "横笔画数与参考相差 -12 (绝对阈值 12)"
+      "ref": "zpix",
+      "cp": "U+6E3A",
+      "char": "渺",
+      "detail": "横笔画数与参考相差 -15 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+568E",
-      "char": "嚎",
-      "detail": "横笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+8D42",
-      "char": "赂",
-      "detail": "横笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
+      "ref": "zpix",
       "cp": "U+54EA",
       "char": "哪",
-      "detail": "横笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+917F",
-      "char": "酿",
       "detail": "横笔画数与参考相差 -13 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+9E4F",
-      "char": "鹏",
-      "detail": "横笔画数与参考相差 -19 (绝对阈值 12)"
+      "ref": "zpix",
+      "cp": "U+632A",
+      "char": "挪",
+      "detail": "横笔画数与参考相差 -12 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
+      "ref": "zpix",
       "cp": "U+74E4",
       "char": "瓤",
-      "detail": "横笔画数与参考相差 -14 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+987A",
-      "char": "顺",
-      "detail": "横笔画数与参考相差 -14 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+916E",
-      "char": "酮",
       "detail": "横笔画数与参考相差 -12 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+7EC6",
-      "char": "细",
-      "detail": "横笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
+      "ref": "zpix",
       "cp": "U+9157",
       "char": "酗",
       "detail": "横笔画数与参考相差 -13 (绝对阈值 12)"
@@ -388,55 +244,47 @@
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+7F28",
-      "char": "缨",
-      "detail": "横笔画数与参考相差 -12 (绝对阈值 12)"
+      "ref": "zpix",
+      "cp": "U+86F9",
+      "char": "蛹",
+      "detail": "横笔画数与参考相差 -13 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+8D62",
-      "char": "赢",
-      "detail": "横笔画数与参考相差 -15 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+7838",
-      "char": "砸",
+      "ref": "zpix",
+      "cp": "U+6B96",
+      "char": "殖",
       "detail": "横笔画数与参考相差 -14 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+94E1",
-      "char": "铡",
-      "detail": "横笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
+      "ref": "zpix",
       "cp": "U+77A9",
       "char": "瞩",
-      "detail": "横笔画数与参考相差 -16 (绝对阈值 12)"
+      "detail": "横笔画数与参考相差 -14 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+8D5A",
-      "char": "赚",
-      "detail": "横笔画数与参考相差 -12 (绝对阈值 12)"
+      "ref": "zpix",
+      "cp": "U+8198",
+      "char": "膘",
+      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
+      "ref": "zpix",
+      "cp": "U+9CD6",
+      "char": "鳖",
+      "detail": "竖笔画数与参考相差 -15 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
       "cp": "U+660C",
       "char": "昌",
       "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
@@ -444,143 +292,143 @@
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+7BE1",
-      "char": "篡",
+      "ref": "zpix",
+      "cp": "U+7FDF",
+      "char": "翟",
+      "detail": "竖笔画数与参考相差 -14 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+5960",
+      "char": "奠",
+      "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+53E0",
+      "char": "叠",
       "detail": "竖笔画数与参考相差 -17 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+53E0",
-      "char": "叠",
-      "detail": "竖笔画数与参考相差 -15 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+7ED9",
-      "char": "给",
-      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+5BAB",
-      "char": "宫",
-      "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+8D2F",
-      "char": "贯",
-      "detail": "竖笔画数与参考相差 -15 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+8F70",
-      "char": "轰",
-      "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+58F6",
-      "char": "壶",
-      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+8D3E",
-      "char": "贾",
-      "detail": "竖笔画数与参考相差 -14 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+8205",
-      "char": "舅",
-      "detail": "竖笔画数与参考相差 -14 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+78D5",
-      "char": "磕",
-      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+9C81",
-      "char": "鲁",
+      "ref": "zpix",
+      "cp": "U+623F",
+      "char": "房",
       "detail": "竖笔画数与参考相差 -16 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+6C2F",
-      "char": "氯",
-      "detail": "竖笔画数与参考相差 -14 (绝对阈值 12)"
+      "ref": "zpix",
+      "cp": "U+96C7",
+      "char": "雇",
+      "detail": "竖笔画数与参考相差 -19 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+7EFF",
-      "char": "绿",
-      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+9AA1",
-      "char": "骡",
-      "detail": "竖笔画数与参考相差 -14 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+9A82",
-      "char": "骂",
-      "detail": "竖笔画数与参考相差 -18 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+5E42",
-      "char": "幂",
+      "ref": "zpix",
+      "cp": "U+76D2",
+      "char": "盒",
       "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+7EF5",
-      "char": "绵",
+      "ref": "zpix",
+      "cp": "U+5609",
+      "char": "嘉",
+      "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+50F5",
+      "char": "僵",
       "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
+      "ref": "zpix",
+      "cp": "U+7126",
+      "char": "焦",
+      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+8205",
+      "char": "舅",
+      "detail": "竖笔画数与参考相差 -15 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+5026",
+      "char": "倦",
+      "detail": "竖笔画数与参考相差 -14 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+57A6",
+      "char": "垦",
+      "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+6073",
+      "char": "恳",
+      "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+6482",
+      "char": "撂",
+      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+6F2B",
+      "char": "漫",
+      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+5192",
+      "char": "冒",
+      "detail": "竖笔画数与参考相差 -14 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+5195",
+      "char": "冕",
+      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
       "cp": "U+6479",
       "char": "摹",
       "detail": "竖笔画数与参考相差 -15 (绝对阈值 12)"
@@ -588,39 +436,23 @@
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+8042",
-      "char": "聂",
+      "ref": "zpix",
+      "cp": "U+8650",
+      "char": "虐",
+      "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+7CEF",
+      "char": "糯",
       "detail": "竖笔画数与参考相差 -15 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+8650",
-      "char": "虐",
-      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+7CEF",
-      "char": "糯",
-      "detail": "竖笔画数与参考相差 -18 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+98D8",
-      "char": "飘",
-      "detail": "竖笔画数与参考相差 -14 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
+      "ref": "zpix",
       "cp": "U+666E",
       "char": "普",
       "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
@@ -628,359 +460,197 @@
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+7FD8",
-      "char": "翘",
-      "detail": "竖笔画数与参考相差 -14 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+79BD",
-      "char": "禽",
-      "detail": "竖笔画数与参考相差 -21 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+6C30",
-      "char": "氰",
+      "ref": "zpix",
+      "cp": "U+6A47",
+      "char": "橇",
       "detail": "竖笔画数与参考相差 -15 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+8BF7",
-      "char": "请",
-      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
+      "ref": "zpix",
+      "cp": "U+64AC",
+      "char": "撬",
+      "detail": "竖笔画数与参考相差 -15 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+8D5B",
-      "char": "赛",
-      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
+      "ref": "zpix",
+      "cp": "U+79BD",
+      "char": "禽",
+      "detail": "竖笔画数与参考相差 -15 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+9A9A",
-      "char": "骚",
-      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+6740",
-      "char": "杀",
-      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+662F",
-      "char": "是",
-      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+91CA",
-      "char": "释",
-      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+517D",
-      "char": "兽",
-      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+9898",
-      "char": "题",
-      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+9576",
-      "char": "镶",
-      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
-    },
-    {
-      "id": "STRUCTURE_OUTLIER",
-      "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+5C27",
-      "char": "尧",
+      "ref": "zpix",
+      "cp": "U+7638",
+      "char": "瘸",
       "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+6655",
-      "char": "晕",
+      "ref": "zpix",
+      "cp": "U+6247",
+      "char": "扇",
       "detail": "竖笔画数与参考相差 -15 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+658B",
-      "char": "斋",
+      "ref": "zpix",
+      "cp": "U+662F",
+      "char": "是",
+      "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+7D20",
+      "char": "素",
       "detail": "竖笔画数与参考相差 -14 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+77A9",
-      "char": "瞩",
+      "ref": "zpix",
+      "cp": "U+8A8A",
+      "char": "誊",
+      "detail": "竖笔画数与参考相差 -20 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+6316",
+      "char": "挖",
+      "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+9700",
+      "char": "需",
+      "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+8A00",
+      "char": "言",
       "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
     },
     {
       "id": "STRUCTURE_OUTLIER",
       "severity": "warn",
-      "ref": "ark-pixel-zh_hans",
+      "ref": "zpix",
+      "cp": "U+8200",
+      "char": "舀",
+      "detail": "竖笔画数与参考相差 -13 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+80B2",
+      "char": "育",
+      "detail": "竖笔画数与参考相差 -14 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+8087",
+      "char": "肇",
+      "detail": "竖笔画数与参考相差 -14 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+6EDE",
+      "char": "滞",
+      "detail": "竖笔画数与参考相差 -12 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
+      "cp": "U+77A9",
+      "char": "瞩",
+      "detail": "竖笔画数与参考相差 -14 (绝对阈值 12)"
+    },
+    {
+      "id": "STRUCTURE_OUTLIER",
+      "severity": "warn",
+      "ref": "zpix",
       "cp": "U+9B03",
       "char": "鬃",
-      "detail": "竖笔画数与参考相差 -17 (绝对阈值 12)"
+      "detail": "竖笔画数与参考相差 -16 (绝对阈值 12)"
     }
   ],
   "coverage": {
-    "ark-pixel-zh_hans": [
-      "U+4FCA",
-      "U+5238",
-      "U+52BF",
-      "U+5373",
-      "U+5506",
-      "U+55E1",
-      "U+560E",
-      "U+56F1",
-      "U+57A6",
-      "U+57AB",
-      "U+5956",
-      "U+5B6A",
-      "U+5B7D",
-      "U+5CBF",
-      "U+5CE6",
-      "U+5CFB",
-      "U+5D4C",
-      "U+5E18",
-      "U+5ECA",
-      "U+5F0A",
-      "U+5F5D",
-      "U+5FBD",
-      "U+6020",
-      "U+604B",
-      "U+6050",
-      "U+6073",
-      "U+60A0",
-      "U+60D1",
-      "U+6108",
-      "U+6148",
-      "U+6168",
-      "U+618B",
-      "U+61A8",
-      "U+61BE",
-      "U+6267",
-      "U+62D6",
-      "U+62F3",
-      "U+631A",
-      "U+631B",
-      "U+642C",
-      "U+6447",
-      "U+6482",
-      "U+6487",
-      "U+64AC",
-      "U+64BC",
-      "U+64CE",
-      "U+655D",
-      "U+659C",
-      "U+65BD",
-      "U+65CB",
-      "U+65E2",
-      "U+67F4",
-      "U+6868",
-      "U+6881",
-      "U+68A8",
-      "U+68AD",
-      "U+693D",
-      "U+6982",
-      "U+6994",
-      "U+6A47",
-      "U+6BC1",
-      "U+6C50",
-      "U+6D46",
-      "U+6D5A",
-      "U+6DA9",
-      "U+6DEB",
-      "U+6E89",
-      "U+6EAA",
-      "U+6EC1",
-      "U+6EDA",
-      "U+6EE6",
-      "U+7099",
-      "U+70ED",
-      "U+7136",
-      "U+715E",
-      "U+71C3",
-      "U+7281",
-      "U+7476",
-      "U+74EE",
-      "U+75B5",
-      "U+7682",
-      "U+7737",
-      "U+77A5",
-      "U+77AC",
-      "U+77FD",
-      "U+788C",
-      "U+78D0",
-      "U+7A3D",
-      "U+7A46",
-      "U+7A8D",
-      "U+7A91",
-      "U+7A97",
-      "U+7AE3",
-      "U+7B4F",
-      "U+7B51",
-      "U+7BC6",
-      "U+7C07",
-      "U+7CB1",
-      "U+7D27",
-      "U+7D2B",
-      "U+7EAB",
-      "U+7EB5",
-      "U+7F18",
-      "U+7FC1",
-      "U+7FD4",
-      "U+805A",
-      "U+806A",
-      "U+81C3",
-      "U+821C",
-      "U+82D4",
-      "U+836F",
-      "U+8389",
-      "U+8471",
-      "U+84D6",
-      "U+853D",
-      "U+854A",
-      "U+859B",
-      "U+85E4",
-      "U+8611",
-      "U+865E",
-      "U+86EE",
-      "U+86F0",
-      "U+88F4",
-      "U+8A8A",
-      "U+8B66",
-      "U+8B6C",
-      "U+8C23",
-      "U+8C62",
-      "U+8D38",
-      "U+8D58",
-      "U+8D61",
-      "U+903E",
-      "U+9065",
-      "U+907F",
-      "U+90CE",
-      "U+9171",
-      "U+9178",
-      "U+9274",
-      "U+965B",
-      "U+9699",
-      "U+96A7",
-      "U+96C0",
-      "U+96CC",
-      "U+96CD",
-      "U+96FE",
-      "U+9910",
-      "U+9A8F",
-      "U+9AA4",
-      "U+9CD6",
-      "U+9E93"
+    "zpix": [
+      "U+3094",
+      "U+3095",
+      "U+3096",
+      "U+3099",
+      "U+309A",
+      "U+309F",
+      "U+30A0",
+      "U+30F7",
+      "U+30F8",
+      "U+30F9",
+      "U+30FA",
+      "U+30FF"
     ],
     "unifont-16": []
   },
   "counter_holes": {
-    "ours_mean": 2.167,
+    "ours_mean": 2.141,
     "ref_mean": {
-      "ark-pixel-zh_hans": 3.467,
+      "zpix": 3.691,
       "unifont-16": 2.241
     },
-    "counter_lost_count": 24
+    "counter_lost_count": 13
   },
   "style_diffs": [
     {
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+002E",
-      "char": ".",
-      "rel": 0.75,
+      "ref": "zpix",
+      "cp": "U+0027",
+      "char": "'",
+      "rel": 0.5,
       "ink_ours": 4,
-      "ink_ref": 1
-    },
-    {
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+003A",
-      "char": ":",
-      "rel": 0.75,
-      "ink_ours": 8,
       "ink_ref": 2
     },
     {
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+003B",
-      "char": ";",
+      "ref": "zpix",
+      "cp": "U+002E",
+      "char": ".",
+      "rel": 0.5,
+      "ink_ours": 4,
+      "ink_ref": 2
+    },
+    {
+      "ref": "zpix",
+      "cp": "U+003A",
+      "char": ":",
       "rel": 0.5,
       "ink_ours": 8,
       "ink_ref": 4
     },
     {
-      "ref": "ark-pixel-zh_hans",
+      "ref": "zpix",
       "cp": "U+005C",
       "char": "\\",
-      "rel": 0.5238095238095238,
+      "rel": 0.5714285714285714,
       "ink_ours": 21,
-      "ink_ref": 10
-    },
-    {
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+FF0E",
-      "char": "．",
-      "rel": -0.5,
-      "ink_ours": 2,
-      "ink_ref": 4
-    },
-    {
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+FF01",
-      "char": "！",
-      "rel": -0.5,
-      "ink_ours": 7,
-      "ink_ref": 14
-    },
-    {
-      "ref": "ark-pixel-zh_hans",
-      "cp": "U+FF64",
-      "char": "､",
-      "rel": -0.5,
-      "ink_ours": 2,
-      "ink_ref": 4
+      "ink_ref": 9
     },
     {
       "ref": "unifont-16",
@@ -1064,15 +734,15 @@
     }
   ],
   "summary": {
-    "findings": 93,
+    "findings": 72,
     "by_id": {
-      "EXACT_COLLIDE": 5,
-      "COUNTER_LOST": 24,
-      "STRUCTURE_OUTLIER": 64
+      "EXACT_COLLIDE": 3,
+      "COUNTER_LOST": 13,
+      "STRUCTURE_OUTLIER": 56
     },
     "by_severity": {
       "error": 5,
-      "warn": 88
+      "warn": 67
     }
   }
 }

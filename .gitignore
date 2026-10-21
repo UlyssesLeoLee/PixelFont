@@ -6,7 +6,13 @@ __pycache__/
 dist/
 
 # 第三方参考字体二进制 (来源与校验和见 docs/reference-fonts.md)
+# 只用于**校验**, 不参与构建, 所以不入库
 third_party/
+
+# 注意: **生产源**字库 (vendor/ark-pixel-12px/, Ark Pixel 12px 简体, OFL-1.1)
+# 是**入库**的 —— 它参与构建, 不入库就换台机器构建不出同一个结果。
+# 裁剪到本项目字符集后约 730 KB, 许可证 OFL.txt 一并入库。
+# 这里**不要**把 vendor/ 加进忽略列表。
 
 # 字形对照图: 44 张 PNG, 由 tools/fontgen/gen_glyphcmp_sheets.py 一条命令重新生成
 # (约 4.3 MB 二进制产物; 复核结论本身在 reports/glyphcmp_review/ 里, 已入库)
@@ -14,3 +20,6 @@ reports/glyphcmp_png/
 
 # 回归测试的临时工作目录
 .tmp/
+
+# 分析过程的临时脚本与中间产物 (reports/_tmp_*.py, _tmp_*.txt, _tmp_*/)
+reports/_tmp_*

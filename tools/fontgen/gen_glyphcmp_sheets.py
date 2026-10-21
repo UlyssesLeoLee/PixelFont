@@ -35,6 +35,41 @@ LABEL_FONT = r"C:\Windows\Fonts\msyh.ttc"
 LABEL_FONT_BOLD = r"C:\Windows\Fonts\msyhbd.ttc"
 
 
+def measure_slots(
+    ref_names: list[str],
+    refs_by_name: dict[str, dict[int, "object"]],
+    ours: dict[int, "object"],
+    sel: list[tuple[str, str]],
+) -> tuple[int, int]:
+    """算出所有列需要的**最大**字形宽高 (像素)。
+
+    为什么必须按最大算, 不能固定 12:
+        Unifont 是 16x16, 它的字形墨迹外接框最宽 16 px, 而我方是 12 px。
+        早先的版本把槽位固定成 12*scale, 于是 Unifont 那一列的墨迹
+        **溢出槽位**, 串到下一格「我方」列的左缘 (lane3 实测 111 格被污染)。
+        复核者看到的就不是干净的对照 —— 这种污染会让人对同一个字
+        得出不同结论, 所以必须在出图阶段堵死, 而不是让复核者去分辨。
+
+    宽高都按**全局最大**算, 保证所有 sheet 的格子几何一致 ——
+    否则跨 sheet 对照时格位对不上。
+    """
+    import numpy as np
+
+    max_w = 12
+    max_h = 13
+    for ch, _cat in sel:
+        cp = ord(ch)
+        arrs = [ours.get(cp)] + [refs_by_name[n].get(cp) for n in ref_names]
+        for a in arrs:
+            if a is None:
+                continue
+            arr = np.asarray(a)
+            if arr.ndim == 2:
+                max_w = max(max_w, int(arr.shape[1]))
+                max_h = max(max_h, int(arr.shape[0]))
+    return max_w, max_h
+
+
 def render_sheet(
     entries: list[tuple[int, str, str, str]],
     ref_names: list[str],
@@ -44,17 +79,19 @@ def render_sheet(
     rows: int,
     scale: int,
     out_path: Path,
+    slot_w: int = 12,
+    slot_h: int = 13,
 ) -> dict:
     """渲染一张对照表。entries = [(cp, char, category, label)]"""
     import numpy as np
 
     n_cols = 1 + len(ref_names)  # 我方 + 各参考
-    glyph_w = 12 * scale
+    glyph_w = slot_w * scale
     gap = 2 * scale
     header_h = 26
     label_h = 30
     cell_w = n_cols * (glyph_w + gap)
-    cell_h = label_h + 13 * scale + 4
+    cell_h = label_h + slot_h * scale + 4
     W = cols * cell_w
     H = header_h + rows * cell_h
     sheet = Image.new("RGB", (W, H), (18, 20, 26))
@@ -95,6 +132,9 @@ def render_sheet(
             im = Image.fromarray(a, mode="L").resize(
                 (arr.shape[1] * scale, arr.shape[0] * scale), Image.NEAREST
             )
+            # 防御性裁剪: 任何一列都不得越过自己的槽位 (Unifont 16px 曾因此
+            # 串到下一格「我方」列, 污染 111 格)。
+            im = im.crop((0, 0, glyph_w, slot_h * scale))
             sheet.paste(im.convert("RGB"), (ox, base_y))
     out_path.parent.mkdir(parents=True, exist_ok=True)
     sheet.save(out_path)
@@ -162,6 +202,8 @@ def main() -> int:
     ours = vi.our_glyphs(stack, sel)
     outdir = Path(args.outdir)
     per = args.cols * args.rows
+    slot_w, slot_h = measure_slots(ref_names, refs_by_name, ours, sel)
+    print(f"槽位: {slot_w}x{slot_h} 像素 (按所有列的最大字形算, 保证不串格)")
     index = {
         "tool": "gen_glyphcmp_sheets",
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -169,13 +211,26 @@ def main() -> int:
         "cols": args.cols,
         "rows": args.rows,
         "per_sheet": per,
+        "slot_w": slot_w,
+        "slot_h": slot_h,
         "sheets": [],
     }
     for i in range(0, len(sel), per):
         chunk = sel[i : i + per]
         entries = [(ord(ch), ch, cat, ch) for ch, cat in chunk]
         p = outdir / f"{args.prefix}_{i // per:03d}.png"
-        info = render_sheet(entries, ref_names, refs_by_name, ours, args.cols, args.rows, args.scale, p)
+        info = render_sheet(
+            entries,
+            ref_names,
+            refs_by_name,
+            ours,
+            args.cols,
+            args.rows,
+            args.scale,
+            p,
+            slot_w,
+            slot_h,
+        )
         index["sheets"].append(info)
         print(f"  {p.name}: {info['count']} 字")
 

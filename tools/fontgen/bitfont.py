@@ -60,6 +60,8 @@ class BitmapFont:
     stretch: int = 0
     latin_force_half: bool = True
     name: str = ""
+    cell_ascent: int = 0
+    cell_descent: int = 0
     _font: ImageFont.FreeTypeFont = field(init=False, repr=False)
     _metrics: FontMetrics = field(init=False, repr=False)
     _cache: dict[str, Image.Image] = field(init=False, repr=False, default_factory=dict)
@@ -72,6 +74,20 @@ class BitmapFont:
         cjk_adv = round(self._font.getlength("\u4e2d"))
         latin_adv = round(self._font.getlength("A"))
         half = cjk_adv // 2 if self.latin_force_half else latin_adv
+        # cell_ascent / cell_descent: 把这个源的字形塞进**全字体统一的格子里**。
+        #
+        # 为什么需要: 不同源的 em-box 约定不同。Ark Pixel 12px 的 ascent 是 10
+        # (它的汉字占满 12 行的整格, 基线以上只有 10 行), 而 SimHei / MS Gothic
+        # 的 ascent 是 11。直接按各自的格子上排, 同一个字在不同源之间会错 1px 基线。
+        #
+        # 关键: 改的是**格子几何**, 不是字形贴放位置 —— 字形仍然按源字体自己
+        # 的 offset 贴 (Pillow 返回的 dy 是相对该字体 ascender 的)。实测这样处理后
+        # Ark 与 MS Gothic 的同一个字墨迹范围完全一致 (都是 1..11 行),
+        # 与 SimHei 的 1..10 行相差 1 行 —— 那 1 行是字体设计差异, 不是错位。
+        if self.cell_ascent > 0:
+            ascent = self.cell_ascent
+            if self.cell_descent > 0:
+                descent = self.cell_descent
         self._metrics = FontMetrics(
             px=self.px,
             ascent=ascent,
@@ -227,26 +243,43 @@ class ScriptStack:
 
     latin/kana  -> non_ideo 源 (MS Gothic 等)
     CJK 汉字     -> ideo 源   (SimHei / SimSun 等)
-    ideo 路由   -> non_ideo 源 (走 route 名单, 见 charset.ideo_route)
+    路由名单      -> 指定源   (MS Gothic 的原生点阵 / Ark Pixel 的原生点阵)
 
-    route 的存在理由: SimHei 是**平滑轮廓字体**, 12px 下密笔画汉字的部件横画会粘连,
+    路由的存在理由: SimHei 是**平滑轮廓字体**, 12px 下密笔画汉字的部件横画会粘连,
     把「日」「目」这类部件的字腔整个填死 —— 整字渲染成一块白块。
-    MS Gothic 的 12px 是**原生点阵位图**(80 年代手工点的), 字腔是活的。
-    所以对这类字改用 non_ideo 源的原生位图。名单与判据见 charset.ideo_route。
+    MS Gothic 的 12px 是**原生点阵位图**(80 年代手工点的), 字腔是活的;
+    Ark Pixel 同样是原生点阵。名单与判据见 charset.ideo_route / route_rule。
+
+    route 的值是**源注册表里的键**, 不是布尔开关 —— 加第四个源时不用改这里。
     """
 
-    def __init__(self, ideo: BitmapFont, non_ideo: BitmapFont, route: set[int] | None = None):
+    def __init__(
+        self,
+        ideo: BitmapFont,
+        non_ideo: BitmapFont,
+        third: BitmapFont | None = None,
+        route: dict[int, str] | None = None,
+    ):
         self.ideo = ideo
         self.non_ideo = non_ideo
+        self.third = third
         self.metrics = ideo.metrics  # 网格以汉字源为准, 全角由 ideo 决定
         self.name = f"{ideo.name} + {non_ideo.name}"
+        if third is not None:
+            self.name += f" + {third.name}"
         self.weight = ideo.weight
-        self.route = set(route or ())
+        self.route = dict(route or {})
+        self.sources: dict[str, BitmapFont] = {"ideo": ideo, "non_ideo": non_ideo}
+        if third is not None:
+            self.sources["ark"] = third
 
     def _pick(self, ch: str) -> BitmapFont:
         cp = ord(ch)
-        if cp in self.route:
-            return self.non_ideo
+        src = self.route.get(cp)
+        if src is not None:
+            f = self.sources.get(src)
+            if f is not None:
+                return f
         if cp < 0x2E80 or _is_kana(cp):
             # 拉丁 / 标点 / 假名 —— 优先用 PC-98 味更正的源
             return self.non_ideo

@@ -23,6 +23,28 @@ from coverage import cmap_for  # noqa: E402
 SIMHEI = r"C:\Windows\Fonts\simhei.ttf"
 MSGOTHIC = r"C:\Windows\Fonts\msgothic.ttc"
 
+# 第三个生产源: Ark Pixel 12px 简体 (OFL-1.1)。
+#
+# 为什么需要第三个源: 前两个源都**画不出**某些简体字时, 只能退到 SimHei 的
+# 平滑轮廓, 而 12px 下它会把整字糊成白块 (实测 24 个汉字)。
+# Ark Pixel 是**原生点阵**字体, 字腔是活的, 正好补这个洞。
+#
+# 为什么裁剪后入库 (而不是像参考字体那样只记来源+sha256):
+# 参考字体只用于**校验**, 不参与构建, 所以不入库; 生产源必须入库 ——
+# 否则构建依赖一台机器上恰好装了某个字体, 换台机器就构建不出同一个结果。
+# 裁剪到本项目字符集后约 730 KB (未裁剪 5.1 MB), 逐像素渲染与原字体一致。
+# 许可证 OFL-1.1 一并入库, 见 vendor/ark-pixel-12px/OFL.txt。
+ARK_DIR = Path(__file__).resolve().parents[2] / "vendor" / "ark-pixel-12px"
+ARK_TTF = ARK_DIR / "ark-pixel-12px-monospaced-zh_hans-subset.ttf"
+# 备选: 开发机上未裁剪的原始下载 (third_party/ref_fonts/, 不入库)
+ARK_FALLBACK = (
+    Path(__file__).resolve().parents[2]
+    / "third_party"
+    / "ref_fonts"
+    / "ark-pixel-12px"
+    / "ark-pixel-12px-monospaced-zh_hans.ttf"
+)
+
 # 显式排除的码位, 每一条都必须写明原因。
 # 这不是"修到门禁变绿", 而是把已知的字体缺字变成写在代码里的既定事实。
 EXCLUDE: dict[int, str] = {
@@ -96,9 +118,10 @@ def load_ideo_route() -> tuple[dict[int, object], str, float]:
     换源字体版本后要重跑推导脚本核对, 而不是靠人肉维护一张表。
 
     返回 (码位 -> 名单条目, 模式, 字腔项权重)。条目内容随模式不同:
-        "blob" 是理由字符串; "per_char" 是 {"reason", "sig_ideo", "sig_alt", "sig_ref"}。
+        "blob" 是理由字符串;
+        "per_char" 是 {"reason", "source", "sig_ideo", "sig_alt", "sig_ark"?, "sig_ref"}。
     模式决定门禁查什么: "blob" 只切整字塌陷的字; "per_char" 逐字选源; "all" 全部覆盖。
-    字腔项权重是逐字选源的距离函数里字腔那一项的系数 (见 derive_ideo_route.py --hole-weight);
+    字腔项权重是逐字选源的距离函数里字腔那一项的系数 (见 route_rule.HOLE_WEIGHT);
     门禁要用它复算"当初那个选择现在还成不成立"。
     """
     import json
@@ -114,26 +137,68 @@ def load_ideo_route() -> tuple[dict[int, object], str, float]:
     return route, d.get("mode", "blob"), float(d.get("hole_weight", 1.0))
 
 
-def build_stack(route: dict[int, str] | None = None) -> ScriptStack:
-    """B 方向: 汉字/标点走 SimHei 12, 拉丁与假名走 MS Gothic 12。
+def route_source_map(route: dict[int, object]) -> dict[int, str]:
+    """把名单条目压成 (码位 -> 源注册表的键), 给 ScriptStack 用。
 
-    双源的基线必须一致 —— 这是加在这里的硬门禁, 不是运行时才发现的巧合:
-    两个源的 ascent/descent 一旦不同 (换字体版本、换源字体就会发生), 假名会比
+    "blob" 模式的条目是理由字符串 —— 那时一律走非汉字源。
+    """
+    out: dict[int, str] = {}
+    for cp, rec in route.items():
+        if isinstance(rec, dict):
+            out[cp] = str(rec.get("source", "non_ideo"))
+        else:
+            out[cp] = "non_ideo"
+    return out
+
+
+def ark_path() -> Path:
+    """第三个源的字体文件路径。
+
+    优先用入库的裁剪版 (构建必须自包含); 开发机上没裁剪时退回原始下载。
+    """
+    if ARK_TTF.exists():
+        return ARK_TTF
+    if ARK_FALLBACK.exists():
+        return ARK_FALLBACK
+    raise SystemExit(
+        f"缺少第三个源字体: {ARK_TTF}\n"
+        f"用 tools/fontgen/vendor_ark_pixel.py 生成 (需要 third_party/ref_fonts 里的原始下载)"
+    )
+
+
+def build_stack(route: dict[int, object] | None = None) -> ScriptStack:
+    """汉字/标点走 SimHei 12, 拉丁与假名走 MS Gothic 12, 名单里的码位走点名源。
+
+    各源的基线必须一致 —— 这是加在这里的硬门禁, 不是运行时才发现的巧合:
+    源的 ascent/descent 一旦不同 (换字体版本、换源字体就会发生), 假名会比
     汉字高一格, 混排整行错位, 而且这种错位在单语样张里完全看不出来。
 
-    route: 需要改走非汉字源的码位 (见 load_ideo_route)。
+    route: 名单条目 (见 load_ideo_route); None 表示按 ideo_route.json 建。
     """
     if route is None:
         route, _mode, _w = load_ideo_route()
+    ideo = BitmapFont(path=SIMHEI, index=0, px=12)
+    non_ideo = BitmapFont(path=MSGOTHIC, index=0, px=12)
+    # Ark Pixel 的 em-box 约定不同 (ascent 10 vs 11), 但它的字形是按 12px
+    # 网格设计的, 墨迹落点与 MS Gothic 一致。统一成全字体的格子几何,
+    # 字形仍按源字体自己的 offset 贴 —— 详见 BitmapFont.cell_ascent 的注释。
+    ark = BitmapFont(path=str(ark_path()), index=0, px=12, cell_ascent=11, cell_descent=2)
     stack = ScriptStack(
-        ideo=BitmapFont(path=SIMHEI, index=0, px=12),
-        non_ideo=BitmapFont(path=MSGOTHIC, index=0, px=12),
-        route=set(route),
+        ideo=ideo,
+        non_ideo=non_ideo,
+        third=ark,
+        route=route_source_map(route),
     )
-    a, b = stack.ideo.metrics, stack.non_ideo.metrics
+    a, b = ideo.metrics, non_ideo.metrics
     if (a.ascent, a.descent) != (b.ascent, b.descent):
         raise SystemExit(
             f"双源基线不一致: 汉字源 {a.ascent}/{a.descent} vs 拉丁源 {b.ascent}/{b.descent} "
+            f"—— 混排会错行, 拒绝构建"
+        )
+    c = ark.metrics
+    if (a.ascent, a.descent) != (c.ascent, c.descent):
+        raise SystemExit(
+            f"第三源基线不一致: 汉字源 {a.ascent}/{a.descent} vs 点阵源 {c.ascent}/{c.descent} "
             f"—— 混排会错行, 拒绝构建"
         )
     return stack
@@ -160,11 +225,15 @@ def gate_ideo_route(stack: ScriptStack, items: list[tuple[str, str]]) -> None:
     """
     if not stack.route:
         return
-    from bitfont import count_holes, count_runs
     from coverage import cmap_for
+    import route_rule as rr
+    from route_rule import sig_of
 
     route, mode, hole_weight = load_ideo_route()
     non_cps = cmap_for(stack.non_ideo.path, stack.non_ideo.index)
+    ark_cps: set[int] = set()
+    if stack.third is not None:
+        ark_cps = cmap_for(stack.third.path, stack.third.index)
     bad: list[str] = []
     for ch, _cat in items:
         cp = ord(ch)
@@ -173,57 +242,70 @@ def gate_ideo_route(stack: ScriptStack, items: list[tuple[str, str]]) -> None:
         if stack.ideo.glyph(ch).width == 0:
             bad.append(f"U+{cp:04X} {ch!r} 汉字源没有字形")
             continue
-        h_ideo = count_holes(stack.ideo.glyph(ch))
-        h_alt = count_holes(stack.non_ideo.glyph(ch))
         if mode == "per_char":
             rec = route[cp]
             if not isinstance(rec, dict) or "sig_ideo" not in rec:
                 bad.append(f"U+{cp:04X} {ch!r} 名单条目缺少签名记录 —— 请重新推导")
                 continue
-            if cp not in non_cps:
-                bad.append(f"U+{cp:04X} {ch!r} 非汉字源已不含此字形 —— 请重新推导名单")
+            src = str(rec.get("source", "non_ideo"))
+            # 候选源: 汉字源 + 点阵源。缺字的源用 None 表示 (必须查 cmap,
+            # 不能靠渲染结果判断 —— 缺字时 FreeType 画 .notdef 空心豆腐块,
+            # 它自带 1 个腔, 会把"缺字"误判成"能画")。
+            cands: dict[str, tuple[int, int, int] | None] = {
+                "ideo": sig_of(stack.ideo.glyph(ch)),
+                "non_ideo": (
+                    sig_of(stack.non_ideo.glyph(ch)) if cp in non_cps else None
+                ),
+            }
+            if stack.third is not None:
+                cands["ark"] = sig_of(stack.third.glyph(ch)) if cp in ark_cps else None
+            if src not in cands:
+                bad.append(f"U+{cp:04X} {ch!r} 名单指定的源 {src!r} 不存在 —— 请重新推导")
                 continue
-            cur_id = [
-                h_ideo,
-                count_runs(stack.ideo.glyph(ch), "col"),
-                count_runs(stack.ideo.glyph(ch), "row"),
-            ]
-            cur_alt = [
-                h_alt,
-                count_runs(stack.non_ideo.glyph(ch), "col"),
-                count_runs(stack.non_ideo.glyph(ch), "row"),
-            ]
-            if list(rec["sig_ideo"]) != cur_id or list(rec["sig_alt"]) != cur_alt:
+            if cands[src] is None:
                 bad.append(
-                    f"U+{cp:04X} {ch!r} 结构签名与推导时不一致 "
-                    f"(记录 ideo={rec['sig_ideo']}/alt={rec['sig_alt']}, "
-                    f"现 ideo={cur_id}/alt={cur_alt}) —— 源字体版本变了, 请重新推导名单"
+                    f"U+{cp:04X} {ch!r} 名单指定的源 {src!r} 已不含此字形 —— 请重新推导名单"
                 )
+                continue
+            # 1) 签名比对: 源字体版本变了就说明名单过期
+            #    记录里是 None = "推导当时这个源根本没有这个字形"。
+            #    现在这个源若有了字形, 是源覆盖变了 —— 不直接报错,
+            #    由下面第 2 步"复算选择"来判定这个变化是否改变了结论。
+            for k, cur in cands.items():
+                if cur is None:
+                    continue
+                old = rec["sig_ideo"] if k == "ideo" else rec.get("sig_" + k)
+                if old is None:
+                    continue
+                if list(old) != list(cur):
+                    bad.append(
+                        f"U+{cp:04X} {ch!r} 结构签名与推导时不一致 "
+                        f"(记录 {k}={list(old)}, 现 {k}={list(cur)}) —— "
+                        f"源字体版本变了, 请重新推导名单"
+                    )
+            if bad:
                 continue
             ref = list(rec.get("sig_ref") or [])
             if len(ref) != 3:
                 bad.append(f"U+{cp:04X} {ch!r} 名单条目缺少参考签名 —— 请重新推导")
                 continue
-
-            def _d(s):
-                return (
-                    hole_weight * abs(s[0] - ref[0])
-                    + abs(s[1] - ref[1])
-                    + abs(s[2] - ref[2])
-                )
-
-            # 切源理由有两种, 满足其一即成立:
-            #   a) 距离: 备选源比汉字源更贴近参考
-            #   b) 字腔硬约束: 参考该字有腔, 而汉字源渲染出 0 腔 (整字白块)
-            ok_by_dist = _d(cur_alt) < _d(cur_id)
-            ok_by_hole = ref[0] >= 1 and cur_id[0] == 0 and cur_alt[0] >= 1
-            if not (ok_by_dist or ok_by_hole):
+            # 2) 复算选择: 用**同一条规则** (route_rule.build_pool + choose) 重算,
+            #    确认当初那个选择现在依然成立。规则不在这里重写一遍 ——
+            #    推导与门禁用同一份实现, 否则门禁检查的是不存在的事。
+            pool = rr.build_pool(cands, tuple(ref))
+            picked, psig = rr.choose(pool, tuple(ref), hole_weight)
+            if picked != src:
                 bad.append(
                     f"U+{cp:04X} {ch!r} 切源理由已不成立 "
-                    f"(alt 距离 {_d(cur_alt):g} >= ideo 距离 {_d(cur_id):g}, 参考 {ref}) —— "
-                    f"请重新推导名单"
+                    f"(按当前规则应选 {picked!r}, 名单写的是 {src!r}; "
+                    f"参考 {ref}) —— 请重新推导名单"
                 )
             continue
+        # blob / all 模式: 老的理由
+        from bitfont import count_holes
+
+        h_ideo = count_holes(stack.ideo.glyph(ch))
+        h_alt = count_holes(stack.non_ideo.glyph(ch))
         if mode == "blob" and h_ideo > 0:
             bad.append(
                 f"U+{cp:04X} {ch!r} 汉字源已能渲出 {h_ideo} 个字腔, 不再塌陷 —— "
@@ -247,14 +329,18 @@ def gate_full_coverage(stack: ScriptStack, items: list[tuple[str, str]]) -> None
 
     像素字体没有回退 —— 缺一个字就是一块豆腐, 而且在大字库里几乎不可能
     靠肉眼发现。所以这里逐字符查 cmap, 有一个不过就中止构建。
+
+    注意: 必须查**实际被路由到的那个源**的 cmap —— 有第三个源以后,
+    "这个字在哪个源里"不再是"汉字源/拉丁源"二选一了。
     """
-    ideo_cps = cmap_for(stack.ideo.path, stack.ideo.index)
-    non_cps = cmap_for(stack.non_ideo.path, stack.non_ideo.index)
+    cps_of: dict[int, set[int]] = {}
+    for name, f in stack.sources.items():
+        cps_of[id(f)] = cmap_for(f.path, f.index)
     missing: list[str] = []
     for ch, _ in items:
-        cps = non_cps if stack._pick(ch) is stack.non_ideo else ideo_cps
-        if ord(ch) not in cps:
-            missing.append(f"{ch!r} U+{ord(ch):04X} @ {stack._pick(ch).name}")
+        f = stack._pick(ch)
+        if ord(ch) not in cps_of[id(f)]:
+            missing.append(f"{ch!r} U+{ord(ch):04X} @ {f.name}")
     if missing:
         head = "\n  ".join(missing[:40])
         raise SystemExit(

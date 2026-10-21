@@ -1,13 +1,15 @@
 {
   "tool": "gen_glyphcmp_sheets",
-  "generated_at": "2026-10-21T06:44:36.947506+00:00",
+  "generated_at": "2026-10-21T09:59:41.655442+00:00",
   "refs": [
-    "fusion-pixel-zh_hans",
+    "zpix",
     "unifont-16"
   ],
   "cols": 12,
   "rows": 8,
   "per_sheet": 96,
+  "slot_w": 16,
+  "slot_h": 16,
   "sheets": [
     {
       "sheet": "glyphcmp_000.png",

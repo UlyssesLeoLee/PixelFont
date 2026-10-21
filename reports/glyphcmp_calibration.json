@@ -1,6 +1,6 @@
 {
   "tool": "calibrate_detector",
-  "generated_at": "2026-10-21T08:04:26.540456+00:00",
+  "generated_at": "2026-10-21T10:08:03.159864+00:00",
   "inputs": {
     "screen_json": "reports\\glyphcmp_screen.json",
     "review_dir": "reports\\glyphcmp_review",
@@ -11,16 +11,17 @@
       "lane4: 576 字"
     ],
     "chars_reviewed": 2304,
-    "screen_findings": 93
+    "screen_findings": 72
   },
   "recall": {
     "confirmed_degraded": {
       "total": 29,
-      "caught": 5,
-      "missed": 24,
+      "caught": 3,
+      "missed": 26,
       "missed_list": [
-        "U+50F5",
         "U+5180",
+        "U+568E",
+        "U+5B63",
         "U+66B4",
         "U+7206",
         "U+74E3",
@@ -41,24 +42,21 @@
         "U+970D",
         "U+9732",
         "U+9B54",
+        "U+9C81",
         "U+9CDE",
         "U+9F3B"
       ]
     },
     "unsure": {
       "total": 41,
-      "caught": 4,
-      "missed": 37
+      "caught": 2,
+      "missed": 39
     }
   },
   "by_check": {
     "STRUCTURE_OUTLIER": {
-      "confirmed": 4,
-      "unsure": 3
-    },
-    "COUNTER_LOST": {
-      "confirmed": 1,
-      "unsure": 1
+      "confirmed": 3,
+      "unsure": 2
     }
   },
   "rows": {
@@ -66,8 +64,10 @@
       {
         "cp": "U+50F5",
         "char": "僵",
-        "auto": [],
-        "caught": false
+        "auto": [
+          "STRUCTURE_OUTLIER"
+        ],
+        "caught": true
       },
       {
         "cp": "U+5180",
@@ -86,18 +86,14 @@
       {
         "cp": "U+568E",
         "char": "嚎",
-        "auto": [
-          "STRUCTURE_OUTLIER"
-        ],
-        "caught": true
+        "auto": [],
+        "caught": false
       },
       {
         "cp": "U+5B63",
         "char": "季",
-        "auto": [
-          "COUNTER_LOST"
-        ],
-        "caught": true
+        "auto": [],
+        "caught": false
       },
       {
         "cp": "U+66B4",
@@ -230,10 +226,8 @@
       {
         "cp": "U+9C81",
         "char": "鲁",
-        "auto": [
-          "STRUCTURE_OUTLIER"
-        ],
-        "caught": true
+        "auto": [],
+        "caught": false
       },
       {
         "cp": "U+9CDE",
@@ -252,10 +246,8 @@
       {
         "cp": "U+5320",
         "char": "匠",
-        "auto": [
-          "COUNTER_LOST"
-        ],
-        "caught": true
+        "auto": [],
+        "caught": false
       },
       {
         "cp": "U+554A",
@@ -346,10 +338,8 @@
       {
         "cp": "U+7BE1",
         "char": "篡",
-        "auto": [
-          "STRUCTURE_OUTLIER"
-        ],
-        "caught": true
+        "auto": [],
+        "caught": false
       },
       {
         "cp": "U+7C4D",
@@ -474,10 +464,8 @@
       {
         "cp": "U+9AA1",
         "char": "骡",
-        "auto": [
-          "STRUCTURE_OUTLIER"
-        ],
-        "caught": true
+        "auto": [],
+        "caught": false
       },
       {
         "cp": "U+9CB8",
@@ -488,8 +476,10 @@
       {
         "cp": "U+9CD6",
         "char": "鳖",
-        "auto": [],
-        "caught": false
+        "auto": [
+          "STRUCTURE_OUTLIER"
+        ],
+        "caught": true
       },
       {
         "cp": "U+9E93",
