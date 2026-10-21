@@ -1,0 +1,68 @@
+{
+  "steps": [
+    {
+      "step": "生产源",
+      "label": "生产源自检 (Ark Pixel 裁剪版: 逐像素一致 + cmap 覆盖)",
+      "status": "PASS",
+      "returncode": 0
+    },
+    {
+      "step": "构建",
+      "label": "构建 (含缺字门禁 + 路由名单门禁)",
+      "status": "PASS",
+      "returncode": 0
+    },
+    {
+      "step": "回归",
+      "label": "全量回归 (4140 字分批: 产物与源位图逐像素一致)",
+      "status": "PASS",
+      "returncode": 0
+    },
+    {
+      "step": "硬检查",
+      "label": "字形硬检查 (参考集 Zpix + Unifont, 与生产源独立)",
+      "status": "PASS",
+      "returncode": 0
+    },
+    {
+      "step": "名单",
+      "label": "路由名单自检 (重新推导一遍, 与入库名单比对)",
+      "status": "PASS",
+      "returncode": 0
+    }
+  ],
+  "numbers": {
+    "回归": {
+      "覆盖字数": 4140,
+      "批数": 43,
+      "error": 0,
+      "warn": 0,
+      "判定": "PASS"
+    },
+    "硬检查": {
+      "参考集": [
+        "zpix",
+        "unifont-16"
+      ],
+      "命中": 80,
+      "按判据": {
+        "EXACT_COLLIDE": 3,
+        "OWN_COLLIDE": 8,
+        "COUNTER_LOST": 13,
+        "STRUCTURE_OUTLIER": 56
+      },
+      "按级别": {
+        "warn": 78,
+        "error": 2
+      }
+    },
+    "目视复核": {
+      "消费 lane 产物": 4,
+      "复核字数": 2304,
+      "身份错误": 0,
+      "确认劣化": 29,
+      "存疑": 41
+    }
+  },
+  "verdict": "PASS"
+}

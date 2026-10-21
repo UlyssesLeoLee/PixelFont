@@ -1,7 +1,7 @@
 {
   "tool": "regress_all",
   "version": 1,
-  "generated_at": "2026-10-21T09:56:48.664653+00:00",
+  "generated_at": "2026-10-21T10:18:32.793704+00:00",
   "selection": {
     "label": "all-batches",
     "cats": [
