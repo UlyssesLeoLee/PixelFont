@@ -151,6 +151,10 @@ def our_glyphs(stack, items: list[tuple[str, str]]) -> dict[int, np.ndarray]:
         a = (np.array(g, dtype=np.uint8) > 0).astype(np.float32)
         ys, xs = np.nonzero(a)
         if len(xs) == 0:
+            # 空格这类**本来就没有墨迹**的字符不在这里 (返回 None = "没有字形"),
+            # 由出图工具单独补一个空格子 —— 否则对照图上会把空格显示成红色的"缺",
+            # 复核者会以为字体少了这个码位。
+            # (硬检查的覆盖率统计也依赖这个语义: 空格子不能算"参考缺字"。)
             continue
         out[ord(ch)] = a[ys.min() : ys.max() + 1, xs.min() : xs.max() + 1]
     return out

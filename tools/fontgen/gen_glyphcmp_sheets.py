@@ -200,6 +200,19 @@ def main() -> int:
         print(f"参考字体 {name}: {len(refs_by_name[name])} 字形 (失败 {fails})")
 
     ours = vi.our_glyphs(stack, sel)
+    # 空格这类**本来就没有墨迹**的字符: 补一个空格子, 不能显示成红色的"缺"。
+    # (verify_identity.our_glyphs 故意不收它们 —— 硬检查的覆盖率统计靠这个语义
+    #  区分"这个源没有这个字"与"这个字本来是空的"。)
+    import numpy as np
+
+    for ch, _cat in sel:
+        cp = ord(ch)
+        if cp in ours:
+            continue
+        g = stack.glyph(ch)
+        a = (np.array(g, dtype=np.uint8) > 0).astype(np.float32)
+        if not a.any():
+            ours[cp] = a
     outdir = Path(args.outdir)
     per = args.cols * args.rows
     slot_w, slot_h = measure_slots(ref_names, refs_by_name, ours, sel)
