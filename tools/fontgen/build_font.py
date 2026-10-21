@@ -11,6 +11,7 @@ TTF 的做法: 每段连续的墨迹水平游程 → 一个矩形轮廓, UPM=120
 from __future__ import annotations
 
 import json
+import os
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -27,6 +28,12 @@ OUTDIR = ROOT / "dist"
 FONT_NAME = "PixelFont PC98 12"
 PS_NAME = "PixelFontPC98-12"
 UPM = 768  # 12 px * 64: 1 像素 = 64 单位。
+
+# 字体头时间戳 (Mac 纪元秒)。钉死它, 同一份源码每次构建出的 TTF 字节完全一致;
+# 需要换时间戳时设 SOURCE_DATE_EPOCH 环境变量 (reproducible-builds.org 约定)。
+# 实测: 不钉死的话, 两次构建只有 head 表的 created/modified 不同, 其余表逐字节一致。
+# 这个值对应 2026-10-21 (C4 路由落地之日)。
+FONT_TIMESTAMP = 3875422459
 # 为什么是 768 而不是好读的 1200: ppem=12 时缩放比 = 12/UPM。UPM=1200 会让
 # 12/1200 = 0.01 在 16.16 定点里被截成 655 (精确值 655.36), 每个像素实际只有
 # 0.99945 设备像素高, 栅格化时部分行塌陷、部分行重复。UPM=768 时 12*65536/768
@@ -273,6 +280,14 @@ def write_ttf(glyphs: list[GlyphData], ascent: int, descent: int, path: Path) ->
         0xFFFF: gasp_mod.GASP_GRIDFIT | gasp_mod.GASP_DOGRAY,  # 其余字号按常规渲染
     }
     fb.font["gasp"] = gasp
+
+    # 时间戳钉死 —— 否则同一份源码每次构建出的 TTF 字节都不一样,
+    # "可复现"就无从谈起 (实测: 两次构建只有 head 表的 created/modified 不同,
+    # 其余所有表逐字节一致)。
+    # 优先用 SOURCE_DATE_EPOCH (reproducible-builds.org 约定), 否则用固定常量。
+    epoch = int(os.environ.get("SOURCE_DATE_EPOCH", FONT_TIMESTAMP))
+    fb.font["head"].created = epoch
+    fb.font["head"].modified = epoch
 
     fb.save(str(path))
     return path
