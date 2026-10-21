@@ -1,0 +1,59 @@
+{
+  "lane": 7,
+  "sheets": [
+    {
+      "sheet": "glyphcmp_034.png",
+      "chars": 96,
+      "first": "U+8BEC",
+      "last": "U+9677"
+    },
+    {
+      "sheet": "glyphcmp_035.png",
+      "chars": 96,
+      "first": "U+9650",
+      "last": "U+7F9E"
+    },
+    {
+      "sheet": "glyphcmp_036.png",
+      "chars": 96,
+      "first": "U+673D",
+      "last": "U+538C"
+    },
+    {
+      "sheet": "glyphcmp_037.png",
+      "chars": 96,
+      "first": "U+781A",
+      "last": "U+6BC5"
+    },
+    {
+      "sheet": "glyphcmp_038.png",
+      "chars": 96,
+      "first": "U+5FC6",
+      "last": "U+6E1D"
+    }
+  ],
+  "chars_reviewed": 480,
+  "findings": [],
+  "unsure": [],
+  "summary": {
+    "identity": 0,
+    "degraded": 0,
+    "chars_reviewed": 480
+  },
+  "method": {
+    "artifact": "reports/glyphcmp_png/glyphcmp_034.png ~ glyphcmp_038.png",
+    "refs": [
+      "Zpix 12px (MIT)",
+      "GNU Unifont 16x16 (GPL-2.0+)"
+    ],
+    "basis": "全部判定以出图 PNG 原图为唯一底本; 格位映射以 reports/glyphcmp_index.json 的 sheets[].chars 为准",
+    "steps": [
+      "按协议第 3 节几何 (格 108x66, 表头 26, 点阵左上角 我方 x+2 / Zpix x+38 / Unifont x+74, y+30) 切出 16x16 源点阵",
+      "每张对照表按左右 6 列切半、2x 最近邻放大逐格目视核对 (10 张放大图覆盖全部 480 格)",
+      "对 24 个腔数低于两个参考的候选格另做 8x 紧裁切条 (tight strip) 与 16x16 ASCII 点阵逐像素比对",
+      "字腔数按协议第 5 节定义实现 (4 邻域, 按墨迹外接矩形, 贴边白区不算腔), 三份独立实现 (BFS 洪水填充 / 并查集 / 扫描线游程合并) 交叉验证: 1440 次比较 0 处不一致",
+      "身份 (A 类) 另做全语料最近邻筛查 (960 个参考字形), 命中低相似度红名单再逐个目视确认",
+      "判定口径: 只在结构信息丢失 (部件封闭空间填实 / 横竖画并成实心带) 时判 B; 笔画粗密但骨架可追踪归 C; 字高不同不算缺陷"
+    ]
+  }
+}

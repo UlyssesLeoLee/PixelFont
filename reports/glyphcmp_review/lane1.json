@@ -1,133 +1,219 @@
 {
   "lane": 1,
   "sheets": [
-    "glyphcmp_000.png",
-    "glyphcmp_001.png",
-    "glyphcmp_002.png",
-    "glyphcmp_003.png",
-    "glyphcmp_004.png",
-    "glyphcmp_005.png"
+    {
+      "sheet": "glyphcmp_000.png",
+      "chars": 96,
+      "first": "U+0020",
+      "last": "U+00B7"
+    },
+    {
+      "sheet": "glyphcmp_001.png",
+      "chars": 96,
+      "first": "U+2014",
+      "last": "U+307E"
+    },
+    {
+      "sheet": "glyphcmp_002.png",
+      "chars": 96,
+      "first": "U+307F",
+      "last": "U+30E0"
+    },
+    {
+      "sheet": "glyphcmp_003.png",
+      "chars": 96,
+      "first": "U+30E1",
+      "last": "U+3006"
+    },
+    {
+      "sheet": "glyphcmp_004.png",
+      "chars": 96,
+      "first": "U+3007",
+      "last": "U+8584"
+    },
+    {
+      "sheet": "glyphcmp_005.png",
+      "chars": 96,
+      "first": "U+96F9",
+      "last": "U+73BB"
+    }
   ],
-  "chars_reviewed": 576,
+  "chars_reviewed": 384,
   "findings": [
     {
-      "cp": "U+66B4",
-      "char": "暴",
-      "kind": "DEGRADED",
-      "reason": "上部「日」4 行整块实心、内部两横完全丢失，下部「共／氺」笔画粘连；Fusion 与 Unifont 都能清楚分出「日」内的两横与下部各笔。",
-      "confidence": "high"
+      "cp": "U+3099",
+      "char": "゙",
+      "kind": "A",
+      "sheet": "glyphcmp_002.png",
+      "cell": 24,
+      "cav_ours_zpix_unifont": [
+        1,
+        0,
+        0
+      ],
+      "reason": "**画错了符号**: 我方把「组合用浊点゙(dakuten)」画成了**半浊点○(handakuten)的空心环** —— 我方位图是 3x3 的 .#./#.#/.#. (四像素围一孔), 与同一字库里的 U+309C「-spacing 半浊点゜」**逐字节完全相同** (全 6 表 576 格的位图重复检查, 唯一一处真正画错的同位图对)。对照: Unifont 的 U+3099 是两笔浊点 (..#/#..#/.#), Zpix 缺此字; 而**我方自己的 U+309B「浊点゛」画的是正确的两笔形** (与 Zpix 逐像素相同), 说明字库有正确的浊点数据, 只是 U+3099 被填成了半浊点的位图。这是本轮 lane 内唯一的身份错误。",
+      "confidence": "high",
+      "position": "第3行 第1列"
     },
     {
-      "cp": "U+7206",
-      "char": "爆",
-      "kind": "DEGRADED",
-      "reason": "右侧「暴」的「日」部 3 行实心化、字腔消失；Fusion 的「日」保留 2 个清楚字腔，Unifont 同样分明。",
-      "confidence": "high"
-    },
-    {
-      "cp": "U+96F9",
-      "char": "雹",
-      "kind": "DEGRADED",
-      "reason": "「雨」头上 3 行几乎整行实心、4 个点画消失，下部「包」糊成整块仅剩一个小孔；Fusion 的雨字头与包结构清楚可分。",
-      "confidence": "high"
-    },
-    {
-      "cp": "U+9F3B",
-      "char": "鼻",
-      "kind": "DEGRADED",
-      "reason": "「自」与「田」全部塌成实心块，全字只剩 1 个字腔（Fusion／Unifont 各 6 个）；两个参考都清楚分出横画与田的四格。",
-      "confidence": "high"
-    },
-    {
-      "cp": "U+74E3",
-      "char": "瓣",
-      "kind": "DEGRADED",
-      "reason": "两侧「辛」与中间「瓜」的笔画互相粘连交错，部件边界丢失、整体呈密块；Fusion 与 Unifont 清楚分出辛＋瓜＋辛。",
-      "confidence": "medium"
+      "cp": "U+FF0C",
+      "char": "，",
+      "kind": "B",
+      "sheet": "glyphcmp_001.png",
+      "cell": 4,
+      "cav_ours_zpix_unifont": [
+        0,
+        0,
+        0
+      ],
+      "reason": "我方「，」在 12×13 网格里被画成 1 像素宽、4 行高的**笔直竖条**(槽位 x00 一列, y00-03), 逗号的圆头与斜尾整个丢失; Zpix 是 2 像素宽的上圆头+收尾(zpix x02-03), Unifont 是 x04-05 的 2 宽圆头带尾。同一字库里 ASCII 逗号 U+002C 我方画得是对的(2 宽 3 高的标准逗号), 说明是全角逗号这一个字自身的数据问题, 不是 12px 画风所限。",
+      "confidence": "medium",
+      "position": "第1行 第5列"
     }
   ],
   "unsure": [
     {
-      "cp": "U+554A",
-      "char": "啊",
-      "kind": "DEGRADED",
-      "reason": "最左「口」塌成 2px 宽的实心竖条（字腔 1，参考各 4），但右部「阿」仍可辨，属局部塌陷。",
-      "confidence": "low"
+      "cp": "U+0027",
+      "char": "'",
+      "kind": "C",
+      "sheet": "glyphcmp_000.png",
+      "cell": 7,
+      "cav_ours_zpix_unifont": [
+        0,
+        0,
+        0
+      ],
+      "reason": "我方 ASCII 撇号 U+0027 用的是**逗号的位图**(##/.#/#. ), 与 U+002C「,」逐字节相同; 两个参考都把撇号画成**直立短竖**(Zpix x00-00 两行直竖、Unifont x04-04 四行直竖)。轮廓仍读得出是引号, 只是形状偏逗号形, 未到 B 门槛。",
+      "confidence": "low",
+      "position": "第1行 第8列"
     },
     {
-      "cp": "U+618B",
-      "char": "憋",
-      "kind": "DEGRADED",
-      "reason": "上部「敝」笔画并笔（字腔 1，参考各 3），下部「心」尚可辨。",
-      "confidence": "low"
+      "cp": "U+FF0E",
+      "char": "．",
+      "kind": "C",
+      "sheet": "glyphcmp_001.png",
+      "cell": 5,
+      "cav_ours_zpix_unifont": [
+        0,
+        0,
+        0
+      ],
+      "reason": "我方全角句点只占 1 像素宽 2 行(x00-00, y00-01), 且紧贴槽位最左缘; Zpix 与 Unifont 都是 2×2 的方点(zpix x04-05 / Unifont x04-05)。仍读得出是句点、骨架没丢, 只是比参考细 1 像素, 未到 B 门槛。",
+      "confidence": "low",
+      "position": "第1行 第6列"
     },
     {
-      "cp": "U+5965",
-      "char": "奥",
-      "kind": "DEGRADED",
-      "reason": "囗 内「米」的中横整行实心、4 个点画不可分（字腔 3 vs 8），但外框与下部「大」保留。",
-      "confidence": "low"
+      "cp": "U+3010",
+      "char": "「",
+      "kind": "C",
+      "sheet": "glyphcmp_001.png",
+      "cell": 12,
+      "cav_ours_zpix_unifont": [
+        0,
+        0,
+        0
+      ],
+      "reason": "**位置差异, 非结构差异**: 我方「起括号画在字身框的**左半区**(槽位 x00-03), Zpix 放在右半区(x07-10), Unifont 同样偏右(x08-12)—— 两个独立参考一致把「起括号放在框右半, 好让它贴住后一个字。而我方「」(U+3011) 也画在左半区(x00-03), 于是起止括号同侧。字形骨架本身完好、且与 」互为镜像, 故不判 B。",
+      "confidence": "low",
+      "position": "第2行 第1列"
     },
     {
-      "cp": "U+9738",
-      "char": "霸",
-      "kind": "DEGRADED",
-      "reason": "「雨」头首行整行实心、点画消失，「革」部密实（字腔 3 vs 8），整体轮廓仍可辨。",
-      "confidence": "low"
+      "cp": "U+300C",
+      "char": "「",
+      "kind": "C",
+      "sheet": "glyphcmp_001.png",
+      "cell": 14,
+      "cav_ours_zpix_unifont": [
+        0,
+        0,
+        0
+      ],
+      "reason": "**位置差异**: 我方「起括号在字身框左半区(x00-03), Zpix 在右半区(x07-10)、Unifont 亦偏右(x08-12)。骨架完好、形状与参考同形, 仅左右位置相反, 不判 B。",
+      "confidence": "low",
+      "position": "第2行 第3列"
     },
     {
-      "cp": "U+9CD6",
-      "char": "鳖",
-      "kind": "DEGRADED",
-      "reason": "下部「鱼」的「田」两行实心化（字腔 4 vs 7），上部「敝」尚存结构。",
-      "confidence": "low"
+      "cp": "U+300E",
+      "char": "『",
+      "kind": "C",
+      "sheet": "glyphcmp_001.png",
+      "cell": 16,
+      "cav_ours_zpix_unifont": [
+        1,
+        1,
+        1
+      ],
+      "reason": "**位置差异**: 我方『起括号在左半区(x00-04), Zpix 在右半区(x06-10)、Unifont 偏右(x07-12)。双重线骨架与字腔数(1/1/1)都一致, 仅位置相反, 不判 B。",
+      "confidence": "low",
+      "position": "第2行 第5列"
     },
     {
-      "cp": "U+84D6",
-      "char": "蓖",
-      "kind": "DEGRADED",
-      "reason": "上部「艹＋田」并成横带、田的四格不可分，下部「比」仍清楚。",
-      "confidence": "low"
+      "cp": "U+300A",
+      "char": "《",
+      "kind": "C",
+      "sheet": "glyphcmp_001.png",
+      "cell": 18,
+      "cav_ours_zpix_unifont": [
+        3,
+        3,
+        0
+      ],
+      "reason": "**位置差异**: 我方《起括号在左半区(x00-04), Zpix 在右半区(x06-10)、Unifont 亦偏右(x05-12)。骨架与字腔(3/3)一致, 仅位置相反, 不判 B。",
+      "confidence": "low",
+      "position": "第2行 第7列"
     },
     {
-      "cp": "U+978D",
-      "char": "鞍",
-      "kind": "DEGRADED",
-      "reason": "「革」部并笔（字腔 2 vs 6），「安」部尚可辨。",
-      "confidence": "low"
-    },
-    {
-      "cp": "U+7FF1",
-      "char": "翱",
-      "kind": "DEGRADED",
-      "reason": "「羽」部笔画挤成竖密块、「白／大」并笔（字腔 2 vs 6／5），整体仍可辨。",
-      "confidence": "low"
-    },
-    {
-      "cp": "U+853C",
-      "char": "蔼",
-      "kind": "DEGRADED",
-      "reason": "右侧「謁」的「曰」并成实心块（字腔 2 vs 6），「艹／讠」尚可辨。",
-      "confidence": "low"
-    },
-    {
-      "cp": "U+8912",
-      "char": "褒",
-      "kind": "DEGRADED",
-      "reason": "中部「呆」的「口＋木」并笔（字腔 1 vs 3），「衣」部尚可辨。",
-      "confidence": "low"
-    },
-    {
-      "cp": "U+81C2",
-      "char": "臂",
-      "kind": "DEGRADED",
-      "reason": "下部「月」中间两行糊成实心、内侧两个字腔消失，外框与「辟」仍在。",
-      "confidence": "low"
+      "cp": "U+3008",
+      "char": "〈",
+      "kind": "C",
+      "sheet": "glyphcmp_001.png",
+      "cell": 20,
+      "cav_ours_zpix_unifont": [
+        0,
+        0,
+        0
+      ],
+      "reason": "**位置差异**: 我方〈起括号在左半区(x00-03), Zpix 在右半区(x07-10)、Unifont 偏右(x08-12)。骨架完好、仅位置相反, 不判 B。",
+      "confidence": "low",
+      "position": "第2行 第9列"
     }
   ],
   "summary": {
-    "identity": 0,
-    "degraded": 5,
-    "chars_reviewed": 576
+    "identity": 1,
+    "degraded": 1,
+    "chars_reviewed": 384,
+    "unsure": 7
+  },
+  "method": {
+    "artifact": "reports/glyphcmp_png/glyphcmp_000.png ~ glyphcmp_005.png (6 张, 576 格)",
+    "refs": [
+      "Zpix 12px (MIT)",
+      "GNU Unifont 16x16 (GPL-2.0+)"
+    ],
+    "basis": "全部判定以出图 PNG 原图为唯一底本; 格位映射取自 reports/glyphcmp_index.json 的 sheets[].chars",
+    "steps": [
+      "协议核对: 读 docs/glyph-review-protocol.md, 判定口径按 A(画的不是这个字)/B(是此字但结构丢失)/C(边界情况) 三类; 参考列经 index refs 确认为 zpix + unifont-16 (index slot_w/slot_h=16)",
+      "出图版本钉死: 本轮复核所用 6 张 PNG 与 reports/_tmp_lane1/snapshot_191142/ 下的快照逐张 SHA256 比对一致 (6/6 same=True), 判定不随集成者并发重出图而漂移",
+      "位图还原: 用 reports/_tmp_lane1/extract.py 把 PNG 像素按 (源像素 i,j) = (屏幕 ox+2i, base_y+2j) 反解回 16x16 槽位内的 0/1 位图, 三列共 1728 个字形全部抽出; QC: 2x2 块不一致 0 处, 我方位图缺失 0 处",
+      "量具自检: 字腔数用两份**不同实现** (BFS 边界洪水填充 + 并查集) 对 1728 个字形各跑一遍, 分歧 0 处, 数字可用 (协议第 5 节要求)",
+      "目视复核: 48 张对照拼图 (每张 12 格, 我方|Zpix|Unifont, 4x/5x 放大) 逐张过完 576 格, 每格都对照左上角标注字与码位判断; 存疑格再用 10x~16x 单格重裁 + ASCII 点阵逐像素核对",
+      "判定原则: 按骨架不按像素; 只有部件封闭空间被填实 / 横画消失致部件变样 / 并成实心带 才判 B; 轮廓可辨但笔画更粗或更细判 C; 仅位置(在字身框内的左右半区)偏离参考、字形骨架完好者判 C 并注明是位置差异",
+      "旁证: 6 张表的格位映射直接取自 index JSON 的 sheets[].chars (权威), 未靠图上低分辨率标签读码位"
+    ],
+    "quant_tool": {
+      "name": "reports/_tmp_lane1/measure.py (impl1 BFS 洪水填充 + impl2 并查集)",
+      "selfcheck": "1728 glyphs (576 格 x 3 列), 0 disagreements",
+      "aux_scripts": [
+        "reports/_tmp_lane1/extract.py",
+        "reports/_tmp_lane1/measure.py",
+        "reports/_tmp_lane1/zoom.py",
+        "reports/_tmp_lane1/show.py (ASCII 点阵逐像素核对)",
+        "reports/_tmp_lane1/triage.py (三列外接框+字腔 紧凑摘要)"
+      ]
+    },
+    "notes": [
+      "本 lane 未修改 tools/fontgen/ 或任何源码; 复核期间源码可能被集成者并发改动, 不影响本结论",
+      "已确认 gen_glyphcmp_sheets.py 把我方字形按槽位左上角原样贴图 (不做居中), 故我方墨迹的位置差异是字库自身的差异, 不是出图工具造成的"
+    ]
   }
 }

@@ -50,7 +50,8 @@
       "row": 1,
       "col": 3,
       "position": "glyphcmp_018.png r1c3",
-      "cav_ours_zpix_unifont": "4/4/4"
+      "cav_ours_zpix_unifont": "4/4/4",
+      "note": "我方字体自身的「田」(如 雷 U+96F7) 是 3 横画, 所以此处不是全局画风限制, 而是本字的结构丢失"
     },
     {
       "cp": "U+76F2",
@@ -62,7 +63,8 @@
       "row": 5,
       "col": 2,
       "position": "glyphcmp_022.png r5c2",
-      "cav_ours_zpix_unifont": "2/3/3"
+      "cav_ours_zpix_unifont": "2/3/3",
+      "note": "我方单独成字的「目」(U+76EE) 与 具/眉/眠 中都画对了 4 横画, 说明不是字库整体画风限制"
     },
     {
       "cp": "U+60E7",
@@ -94,7 +96,7 @@
       "cp": "U+652B",
       "char": "攫",
       "kind": "C",
-      "reason": "右半部件笔画偏挤、腔数比两个参考各少 2 (4/6/8), 但部件轮廓与笔画走向仍可追踪, 未到「糊成无内部结构的实心块」的门槛。",
+      "reason": "「攫」的右半「矍」笔画偏挤、腔数比两个参考各少 2 (4/6/8), 但部件轮廓与笔画走向仍可追踪, 未到「糊成无内部结构的实心块」的门槛。",
       "confidence": "low",
       "sheet": "glyphcmp_018.png",
       "row": 4,
@@ -106,7 +108,7 @@
       "cp": "U+6482",
       "char": "撂",
       "kind": "C",
-      "reason": "右半部件笔画偏密, 腔数 5/7/8 略低于两个参考, 结构仍可辨。",
+      "reason": "「撂」的右半「翟」笔画偏密, 腔数 5/7/8 略低于两个参考, 结构仍可辨。",
       "confidence": "low",
       "sheet": "glyphcmp_021.png",
       "row": 0,
