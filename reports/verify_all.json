@@ -25,6 +25,12 @@
       "returncode": 0
     },
     {
+      "step": "产物同步",
+      "label": "产物与源同步 (独立读 dist/ 与当前源逐字比对, 不靠构建脚本自证)",
+      "status": "PASS",
+      "returncode": 0
+    },
+    {
       "step": "名单",
       "label": "路由名单自检 (按名单自述的输入重新推导, 与入库名单比对)",
       "status": "PASS",

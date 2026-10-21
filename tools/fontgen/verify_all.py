@@ -54,6 +54,11 @@ STEPS: list[tuple[str, list[str], str]] = [
         "硬检查",
     ),
     (
+        "产物与源同步 (独立读 dist/ 与当前源逐字比对, 不靠构建脚本自证)",
+        [str(TOOLS / "verify_products.py")],
+        "产物同步",
+    ),
+    (
         "路由名单自检 (按名单自述的输入重新推导, 与入库名单比对)",
         [
             str(TOOLS / "derive_ideo_route.py"),
