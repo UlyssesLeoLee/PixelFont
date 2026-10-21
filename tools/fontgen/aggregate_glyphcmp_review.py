@@ -23,6 +23,8 @@ KIND_MAP = {
     "B": "DEGRADED",
     "IDENTITY": "IDENTITY",
     "A": "IDENTITY",
+    "C": "UNSURE",
+    "UNSURE": "UNSURE",
 }
 
 

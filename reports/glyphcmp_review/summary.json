@@ -1,6 +1,6 @@
 {
   "tool": "aggregate_glyphcmp_review",
-  "generated_at": "2026-10-21T08:06:16.765845+00:00",
+  "generated_at": "2026-10-21T10:19:54.557597+00:00",
   "inputs": {
     "review_dir": "reports\\glyphcmp_review",
     "lane_files": [
@@ -14,9 +14,9 @@
   },
   "summary": {
     "identity_errors": 0,
-    "degraded_confirmed": 29,
-    "unsure": 41,
-    "lane_reported_total": 29,
+    "degraded_confirmed": 27,
+    "unsure": 71,
+    "lane_reported_total": 27,
     "unrecognized_kinds": 0
   },
   "lanes": [
@@ -44,18 +44,49 @@
       "file": "lane2.json",
       "chars_reviewed": 576,
       "sheets": [
-        "glyphcmp_006.png",
-        "glyphcmp_007.png",
-        "glyphcmp_008.png",
-        "glyphcmp_009.png",
-        "glyphcmp_010.png",
-        "glyphcmp_011.png"
+        {
+          "sheet": "glyphcmp_006.png",
+          "chars": 96,
+          "first": "U+83E0",
+          "last": "U+507F"
+        },
+        {
+          "sheet": "glyphcmp_007.png",
+          "chars": 96,
+          "first": "U+80A0",
+          "last": "U+63E3"
+        },
+        {
+          "sheet": "glyphcmp_008.png",
+          "chars": 96,
+          "first": "U+5DDD",
+          "last": "U+65E6"
+        },
+        {
+          "sheet": "glyphcmp_009.png",
+          "chars": 96,
+          "first": "U+6C2E",
+          "last": "U+4E1C"
+        },
+        {
+          "sheet": "glyphcmp_010.png",
+          "chars": 96,
+          "first": "U+51AC",
+          "last": "U+7FFB"
+        },
+        {
+          "sheet": "glyphcmp_011.png",
+          "chars": 96,
+          "first": "U+6A0A",
+          "last": "U+8150"
+        }
       ],
-      "confirmed": 3,
-      "unsure": 3,
+      "confirmed": 1,
+      "unsure": 33,
       "identity": 0,
       "kinds_raw": [
-        "DEGRADED"
+        "B",
+        "C"
       ]
     },
     {
@@ -150,8 +181,16 @@
       "cp": "U+53E0",
       "char": "叠",
       "kind": "DEGRADED",
-      "reason": "下部「且」被填实成实心块、上部三个「又」糊成横带（封闭框 3 vs 两个参考各 6），两个参考都能分出「且」的框与「冖」。",
-      "confidence": "medium",
+      "reason": "下部「且」的封闭框在我方被填实成 6x3 实心带 —— 整字只余 5 个字腔, Zpix 与 Unifont 都能分出「且」框内的两道横隔 (各 6 腔)。「且」是「叠」的骨架部件, 框内空间消失即结构信息丢失, 且两个参考一致可辨。",
+      "confidence": "high",
+      "sheet": "glyphcmp_009.png",
+      "row": 7,
+      "col": 0,
+      "cavities": {
+        "ours": 5,
+        "zpix": 6,
+        "unifont": 6
+      },
       "lane": 2
     },
     {
@@ -201,14 +240,6 @@
       "reason": "右侧「畺」塌成实心块(6 行全黑), 参考能分出「弓+畺+土」",
       "confidence": "high",
       "lane": 3
-    },
-    {
-      "cp": "U+77D7",
-      "char": "矗",
-      "kind": "DEGRADED",
-      "reason": "「直×3」中上两个「直」糊成实心横带、第三个「直」的「目」框只剩竖笔，Fusion 与 Unifont 都能分出三个「直」的封闭框。",
-      "confidence": "medium",
-      "lane": 2
     },
     {
       "cp": "U+78E8",
@@ -265,14 +296,6 @@
       "reason": "「葛」左部的「曰」字腔填死, 参考中「曰」内横画清晰",
       "confidence": "medium",
       "lane": 3
-    },
-    {
-      "cp": "U+8822",
-      "char": "蠢",
-      "kind": "DEGRADED",
-      "reason": "上半「春」8 行几乎全是满行横带（墨量 86/110≈78%），两个「虫」的框全部丢失，Fusion 仍可辨「三/日/虫」、Unifont 更清晰。",
-      "confidence": "medium",
-      "lane": 2
     },
     {
       "cp": "U+8986",
@@ -373,6 +396,23 @@
       "lane": 3
     },
     {
+      "cp": "U+535A",
+      "char": "博",
+      "kind": "UNSURE",
+      "reason": "「甫」框内只余一道空隙 (我方腔 2 / Zpix 4 / Unifont 4), 「十」与「尃」的轮廓与「寸」部完整。",
+      "confidence": "low",
+      "sheet": "glyphcmp_006.png",
+      "row": 0,
+      "col": 5,
+      "cavities": {
+        "ours": 2,
+        "zpix": 4,
+        "unifont": 4
+      },
+      "deficit": 2,
+      "lane": 2
+    },
+    {
       "cp": "U+554A",
       "char": "啊",
       "kind": "DEGRADED",
@@ -397,12 +437,46 @@
       "lane": 1
     },
     {
+      "cp": "U+5E45",
+      "char": "幅",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 5 < Zpix 6 / Unifont 6, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_011.png",
+      "row": 6,
+      "col": 3,
+      "cavities": {
+        "ours": 5,
+        "zpix": 6,
+        "unifont": 6
+      },
+      "deficit": 1,
+      "lane": 2
+    },
+    {
       "cp": "U+5FBD",
       "char": "徽",
       "kind": "DEGRADED",
       "reason": "「徽」笔画密集, 与参考结构基本对应, 边界项",
       "confidence": "low",
       "lane": 3
+    },
+    {
+      "cp": "U+60F0",
+      "char": "惰",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 2 < Zpix 3 / Unifont 3, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_010.png",
+      "row": 5,
+      "col": 0,
+      "cavities": {
+        "ours": 2,
+        "zpix": 3,
+        "unifont": 3
+      },
+      "deficit": 1,
+      "lane": 2
     },
     {
       "cp": "U+618B",
@@ -421,12 +495,63 @@
       "lane": 3
     },
     {
+      "cp": "U+62C2",
+      "char": "拂",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 5 < Zpix 6 / Unifont 6, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_011.png",
+      "row": 6,
+      "col": 1,
+      "cavities": {
+        "ours": 5,
+        "zpix": 6,
+        "unifont": 6
+      },
+      "deficit": 1,
+      "lane": 2
+    },
+    {
+      "cp": "U+6467",
+      "char": "摧",
+      "kind": "UNSURE",
+      "reason": "「隹」内部横画偏密 (我方腔 2 / Zpix 4 / Unifont 4), 「山 + 隹」两部件与「扌」仍完整可分。",
+      "confidence": "low",
+      "sheet": "glyphcmp_008.png",
+      "row": 4,
+      "col": 5,
+      "cavities": {
+        "ours": 2,
+        "zpix": 4,
+        "unifont": 4
+      },
+      "deficit": 2,
+      "lane": 2
+    },
+    {
       "cp": "U+6469",
       "char": "摩",
       "kind": "DEGRADED",
       "reason": "「麻」部笔画明显拥挤、笔画偏重，但内部结构仍可追踪，未达到「糊成无内部结构的实心块」的门槛（顶 7 行封闭白腔 5 vs 4、全字 5 vs 7）。",
       "confidence": "low",
       "lane": 4
+    },
+    {
+      "cp": "U+6625",
+      "char": "春",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 2 < Zpix 4 / Unifont 3, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_008.png",
+      "row": 1,
+      "col": 6,
+      "cavities": {
+        "ours": 2,
+        "zpix": 4,
+        "unifont": 3
+      },
+      "deficit": 1,
+      "lane": 2
     },
     {
       "cp": "U+6897",
@@ -447,9 +572,18 @@
     {
       "cp": "U+6A0A",
       "char": "樊",
-      "kind": "DEGRADED",
-      "reason": "上部「林+爻」退化为对称网格（我方封闭框 0 个，Fusion 8 个），仅下部「大」可辨；两参考本身也不清晰，不足以判定我方明显劣于参考。",
+      "kind": "UNSURE",
+      "reason": "「林 + 爻」上部笔画密 (我方腔 4), 但两个参考本身就不一致 (Zpix 10 腔 / Unifont 仅 2 腔), 无法据此判定我方明显劣于参考; 下部「大」完整。",
       "confidence": "low",
+      "sheet": "glyphcmp_011.png",
+      "row": 0,
+      "col": 0,
+      "cavities": {
+        "ours": 4,
+        "zpix": 10,
+        "unifont": 2
+      },
+      "deficit": 0,
       "lane": 2
     },
     {
@@ -461,6 +595,40 @@
       "lane": 4
     },
     {
+      "cp": "U+6C1F",
+      "char": "氟",
+      "kind": "UNSURE",
+      "reason": "「弗」内部空隙偏少 (我方腔 3 / Zpix 6 / Unifont 6), 「气」与「弗」两部件仍分得开, 属笔画密而非部件丢失。",
+      "confidence": "low",
+      "sheet": "glyphcmp_011.png",
+      "row": 6,
+      "col": 4,
+      "cavities": {
+        "ours": 3,
+        "zpix": 6,
+        "unifont": 6
+      },
+      "deficit": 3,
+      "lane": 2
+    },
+    {
+      "cp": "U+6CB8",
+      "char": "沸",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 4 < Zpix 5 / Unifont 5, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_011.png",
+      "row": 2,
+      "col": 10,
+      "cavities": {
+        "ours": 4,
+        "zpix": 5,
+        "unifont": 5
+      },
+      "deficit": 1,
+      "lane": 2
+    },
+    {
       "cp": "U+6D25",
       "char": "津",
       "kind": "DEGRADED",
@@ -469,12 +637,165 @@
       "lane": 3
     },
     {
+      "cp": "U+6E21",
+      "char": "渡",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 3 < Zpix 4 / Unifont 4, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_010.png",
+      "row": 2,
+      "col": 5,
+      "cavities": {
+        "ours": 3,
+        "zpix": 4,
+        "unifont": 4
+      },
+      "deficit": 1,
+      "lane": 2
+    },
+    {
+      "cp": "U+6EC7",
+      "char": "滇",
+      "kind": "UNSURE",
+      "reason": "「真」内「目」只余一道空隙 (我方腔 1 / Zpix 3 / Unifont 4), 部分横隔被并成实心行, 但「十 / 目 / 八」三段骨架仍可辨。",
+      "confidence": "low",
+      "sheet": "glyphcmp_009.png",
+      "row": 4,
+      "col": 7,
+      "cavities": {
+        "ours": 1,
+        "zpix": 3,
+        "unifont": 4
+      },
+      "deficit": 2,
+      "lane": 2
+    },
+    {
+      "cp": "U+6F88",
+      "char": "澈",
+      "kind": "UNSURE",
+      "reason": "「育」下部笔画偏密 (我方腔 2 / Zpix 5 / Unifont 4), 「氵 / 育 / 攵」三部件仍分得出, 「育」的竖笔与横笔可追踪。",
+      "confidence": "low",
+      "sheet": "glyphcmp_007.png",
+      "row": 1,
+      "col": 8,
+      "cavities": {
+        "ours": 2,
+        "zpix": 5,
+        "unifont": 4
+      },
+      "deficit": 2,
+      "lane": 2
+    },
+    {
+      "cp": "U+70FD",
+      "char": "烽",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 1 < Zpix 2 / Unifont 4, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_011.png",
+      "row": 4,
+      "col": 11,
+      "cavities": {
+        "ours": 1,
+        "zpix": 2,
+        "unifont": 4
+      },
+      "deficit": 1,
+      "lane": 2
+    },
+    {
+      "cp": "U+7629",
+      "char": "瘩",
+      "kind": "UNSURE",
+      "reason": "「艹」与「疒」横画粘连, 「合」部偏密 (我方腔 4 / Zpix 8 / Unifont 7), 但「合」的「口」仍分得出 (保留 1 腔), 未到填实。",
+      "confidence": "low",
+      "sheet": "glyphcmp_008.png",
+      "row": 6,
+      "col": 1,
+      "cavities": {
+        "ours": 4,
+        "zpix": 8,
+        "unifont": 7
+      },
+      "deficit": 3,
+      "lane": 2
+    },
+    {
       "cp": "U+7687",
       "char": "皇",
       "kind": "DEGRADED",
       "reason": "「白」顶部的丿缺失(渲染成「日」), 属 12px 网格固有压力, 未达判定门槛",
       "confidence": "low",
       "lane": 3
+    },
+    {
+      "cp": "U+76FE",
+      "char": "盾",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 3 < Zpix 4 / Unifont 4, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_010.png",
+      "row": 4,
+      "col": 0,
+      "cavities": {
+        "ours": 3,
+        "zpix": 4,
+        "unifont": 4
+      },
+      "deficit": 1,
+      "lane": 2
+    },
+    {
+      "cp": "U+7763",
+      "char": "督",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 3 < Zpix 4 / Unifont 4, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_010.png",
+      "row": 1,
+      "col": 5,
+      "cavities": {
+        "ours": 3,
+        "zpix": 4,
+        "unifont": 4
+      },
+      "deficit": 1,
+      "lane": 2
+    },
+    {
+      "cp": "U+77D7",
+      "char": "矗",
+      "kind": "UNSURE",
+      "reason": "下部两个「直」被并成一个「冊」形块 (中间无分隔缝), Zpix 留有 2 像素缝, Unifont 把三个「直」竖排; 但我方字腔 7 个多于 Zpix 6 / Unifont 4, 顶部「直」的「目」框完整, 未见结构丢失。",
+      "confidence": "low",
+      "sheet": "glyphcmp_007.png",
+      "row": 7,
+      "col": 7,
+      "cavities": {
+        "ours": 7,
+        "zpix": 6,
+        "unifont": 4
+      },
+      "deficit": 0,
+      "lane": 2
+    },
+    {
+      "cp": "U+7898",
+      "char": "碘",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 6 < Zpix 7 / Unifont 7, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_009.png",
+      "row": 4,
+      "col": 8,
+      "cavities": {
+        "ours": 6,
+        "zpix": 7,
+        "unifont": 7
+      },
+      "deficit": 1,
+      "lane": 2
     },
     {
       "cp": "U+7B4B",
@@ -487,9 +808,18 @@
     {
       "cp": "U+7BE1",
       "char": "篡",
-      "kind": "DEGRADED",
-      "reason": "中部「算」内部竖笔粘连成实心行（封闭框 2 vs Fusion 5），但整体轮廓与 Fusion 仍同构，劣化幅度介于轻微差异与结构丢失之间。",
+      "kind": "UNSURE",
+      "reason": "「算」的「目」框完整可辨, 我方字腔 9 个多于 Zpix 7 / Unifont 7, 未见劣化。",
       "confidence": "low",
+      "sheet": "glyphcmp_008.png",
+      "row": 4,
+      "col": 3,
+      "cavities": {
+        "ours": 9,
+        "zpix": 7,
+        "unifont": 7
+      },
+      "deficit": 0,
       "lane": 2
     },
     {
@@ -525,6 +855,23 @@
       "lane": 1
     },
     {
+      "cp": "U+80A4",
+      "char": "肤",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 2 < Zpix 3 / Unifont 3, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_011.png",
+      "row": 5,
+      "col": 10,
+      "cavities": {
+        "ours": 2,
+        "zpix": 3,
+        "unifont": 3
+      },
+      "deficit": 1,
+      "lane": 2
+    },
+    {
       "cp": "U+81C2",
       "char": "臂",
       "kind": "DEGRADED",
@@ -547,6 +894,23 @@
       "reason": "「鱼」比参考略密但仍留有空隙, 边界项",
       "confidence": "low",
       "lane": 3
+    },
+    {
+      "cp": "U+8521",
+      "char": "蔡",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 3 < Zpix 4 / Unifont 4, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_006.png",
+      "row": 3,
+      "col": 4,
+      "cavities": {
+        "ours": 3,
+        "zpix": 4,
+        "unifont": 4
+      },
+      "deficit": 1,
+      "lane": 2
     },
     {
       "cp": "U+853C",
@@ -573,6 +937,23 @@
       "lane": 4
     },
     {
+      "cp": "U+8822",
+      "char": "蠢",
+      "kind": "UNSURE",
+      "reason": "上部「春」与下部两个「虫」笔画密, 但我方字腔 11 个与 Zpix 11 相同 (Unifont 8), 两个「虫」的框在 12px 下仍能分出四处小空隙, 未见结构丢失。",
+      "confidence": "low",
+      "sheet": "glyphcmp_008.png",
+      "row": 2,
+      "col": 0,
+      "cavities": {
+        "ours": 11,
+        "zpix": 11,
+        "unifont": 8
+      },
+      "deficit": 0,
+      "lane": 2
+    },
+    {
       "cp": "U+8912",
       "char": "褒",
       "kind": "DEGRADED",
@@ -581,12 +962,131 @@
       "lane": 1
     },
     {
+      "cp": "U+89E6",
+      "char": "触",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 6 < Zpix 7 / Unifont 7, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_007.png",
+      "row": 7,
+      "col": 9,
+      "cavities": {
+        "ours": 6,
+        "zpix": 7,
+        "unifont": 7
+      },
+      "deficit": 1,
+      "lane": 2
+    },
+    {
+      "cp": "U+8C03",
+      "char": "调",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 2 < Zpix 3 / Unifont 3, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_009.png",
+      "row": 6,
+      "col": 5,
+      "cavities": {
+        "ours": 2,
+        "zpix": 3,
+        "unifont": 3
+      },
+      "deficit": 1,
+      "lane": 2
+    },
+    {
       "cp": "U+8D6B",
       "char": "赫",
       "kind": "DEGRADED",
       "reason": "「赤+赤」笔画密集, 与参考结构基本对应, 边界项",
       "confidence": "low",
       "lane": 3
+    },
+    {
+      "cp": "U+8E72",
+      "char": "蹲",
+      "kind": "UNSURE",
+      "reason": "「尊」上部偏密 (我方腔 5 / Zpix 8 / Unifont 6), 「酋」的框仍在, 未被填实。",
+      "confidence": "low",
+      "sheet": "glyphcmp_010.png",
+      "row": 3,
+      "col": 7,
+      "cavities": {
+        "ours": 5,
+        "zpix": 8,
+        "unifont": 6
+      },
+      "deficit": 1,
+      "lane": 2
+    },
+    {
+      "cp": "U+9041",
+      "char": "遁",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 2 < Zpix 3 / Unifont 4, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_010.png",
+      "row": 4,
+      "col": 1,
+      "cavities": {
+        "ours": 2,
+        "zpix": 3,
+        "unifont": 4
+      },
+      "deficit": 1,
+      "lane": 2
+    },
+    {
+      "cp": "U+9053",
+      "char": "道",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 2 < Zpix 3 / Unifont 3, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_009.png",
+      "row": 1,
+      "col": 10,
+      "cavities": {
+        "ours": 2,
+        "zpix": 3,
+        "unifont": 3
+      },
+      "deficit": 1,
+      "lane": 2
+    },
+    {
+      "cp": "U+9093",
+      "char": "邓",
+      "kind": "UNSURE",
+      "reason": "「阝」内无封闭空间 (我方腔 0 / Zpix 1 / Unifont 1), 「又」与「阝」两部件清晰可分, 差别在一个像素级空隙。",
+      "confidence": "low",
+      "sheet": "glyphcmp_009.png",
+      "row": 2,
+      "col": 9,
+      "cavities": {
+        "ours": 0,
+        "zpix": 1,
+        "unifont": 1
+      },
+      "deficit": 1,
+      "lane": 2
+    },
+    {
+      "cp": "U+915A",
+      "char": "酚",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 4 < Zpix 5 / Unifont 6, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_011.png",
+      "row": 3,
+      "col": 1,
+      "cavities": {
+        "ours": 4,
+        "zpix": 5,
+        "unifont": 6
+      },
+      "deficit": 1,
+      "lane": 2
     },
     {
       "cp": "U+9171",
@@ -639,9 +1139,35 @@
     {
       "cp": "U+9910",
       "char": "餐",
-      "kind": "DEGRADED",
-      "reason": "上部「歺+又」与 Fusion 同样糊成团、墨量相当，下部「食」尚可辨，判为可接受但因 12px 密集字仍存疑。",
+      "kind": "UNSURE",
+      "reason": "上部「歺 + 又」笔画密, 但与同为 12px 的 Zpix 相当 (我方腔 7 / Zpix 7), 下部「食」完整, 属密笔画字的画风差异。",
       "confidence": "low",
+      "sheet": "glyphcmp_006.png",
+      "row": 3,
+      "col": 5,
+      "cavities": {
+        "ours": 7,
+        "zpix": 7,
+        "unifont": 9
+      },
+      "deficit": 0,
+      "lane": 2
+    },
+    {
+      "cp": "U+997F",
+      "char": "饿",
+      "kind": "UNSURE",
+      "reason": "「我」部无封闭空间 (我方腔 0 / Zpix 1 / Unifont 2), 「饣」与「我」两部件结构完整, 未见粘连。",
+      "confidence": "low",
+      "sheet": "glyphcmp_010.png",
+      "row": 6,
+      "col": 2,
+      "cavities": {
+        "ours": 0,
+        "zpix": 1,
+        "unifont": 2
+      },
+      "deficit": 1,
       "lane": 2
     },
     {
@@ -651,6 +1177,23 @@
       "reason": "「曼」的内部笔画偏重（3 vs 6），整体可辨。",
       "confidence": "low",
       "lane": 4
+    },
+    {
+      "cp": "U+9A70",
+      "char": "驰",
+      "kind": "UNSURE",
+      "reason": "「也」内无任何封闭空间 (我方腔 0 / Zpix 1 / Unifont 1), 差别仅是 Zpix 在「也」中部留出的一处 1 像素空隙; 「也」三笔轮廓完整。",
+      "confidence": "low",
+      "sheet": "glyphcmp_007.png",
+      "row": 4,
+      "col": 5,
+      "cavities": {
+        "ours": 0,
+        "zpix": 1,
+        "unifont": 1
+      },
+      "deficit": 1,
+      "lane": 2
     },
     {
       "cp": "U+9AA1",
@@ -691,6 +1234,23 @@
       "reason": "独立成字的「麻」虽然全字没有封闭白区（0 vs 4），两个「木」仍能分辨，字形可读；与「磨/魔」的「麻」部退化程度不同。",
       "confidence": "low",
       "lane": 4
+    },
+    {
+      "cp": "U+9F0E",
+      "char": "鼎",
+      "kind": "UNSURE",
+      "reason": "字腔数我方 2 < Zpix 3 / Unifont 3, 笔画较参考密; 6 倍放大复看后各部件仍可追踪, 未到「封闭空间被填实 / 部件并成实心带」门槛, 记为存疑。",
+      "confidence": "low",
+      "sheet": "glyphcmp_009.png",
+      "row": 7,
+      "col": 6,
+      "cavities": {
+        "ours": 2,
+        "zpix": 3,
+        "unifont": 3
+      },
+      "deficit": 1,
+      "lane": 2
     }
   ]
 }
