@@ -166,7 +166,6 @@ def cat_of_chars() -> list[tuple[str, str]]:
 def screen(
     ours: dict[int, np.ndarray],
     refs_by_name: dict[str, dict[int, np.ndarray]],
-    cats: list[str],
     alt_holes: dict[int, int] | None = None,
 ) -> dict:
     """与指标无关的硬检查 + 结构离群筛查。
@@ -229,8 +228,8 @@ def screen(
         if len(cps) < 2:
             continue
         for a, b in zip(cps, cps[1:]):
-            cats = {cat_of.get(a, "?"), cat_of.get(b, "?")}
-            hanzi = cats == {"hanzi"}
+            pair_cats = {cat_of.get(a, "?"), cat_of.get(b, "?")}
+            hanzi = pair_cats == {"hanzi"}
             findings.append(
                 {
                     "id": "OWN_COLLIDE",
@@ -454,7 +453,7 @@ def main() -> int:
         if cp not in non_ideo_cps:
             continue
         alt_holes[cp] = holes_of_glyph(stack.non_ideo.glyph(ch))
-    scr = screen(ours, refs_by_name, cats, alt_holes)
+    scr = screen(ours, refs_by_name, alt_holes)
     by_cp: dict[str, list[dict]] = defaultdict(list)
     for f in scr["findings"]:
         by_cp[f["cp"]].append(f)
