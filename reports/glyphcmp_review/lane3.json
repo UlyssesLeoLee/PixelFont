@@ -213,6 +213,73 @@
     "notes": [
       "对照拼图为便于阅读做了黑白反相 (黑字白底), 像素数据未做任何修改, 判定仍以 PNG 原图为准",
       "本 lane 未修改 tools/fontgen/ 或任何源码; 复核期间源码可能被集成者并发改动, 不影响本结论"
-    ]
+    ],
+    "previous_round_delta": {
+      "baseline": "git HEAD 版 reports/glyphcmp_review/lane3.json (上一轮: 参考列 Fusion Pixel + Unifont, 旧出图 2026-10-21 15:44:37, Unifont 槽位溢出 111 格)",
+      "old_summary": {
+        "identity": 0,
+        "degraded": 13,
+        "chars_reviewed": 576,
+        "unsure": 16
+      },
+      "new_summary": {
+        "identity": 0,
+        "degraded": 4,
+        "chars_reviewed": 576,
+        "unsure": 5
+      },
+      "old_B_no_longer_reproducible": {
+        "list": [
+          "U+50F5",
+          "U+818F",
+          "U+7586",
+          "U+8986",
+          "U+8B66",
+          "U+5180",
+          "U+970D",
+          "U+7FB9",
+          "U+7C27",
+          "U+5B63",
+          "U+568E",
+          "U+845B",
+          "U+7A3D"
+        ],
+        "reason": "旧理由均为「整字/部件糊成实心块」, 在本轮 PNG 上复检已不成立: 这 13 字当前字腔数与两个参考的差都 <=2 (僵 8/10/8, 膏 4/6/4, 疆 9/11/9, 覆 5/5/7, 警 6/5/6, 冀 5/6/7, 霍 3/4/3, 羹 1/1/0, 簧 6/6/5, 季 2/2/2, 嚎 5/5/6, 葛 4/3/3, 稽 3/3/4), 实心块缺陷已被上游修复 (对应提交 37db72e / 6ff8d6f); 本轮 PNG 与旧 PNG 不是同一批渲染"
+      },
+      "old_C_now_B": {
+        "U+85C9": {
+          "old": "C, 「耒」横画比参考密, 「昔」仍可辨, 边界项",
+          "new": "B, 「昔」的「日」中横与上横并成一条实心带, 只剩 1 腔 (参考 5/4), 同字库「借」的「昔」仍分 2 腔"
+        },
+        "U+9171": {
+          "old": "C, 「酉」顶部笔画粘连, 字形仍可辨, 边界项",
+          "new": "B, 下部「酉」几乎画成实心板 (我方 2 腔 vs Zpix 8 / Unifont 6)"
+        }
+      },
+      "new_findings_not_in_old_lists": [
+        "U+560E",
+        "U+86E4"
+      ],
+      "why_old_round_missed_them": "旧轮参考列是 Fusion, 而 Fusion zh_hans 与 Ark zh_hans 逐字结构距离 0.00 (即与生产源同形), 我方取自 Ark 的字在旧轮里等于自己对自己比, 填实/缺笔这类 缺陷对 Fusion 参考天然不可见; 换成独立参考 Zpix 后才暴露出来。",
+      "old_C_dropped": {
+        "list": [
+          "U+7687",
+          "U+5320",
+          "U+6D25",
+          "U+9175",
+          "U+84DF",
+          "U+9CB8",
+          "U+56BC",
+          "U+5FBD",
+          "U+61A8",
+          "U+8D6B",
+          "U+7C4D",
+          "U+7B4B",
+          "U+7CB3",
+          "U+6897"
+        ],
+        "reason": "旧 C 理由多为「我方笔画比参考密」, 该密度方向是相对 Fusion 而言; 换 Zpix (更粗) 后本轮复检这 14 字字腔数与参考的差都 <=1 (酵 4/5/10 是 Unifont 16px 更细所致), 故不再列入存疑"
+      }
+    }
   }
 }

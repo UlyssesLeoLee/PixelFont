@@ -27,27 +27,41 @@ for key in ("degraded", "unsure_list"):
     for x in d.get(key, []):
         rows.append((key, x["cp"], x.get("char", ""), x.get("confidence", "")))
 
-fixed = [r for r in rows if r[1] in route_cps]
-remain = [r for r in rows if r[1] not in route_cps]
+SRC_NAME = {"ideo": "SimHei", "non_ideo": "MS Gothic", "ark": "Ark Pixel"}
+
+
+def current_source(cp: str) -> str:
+    """这个码位当前走哪个源。"""
+    rec = route.get(int(cp[2:], 16))
+    if rec is None:
+        return "SimHei"
+    if isinstance(rec, dict):
+        return SRC_NAME.get(str(rec.get("source", "non_ideo")), str(rec.get("source")))
+    return "MS Gothic"
+
 
 out = []
 out.append(f"消费 lane 产物: {d['inputs']['lanes_found']} 个, 复核字数 {d['inputs']['chars_reviewed']}")
 out.append(f"标记总数: 确认劣化 {len(d['degraded'])} + 存疑 {len(d['unsure_list'])} = {len(rows)}")
 out.append("")
-out.append(f"=== 已被 ideo 路由修复 ({len(fixed)}) ===")
-for key, cp, ch, conf in fixed:
-    out.append(f"  {cp} {ch}  ({'确认劣化' if key == 'degraded' else '存疑'}, 置信度 {conf})")
+out.append("注意: 这一轮目视复核是**修复之后**做的, 所以标出来的字就是**仍然有问题**的字。")
+out.append("下表给出每个字当前走的源 —— 若当前源的签名明显比别的源差, 就是可修的。")
 out.append("")
-out.append(f"=== 仍然存在 ({len(remain)}) —— 局部塌陷或 12px 网格固有极限 ===")
-for key, cp, ch, conf in remain:
-    out.append(f"  {cp} {ch}  ({'确认劣化' if key == 'degraded' else '存疑'}, 置信度 {conf})")
-out.append("")
+out.append("=== 仍然存在, 按当前源分组 ===")
+by_src: dict[str, list] = {}
+for key, cp, ch, conf in rows:
+    by_src.setdefault(current_source(cp), []).append((key, cp, ch, conf))
+for src in sorted(by_src, key=lambda s: -len(by_src[s])):
+    out.append(f"--- 当前源: {src} ({len(by_src[src])} 个) ---")
+    for key, cp, ch, conf in by_src[src]:
+        out.append(f"  {cp} {ch}  ({'确认劣化' if key == 'degraded' else '存疑'}, 置信度 {conf})")
+    out.append("")
 
 # 这批"仍然存在"的字里, 有多少在参考字体下也画不出对应的腔 -> 固有极限
 screen = json.loads(Path("reports/glyphcmp_screen.json").read_text(encoding="utf-8"))
 by_cp = {x["cp"]: x for x in screen["findings"]}
 out.append("=== 仍然存在的字, 现在的硬检查怎么说 ===")
-for key, cp, ch, conf in remain:
+for key, cp, ch, conf in rows:
     f = by_cp.get(cp)
     if f:
         out.append(f"  {cp} {ch}  -> {f['id']}/{f.get('severity','-')}  {f['detail'][:80]}")

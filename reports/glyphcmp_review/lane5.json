@@ -1,0 +1,762 @@
+{
+ "lane": 5,
+ "sheets": [
+  {
+   "sheet": "glyphcmp_024.png",
+   "chars": 96,
+   "first": "U+5A1C",
+   "last": "U+6D3E"
+  },
+  {
+   "sheet": "glyphcmp_025.png",
+   "chars": 96,
+   "first": "U+6500",
+   "last": "U+6251"
+  },
+  {
+   "sheet": "glyphcmp_026.png",
+   "chars": 96,
+   "first": "U+94FA",
+   "last": "U+5CED"
+  },
+  {
+   "sheet": "glyphcmp_027.png",
+   "chars": 96,
+   "first": "U+4FCF",
+   "last": "U+8BA4"
+  },
+  {
+   "sheet": "glyphcmp_028.png",
+   "chars": 96,
+   "first": "U+5203",
+   "last": "U+88F3"
+  }
+ ],
+ "chars_reviewed": 480,
+ "findings": [
+  {
+   "cp": "U+852B",
+   "char": "蔫",
+   "kind": "B",
+   "reason": "「焉」的核心被填成 4 行 x 5 列的实心块 (我方最大实心矩形 20 px, Zpix 11, Unifont 15); Zpix 能分出「一/正」的层次, Unifont 明确分出「一-正-横折钩-灬」四层, 我方完全看不出分层",
+   "confidence": "high",
+   "sheet": "glyphcmp_024.png",
+   "cell": 32,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     1,
+     2,
+     1
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.555,
+     0.471,
+     0.388
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     20,
+     11,
+     15
+    ],
+    "ink_components_ours_zpix_unifont": [
+     5,
+     3,
+     11
+    ]
+   }
+  },
+  {
+   "cp": "U+55D3",
+   "char": "嗓",
+   "kind": "B",
+   "reason": "「桑」里的「叒」(三个又) 糊成一片: 连通墨块只有 5 块, Zpix 9 块、Unifont 20 块; 字腔 4 vs 8/4; 墨密度 0.560 高于两个参考 (0.512 / 0.350), 三个「又」分不出来",
+   "confidence": "medium",
+   "sheet": "glyphcmp_028.png",
+   "cell": 50,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     4,
+     8,
+     4
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.56,
+     0.512,
+     0.35
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     8,
+     8,
+     10
+    ],
+    "ink_components_ours_zpix_unifont": [
+     5,
+     9,
+     20
+    ]
+   }
+  },
+  {
+   "cp": "U+56B7",
+   "char": "嚷",
+   "kind": "B",
+   "reason": "「襄」上部的「吅」(两个口) 字腔被填死: 我方该处连续 3 行整行实心, Zpix 与 Unifont 的两个口都有明显白腔; 字腔 4 vs 6/6, 墨密度 0.618 vs 0.537/0.417",
+   "confidence": "medium",
+   "sheet": "glyphcmp_027.png",
+   "cell": 82,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     4,
+     6,
+     6
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.618,
+     0.537,
+     0.417
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     15,
+     11,
+     12
+    ],
+    "ink_components_ours_zpix_unifont": [
+     2,
+     4,
+     7
+    ]
+   }
+  },
+  {
+   "cp": "U+64AC",
+   "char": "撬",
+   "kind": "B",
+   "reason": "右侧「毳」(三个毛) 挤成 2 块连通墨, Zpix 6 块、Unifont 14 块 (三个「毛」各自成形); Zpix 与 Unifont 都能分出三个「毛」, 我方顶部一整块实心, 分不出「毛」的个数",
+   "confidence": "medium",
+   "sheet": "glyphcmp_026.png",
+   "cell": 93,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     3,
+     1,
+     7
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.57,
+     0.488,
+     0.404
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     14,
+     11,
+     15
+    ],
+    "ink_components_ours_zpix_unifont": [
+     2,
+     6,
+     14
+    ]
+   }
+  },
+  {
+   "cp": "U+6A47",
+   "char": "橇",
+   "kind": "B",
+   "reason": "同「撬」: 「毳」下部被拉成 7 px 宽的整条实心带 (Zpix 同处是分离的横画), Unifont 的三个「毛」有 13 块连通墨, 我方只有 6 块",
+   "confidence": "medium",
+   "sheet": "glyphcmp_026.png",
+   "cell": 83,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     1,
+     2,
+     7
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.536,
+     0.471,
+     0.408
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     12,
+     11,
+     16
+    ],
+    "ink_components_ours_zpix_unifont": [
+     6,
+     7,
+     13
+    ]
+   }
+  },
+  {
+   "cp": "U+6BD7",
+   "char": "毗",
+   "kind": "B",
+   "reason": "左边「田」的四格塌成两格: 我方田内只剩 1 列白 (2 个白区), Zpix 有 2 列白 (4 个白区)、Unifont 同样是完整「田」; 字腔 3 vs 5/4",
+   "confidence": "medium",
+   "sheet": "glyphcmp_025.png",
+   "cell": 52,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     3,
+     5,
+     4
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.509,
+     0.521,
+     0.395
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     16,
+     11,
+     14
+    ],
+    "ink_components_ours_zpix_unifont": [
+     5,
+     3,
+     7
+    ]
+   }
+  },
+  {
+   "cp": "U+7CEF",
+   "char": "糯",
+   "kind": "B",
+   "reason": "右侧「需」: 「雨」只分到 2 行预算, 被压成连续 2 行整块实心, 框内四点完全看不见 (Zpix 同处还留有一行白口, Unifont 明确分出「雨」的冂与框内四点); 「而」的一与冂也并成一条实心带。注: 字腔计数上我方 1 与 Unifont 1 一致 (那个腔属于「而」), 判 B 的依据是「雨」的骨架不可见, 不是腔数",
+   "confidence": "medium",
+   "sheet": "glyphcmp_024.png",
+   "cell": 74,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     1,
+     8,
+     1
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.521,
+     0.562,
+     0.408
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     12,
+     11,
+     16
+    ],
+    "ink_components_ours_zpix_unifont": [
+     4,
+     4,
+     11
+    ]
+   }
+  }
+ ],
+ "unsure": [
+  {
+   "cp": "U+74E4",
+   "char": "瓤",
+   "kind": "C",
+   "reason": "「襄」的「吅」「井」压成 3x6 的实心块 (连通墨 2 vs Zpix 3 / Unifont 12), 但总墨量 0.553 反而低于 Zpix 0.579, 字腔 7 vs 8/5, 属排布压缩而非结构丢失, 不足以判定",
+   "confidence": "low",
+   "sheet": "glyphcmp_027.png",
+   "cell": 79,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     7,
+     8,
+     5
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.553,
+     0.579,
+     0.454
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     18,
+     10,
+     14
+    ],
+    "ink_components_ours_zpix_unifont": [
+     2,
+     3,
+     12
+    ]
+   }
+  },
+  {
+   "cp": "U+79BD",
+   "char": "禽",
+   "kind": "C",
+   "reason": "「离」的「凶」并成 2 行实心带 (连通墨 3 vs Zpix 7); 字腔 7/9/3, 两参考本身分歧大 (9 vs 3)",
+   "confidence": "low",
+   "sheet": "glyphcmp_027.png",
+   "cell": 15,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     7,
+     9,
+     3
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.509,
+     0.479,
+     0.333
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     16,
+     11,
+     13
+    ],
+    "ink_components_ours_zpix_unifont": [
+     3,
+     7,
+     13
+    ]
+   }
+  },
+  {
+   "cp": "U+6247",
+   "char": "扇",
+   "kind": "C",
+   "reason": "「羽」内部笔画偏密 (连通墨 3 vs Zpix 6); 字腔 2 vs 6/1, 两参考分歧大, 结构仍可追踪",
+   "confidence": "low",
+   "sheet": "glyphcmp_028.png",
+   "cell": 86,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     2,
+     6,
+     1
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.509,
+     0.537,
+     0.326
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     9,
+     11,
+     12
+    ],
+    "ink_components_ours_zpix_unifont": [
+     3,
+     6,
+     17
+    ]
+   }
+  },
+  {
+   "cp": "U+8D8B",
+   "char": "趋",
+   "kind": "C",
+   "reason": "「刍」的「彐」最密, 字腔 0 (两参考各 2, 但「彐」本身左侧开口, 0 腔可以成立); 笔画仍可追踪",
+   "confidence": "low",
+   "sheet": "glyphcmp_027.png",
+   "cell": 41,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     0,
+     2,
+     2
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.463,
+     0.496,
+     0.333
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     10,
+     11,
+     15
+    ],
+    "ink_components_ours_zpix_unifont": [
+     7,
+     2,
+     8
+    ]
+   }
+  },
+  {
+   "cp": "U+6BB4",
+   "char": "殴",
+   "kind": "C",
+   "reason": "「骨」的「冎」部笔画密, 字腔 2 vs Zpix 0 / Unifont 2, 两参考不一致; 未见整块填死",
+   "confidence": "low",
+   "sheet": "glyphcmp_024.png",
+   "cell": 79,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     2,
+     0,
+     2
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.446,
+     0.463,
+     0.348
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     10,
+     11,
+     13
+    ],
+    "ink_components_ours_zpix_unifont": [
+     12,
+     14,
+     20
+    ]
+   }
+  },
+  {
+   "cp": "U+77A7",
+   "char": "瞧",
+   "kind": "C",
+   "reason": "「焦」的「隹」部横画粘连, 连通墨 6 vs Zpix 11; 墨密度 0.582 vs 0.529/0.424, 底部四点仍分开",
+   "confidence": "low",
+   "sheet": "glyphcmp_026.png",
+   "cell": 88,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     6,
+     3,
+     6
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.582,
+     0.529,
+     0.424
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     12,
+     9,
+     12
+    ],
+    "ink_components_ours_zpix_unifont": [
+     6,
+     11,
+     11
+    ]
+   }
+  },
+  {
+   "cp": "U+6DD6",
+   "char": "淖",
+   "kind": "C",
+   "reason": "「氵」第三点与右侧「卓」相接 (连通墨 3 vs Zpix 7), 「日」字腔 2 与两参考一致, 结构未丢",
+   "confidence": "low",
+   "sheet": "glyphcmp_024.png",
+   "cell": 15,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     2,
+     2,
+     2
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.464,
+     0.413,
+     0.3
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     12,
+     9,
+     10
+    ],
+    "ink_components_ours_zpix_unifont": [
+     3,
+     7,
+     8
+    ]
+   }
+  },
+  {
+   "cp": "U+7638",
+   "char": "瘸",
+   "kind": "C",
+   "reason": "「瘸」笔画偏密 (连通墨 3 vs Zpix 6), 字腔 7 vs 10/5, 结构仍可追踪",
+   "confidence": "low",
+   "sheet": "glyphcmp_027.png",
+   "cell": 67,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     7,
+     10,
+     5
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.582,
+     0.554,
+     0.379
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     9,
+     10,
+     12
+    ],
+    "ink_components_ours_zpix_unifont": [
+     3,
+     6,
+     19
+    ]
+   }
+  },
+  {
+   "cp": "U+7434",
+   "char": "琴",
+   "kind": "C",
+   "reason": "「珡」上部被点阵化成棋盘格, Zpix 的两个「王」明显可辨; 字腔 1 vs 2/8, 两参考分歧大",
+   "confidence": "low",
+   "sheet": "glyphcmp_027.png",
+   "cell": 11,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     3,
+     1,
+     1
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.47,
+     0.446,
+     0.329
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     10,
+     7,
+     8
+    ],
+    "ink_components_ours_zpix_unifont": [
+     5,
+     7,
+     12
+    ]
+   }
+  },
+  {
+   "cp": "U+6487",
+   "char": "撇",
+   "kind": "C",
+   "reason": "墨密度 0.582 高于 Zpix 0.529 / Unifont 0.404, 顶部偏密; 字腔 6 vs 5/5 一致, 骨架仍可辨",
+   "confidence": "low",
+   "sheet": "glyphcmp_025.png",
+   "cell": 70,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     6,
+     5,
+     5
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.582,
+     0.529,
+     0.404
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     10,
+     11,
+     15
+    ],
+    "ink_components_ours_zpix_unifont": [
+     5,
+     7,
+     13
+    ]
+   }
+  },
+  {
+   "cp": "U+5A36",
+   "char": "娶",
+   "kind": "C",
+   "reason": "墨密度 0.545 高于 Zpix 0.488 / Unifont 0.378; 字腔 5 vs 4/5, 「耳」部仍留白腔",
+   "confidence": "low",
+   "sheet": "glyphcmp_027.png",
+   "cell": 50,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     5,
+     4,
+     5
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.545,
+     0.488,
+     0.378
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     10,
+     11,
+     15
+    ],
+    "ink_components_ours_zpix_unifont": [
+     7,
+     10,
+     18
+    ]
+   }
+  },
+  {
+   "cp": "U+8461",
+   "char": "葡",
+   "kind": "C",
+   "reason": "「甫」内部白行只有 2 条 (Unifont 3 条), 墨密度 0.627 vs 0.562/0.433; 字腔 8/8/8 一致",
+   "confidence": "low",
+   "sheet": "glyphcmp_026.png",
+   "cell": 3,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     8,
+     8,
+     8
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.627,
+     0.562,
+     0.433
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     14,
+     11,
+     15
+    ],
+    "ink_components_ours_zpix_unifont": [
+     1,
+     2,
+     4
+    ]
+   }
+  },
+  {
+   "cp": "U+7FA4",
+   "char": "群",
+   "kind": "C",
+   "reason": "墨密度 0.540 vs 0.488/0.358, 「君」的「尹」部偏密; 字腔 4 vs 3/3",
+   "confidence": "low",
+   "sheet": "glyphcmp_027.png",
+   "cell": 74,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     4,
+     3,
+     3
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.54,
+     0.488,
+     0.358
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     10,
+     9,
+     13
+    ],
+    "ink_components_ours_zpix_unifont": [
+     4,
+     4,
+     7
+    ]
+   }
+  },
+  {
+   "cp": "U+9E4F",
+   "char": "鹏",
+   "kind": "C",
+   "reason": "墨密度 0.603 vs 0.554/0.429 (「朋」+「鸟」在 12px 下本就拥挤); 字腔 7 vs 5/5",
+   "confidence": "low",
+   "sheet": "glyphcmp_025.png",
+   "cell": 42,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     7,
+     5,
+     5
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.603,
+     0.554,
+     0.429
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     11,
+     11,
+     15
+    ],
+    "ink_components_ours_zpix_unifont": [
+     4,
+     4,
+     11
+    ]
+   }
+  },
+  {
+   "cp": "U+50BB",
+   "char": "傻",
+   "kind": "C",
+   "reason": "「囟」部笔画密, 字腔 6 vs Zpix 10 / Unifont 6; 两参考分歧大, 未达判定门槛",
+   "confidence": "low",
+   "sheet": "glyphcmp_028.png",
+   "cell": 67,
+   "evidence": {
+    "cavities_ours_zpix_unifont": [
+     6,
+     10,
+     6
+    ],
+    "ink_density_ours_zpix_unifont": [
+     0.536,
+     0.496,
+     0.329
+    ],
+    "max_solid_rect_ours_zpix_unifont": [
+     11,
+     9,
+     13
+    ],
+    "ink_components_ours_zpix_unifont": [
+     7,
+     6,
+     23
+    ]
+   }
+  }
+ ],
+ "summary": {
+  "identity": 0,
+  "degraded": 7,
+  "unsure": 15,
+  "chars_reviewed": 480
+ },
+ "method": {
+  "artifact": "reports/glyphcmp_png/glyphcmp_024.png .. glyphcmp_028.png (5 sheets x 12 cols x 8 rows = 480 cells; index generated_at 2026-10-21)",
+  "refs": [
+   "Zpix 12px (MIT)",
+   "GNU Unifont 16x16 (GPL-2.0+)"
+  ],
+  "basis": "全部判定以出图 PNG 原图为唯一底本; 「我方」列直接从 PNG 裁切并放大判读, 不依赖 tools/fontgen 任何运行时代码 (复核期间该目录可能被并发修改)",
+  "steps": [
+   "格位映射: 以 glyphcmp_index.json 的 sheets[].chars 为权威, 并用模板匹配独立复核 —— 把 index 里的字用 msyh 20px 渲染, 与 PNG 每格自带的标签字做归一化互相关, 480/480 格的 argmax 都等于 index 的码位, 确认 index 与 PNG 未错位",
+   "逐格目视: 480/480 格在 8x 三列对照图 (我方/Zpix/Unifont + 40px 标准答案字) 上过一遍; 候选再拉到 14x 看 ASCII 点阵与三列对照",
+   "字腔拓扑: 封闭白区连通分量数, 4 邻域, 按墨迹外接矩形计, 触边白区不算腔; 三份独立实现 (BFS 洪水填充 / 像素级并查集 / 行程扫描线标号) 互校, 6 个人工构造用例 + 1440 个真实格三方全部一致, 0 处分歧",
+   "最大实心矩形: 填实部件的直接证据; 两份独立实现 (行对枚举 / 直方图最大矩形) + 暴力枚举对拍 303 个用例, 1440 格 0 处分歧",
+   "连通墨块数: 合并成团的部件 (毳/叒/吅) 的直接证据; 两份独立实现 (BFS / 行程并查集) 互校, 0 处分歧",
+   "身份筛查: 与 Ark Pixel / Zpix / Unifont 全表做逐像素指纹比对 + 密度特征置换检验 + IoU 置换检验; 逐格目视核对标注字 (A 类判定以目视为准)",
+   "判定纪律: 字高不同 (我方 455/480 为 11 行) 不是缺陷, 只比骨架不比字高; Zpix 画风粗犷, 像素级差异不算劣化, 只有结构信息丢失才判 B"
+  ],
+  "quant_tools_selfcheck": {
+   "cavities": "3 impls (BFS / union-find / run-length), 6 unit cases + 1440 real grids, 0 disagreements",
+   "max_solid_rect": "2 impls (row-pair / histogram) + brute force on 27 random grids, 303 cases, 0 problems",
+   "ink_components": "2 impls (BFS / run-length union-find), 0 disagreements",
+   "extraction": "288 blocks/sheet are exact 2x nearest-neighbour upscales of the 16x16 source grid (downscale lossless); gutter ink 0 px (no Unifont overflow into the next cell)"
+  },
+  "known_tool_bug": "无 —— 本批 5 张 PNG 未复现 lane3 记录的 Unifont 溢出串格问题 (槽位间隙墨迹 0 像素), 槽位与 lane3 记录的 16x16 一致",
+  "glyph_height_note": "我方 455/480 格为 11 行高, 25 格为 10 行; 其中 132/480 格与 Ark Pixel 同码位位图逐像素相同 (生产源原生点阵)。字高不同不是缺陷, 只比骨架。",
+  "identity_detail": {
+   "exact_collide_vs_ark": 5,
+   "exact_collide_note": "U+9E1F 鸟 / U+9F50 齐 / U+72AC 犬 / U+4EBA 人 / U+5C71 山 —— 这 5 格我方位图与 Ark 的**另一个**码位逐像素相同, 但逐格核对后确认: Ark 自己就把这 5 个汉字与其对应的部首/异体码位画成同一张位图 (已用 Ark 表逐像素复验: ark-identical=True)。属参考字体自身的部首重复, 不是我方取字取错; 这 5 格在 PNG 上目视确认画的正是标注的那个字",
+   "exact_collide_vs_zpix_unifont": 0,
+   "permutation_density": "0 疑点 (阈值取自随机错配基线 p99)",
+   "permutation_iou": "不可用 (阴性结果): 480/480 格的中位 margin 为负 (vs Zpix -0.089, vs Unifont -0.150), 说明 12px 我方与 16px 参考的像素级风格差异远大于身份差异, 该指标在本批不具分辨力, 不作为判定依据"
+  },
+  "pre_zoom_vs_final": "目视初筛的候选名单为 32 格 (腔差/密度/连通块/实心矩形四路雷达合并), 14x 逐格放大复核后最终判定 A=0 / B=7 / C=15; 其余 25 格确认属 12px 网格固有压力或参考字体自身画法差异, 不报。无中途改数; 若后续放大发现改判, 将在本文件同步写明改前值。",
+  "concurrent_change": "复核期间未修改 tools/fontgen 任何文件; 结论只针对出图 PNG 原图。"
+ }
+}
