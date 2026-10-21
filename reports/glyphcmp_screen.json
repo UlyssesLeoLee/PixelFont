@@ -1,6 +1,6 @@
 {
   "tool": "compare_refs_screen",
-  "generated_at": "2026-10-21T10:08:02.960770+00:00",
+  "generated_at": "2026-10-21T10:09:04.170684+00:00",
   "selection": {
     "cats": [
       "<all>"
@@ -19,27 +19,91 @@
   "findings": [
     {
       "id": "EXACT_COLLIDE",
-      "severity": "error",
+      "severity": "warn",
       "ref": "unifont-16",
       "cp": "U+3002",
       "char": "。",
-      "detail": "与参考字体的 U+302D '〭' 逐像素完全相同 —— 参考能区分这两个码位, 我方却混同, 是硬错误"
+      "detail": "与参考字体的 U+302D '〭' 逐像素完全相同 —— 该码位不在我们的字符集里, 属同形异义码位, 不影响输出"
     },
     {
       "id": "EXACT_COLLIDE",
-      "severity": "error",
+      "severity": "warn",
       "ref": "unifont-16",
       "cp": "U+FF0D",
       "char": "－",
-      "detail": "与参考字体的 U+07FA 'ߺ' 逐像素完全相同 —— 参考能区分这两个码位, 我方却混同, 是硬错误"
+      "detail": "与参考字体的 U+07FA 'ߺ' 逐像素完全相同 —— 该码位不在我们的字符集里, 属同形异义码位, 不影响输出"
     },
     {
       "id": "EXACT_COLLIDE",
-      "severity": "error",
+      "severity": "warn",
       "ref": "unifont-16",
       "cp": "U+FF1D",
       "char": "＝",
-      "detail": "与参考字体的 U+0333 '̳', U+2017 '‗' 逐像素完全相同 —— 参考能区分这两个码位, 我方却混同, 是硬错误"
+      "detail": "与参考字体的 U+0333 '̳', U+2017 '‗' 逐像素完全相同 —— 该码位不在我们的字符集里, 属同形异义码位, 不影响输出"
+    },
+    {
+      "id": "OWN_COLLIDE",
+      "severity": "warn",
+      "ref": "ours",
+      "cp": "U+0027",
+      "char": "'",
+      "detail": "我方 U+0027 \"'\" 与 U+002C ',' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
+    },
+    {
+      "id": "OWN_COLLIDE",
+      "severity": "warn",
+      "ref": "ours",
+      "cp": "U+002E",
+      "char": ".",
+      "detail": "我方 U+002E '.' 与 U+00B7 '·' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
+    },
+    {
+      "id": "OWN_COLLIDE",
+      "severity": "warn",
+      "ref": "ours",
+      "cp": "U+00B7",
+      "char": "·",
+      "detail": "我方 U+00B7 '·' 与 U+30FB '・' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
+    },
+    {
+      "id": "OWN_COLLIDE",
+      "severity": "warn",
+      "ref": "ours",
+      "cp": "U+30FB",
+      "char": "・",
+      "detail": "我方 U+30FB '・' 与 U+FF65 '･' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
+    },
+    {
+      "id": "OWN_COLLIDE",
+      "severity": "warn",
+      "ref": "ours",
+      "cp": "U+005F",
+      "char": "_",
+      "detail": "我方 U+005F '_' 与 U+2014 '—' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
+    },
+    {
+      "id": "OWN_COLLIDE",
+      "severity": "warn",
+      "ref": "ours",
+      "cp": "U+0060",
+      "char": "`",
+      "detail": "我方 U+0060 '`' 与 U+FF64 '､' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
+    },
+    {
+      "id": "OWN_COLLIDE",
+      "severity": "warn",
+      "ref": "ours",
+      "cp": "U+3099",
+      "char": "゙",
+      "detail": "我方 U+3099 '゙' 与 U+309C '゜' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
+    },
+    {
+      "id": "OWN_COLLIDE",
+      "severity": "warn",
+      "ref": "ours",
+      "cp": "U+FF61",
+      "char": "｡",
+      "detail": "我方 U+FF61 '｡' 与 U+FF9F 'ﾟ' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
     },
     {
       "id": "COUNTER_LOST",
@@ -734,15 +798,16 @@
     }
   ],
   "summary": {
-    "findings": 72,
+    "findings": 80,
     "by_id": {
       "EXACT_COLLIDE": 3,
+      "OWN_COLLIDE": 8,
       "COUNTER_LOST": 13,
       "STRUCTURE_OUTLIER": 56
     },
     "by_severity": {
-      "error": 5,
-      "warn": 67
+      "warn": 78,
+      "error": 2
     }
   }
 }

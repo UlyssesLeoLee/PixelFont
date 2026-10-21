@@ -1,6 +1,6 @@
 {
   "tool": "calibrate_detector",
-  "generated_at": "2026-10-21T10:08:03.159864+00:00",
+  "generated_at": "2026-10-21T10:09:04.350382+00:00",
   "inputs": {
     "screen_json": "reports\\glyphcmp_screen.json",
     "review_dir": "reports\\glyphcmp_review",
@@ -11,7 +11,7 @@
       "lane4: 576 字"
     ],
     "chars_reviewed": 2304,
-    "screen_findings": 72
+    "screen_findings": 80
   },
   "recall": {
     "confirmed_degraded": {

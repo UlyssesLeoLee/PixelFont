@@ -156,6 +156,13 @@ def _same_bytes(a, b) -> bool:
     return a.shape == b.shape and a.tobytes() == b.tobytes()
 
 
+def cat_of_chars() -> list[tuple[str, str]]:
+    """字符集及其分类 —— 判定"两个汉字画成同一个"时要靠分类。"""
+    import charset as cs
+
+    return cs.build_charset()
+
+
 def screen(
     ours: dict[int, np.ndarray],
     refs_by_name: dict[str, dict[int, np.ndarray]],
@@ -181,19 +188,18 @@ def screen(
         for cp, arr in ours.items():
             others = [c for c in index.get((arr.shape[0], arr.shape[1], arr.tobytes()), []) if c != cp]
             if others:
-                # 严重度: **参考字体自己能不能区分这两个码位**。
-                #   参考也画得一模一样 -> 那是 Unicode 里的同形异义码位
-                #   (组合记号之间、带圈点与句点的不同码位), 12px 下必然一样,
-                #   不是缺陷 (warn, 只记录)。
-                #   参考能区分, 而我方与另一个码位混同 -> 我方把两个不同的字画成了
-                #   同一个, 那才是硬错误 (error)。
-                ref_same = all(
-                    _same_bytes(refs.get(cp), refs.get(c)) for c in others
-                )
+                # 严重度: 撞上的那个码位**在不在我们的字符集里**。
+                #   不在 -> 那是 Unicode 里的同形异义码位 (组合记号之间、带圈点与句点
+                #           的不同码位), 12px 下必然画成一样, 我们也没渲染它,
+                #           不影响我们的任何输出 -> 只记录 (warn)。
+                #   在   -> 我们确实把两个码位画成了同一个, 可能真出错了 (error);
+                #           但更常见的成因是标点本就该同形 (如 ' 与 ,), 所以
+                #           真正的"我方撞车"由下面 OWN_COLLIDE 单独判。
+                in_set = [c for c in others if c in ours]
                 findings.append(
                     {
                         "id": "EXACT_COLLIDE",
-                        "severity": "warn" if ref_same else "error",
+                        "severity": "error" if in_set else "warn",
                         "ref": name,
                         "cp": f"U+{cp:04X}",
                         "char": chr(cp),
@@ -201,12 +207,46 @@ def screen(
                         + ", ".join(f"U+{c:04X} {chr(c)!r}" for c in others[:4])
                         + " 逐像素完全相同"
                         + (
-                            " —— 但参考字体把它们也画成同一个, 属同形异义码位, 非缺陷"
-                            if ref_same
-                            else " —— 参考能区分这两个码位, 我方却混同, 是硬错误"
+                            " —— 该码位不在我们的字符集里, 属同形异义码位, 不影响输出"
+                            if not in_set
+                            else " —— 该码位也在我们的字符集里, 见 OWN_COLLIDE"
                         ),
                     }
                 )
+
+    # ---- OWN_COLLIDE: 我们自己把两个码位画成了同一个 ----
+    #
+    # 这才是"身份错误"该有的判据: 与参考的撞车可能只是 Unicode 的同形异义码位,
+    # 但**我们自己的**两个码位画成同一个, 意味着其中一个字被画错了。
+    # 实测: 标点里有一批天然同形 ( ' 与 , 、 . 与 · ), 汉字里出现即为硬错误。
+    own_index: dict[tuple, list[int]] = defaultdict(list)
+    for cp, arr in ours.items():
+        own_index[(arr.shape[0], arr.shape[1], arr.tobytes())].append(cp)
+    cat_of: dict[int, str] = {}
+    for ch, cat in cat_of_chars():
+        cat_of[ord(ch)] = cat
+    for _key, cps in own_index.items():
+        if len(cps) < 2:
+            continue
+        for a, b in zip(cps, cps[1:]):
+            cats = {cat_of.get(a, "?"), cat_of.get(b, "?")}
+            hanzi = cats == {"hanzi"}
+            findings.append(
+                {
+                    "id": "OWN_COLLIDE",
+                    "severity": "error" if hanzi else "warn",
+                    "ref": "ours",
+                    "cp": f"U+{a:04X}",
+                    "char": chr(a),
+                    "detail": f"我方 U+{a:04X} {chr(a)!r} 与 U+{b:04X} {chr(b)!r} "
+                    f"渲染成完全相同的位图"
+                    + (
+                        " —— 两个汉字画成同一个, 是身份错误"
+                        if hanzi
+                        else " —— 标点/符号天然同形, 12px 下必然一致"
+                    ),
+                }
+            )
 
     # ---- COUNTER_LOST: 参考有字腔, 我们一个都没有 (跨参考取共识) ----
     # 只在 >=2 套参考都说"该有腔"时才报 —— 单套参考的判断可能只是画风差异。
