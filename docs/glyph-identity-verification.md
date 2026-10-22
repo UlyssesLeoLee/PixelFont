@@ -644,6 +644,28 @@ python tools/fontgen/verify_all.py
 真正会出事的是**改了名单却忘了重建**——那时产物还是旧的，而构建脚本根本不会被执行。
 （工具：`tools/fontgen/verify_products.py`）
 
+### 终检：全新 clone 独立构建
+
+比"连续两次构建一致"更强的一步 —— **从远端重新 clone 一份，在那边独立构建**：
+
+```bash
+git clone --depth 1 --branch main https://github.com/UlyssesLeoLee/PixelFont.git
+cd PixelFont && python tools/fontgen/build_font.py
+```
+
+结果：clone 里的构建**通过**，且与本地产物的 sha256 **逐字节一致**：
+
+| 产物 | sha256（前 16 位） | 与本地一致 |
+|---|---|---|
+| `PixelFontPC98-12.ttf` | `FCC65BCBCD8A1A02…` | ✔ |
+| `PixelFontPC98-12.bdf` | `7AA4A40E224B1121…` | ✔ |
+| `PixelFontPC98-12-atlas.png` | `54D5D7820917287A…` | ✔ |
+| `PixelFontPC98-12-atlas.json` | `8B1044491BE5C4E6…` | ✔ |
+
+也就是说：**任何人 clone 仓库、照文档跑构建命令，得到的字体逐字节相同**。
+这依赖三件事：字体头时间戳已钉死（`SOURCE_DATE_EPOCH` 可覆盖）、
+生产源已入库（`vendor/fusion-pixel-12px/`）、路由名单是入库的推导产物。
+
 ### 逐步复现
 
 ```bash
