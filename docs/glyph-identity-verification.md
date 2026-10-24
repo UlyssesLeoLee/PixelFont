@@ -675,14 +675,19 @@ git clone --depth 1 --branch main https://github.com/UlyssesLeoLee/PixelFont.git
 cd PixelFont && python tools/fontgen/build_font.py
 ```
 
-结果：clone 里的构建**通过**，且与本地产物的 sha256 **逐字节一致**：
+结果：clone 里的构建**通过**，且与本地产物的 sha256 **逐字节一致**
+（2026-10-24 复跑，clone 的 HEAD = `8ae04fc`「合并竖向相邻游程」那次提交）：
 
 | 产物 | sha256（前 16 位） | 与本地一致 |
 |---|---|---|
-| `PixelFontPC98-12.ttf` | `FCC65BCBCD8A1A02…` | ✔ |
-| `PixelFontPC98-12.bdf` | `7AA4A40E224B1121…` | ✔ |
-| `PixelFontPC98-12-atlas.png` | `54D5D7820917287A…` | ✔ |
-| `PixelFontPC98-12-atlas.json` | `8B1044491BE5C4E6…` | ✔ |
+| `PixelFontPC98-12.ttf` | `3298AE4D9E28E7F3…` | ✔ |
+| `PixelFontPC98-12.bdf` | `D88DC418A235CA1D…` | ✔ |
+| `PixelFontPC98-12-atlas.png` | `2CCF548C037CBA37…` | ✔ |
+| `PixelFontPC98-12-atlas.json` | `79B519E956D8F7DF…` | ✔ |
+
+> 快照说明：上一版记录（2026-10-23）的 TTF 哈希是 `FCC65BCBCD8A1A02…`，
+> 那次复核之后字体改过两轮（OS/2 元数据修复、字符集扩容 + 轮廓合并），
+> 哈希随之变化。**这里只记录实际复跑的结果，不回溯改写历史。**
 
 也就是说：**任何人 clone 仓库、照文档跑构建命令，得到的字体逐字节相同**。
 这依赖三件事：字体头时间戳已钉死（`SOURCE_DATE_EPOCH` 可覆盖）、
