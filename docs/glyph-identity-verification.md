@@ -630,7 +630,7 @@ Ark Pixel 缺 150 个汉字（GB2312 后半的简体字），这些码位只能�
 python tools/fontgen/verify_all.py
 ```
 
-它把下面 6 步串起来，每步都报出它**实际消费了什么**，任一步失败就明确说哪一步失败：
+它把下面 8 步串起来，每步都报出它**实际消费了什么**，任一步失败就明确说哪一步失败：
 
 | 步 | 检查什么 | 判据 |
 |---|---|---|
@@ -641,6 +641,7 @@ python tools/fontgen/verify_all.py
 | 5 | 产物与源同步 | **独立读 dist/** 与当前源逐字比对（不靠构建脚本自证） |
 | 6 | 路由名单自检 | 按名单自述的输入重新推导，与入库名单比对 |
 | 7 | **对抗式审核** | 三轮独立攻击面（身份反查 / 部件级结构 / 链条），阈值按对照集标定 → 详见 [`adversarial-review.md`](adversarial-review.md) |
+| 8 | **Windows 兼容性** | GDI 字体选择（各 charset 能否选中本字体）+ 12/24ppem 栅格化与设计位图逐像素一致 → 详见 [`word-compat.md`](word-compat.md) |
 
 第 5 步单独存在的理由：构建脚本会自检"产物 == 源位图"，但那是**同一次运行内部**的自证。
 真正会出事的是**改了名单却忘了重建**——那时产物还是旧的，而构建脚本根本不会被执行。
@@ -729,4 +730,5 @@ python tools/fontgen/regress_all.py
 - 参考字体来源 / 版本 / 许可证 / sha256 + 生产源清单：[`reference-fonts.md`](reference-fonts.md)
 - 目视复核作业协议：[`glyph-review-protocol.md`](glyph-review-protocol.md)
 - **第三轮对抗式审核**（换攻击面而不是重复测量）：[`adversarial-review.md`](adversarial-review.md)
+- **Word / Windows 兼容性**（OS/2 元数据、字号约束、GDI 门禁）：[`word-compat.md`](word-compat.md)
 - 回归测试方法：[`regression.md`](regression.md)

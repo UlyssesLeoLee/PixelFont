@@ -41,6 +41,12 @@
       "label": "对抗式审核 (三轮: 身份反查 / 部件级结构 / 链条; 阈值按对照集标定)",
       "status": "PASS",
       "returncode": 0
+    },
+    {
+      "step": "Windows兼容",
+      "label": "Windows 兼容性 (GDI 字体选择 + 栅格化逐像素比对, 非 Windows 自动跳过)",
+      "status": "PASS",
+      "returncode": 0
     }
   ],
   "numbers": {
@@ -84,6 +90,19 @@
       "待裁决": 0,
       "已裁决非缺陷": 160,
       "确认缺陷": 0
+    },
+    "Windows兼容": {
+      "判定": "PASS",
+      "charset选择": {
+        "0": "PixelFont PC98 12",
+        "1": "PixelFont PC98 12",
+        "134": "PixelFont PC98 12",
+        "128": "PixelFont PC98 12",
+        "129": "Ebrima",
+        "136": "Ebrima"
+      },
+      "12ppem逐像素一致": 6,
+      "12ppem样字数": 6
     }
   },
   "verdict": "PASS"

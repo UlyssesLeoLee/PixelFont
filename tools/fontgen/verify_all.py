@@ -1,9 +1,10 @@
-"""一条命令复核全部结论 —— 生产源自检 → 构建 → 回归 → 硬检查 → 名单自检。
+"""一条命令复核全部结论 —— 生产源自检 → 构建 → 回归 → 硬检查 → 名单自检 → 对抗审核 → Windows 兼容。
 
 为什么要有这个:
-    现在这些结论分散在五个脚本里 (vendor_ark_pixel / build_font / regress_all /
-    compare_refs / derive_ideo_route --check), 每次要复核一遍就得记住跑哪个、
-    顺序是什么、参数怎么写 —— 少跑一个, 结论就少一块, 而且**少跑的那块没人会发现**。
+    现在这些结论分散在几个脚本里 (vendor_fusion_pixel / build_font / regress_all /
+    compare_refs / derive_ideo_route --check / adversarial_review / verify_gdi),
+    每次要复核一遍就得记住跑哪个、顺序是什么、参数怎么写 —— 少跑一个, 结论就少一块,
+    而且**少跑的那块没人会发现**。
 
     这个脚本把链路串起来, 并且**每一步都报出它实际消费了什么**:
     跑失败就明确说哪一步失败, 跑成功就把关键数字打出来。
@@ -73,6 +74,11 @@ STEPS: list[tuple[str, list[str], str]] = [
         "对抗式审核 (三轮: 身份反查 / 部件级结构 / 链条; 阈值按对照集标定)",
         [str(TOOLS / "adversarial_review.py")],
         "对抗审核",
+    ),
+    (
+        "Windows 兼容性 (GDI 字体选择 + 栅格化逐像素比对, 非 Windows 自动跳过)",
+        [str(TOOLS / "verify_gdi.py")],
+        "Windows兼容",
     ),
 ]
 
@@ -158,6 +164,24 @@ def main() -> int:
             "待裁决": d["verdict"].get("flagged_open", 0),
             "已裁决非缺陷": d["verdict"].get("adjudicated_not_defect", 0),
             "确认缺陷": d["verdict"].get("defect", 0),
+        }
+    gd_ = ROOT / "reports" / "gdi_compat.json"
+    if gd_.exists():
+        d = json.loads(gd_.read_text(encoding="utf-8"))
+        numbers["Windows兼容"] = {
+            "判定": d.get("verdict"),
+            "charset选择": {
+                str(k): (v.get("picked") if v.get("ok") else f"未选中本字体({v.get('picked')})")
+                for k, v in d.get("selection", {}).items()
+            },
+            "12ppem逐像素一致": sum(
+                1
+                for r in d.get("raster", [])
+                if r["ppem"] == 12 and r["quality"] == "NONANTIALIASED" and r["shape_match"]
+            ),
+            "12ppem样字数": sum(
+                1 for r in d.get("raster", []) if r["ppem"] == 12 and r["quality"] == "NONANTIALIASED"
+            ),
         }
 
     print("=" * 60)

@@ -3,8 +3,8 @@
 三种格式来自同一份 1-bit 字形位图数据, 所以它们必然一致 —— 但"必然一致"不等于
 "验证过一致", 所以本文件末尾有 verify_* 函数, 把三个成品全部读回来与源位图逐像素对比。
 
-TTF 的做法: 每段连续的墨迹水平游程 → 一个矩形轮廓, UPM=1200 且 1 像素 = 100 单位。
-这样在 12px 下缩放比正好是 1/100, 每个像素落在整数点上, 且不写 hinting 指令,
+TTF 的做法: 每段连续的墨迹水平游程 → 一个矩形轮廓, UPM=768 且 1 像素 = 64 单位。
+这样在 12px 下缩放比正好是 1/64, 每个像素落在整数点上, 且不写 hinting 指令,
 所以不需要靠渲染器的 grid-fitting 去凑对齐。
 """
 
@@ -246,9 +246,19 @@ def write_ttf(glyphs: list[GlyphData], ascent: int, descent: int, path: Path) ->
         usWeightClass=400,
         usWidthClass=5,  # 固定宽度: 像素字必须是等宽, 否则会破坏网格
         fsType=0,  # 可自由安装
+        fsSelection=0x0040,  # REGULAR 位。缺这一位 Word 不认它是常规体 (对照: SimSun/MS Gothic/Arial 都是 0x0040)
         achVendID="PXLF",
-        ulUnicodeRange1=(1 << 0) | (1 << 1) | (1 << 2) | (1 << 3) | (1 << 29) | (1 << 30),
-        ulCodePageRange1=(1 << 16) | (1 << 17),  # 日文(932) + 简体中文(936)
+        # 代码页位 = Windows 字体映射器在某个 charset 请求下**能不能选中本字体**。
+        # 位号依 OpenType OS/2 规范 (1.9.1) 的 ulCodePageRange 表: bit0=1252 ANSI,
+        # bit17=932 日文, bit18=936 简体中文。
+        # 旧值 (1<<16)|(1<<17) 实际是 874 泰语 + 932 日文 —— 既没有 1252 也没有 936,
+        # 而且泰语是我们根本没有的。后果实测过 (见 docs/word-compat.md):
+        # GDI 在 lfCharSet=ANSI 时把本字体替换成 Arial, 在 GB2312 时替换成宋体。
+        ulCodePageRange1=(1 << 0) | (1 << 17) | (1 << 18),  # 1252 + 932 + 936
+        # ulUnicodeRange* 不手写: 不给这四个字段时 fontTools 会按 cmap 的实际覆盖
+        # 自动重算 (O_S_2f_2.recalcUnicodeRanges)。手写曾虚报 拉丁扩展-A/B、
+        # 拉丁扩展附加、希腊扩展 —— 系统于是把希腊/西里尔/拉丁扩展文本路由到本字体,
+        # 渲染成豆腐块; 同时又漏报了 CJK/假名/通用标点区段, 导致系统跳过本字体去做回退。
     )
     fb.setupNameTable(
         {
@@ -271,13 +281,22 @@ def write_ttf(glyphs: list[GlyphData], ascent: int, descent: int, path: Path) ->
     # 复杂汉字的像素矩形数量轻松上百, 不重算的话 maxPoints 失真, 某些渲染器会因此拒绝加载。
     fb.font["maxp"].recalc(fb.font)
 
-    # 12px 处请求单色栅格化: GDI 会据此跳过抗锯齿, 这是像素 TTF 保持锐利的关键。
-    # 12px 正是本字体的设计尺寸, UPM=1200 下缩放比恰为 1/100, 关掉 grid-fitting 无副作用。
+    # gasp: 所有字号都取 0 —— 单色栅格化, 且**不做**网格拟合。
+    #
+    # 旧值只在 12ppem 取 0, 其余字号走 GRIDFIT|DOGRAY。对像素字来说这两个标志
+    # 都是反的: DOGRAY 请求灰度抗锯齿 (会把像素字糊成灰边), GRIDFIT 会让栅格化器
+    # 启用 autohinter (FreeType 下实测把 1px 竖画吸附撑粗, "中" 多出横杠)。
+    # 改成全字号 0 之后: 12 的整数倍 ppem (9/18/27/36pt @96dpi) 轮廓按整数倍缩放,
+    # 与设计位图逐像素一致; 其余字号至少是硬边, 不会糊成灰。
+    #
+    # 实测边界 (别夸大): 本机 GDI 内存 DC 上, 新旧 gasp 在 12/14/15/16/18/21/24/36ppem
+    # 的渲染结果**完全相同** (都是纯单色, 抗锯齿像素恒为 0)。也就是说本机 GDI
+    # 不因 gasp 表改变行为, 这一改动的收益在 GDI 上**不可观测**; 它的作用是让声明
+    # 与像素字的设计意图一致, 并覆盖会照做 gasp 的渲染器。
     gasp = gasp_mod.table__g_a_s_p()
     gasp.version = 0
     gasp.gaspRange = {
-        12: 0,  # 既不做灰度抗锯齿, 也不做网格拟合 -> 单色输出, 像素边缘绝对锐利
-        0xFFFF: gasp_mod.GASP_GRIDFIT | gasp_mod.GASP_DOGRAY,  # 其余字号按常规渲染
+        0xFFFF: 0,  # 全字号: 单色 + 不网格拟合
     }
     fb.font["gasp"] = gasp
 
@@ -558,6 +577,74 @@ def verify_ttf(glyphs: list[GlyphData], ascent: int, descent: int, path: Path) -
     if bad:
         raise SystemExit("TTF 内容校验失败: " + "; ".join(bad))
     print(f"  TTF 内容校验: {len(glyphs)} 字形轮廓全部落在像素网格上且与源位图一致")
+
+    verify_ttf_metadata(tt)
+
+
+def verify_ttf_metadata(tt) -> None:
+    """OS/2 + gasp 的元数据不变量 —— 这几项直接决定"Word 里能不能用上本字体"。
+
+    为什么单独拉出来: 字形轮廓对了, 不等于 Word 认得这个字体。
+    实测过: 一份轮廓完全正确的 TTF, 因为 OS/2 的代码页位写错, 在 GDI 的 ANSI
+    charset 请求下被替换成 Arial、在 GB2312 请求下被替换成宋体 —— 字是对的,
+    字体却用不上。所以这组不变量是硬门禁, 不是注释。
+    """
+    from fontTools.ttLib.tables.O_S_2f_2 import intersectUnicodeRanges
+
+    os2 = tt["OS/2"]
+
+    # 1) 代码页位: 位号依 OpenType OS/2 规范 (1.9.1) 的 ulCodePageRange 表。
+    need_cp = {0: "1252 Latin1 (ANSI)", 17: "932 日文", 18: "936 简体中文"}
+    miss = [f"bit{b}({n})" for b, n in need_cp.items() if not (os2.ulCodePageRange1 & (1 << b))]
+    if miss:
+        raise SystemExit(
+            "TTF OS/2 缺代码页位: " + ", ".join(miss) + " —— Windows 字体映射器在对应 "
+            "charset 下会替换本字体 (ANSI->Arial, GB2312->宋体)"
+        )
+    # 泰语位 (bit16 = 874) 曾经被误当成"东欧"写进来, 而字体里没有任何泰文字形。
+    if os2.ulCodePageRange1 & (1 << 16):
+        raise SystemExit("TTF OS/2 声明了 874 泰语代码页, 但字体里没有泰文字形 (虚报)")
+    if os2.ulCodePageRange2:
+        raise SystemExit(
+            f"TTF OS/2 ulCodePageRange2=0x{os2.ulCodePageRange2:08X} 非零, "
+            "但本字体不含这些 OEM 代码页的字符 (虚报)"
+        )
+
+    # 2) fsSelection: 必须声明 REGULAR, 且不能声明斜体。
+    if not (os2.fsSelection & 0x0040):
+        raise SystemExit("TTF OS/2 fsSelection 缺 REGULAR 位 (0x0040) —— Word 不认它是常规体")
+    if os2.fsSelection & 0x0001:
+        raise SystemExit("TTF OS/2 fsSelection 声明了 ITALIC, 但这是常规体")
+
+    # 3) Unicode 区段位必须与 cmap 实际覆盖**完全一致**: 虚报会让系统把字体里
+    #    没有的字符路由过来 -> 豆腐块; 漏报会让系统跳过本字体去做字体回退。
+    cps: set[int] = set()
+    for tbl in tt["cmap"].tables:
+        if tbl.isUnicode():
+            cps.update(tbl.cmap.keys())
+    want = intersectUnicodeRanges(cps)
+    got = os2.getUnicodeRanges()
+    if want != got:
+        raise SystemExit(
+            "TTF OS/2 Unicode 区段位与 cmap 不一致: "
+            f"虚报 {sorted(got - want)}, 漏报 {sorted(want - got)}"
+        )
+
+    # 4) gasp: 不允许任何字号开灰度抗锯齿 (像素字一开灰度就糊)。
+    for max_ppem, behavior in tt["gasp"].gaspRange.items():
+        if behavior & 0x0002:
+            raise SystemExit(
+                f"TTF gasp 在 <= {max_ppem}ppem 启用了灰度抗锯齿 (DOGRAY) -> 像素字会糊成灰边"
+            )
+        if behavior & 0x0001:
+            raise SystemExit(
+                f"TTF gasp 在 <= {max_ppem}ppem 启用了网格拟合 (GRIDFIT) -> "
+                "autohinter 会把 1px 竖画吸附撑粗"
+            )
+    print(
+        "  TTF 元数据校验: 代码页 1252/932/936 齐备, fsSelection=REGULAR, "
+        "Unicode 区段位与 cmap 一致, gasp 全字号单色"
+    )
 
 
 def report_rasterizer_deviation(glyphs: list[GlyphData], ascent: int, path: Path, sample: int = 300) -> None:
