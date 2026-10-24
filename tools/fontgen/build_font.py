@@ -210,6 +210,7 @@ def write_ttf(glyphs: list[GlyphData], ascent: int, descent: int, path: Path) ->
 
     for g in glyphs:
         pen = TTGlyphPen(None)
+        runs: list[tuple[int, int, int]] = []
         for y in range(g.height):
             run_start = None
             for x in range(g.width + 1):
@@ -217,8 +218,10 @@ def write_ttf(glyphs: list[GlyphData], ascent: int, descent: int, path: Path) ->
                 if on and run_start is None:
                     run_start = x
                 elif not on and run_start is not None:
-                    _emit_rect(pen, run_start, y, x, y + 1, ascent, px)
+                    runs.append((run_start, x, y))
                     run_start = None
+        for x0, x1, y0, y1 in _merge_vertical_runs(runs):
+            _emit_rect(pen, x0, y0, x1, y1, ascent, px)
         glyf[f"u{ord(g.ch):04X}"] = pen.glyph()
 
     fb.setupGlyf(glyf)
@@ -310,6 +313,41 @@ def write_ttf(glyphs: list[GlyphData], ascent: int, descent: int, path: Path) ->
 
     fb.save(str(path))
     return path
+
+
+def _merge_vertical_runs(runs: list[tuple[int, int, int]]) -> list[tuple[int, int, int, int]]:
+    """把 x 范围相同、y 范围上下相邻的水平游程合并成**一个**矩形。
+
+    为什么必须合 (2026-10-24 实测, 见 docs/word-compat.md §7.6):
+        逐行逐段各发一个矩形时, 同一条竖笔画会被拆成一串 1x1 的小方块。
+        栅格化时每个矩形**独立**吸附到输出像素网格 —— 缩放倍数不是整数时
+        (如 18ppem = 1.5 倍), 1.5px 的方块有的落进 1 格、有的整个落空,
+        于是笔画断成虚线, 墨迹量也比理论值偏细 43%。
+        合并成一个大矩形后, 整条竖笔画是一个连续轮廓, 吸附后仍然连续。
+
+    为什么不影响整数倍字号:
+        合并的正是**上下相邻且 x 范围相同**的两段, 像素并集完全不变 ——
+        所以 12/24/36ppem 下逐格精确性不受影响 (实测 12483/12483 一致)。
+        轮廓总数还从 107209 降到 73933 (-31%), TTF 体积 -28.6%。
+
+    同向矩形用 non-zero 环绕规则填充, 合并后可能与别的矩形局部重叠,
+    但重叠区域本来就是墨迹, 并集不变 —— 不会挖空, 也不会多出像素。
+    """
+    groups: dict[tuple[int, int], list[tuple[int, int]]] = {}
+    for x0, x1, y in runs:
+        groups.setdefault((x0, x1), []).append((y, y + 1))
+    merged: list[tuple[int, int, int, int]] = []
+    for (x0, x1), spans in groups.items():
+        spans.sort()
+        cur_y0, cur_y1 = spans[0]
+        for y0, y1 in spans[1:]:
+            if y0 <= cur_y1:
+                cur_y1 = max(cur_y1, y1)
+            else:
+                merged.append((x0, x1, cur_y0, cur_y1))
+                cur_y0, cur_y1 = y0, y1
+        merged.append((x0, x1, cur_y0, cur_y1))
+    return merged
 
 
 def _emit_rect(pen, x0: int, y0: int, x1: int, y1: int, ascent: int, px: int) -> None:

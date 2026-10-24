@@ -42,7 +42,8 @@ if (Test-Path $p) {
 | 版本 | 大小 | sha256 | 状态 |
 |---|---|---|---|
 | 旧版（10-23） | 1,362,480 字节 | `FCC65BCBCD8A1A022007065E3444464916EDB537BB172B6F2ACDC9596DE3303B` | **元数据错误，Word 选不中** |
-| 新版（本包） | **1,364,528 字节** | **`269619D5EAA0B84BC478B550893C6F5CCAAB6B0709F86AB19433AD5A8A46B2D3`** | **已修，可用** |
+| 上一版（10-24 早） | 1,364,528 字节 | `269619D5EAA0B84BC478B550893C6F5CCAAB6B0709F86AB19433AD5A8A46B2D3` | 已修元数据，轮廓未合并 |
+| **当前版（本包）** | **973,712 字节** | **`3298AE4D9E28E7F3D5939E007DF43EA82B64860922AB246FC7A4B82414F69FB1`** | **已修 + 轮廓已合并** |
 
 ### 1.3 覆盖
 
@@ -57,7 +58,7 @@ if (Test-Path $p) {
 ```
 
 覆盖同名文件。覆盖前**先按 §1.2 确认旧文件的大小**；覆盖后大小应变成
-**1,364,528 字节**。
+**973,712 字节**。
 
 > 覆盖完成后建议重启一次 Word（不只是关窗口）。Windows 会缓存已加载的字体资源，
 > 同名同族的新旧两版共存时，Word 可能仍然命中旧的那份。
@@ -115,8 +116,8 @@ PixelFont PC98 12
 1. **文件对不对**：
    ```powershell
    $p = "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\PixelFontPC98-12.ttf"
-   (Get-Item $p).Length   # 必须是 1364528
-   (Get-FileHash $p -Algorithm SHA256).Hash   # 必须是 269619D5...46B2D3
+   (Get-Item $p).Length   # 必须是 973712
+   (Get-FileHash $p -Algorithm SHA256).Hash   # 必须是 3298AE4D...14F69FB1
    ```
 2. **Word 里能看到它**：新建文档 → 字体下拉框里应出现 `PixelFont PC98 12`。
 3. **中文正文真的被换掉了**：输入几个汉字，选中它们，
@@ -144,7 +145,7 @@ PixelFont PC98 12
 
 | 文件 | 说明 |
 |---|---|
-| `PixelFontPC98-12.ttf` | **字体本体**（1,364,528 字节 / sha256 `269619D5…46B2D3`） |
+| `PixelFontPC98-12.ttf` | **字体本体**（973,712 字节 / sha256 `3298AE4D…14F69FB1`） |
 | `PixelFontPC98-12.bdf` | 点阵源文件（BitFont 格式），可再加工 |
 | `PixelFontPC98-12-atlas.png` | 全字符集图集，用来肉眼核对字形 |
 | `PixelFontPC98-12-specimen.png` | 样张 |
