@@ -63,8 +63,8 @@ MUST_NOT_SELECT = {
     CS_BIG5: "BIG5 (繁体中文)",
 }
 
-# 用来做栅格化比对的样字: 全角汉字 + 半角拉丁 + 全角标点 + 假名
-SAMPLES = ["中", "国", "A", "g", "，", "あ"]
+# 栅格化比对**不做抽样**: 全字符集逐字扫。抽 6 个字样只能证明那 6 个字没问题,
+# 而"这个字在 Word 里画对了吗"本来就是逐字的问题。
 
 
 class LOGFONTW(ctypes.Structure):
@@ -209,74 +209,91 @@ def enum_has(gdi32, user32, charset: int) -> tuple[bool, int]:
     return found["hit"], found["n"]
 
 
-def render_mono(gdi32, user32, ch: str, ppem: int, quality: int) -> tuple[list[list[int]], int]:
-    """把一个字画进 24bpp DIB, 返回 (墨迹掩码, 灰阶像素数)。
+class GdiCanvas:
+    """一块可复用的 24bpp DIB 画布 —— 全字符集扫描要画几千次, 每次重建 DC 太慢。
 
-    灰阶像素数 > 0 说明渲染器做了抗锯齿 —— 像素字一旦出现灰阶就是"糊了"。
+    为什么用 24bpp 而不是 1bpp: 1bpp 的调色板极性(index 0/1 谁是黑)有歧义,
+    读回会全 0; 24bpp 没有这个问题, 而且能直接判"这个像素既不是纯黑也不是纯白"
+    (抗锯齿留下的中间色, 含 ClearType 的彩色边)。
     """
+
     W, H = 64, 48
-    hdc_screen = user32.GetDC(None)
-    hdc = gdi32.CreateCompatibleDC(hdc_screen)
-    bmi = BITMAPINFO()
-    bmi.bmiHeader.biSize = ctypes.sizeof(BITMAPINFOHEADER)
-    bmi.bmiHeader.biWidth = W
-    bmi.bmiHeader.biHeight = -H  # 负数 = 自上而下
-    bmi.bmiHeader.biPlanes = 1
-    bmi.bmiHeader.biBitCount = 24
-    bmi.bmiHeader.biCompression = 0  # BI_RGB
-    bits = ctypes.c_void_p()
-    dib = gdi32.CreateDIBSection(hdc, ctypes.byref(bmi), 0, ctypes.byref(bits), None, 0)
-    if not dib:
-        gdi32.DeleteDC(hdc)
-        user32.ReleaseDC(None, hdc_screen)
-        raise SystemExit("CreateDIBSection 失败")
-    old_bmp = gdi32.SelectObject(hdc, dib)
-    ctypes.memset(bits, 0xFF, W * H * 3)  # 白底
-    gdi32.SetBkMode(hdc, 1)  # TRANSPARENT
-    gdi32.SetTextColor(hdc, 0x000000)  # 黑字
 
-    lf = LOGFONTW()
-    lf.lfHeight = -ppem
-    lf.lfCharSet = CS_ANSI
-    lf.lfQuality = quality
-    lf.lfFaceName = FONT_NAME
-    hf = gdi32.CreateFontIndirectW(ctypes.byref(lf))
-    old_font = gdi32.SelectObject(hdc, hf)
-    gdi32.TextOutW(hdc, 0, 0, ch, 1)
+    def __init__(self, gdi32, user32):
+        import numpy as np
 
-    raw = ctypes.string_at(bits, W * H * 3)
-    rows = []
-    gray = 0
-    for y in range(H):
-        row = []
-        base = y * W * 3
-        for x in range(W):
-            o = base + x * 3
-            b, g, r = raw[o], raw[o + 1], raw[o + 2]
-            row.append(1 if (b | g | r) < 128 else 0)
-            # 抗锯齿像素 = 既不是纯黑也不是纯白。
-            # 注意: ClearType 是**彩色**边 (R≠G≠B), 只查"灰阶"会漏掉它, 所以判据
-            # 用"是否纯黑/纯白"而不是"三通道是否相等"。
-            if (b, g, r) != (0, 0, 0) and (b, g, r) != (255, 255, 255):
-                gray += 1
-        rows.append(row)
+        self.np = np
+        self.gdi32 = gdi32
+        self.user32 = user32
+        self.hdc_screen = user32.GetDC(None)
+        self.hdc = gdi32.CreateCompatibleDC(self.hdc_screen)
+        bmi = BITMAPINFO()
+        bmi.bmiHeader.biSize = ctypes.sizeof(BITMAPINFOHEADER)
+        bmi.bmiHeader.biWidth = self.W
+        bmi.bmiHeader.biHeight = -self.H  # 负数 = 自上而下
+        bmi.bmiHeader.biPlanes = 1
+        bmi.bmiHeader.biBitCount = 24
+        bmi.bmiHeader.biCompression = 0  # BI_RGB
+        self.bits = ctypes.c_void_p()
+        dib = gdi32.CreateDIBSection(
+            self.hdc, ctypes.byref(bmi), 0, ctypes.byref(self.bits), None, 0
+        )
+        if not dib:
+            raise SystemExit("CreateDIBSection 失败")
+        self.dib = dib
+        self.old_bmp = gdi32.SelectObject(self.hdc, dib)
+        gdi32.SetBkMode(self.hdc, 1)  # TRANSPARENT
+        gdi32.SetTextColor(self.hdc, 0x000000)  # 黑字
+        self._fonts: dict[tuple[int, int], object] = {}
 
-    gdi32.SelectObject(hdc, old_font)
-    gdi32.SelectObject(hdc, old_bmp)
-    gdi32.DeleteObject(hf)
-    gdi32.DeleteObject(dib)
-    gdi32.DeleteDC(hdc)
-    user32.ReleaseDC(None, hdc_screen)
-    return rows, gray
+    def _font(self, ppem: int, quality: int):
+        key = (ppem, quality)
+        f = self._fonts.get(key)
+        if f is None:
+            lf = LOGFONTW()
+            lf.lfHeight = -ppem
+            lf.lfCharSet = CS_ANSI
+            lf.lfQuality = quality
+            lf.lfFaceName = FONT_NAME
+            f = self.gdi32.CreateFontIndirectW(ctypes.byref(lf))
+            self._fonts[key] = f
+        return f
+
+    def render(self, ch: str, ppem: int, quality: int) -> tuple[set[tuple[int, int]], int]:
+        """画一个字, 返回 (墨迹格集合, 抗锯齿像素数)。"""
+        np = self.np
+        ctypes.memset(self.bits, 0xFF, self.W * self.H * 3)  # 白底
+        hf = self._font(ppem, quality)
+        old_font = self.gdi32.SelectObject(self.hdc, hf)
+        self.gdi32.TextOutW(self.hdc, 0, 0, ch, 1)
+        self.gdi32.SelectObject(self.hdc, old_font)
+        raw = ctypes.string_at(self.bits, self.W * self.H * 3)
+        arr = np.frombuffer(raw, dtype=np.uint8).reshape(self.H, self.W, 3)
+        non_white = (arr != 255).any(axis=2)
+        # 抗锯齿像素 = 既不是纯黑也不是纯白 (ClearType 是彩色边, 不能只查灰阶)
+        mixed = non_white & ~((arr == 0).all(axis=2))
+        ys, xs = np.nonzero(non_white)
+        cells = {(int(y), int(x)) for y, x in zip(ys, xs)}
+        return cells, int(mixed.sum())
+
+    def close(self) -> None:
+        for f in self._fonts.values():
+            self.gdi32.DeleteObject(f)
+        self.gdi32.SelectObject(self.hdc, self.old_bmp)
+        self.gdi32.DeleteObject(self.dib)
+        self.gdi32.DeleteDC(self.hdc)
+        self.user32.ReleaseDC(None, self.hdc_screen)
 
 
-def ink_cells(mask: list[list[int]]) -> set[tuple[int, int]]:
-    return {
-        (y, x)
-        for y, row in enumerate(mask)
-        for x, v in enumerate(row)
-        if v
-    }
+def render_mono(gdi32, user32, ch: str, ppem: int, quality: int) -> tuple[list[list[int]], int]:
+    """单字渲染的兼容入口 (保留给按需调用的脚本)。"""
+    cv = GdiCanvas(gdi32, user32)
+    try:
+        cells, gray = cv.render(ch, ppem, quality)
+    finally:
+        cv.close()
+    w, h = GdiCanvas.W, GdiCanvas.H
+    return [[1 if (y, x) in cells else 0 for x in range(w)] for y in range(h)], gray
 
 
 def design_cells(rows: list[list[int]]) -> set[tuple[int, int]]:
@@ -301,6 +318,21 @@ def scale_cells(cells: set[tuple[int, int]], k: int) -> set[tuple[int, int]]:
         for dy in range(k)
         for dx in range(k)
     }
+
+
+def box_of(cells: set[tuple[int, int]]) -> tuple[int, int]:
+    """墨迹外框尺寸 (高, 宽); 空字形算 0×0。"""
+    if not cells:
+        return (0, 0)
+    return (
+        max(y for y, _ in cells) - min(y for y, _ in cells) + 1,
+        max(x for _, x in cells) - min(x for _, x in cells) + 1,
+    )
+
+
+def _esc(ch: str) -> str:
+    """把字符转成可安全放进 TSV 的形式 (转义制表/换行/控制符)。"""
+    return ch.encode("unicode_escape").decode("ascii")
 
 
 def main() -> int:
@@ -364,62 +396,112 @@ def main() -> int:
             failures.append(f"charset {label} 的字体枚举里没有本族")
     result["enumeration"] = en
 
-    # ---- 3. 栅格化检查 ----
-    print("\n== 3. GDI 栅格化 vs 设计位图 ==")
-    ras = []
-    for ch in SAMPLES:
-        cp = ord(ch)
-        if cp not in bdf:
-            print(f"  跳过 {ch!r} (BDF 里没有)")
-            continue
-        w, h, bmp = bdf[cp]
-        want = design_cells(bmp)
-        for ppem in (12, 24):
-            for quality, qname in ((3, "NONANTIALIASED"), (0, "DEFAULT")):
-                mask, gray = render_mono(gdi32, user32, ch, ppem, quality)
-                got = ink_cells(mask)
-                # 形状比: 归一化后逐格比对 (2 倍字号 = 每个像素变成 2x2 实心块)
-                exp = want if ppem == 12 else scale_cells(want, ppem // 12)
-                exp_norm = normalize(exp)
-                got_norm = normalize(got)
-                same = exp_norm == got_norm
-                exp_box = (
-                    max(y for y, _ in exp) - min(y for y, _ in exp) + 1,
-                    max(x for _, x in exp) - min(x for _, x in exp) + 1,
-                )
-                got_box = (
-                    (max(y for y, _ in got) - min(y for y, _ in got) + 1)
-                    if got
-                    else 0,
-                    (max(x for _, x in got) - min(x for _, x in got) + 1) if got else 0,
-                )
-                entry = {
-                    "char": ch,
-                    "cp": f"U+{cp:04X}",
-                    "ppem": ppem,
-                    "quality": qname,
-                    "shape_match": same,
-                    "gray_pixels": gray,
-                    "expected_ink_box": list(exp_box),
-                    "got_ink_box": list(got_box),
-                    "expected_ink_cells": len(exp),
-                    "got_ink_cells": len(got),
-                }
-                ras.append(entry)
-                flag = "OK " if same else "DIFF"
-                print(
-                    f"  [{flag}] {ch!r} U+{cp:04X} {ppem}ppem {qname:<15} "
-                    f"墨迹 {len(got)}/{len(exp)} 格, 墨迹框 {got_box} vs 设计 {exp_box}, 灰阶 {gray}px"
-                )
-    result["raster"] = ras
+    # ---- 3. 栅格化检查: **全字符集**, 不抽样 ----
+    #
+    # 为什么必须全量: "这个字在 Word 里画对了吗" 是**逐字**的问题, 抽 6 个字样
+    # 只能证明那 6 个字没问题。4161 个字全扫一遍, 才是"确保能用"。
+    #
+    # 三条判据 (分层, 因为它们对系统设置的敏感度不同):
+    #   a) 墨迹外框尺寸一致 —— 与抗锯齿无关, 任何系统上都必须成立 (硬门禁)
+    #   b) 墨迹集合逐格一致 —— 强制单色渲染 (NONANTIALIASED) 时必须成立 (硬门禁);
+    #      这条量的是**字体文件本身**的像素化行为, 与系统字体平滑开关无关
+    #   c) DEFAULT 质量下的抗锯齿像素数 —— 只是报告, 不是判据 (系统设置的事)
+    #
+    # 报告分两份, 避免主报告被 4161 条记录撑成 1.4 MB:
+    #   reports/gdi_compat.json      —— 结论 (计数 + 失败明细)
+    #   reports/gdi_raster_scan.tsv  —— 逐码位明细 (可 grep 任意一个码位)
+    print("\n== 3. GDI 栅格化 vs 设计位图 (全字符集, 不抽样) ==")
+    cv = GdiCanvas(gdi32, user32)
+    ras_fail: list[dict] = []
+    scan_rows: list[str] = [
+        "cp\tchar\tink_cells\tbox12\tshape12\tbox24\tshape24\taa_default"
+    ]
+    n12_box = n12_shape = n24_box = n24_shape = 0
+    aa_total = 0
+    scanned = 0
+    try:
+        for cp in sorted(bdf):
+            w, h, bmp = bdf[cp]
+            want = design_cells(bmp)
+            ch = chr(cp)
 
-    # 12ppem + NONANTIALIASED 是"字体文件本身的像素化行为", 与系统平滑开关无关 -> 硬门禁
-    hard = [e for e in ras if e["ppem"] == 12 and e["quality"] == "NONANTIALIASED"]
-    hard_bad = [e for e in hard if not e["shape_match"]]
-    if hard_bad:
+            # 12ppem = 设计尺寸 (1:1)。强制单色量形状, DEFAULT 质量量抗锯齿。
+            mono12, _ = cv.render(ch, 12, 3)
+            _, aa = cv.render(ch, 12, 0)
+            # 24ppem (=18pt): 精确 2 倍整数缩放
+            mono24, _ = cv.render(ch, 24, 3)
+
+            aa_total += aa
+            scanned += 1
+
+            exp_box, got_box = box_of(want), box_of(mono12)
+            box_ok = exp_box == got_box
+            shape_ok = normalize(want) == normalize(mono12)
+
+            exp24 = scale_cells(want, 2)
+            exp24_box, got24_box = box_of(exp24), box_of(mono24)
+            box24_ok = exp24_box == got24_box
+            shape24_ok = normalize(exp24) == normalize(mono24)
+
+            n12_box += box_ok
+            n12_shape += shape_ok
+            n24_box += box24_ok
+            n24_shape += shape24_ok
+
+            scan_rows.append(
+                f"U+{cp:04X}\t{_esc(ch)}\t{len(want)}\t{int(box_ok)}\t"
+                f"{int(shape_ok)}\t{int(box24_ok)}\t{int(shape24_ok)}\t{aa}"
+            )
+
+            if not (box_ok and shape_ok and box24_ok and shape24_ok):
+                ras_fail.append(
+                    {
+                        "cp": f"U+{cp:04X}",
+                        "char": ch,
+                        "expected_ink_box_12": list(exp_box),
+                        "got_ink_box_12": list(got_box),
+                        "expected_ink_box_24": list(exp24_box),
+                        "got_ink_box_24": list(got24_box),
+                        "expected_ink_cells": len(want),
+                        "got_ink_cells_12": len(mono12),
+                        "got_ink_cells_24": len(mono24),
+                        "box_match_12": box_ok,
+                        "shape_match_12": shape_ok,
+                        "box_match_24": box24_ok,
+                        "shape_match_24": shape24_ok,
+                    }
+                )
+    finally:
+        cv.close()
+
+    scan_path = ROOT / "reports" / "gdi_raster_scan.tsv"
+    scan_path.write_text("\n".join(scan_rows) + "\n", encoding="utf-8")
+
+    print(f"  扫描 {scanned} 个码位 x (12ppem + 24ppem), 两种渲染路径")
+    print(f"  12ppem 墨迹外框一致      : {n12_box} / {scanned}")
+    print(f"  12ppem 墨迹集合逐格一致  : {n12_shape} / {scanned}")
+    print(f"  24ppem 墨迹外框一致      : {n24_box} / {scanned}")
+    print(f"  24ppem 墨迹集合逐格一致  : {n24_shape} / {scanned}")
+    print(f"  DEFAULT 质量下抗锯齿像素合计: {aa_total}")
+    print(f"  逐码位明细: {scan_path}")
+    if ras_fail:
+        print(f"  不一致 {len(ras_fail)} 例, 例: {ras_fail[:3]}")
+
+    result["raster_summary"] = {
+        "scanned": scanned,
+        "box_match_12": n12_box,
+        "shape_match_12": n12_shape,
+        "box_match_24": n24_box,
+        "shape_match_24": n24_shape,
+        "aa_pixels_default_total": aa_total,
+        "detail_file": str(scan_path.relative_to(ROOT)).replace("\\", "/"),
+    }
+    result["raster_failures"] = ras_fail
+
+    if ras_fail:
         failures.append(
-            "12ppem 单色渲染与设计位图不一致: "
-            + ", ".join(f"{e['char']}({e['got_ink_cells']}/{e['expected_ink_cells']})" for e in hard_bad)
+            f"GDI 12/24ppem 栅格化与设计位图不一致 {len(ras_fail)} 例: "
+            + "; ".join(f"{r['cp']} {r['char']!r}" for r in ras_fail[:5])
         )
     result["hard_gate_failures"] = failures
 
@@ -431,7 +513,11 @@ def main() -> int:
         for f in failures:
             print(f"  - {f}")
     else:
-        print("GDI 兼容性检查: 通过 (各 charset 均能选中本字体, 12ppem 单色渲染与设计位图一致)")
+        print(
+            "GDI 兼容性检查: 通过 "
+            f"(各 charset 均能选中本字体; {scanned} 个码位在 12ppem/24ppem 下"
+            "单色渲染与设计位图逐格一致)"
+        )
 
     out = Path(args.json)
     out.parent.mkdir(parents=True, exist_ok=True)

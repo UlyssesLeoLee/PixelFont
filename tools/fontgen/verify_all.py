@@ -168,20 +168,19 @@ def main() -> int:
     gd_ = ROOT / "reports" / "gdi_compat.json"
     if gd_.exists():
         d = json.loads(gd_.read_text(encoding="utf-8"))
+        rs = d.get("raster_summary", {})
         numbers["Windows兼容"] = {
             "判定": d.get("verdict"),
             "charset选择": {
                 str(k): (v.get("picked") if v.get("ok") else f"未选中本字体({v.get('picked')})")
                 for k, v in d.get("selection", {}).items()
             },
-            "12ppem逐像素一致": sum(
-                1
-                for r in d.get("raster", [])
-                if r["ppem"] == 12 and r["quality"] == "NONANTIALIASED" and r["shape_match"]
-            ),
-            "12ppem样字数": sum(
-                1 for r in d.get("raster", []) if r["ppem"] == 12 and r["quality"] == "NONANTIALIASED"
-            ),
+            "全字符集栅格化": {
+                "扫描码位": rs.get("scanned"),
+                "12ppem逐格一致": rs.get("shape_match_12"),
+                "24ppem逐格一致": rs.get("shape_match_24"),
+                "抗锯齿像素": rs.get("aa_pixels_default_total"),
+            },
         }
 
     print("=" * 60)
