@@ -1,0 +1,1582 @@
+{
+  "tool": "adversarial_review",
+  "round": 2,
+  "name": "部件级结构攻击",
+  "attacks": "上一轮结论: 结构劣化已修完 (确认劣化 0)。本轮放弃全字腔数, 改在部件尺度上找。",
+  "generated_at": "2026-10-24T06:41:13.268488+00:00",
+  "findings": [
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+0030",
+      "char": "0",
+      "cat": "ascii",
+      "detail": "最大腔面积 差 7px (我方 14 vs 参考 21) > 同类噪声底 6.1",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+0040",
+      "char": "@",
+      "cat": "ascii",
+      "detail": "腔面积 L1 = 11px > 同类噪声底 8.2 (我方 [7, 5, 2] vs 参考 [3]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+4E92",
+      "char": "互",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 15px (我方 6 vs 参考 21) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+4FCA",
+      "char": "俊",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 2 行 墨点 8 但分段 2<3; 第 8 行 墨点 4 但分段 3<4; 第 5 列 墨点 7 但分段 3<5",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+4FEF",
+      "char": "俯",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 3 行 墨点 4 但分段 3<4; 第 5 行 墨点 7 但分段 3<4; 第 7 行 墨点 5 但分段 4<5",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+50BB",
+      "char": "傻",
+      "cat": "hanzi",
+      "detail": "我方腔 6 vs 参考 10 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+5192",
+      "char": "冒",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 27px > 同类噪声底 22.0 (我方 [6, 6] vs 参考 [9, 9, 7, 7, 7]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+5195",
+      "char": "冕",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 25px > 同类噪声底 22.0 (我方 [5, 3, 3] vs 参考 [10, 9, 7, 4, 4]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+51F0",
+      "char": "凰",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 13px (我方 2 vs 参考 15) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+51F3",
+      "char": "凳",
+      "cat": "hanzi",
+      "detail": "5 处笔画被搭桥连上 > 同类噪声底 3.0: 第 2 行 墨点 7 但分段 2<3; 第 1 列 墨点 5 但分段 3<5; 第 3 列 墨点 7 但分段 2<4",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+52AB",
+      "char": "劫",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 24px > 同类噪声底 22.0 (我方 [] vs 参考 [21, 3]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+52C9",
+      "char": "勉",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 28px > 同类噪声底 22.0 (我方 [24, 4, 2, 2] vs 参考 [2, 2]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+533F",
+      "char": "匿",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 23px > 同类噪声底 22.0 (我方 [22, 6, 2] vs 参考 [4, 3, 1, 1]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+53E3",
+      "char": "口",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 20px (我方 36 vs 参考 56) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+53EC",
+      "char": "召",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 13px (我方 14 vs 参考 27) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+5409",
+      "char": "吉",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 15px (我方 6 vs 参考 21) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+5446",
+      "char": "呆",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 15px (我方 6 vs 参考 21) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+5496",
+      "char": "咖",
+      "cat": "hanzi",
+      "detail": "5 处笔画被搭桥连上 > 同类噪声底 3.0: 第 3 行 墨点 6 但分段 5<6; 第 4 行 墨点 6 但分段 5<6; 第 5 行 墨点 6 但分段 5<6",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+56DB",
+      "char": "四",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 23px > 同类噪声底 22.0 (我方 [36, 7] vs 参考 [45, 11, 10]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+56E4",
+      "char": "囤",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 46px > 同类噪声底 22.0 (我方 [18, 16] vs 参考 [51, 3]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+56E4",
+      "char": "囤",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 33px (我方 18 vs 参考 51) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+56ED",
+      "char": "园",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 29px > 同类噪声底 22.0 (我方 [42] vs 参考 [33, 20]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+56FE",
+      "char": "图",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 28px > 同类噪声底 22.0 (我方 [31, 12, 10, 3] vs 参考 [23, 9, 6, 5, 5]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+5703",
+      "char": "圃",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 26px > 同类噪声底 22.0 (我方 [24, 23, 2, 2, 1] vs 参考 [15, 13, 2, 2, 2]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+5723",
+      "char": "圣",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 13px (我方 2 vs 参考 15) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+591A",
+      "char": "多",
+      "cat": "hanzi",
+      "detail": "5 处笔画被搭桥连上 > 同类噪声底 3.0: 第 3 行 墨点 2 但分段 1<2; 第 8 行 墨点 2 但分段 1<2; 第 5 列 墨点 5 但分段 3<4",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+5993",
+      "char": "妓",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 19px (我方 7 vs 参考 26) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+5B9D",
+      "char": "宝",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 15px (我方 3 vs 参考 18) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+5C4E",
+      "char": "屎",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 9 行 墨点 4 但分段 3<4; 第 3 列 墨点 5 但分段 4<5; 第 6 列 墨点 9 但分段 2<3",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+5C79",
+      "char": "屹",
+      "cat": "hanzi",
+      "detail": "5 处笔画被搭桥连上 > 同类噪声底 3.0: 第 5 行 墨点 4 但分段 3<4; 第 6 行 墨点 4 但分段 3<4; 第 7 行 墨点 4 但分段 3<4",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+5CAD",
+      "char": "岭",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 1 行 墨点 3 但分段 2<3; 第 2 行 墨点 3 但分段 2<3; 第 7 行 墨点 4 但分段 3<4",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+5E15",
+      "char": "帕",
+      "cat": "hanzi",
+      "detail": "7 处笔画被搭桥连上 > 同类噪声底 3.0: 第 3 行 墨点 5 但分段 4<5; 第 4 行 墨点 5 但分段 4<5; 第 5 行 墨点 8 但分段 3<4",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+5E18",
+      "char": "帘",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 17px (我方 2 vs 参考 19) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+5ED6",
+      "char": "廖",
+      "cat": "hanzi",
+      "detail": "我方腔 7 vs 参考 11 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+5F31",
+      "char": "弱",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 0 列 墨点 6 但分段 3<4; 第 1 列 墨点 5 但分段 4<5; 第 6 列 墨点 6 但分段 3<4",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+5F5D",
+      "char": "彝",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 13px (我方 7 vs 参考 20) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+60AC",
+      "char": "悬",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 23px > 同类噪声底 22.0 (我方 [5, 5, 5] vs 参考 [16, 7, 7, 7, 1]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+6155",
+      "char": "慕",
+      "cat": "hanzi",
+      "detail": "我方腔 2 vs 参考 6 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+622E",
+      "char": "戮",
+      "cat": "hanzi",
+      "detail": "我方腔 1 vs 参考 5 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+6233",
+      "char": "戳",
+      "cat": "hanzi",
+      "detail": "我方腔 4 vs 参考 9 (少 5) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+6233",
+      "char": "戳",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 23px > 同类噪声底 22.0 (我方 [3, 1, 1, 1] vs 参考 [15, 4, 3, 2, 1]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+6247",
+      "char": "扇",
+      "cat": "hanzi",
+      "detail": "我方腔 2 vs 参考 6 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+632A",
+      "char": "挪",
+      "cat": "hanzi",
+      "detail": "5 处笔画被搭桥连上 > 同类噪声底 3.0: 第 2 行 墨点 7 但分段 4<5; 第 3 行 墨点 7 但分段 3<4; 第 4 行 墨点 5 但分段 3<4",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+6390",
+      "char": "掐",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 35px > 同类噪声底 22.0 (我方 [8] vs 参考 [40, 3]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+6390",
+      "char": "掐",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 32px (我方 8 vs 参考 40) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+6500",
+      "char": "攀",
+      "cat": "hanzi",
+      "detail": "我方腔 6 vs 参考 14 (少 8) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+6548",
+      "char": "效",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 9 行 墨点 4 但分段 3<4; 第 10 行 墨点 4 但分段 3<4; 第 1 列 墨点 4 但分段 3<4",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+65FA",
+      "char": "旺",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 32px > 同类噪声底 22.0 (我方 [3, 2] vs 参考 [25, 6, 6]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+65FA",
+      "char": "旺",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 22px (我方 3 vs 参考 25) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+664C",
+      "char": "晌",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 4 行 墨点 7 但分段 4<5; 第 5 行 墨点 7 但分段 4<5; 第 6 行 墨点 6 但分段 5<6",
+      "severity": "warn"
+    },
+    {
+      "id": "COMPONENT_DEFICIT",
+      "cp": "U+6652",
+      "char": "晒",
+      "cat": "hanzi",
+      "detail": "某个部件格里参考有腔而我方没有 (缺口 2 > 同类噪声底 1.0), 全字腔数持平 (6) —— 局部塌陷",
+      "severity": "error"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+66F0",
+      "char": "曰",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 31px > 同类噪声底 22.0 (我方 [42] vs 参考 [73]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+66F0",
+      "char": "曰",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 31px (我方 42 vs 参考 73) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "COMPONENT_DEFICIT",
+      "cp": "U+6816",
+      "char": "栖",
+      "cat": "hanzi",
+      "detail": "某个部件格里参考有腔而我方没有 (缺口 2 > 同类噪声底 1.0), 全字腔数持平 (4) —— 局部塌陷",
+      "severity": "error"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+6A0A",
+      "char": "樊",
+      "cat": "hanzi",
+      "detail": "我方腔 4 vs 参考 10 (少 6) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+6BB7",
+      "char": "殷",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 2 列 墨点 5 但分段 3<5; 第 3 列 墨点 6 但分段 4<6; 第 4 列 墨点 9 但分段 2<3",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+6C2E",
+      "char": "氮",
+      "cat": "hanzi",
+      "detail": "6 处笔画被搭桥连上 > 同类噪声底 3.0: 第 6 行 墨点 4 但分段 2<4; 第 2 列 墨点 6 但分段 4<5; 第 4 列 墨点 5 但分段 4<5",
+      "severity": "warn"
+    },
+    {
+      "id": "COMPONENT_DEFICIT",
+      "cp": "U+6D12",
+      "char": "洒",
+      "cat": "hanzi",
+      "detail": "某个部件格里参考有腔而我方没有 (缺口 2 > 同类噪声底 1.0), 全字腔数持平 (4) —— 局部塌陷",
+      "severity": "error"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+6DD6",
+      "char": "淖",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 3 列 墨点 6 但分段 1<2; 第 4 列 墨点 4 但分段 3<4; 第 5 列 墨点 4 但分段 3<4",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+6EA2",
+      "char": "溢",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 13px (我方 2 vs 参考 15) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+6EAF",
+      "char": "溯",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 5 行 墨点 5 但分段 4<5; 第 7 行 墨点 8 但分段 2<4; 第 2 列 墨点 6 但分段 2<3",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+7099",
+      "char": "炙",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 4 行 墨点 3 但分段 1<2; 第 2 列 墨点 5 但分段 3<4; 第 5 列 墨点 5 但分段 3<4",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+7126",
+      "char": "焦",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 1 列 墨点 8 但分段 1<2; 第 4 列 墨点 5 但分段 4<5; 第 8 列 墨点 4 但分段 3<4",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+717D",
+      "char": "煽",
+      "cat": "hanzi",
+      "detail": "我方腔 3 vs 参考 7 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+71C3",
+      "char": "燃",
+      "cat": "hanzi",
+      "detail": "5 处笔画被搭桥连上 > 同类噪声底 3.0: 第 4 行 墨点 5 但分段 4<5; 第 5 行 墨点 5 但分段 4<5; 第 7 行 墨点 4 但分段 3<4",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+722C",
+      "char": "爬",
+      "cat": "hanzi",
+      "detail": "6 处笔画被搭桥连上 > 同类噪声底 3.0: 第 2 行 墨点 6 但分段 5<6; 第 3 行 墨点 6 但分段 5<6; 第 4 行 墨点 8 但分段 3<4",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+736D",
+      "char": "獭",
+      "cat": "hanzi",
+      "detail": "我方腔 6 vs 参考 10 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+7434",
+      "char": "琴",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 0 行 墨点 10 但分段 1<2; 第 3 列 墨点 5 但分段 4<5; 第 6 列 墨点 6 但分段 4<6",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+74DC",
+      "char": "瓜",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 18px (我方 2 vs 参考 20) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+74E4",
+      "char": "瓤",
+      "cat": "hanzi",
+      "detail": "5 处笔画被搭桥连上 > 同类噪声底 3.0: 第 4 行 墨点 5 但分段 4<5; 第 5 行 墨点 8 但分段 2<3; 第 7 行 墨点 8 但分段 2<3",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+758F",
+      "char": "疏",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 4 行 墨点 8 但分段 2<4; 第 7 行 墨点 5 但分段 4<5; 第 6 列 墨点 3 但分段 1<2",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+75B5",
+      "char": "疵",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 23px > 同类噪声底 22.0 (我方 [16, 6, 1] vs 参考 []) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+7629",
+      "char": "瘩",
+      "cat": "hanzi",
+      "detail": "我方腔 4 vs 参考 8 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+786C",
+      "char": "硬",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 17px (我方 4 vs 参考 21) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+7A84",
+      "char": "窄",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 6 行 墨点 2 但分段 1<2; 第 2 列 墨点 3 但分段 2<3; 第 7 列 墨点 5 但分段 4<5",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+7AA5",
+      "char": "窥",
+      "cat": "hanzi",
+      "detail": "我方腔 1 vs 参考 5 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+7AA5",
+      "char": "窥",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 32px > 同类噪声底 22.0 (我方 [2] vs 参考 [22, 9, 1, 1, 1]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+7AA5",
+      "char": "窥",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 20px (我方 2 vs 参考 22) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+7B8D",
+      "char": "箍",
+      "cat": "hanzi",
+      "detail": "我方腔 2 vs 参考 6 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+7BC6",
+      "char": "篆",
+      "cat": "hanzi",
+      "detail": "我方腔 6 vs 参考 10 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+7CEF",
+      "char": "糯",
+      "cat": "hanzi",
+      "detail": "我方腔 3 vs 参考 8 (少 5) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+7F16",
+      "char": "编",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 6 列 墨点 8 但分段 3<4; 第 7 列 墨点 5 但分段 4<5; 第 8 列 墨点 8 但分段 3<4",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+7F50",
+      "char": "罐",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 1 行 墨点 10 但分段 1<2; 第 8 行 墨点 8 但分段 3<4; 第 7 列 墨点 6 但分段 4<5",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+7FDF",
+      "char": "翟",
+      "cat": "hanzi",
+      "detail": "我方腔 5 vs 参考 11 (少 6) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+7FDF",
+      "char": "翟",
+      "cat": "hanzi",
+      "detail": "7 处笔画被搭桥连上 > 同类噪声底 3.0: 第 0 行 墨点 10 但分段 1<2; 第 3 行 墨点 6 但分段 3<6; 第 3 列 墨点 6 但分段 3<6",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+8084",
+      "char": "肄",
+      "cat": "hanzi",
+      "detail": "我方腔 2 vs 参考 7 (少 5) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+8086",
+      "char": "肆",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 25px > 同类噪声底 22.0 (我方 [2, 1, 1] vs 参考 [15, 10, 2, 1, 1]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+8086",
+      "char": "肆",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 13px (我方 2 vs 参考 15) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+80A2",
+      "char": "肢",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 17px (我方 7 vs 参考 24) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+80AF",
+      "char": "肯",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 2 列 墨点 6 但分段 3<4; 第 3 列 墨点 4 但分段 3<4; 第 4 列 墨点 4 但分段 3<4",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+80DC",
+      "char": "胜",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 16px (我方 2 vs 参考 18) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+8146",
+      "char": "腆",
+      "cat": "hanzi",
+      "detail": "我方腔 7 vs 参考 11 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+8155",
+      "char": "腕",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 1 行 墨点 9 但分段 2<3; 第 4 行 墨点 8 但分段 3<4; 第 5 行 墨点 6 但分段 4<6",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+8206",
+      "char": "舆",
+      "cat": "hanzi",
+      "detail": "我方腔 0 vs 参考 7 (少 7) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+8206",
+      "char": "舆",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 24px > 同类噪声底 22.0 (我方 [] vs 参考 [7, 5, 5, 4, 1]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+82DE",
+      "char": "苞",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 18px (我方 3 vs 参考 21) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+8335",
+      "char": "茵",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 32px > 同类噪声底 22.0 (我方 [31, 3] vs 参考 [10, 10, 4]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+83CA",
+      "char": "菊",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 26px > 同类噪声底 22.0 (我方 [2, 1, 1] vs 参考 [26, 3, 1]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+83CA",
+      "char": "菊",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 24px (我方 2 vs 参考 26) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+83CC",
+      "char": "菌",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 23px > 同类噪声底 22.0 (我方 [13, 13, 3] vs 参考 [23, 3, 1, 1]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+83F1",
+      "char": "菱",
+      "cat": "hanzi",
+      "detail": "我方腔 2 vs 参考 6 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+84B2",
+      "char": "蒲",
+      "cat": "hanzi",
+      "detail": "我方腔 2 vs 参考 6 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+84D6",
+      "char": "蓖",
+      "cat": "hanzi",
+      "detail": "我方腔 5 vs 参考 9 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+85D0",
+      "char": "藐",
+      "cat": "hanzi",
+      "detail": "我方腔 6 vs 参考 11 (少 5) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+85D0",
+      "char": "藐",
+      "cat": "hanzi",
+      "detail": "5 处笔画被搭桥连上 > 同类噪声底 3.0: 第 4 行 墨点 8 但分段 2<3; 第 9 行 墨点 5 但分段 4<5; 第 5 列 墨点 7 但分段 2<3",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+8679",
+      "char": "虹",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 27px > 同类噪声底 22.0 (我方 [27, 3, 3] vs 参考 [3, 3]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+86C0",
+      "char": "蛀",
+      "cat": "hanzi",
+      "detail": "5 处笔画被搭桥连上 > 同类噪声底 3.0: 第 2 行 墨点 10 但分段 1<2; 第 3 行 墨点 4 但分段 3<4; 第 4 行 墨点 4 但分段 3<4",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+897F",
+      "char": "西",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 13px (我方 17 vs 参考 30) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "COMPONENT_DEFICIT",
+      "cp": "U+897F",
+      "char": "西",
+      "cat": "hanzi",
+      "detail": "某个部件格里参考有腔而我方没有 (缺口 2 > 同类噪声底 1.0), 全字腔数持平 (4) —— 局部塌陷",
+      "severity": "error"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+8D1E",
+      "char": "贞",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 29px > 同类噪声底 22.0 (我方 [] vs 参考 [29]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+8D3C",
+      "char": "贼",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 23px > 同类噪声底 22.0 (我方 [7] vs 参考 [17, 5, 5, 3]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+8D4E",
+      "char": "赎",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 15px (我方 2 vs 参考 17) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+8D50",
+      "char": "赐",
+      "cat": "hanzi",
+      "detail": "我方腔 2 vs 参考 8 (少 6) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+8E22",
+      "char": "踢",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 8 行 墨点 6 但分段 4<6; 第 9 行 墨点 6 但分段 3<5; 第 6 列 墨点 7 但分段 4<5",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+8FD4",
+      "char": "返",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 4 行 墨点 5 但分段 3<4; 第 5 行 墨点 4 但分段 3<4; 第 6 行 墨点 4 但分段 3<4",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+9010",
+      "char": "逐",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 2 行 墨点 5 但分段 2<3; 第 8 行 墨点 4 但分段 1<3; 第 3 列 墨点 5 但分段 4<5",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+9080",
+      "char": "邀",
+      "cat": "hanzi",
+      "detail": "我方腔 3 vs 参考 7 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+90B5",
+      "char": "邵",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 13px (我方 6 vs 参考 19) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "COMPONENT_DEFICIT",
+      "cp": "U+9152",
+      "char": "酒",
+      "cat": "hanzi",
+      "detail": "某个部件格里参考有腔而我方没有 (缺口 2 > 同类噪声底 1.0), 全字腔数持平 (5) —— 局部塌陷",
+      "severity": "error"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+915A",
+      "char": "酚",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 5 行 墨点 7 但分段 3<4; 第 9 行 墨点 4 但分段 3<4; 第 2 列 墨点 8 但分段 2<3",
+      "severity": "warn"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+94C1",
+      "char": "铁",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 23px > 同类噪声底 22.0 (我方 [23] vs 参考 []) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+9521",
+      "char": "锡",
+      "cat": "hanzi",
+      "detail": "我方腔 2 vs 参考 6 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+9601",
+      "char": "阁",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 24px > 同类噪声底 22.0 (我方 [18, 6, 4, 3] vs 参考 [4, 3]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+961C",
+      "char": "阜",
+      "cat": "hanzi",
+      "detail": "5 处笔画被搭桥连上 > 同类噪声底 3.0: 第 2 列 墨点 5 但分段 4<5; 第 3 列 墨点 5 但分段 4<5; 第 4 列 墨点 6 但分段 4<5",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+96D5",
+      "char": "雕",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 5 行 墨点 7 但分段 3<4; 第 6 行 墨点 7 但分段 3<4; 第 8 行 墨点 7 但分段 3<4",
+      "severity": "warn"
+    },
+    {
+      "id": "COMPONENT_DEFICIT",
+      "cp": "U+96F9",
+      "char": "雹",
+      "cat": "hanzi",
+      "detail": "某个部件格里参考有腔而我方没有 (缺口 2 > 同类噪声底 1.0), 全字腔数持平 (3) —— 局部塌陷",
+      "severity": "error"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+9713",
+      "char": "霓",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 14px (我方 13 vs 参考 27) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+9732",
+      "char": "露",
+      "cat": "hanzi",
+      "detail": "我方腔 3 vs 参考 11 (少 8) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+9769",
+      "char": "革",
+      "cat": "hanzi",
+      "detail": "4 处笔画被搭桥连上 > 同类噪声底 3.0: 第 2 列 墨点 7 但分段 3<4; 第 3 列 墨点 5 但分段 4<5; 第 4 列 墨点 5 但分段 4<5",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+97A0",
+      "char": "鞠",
+      "cat": "hanzi",
+      "detail": "我方腔 3 vs 参考 7 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+97A0",
+      "char": "鞠",
+      "cat": "hanzi",
+      "detail": "最大腔面积 差 17px (我方 1 vs 参考 18) > 同类噪声底 12.0",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+989C",
+      "char": "颜",
+      "cat": "hanzi",
+      "detail": "我方腔 1 vs 参考 9 (少 8) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+989C",
+      "char": "颜",
+      "cat": "hanzi",
+      "detail": "腔面积 L1 = 28px > 同类噪声底 22.0 (我方 [1] vs 参考 [13, 8, 2, 1, 1]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+9AA4",
+      "char": "骤",
+      "cat": "hanzi",
+      "detail": "我方腔 6 vs 参考 10 (少 4) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "HOLE_DEFICIT",
+      "cp": "U+9B03",
+      "char": "鬃",
+      "cat": "hanzi",
+      "detail": "我方腔 2 vs 参考 7 (少 5) > 同类噪声底 3.0 —— 有腔被填死",
+      "severity": "error"
+    },
+    {
+      "id": "COMPONENT_DEFICIT",
+      "cp": "U+9B41",
+      "char": "魁",
+      "cat": "hanzi",
+      "detail": "某个部件格里参考有腔而我方没有 (缺口 2 > 同类噪声底 1.0), 全字腔数持平 (6) —— 局部塌陷",
+      "severity": "error"
+    },
+    {
+      "id": "CAVITY_AREA_L1",
+      "cp": "U+FF20",
+      "char": "＠",
+      "cat": "punct",
+      "detail": "腔面积 L1 = 22px > 同类噪声底 21.4 (我方 [10, 9, 3, 3, 3] vs 参考 [6]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    }
+  ],
+  "per_cp": {
+    "U+0030": {
+      "r2c_max_gap": 7.0
+    },
+    "U+0040": {
+      "r2b_area_l1": 11.0
+    },
+    "U+4E92": {
+      "r2c_max_gap": 15.0
+    },
+    "U+4FCA": {
+      "r2e_gap": 4
+    },
+    "U+4FEF": {
+      "r2e_gap": 4
+    },
+    "U+50BB": {
+      "r2a_deficit": 4
+    },
+    "U+5192": {
+      "r2b_area_l1": 27.0
+    },
+    "U+5195": {
+      "r2b_area_l1": 25.0
+    },
+    "U+51F0": {
+      "r2c_max_gap": 13.0
+    },
+    "U+51F3": {
+      "r2e_gap": 5
+    },
+    "U+52AB": {
+      "r2b_area_l1": 24.0
+    },
+    "U+52C9": {
+      "r2b_area_l1": 28.0
+    },
+    "U+533F": {
+      "r2b_area_l1": 23.0
+    },
+    "U+53E3": {
+      "r2c_max_gap": 20.0
+    },
+    "U+53EC": {
+      "r2c_max_gap": 13.0
+    },
+    "U+5409": {
+      "r2c_max_gap": 15.0
+    },
+    "U+5446": {
+      "r2c_max_gap": 15.0
+    },
+    "U+5496": {
+      "r2e_gap": 5
+    },
+    "U+56DB": {
+      "r2b_area_l1": 23.0
+    },
+    "U+56E4": {
+      "r2b_area_l1": 46.0,
+      "r2c_max_gap": 33.0
+    },
+    "U+56ED": {
+      "r2b_area_l1": 29.0
+    },
+    "U+56FE": {
+      "r2b_area_l1": 28.0
+    },
+    "U+5703": {
+      "r2b_area_l1": 26.0
+    },
+    "U+5723": {
+      "r2c_max_gap": 13.0
+    },
+    "U+591A": {
+      "r2e_gap": 5
+    },
+    "U+5993": {
+      "r2c_max_gap": 19.0
+    },
+    "U+5B9D": {
+      "r2c_max_gap": 15.0
+    },
+    "U+5C4E": {
+      "r2e_gap": 4
+    },
+    "U+5C79": {
+      "r2e_gap": 5
+    },
+    "U+5CAD": {
+      "r2e_gap": 4
+    },
+    "U+5E15": {
+      "r2e_gap": 7
+    },
+    "U+5E18": {
+      "r2c_max_gap": 17.0
+    },
+    "U+5ED6": {
+      "r2a_deficit": 4
+    },
+    "U+5F31": {
+      "r2e_gap": 4
+    },
+    "U+5F5D": {
+      "r2c_max_gap": 13.0
+    },
+    "U+60AC": {
+      "r2b_area_l1": 23.0
+    },
+    "U+6155": {
+      "r2a_deficit": 4
+    },
+    "U+622E": {
+      "r2a_deficit": 4
+    },
+    "U+6233": {
+      "r2a_deficit": 5,
+      "r2b_area_l1": 23.0
+    },
+    "U+6247": {
+      "r2a_deficit": 4
+    },
+    "U+632A": {
+      "r2e_gap": 5
+    },
+    "U+6390": {
+      "r2b_area_l1": 35.0,
+      "r2c_max_gap": 32.0
+    },
+    "U+6500": {
+      "r2a_deficit": 8
+    },
+    "U+6548": {
+      "r2e_gap": 4
+    },
+    "U+65FA": {
+      "r2b_area_l1": 32.0,
+      "r2c_max_gap": 22.0
+    },
+    "U+664C": {
+      "r2e_gap": 4
+    },
+    "U+6652": {
+      "r2d_cell": 2
+    },
+    "U+66F0": {
+      "r2b_area_l1": 31.0,
+      "r2c_max_gap": 31.0
+    },
+    "U+6816": {
+      "r2d_cell": 2
+    },
+    "U+6A0A": {
+      "r2a_deficit": 6
+    },
+    "U+6BB7": {
+      "r2e_gap": 4
+    },
+    "U+6C2E": {
+      "r2e_gap": 6
+    },
+    "U+6D12": {
+      "r2d_cell": 2
+    },
+    "U+6DD6": {
+      "r2e_gap": 4
+    },
+    "U+6EA2": {
+      "r2c_max_gap": 13.0
+    },
+    "U+6EAF": {
+      "r2e_gap": 4
+    },
+    "U+7099": {
+      "r2e_gap": 4
+    },
+    "U+7126": {
+      "r2e_gap": 4
+    },
+    "U+717D": {
+      "r2a_deficit": 4
+    },
+    "U+71C3": {
+      "r2e_gap": 5
+    },
+    "U+722C": {
+      "r2e_gap": 6
+    },
+    "U+736D": {
+      "r2a_deficit": 4
+    },
+    "U+7434": {
+      "r2e_gap": 4
+    },
+    "U+74DC": {
+      "r2c_max_gap": 18.0
+    },
+    "U+74E4": {
+      "r2e_gap": 5
+    },
+    "U+758F": {
+      "r2e_gap": 4
+    },
+    "U+75B5": {
+      "r2b_area_l1": 23.0
+    },
+    "U+7629": {
+      "r2a_deficit": 4
+    },
+    "U+786C": {
+      "r2c_max_gap": 17.0
+    },
+    "U+7A84": {
+      "r2e_gap": 4
+    },
+    "U+7AA5": {
+      "r2a_deficit": 4,
+      "r2b_area_l1": 32.0,
+      "r2c_max_gap": 20.0
+    },
+    "U+7B8D": {
+      "r2a_deficit": 4
+    },
+    "U+7BC6": {
+      "r2a_deficit": 4
+    },
+    "U+7CEF": {
+      "r2a_deficit": 5
+    },
+    "U+7F16": {
+      "r2e_gap": 4
+    },
+    "U+7F50": {
+      "r2e_gap": 4
+    },
+    "U+7FDF": {
+      "r2a_deficit": 6,
+      "r2e_gap": 7
+    },
+    "U+8084": {
+      "r2a_deficit": 5
+    },
+    "U+8086": {
+      "r2b_area_l1": 25.0,
+      "r2c_max_gap": 13.0
+    },
+    "U+80A2": {
+      "r2c_max_gap": 17.0
+    },
+    "U+80AF": {
+      "r2e_gap": 4
+    },
+    "U+80DC": {
+      "r2c_max_gap": 16.0
+    },
+    "U+8146": {
+      "r2a_deficit": 4
+    },
+    "U+8155": {
+      "r2e_gap": 4
+    },
+    "U+8206": {
+      "r2a_deficit": 7,
+      "r2b_area_l1": 24.0
+    },
+    "U+82DE": {
+      "r2c_max_gap": 18.0
+    },
+    "U+8335": {
+      "r2b_area_l1": 32.0
+    },
+    "U+83CA": {
+      "r2b_area_l1": 26.0,
+      "r2c_max_gap": 24.0
+    },
+    "U+83CC": {
+      "r2b_area_l1": 23.0
+    },
+    "U+83F1": {
+      "r2a_deficit": 4
+    },
+    "U+84B2": {
+      "r2a_deficit": 4
+    },
+    "U+84D6": {
+      "r2a_deficit": 4
+    },
+    "U+85D0": {
+      "r2a_deficit": 5,
+      "r2e_gap": 5
+    },
+    "U+8679": {
+      "r2b_area_l1": 27.0
+    },
+    "U+86C0": {
+      "r2e_gap": 5
+    },
+    "U+897F": {
+      "r2c_max_gap": 13.0,
+      "r2d_cell": 2
+    },
+    "U+8D1E": {
+      "r2b_area_l1": 29.0
+    },
+    "U+8D3C": {
+      "r2b_area_l1": 23.0
+    },
+    "U+8D4E": {
+      "r2c_max_gap": 15.0
+    },
+    "U+8D50": {
+      "r2a_deficit": 6
+    },
+    "U+8E22": {
+      "r2e_gap": 4
+    },
+    "U+8FD4": {
+      "r2e_gap": 4
+    },
+    "U+9010": {
+      "r2e_gap": 4
+    },
+    "U+9080": {
+      "r2a_deficit": 4
+    },
+    "U+90B5": {
+      "r2c_max_gap": 13.0
+    },
+    "U+9152": {
+      "r2d_cell": 2
+    },
+    "U+915A": {
+      "r2e_gap": 4
+    },
+    "U+94C1": {
+      "r2b_area_l1": 23.0
+    },
+    "U+9521": {
+      "r2a_deficit": 4
+    },
+    "U+9601": {
+      "r2b_area_l1": 24.0
+    },
+    "U+961C": {
+      "r2e_gap": 5
+    },
+    "U+96D5": {
+      "r2e_gap": 4
+    },
+    "U+96F9": {
+      "r2d_cell": 2
+    },
+    "U+9713": {
+      "r2c_max_gap": 14.0
+    },
+    "U+9732": {
+      "r2a_deficit": 8
+    },
+    "U+9769": {
+      "r2e_gap": 4
+    },
+    "U+97A0": {
+      "r2a_deficit": 4,
+      "r2c_max_gap": 17.0
+    },
+    "U+989C": {
+      "r2a_deficit": 8,
+      "r2b_area_l1": 28.0
+    },
+    "U+9AA4": {
+      "r2a_deficit": 4
+    },
+    "U+9B03": {
+      "r2a_deficit": 5
+    },
+    "U+9B41": {
+      "r2d_cell": 2
+    },
+    "U+FF20": {
+      "r2b_area_l1": 22.0
+    }
+  },
+  "thresholds": {
+    "HOLE_DEFICIT": "腔数缺口: 阈值 3.000 (对照集中位 0.000, 样本 3956) | 分类别: ascii:0.0, hanzi:3.0, kana:0.0",
+    "CAVITY_AREA_L1": "腔面积 L1: 阈值 21.450 (对照集中位 2.000, 样本 3956) | 分类别: ascii:8.2, hanzi:22.0, kana:0.0",
+    "MAX_CAVITY_GAP": "最大腔面积差: 阈值 12.000 (对照集中位 0.000, 样本 3956) | 分类别: ascii:6.1, hanzi:12.0, kana:0.0",
+    "BRIDGED_GAP": "桥接处数: 阈值 3.000 (对照集中位 0.000, 样本 3956) | 分类别: ascii:1.0, hanzi:3.0, kana:1.0",
+    "COMPONENT_DEFICIT": "单部件腔数缺口: 阈值 1.000 (对照集中位 0.000, 样本 2689) | 分类别: ascii:1.0, hanzi:1.0, kana:0.0"
+  },
+  "measured": 4127,
+  "control_top": [
+    {
+      "cp": 25856,
+      "deficit": 8,
+      "area_l1": 16.0,
+      "max_gap": 3.0,
+      "gaps": 0
+    },
+    {
+      "cp": 38706,
+      "deficit": 8,
+      "area_l1": 14.0,
+      "max_gap": 1.0,
+      "gaps": 0
+    },
+    {
+      "cp": 32735,
+      "deficit": 6,
+      "area_l1": 10.0,
+      "max_gap": -2.0,
+      "gaps": 7
+    },
+    {
+      "cp": 36176,
+      "deficit": 6,
+      "area_l1": 6.0,
+      "max_gap": 0.0,
+      "gaps": 1
+    },
+    {
+      "cp": 25139,
+      "deficit": 5,
+      "area_l1": 23.0,
+      "max_gap": 12.0,
+      "gaps": 1
+    },
+    {
+      "cp": 34256,
+      "deficit": 5,
+      "area_l1": 22.0,
+      "max_gap": -9.0,
+      "gaps": 5
+    },
+    {
+      "cp": 32900,
+      "deficit": 5,
+      "area_l1": 9.0,
+      "max_gap": 1.0,
+      "gaps": 0
+    },
+    {
+      "cp": 39683,
+      "deficit": 5,
+      "area_l1": 6.0,
+      "max_gap": 1.0,
+      "gaps": 3
+    },
+    {
+      "cp": 31397,
+      "deficit": 4,
+      "area_l1": 32.0,
+      "max_gap": 20.0,
+      "gaps": 0
+    },
+    {
+      "cp": 38816,
+      "deficit": 4,
+      "area_l1": 22.0,
+      "max_gap": 17.0,
+      "gaps": 0
+    },
+    {
+      "cp": 31629,
+      "deficit": 4,
+      "area_l1": 17.0,
+      "max_gap": 10.0,
+      "gaps": 0
+    },
+    {
+      "cp": 29549,
+      "deficit": 4,
+      "area_l1": 15.0,
+      "max_gap": 10.0,
+      "gaps": 1
+    }
+  ]
+}

@@ -18,6 +18,10 @@ third_party/
 # (约 4.3 MB 二进制产物; 复核结论本身在 reports/glyphcmp_review/ 里, 已入库)
 reports/glyphcmp_png/
 
+# 对抗式审核的证据图 (同理由 tools/fontgen/adversarial_review.py --sheet 重新生成;
+# 裁决结论在 reports/adversarial/adjudication.json 里, 已入库)
+reports/adversarial/png/
+
 # 回归测试的临时工作目录
 .tmp/
 

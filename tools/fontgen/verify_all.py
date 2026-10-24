@@ -69,6 +69,11 @@ STEPS: list[tuple[str, list[str], str]] = [
         ],
         "名单",
     ),
+    (
+        "对抗式审核 (三轮: 身份反查 / 部件级结构 / 链条; 阈值按对照集标定)",
+        [str(TOOLS / "adversarial_review.py")],
+        "对抗审核",
+    ),
 ]
 
 
@@ -144,6 +149,15 @@ def main() -> int:
             "身份错误": d["summary"]["identity_errors"],
             "确认劣化": d["summary"]["degraded_confirmed"],
             "存疑": d["summary"]["unsure"],
+        }
+    ad_ = ROOT / "reports" / "adversarial" / "summary.json"
+    if ad_.exists():
+        d = json.loads(ad_.read_text(encoding="utf-8"))
+        numbers["对抗审核"] = {
+            "三轮": {k: v["findings"] for k, v in d["rounds"].items()},
+            "待裁决": d["verdict"].get("flagged_open", 0),
+            "已裁决非缺陷": d["verdict"].get("adjudicated_not_defect", 0),
+            "确认缺陷": d["verdict"].get("defect", 0),
         }
 
     print("=" * 60)

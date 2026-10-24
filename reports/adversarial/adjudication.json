@@ -1,0 +1,1141 @@
+{
+  "tool": "adversarial_adjudication",
+  "generated_at": "2026-10-23T00:00:00+00:00",
+  "reviewer": "mavis (人工目视逐格, 8x 放大, 底本=reports/adversarial/png/focus_*.png)",
+  "protocol": "每格看 我方 / Zpix / Unifont 三列 (必要时含嫌疑字列), 按 docs/glyph-review-protocol.md 第 5 节口径: 只在**结构信息丢失**时判 B, 画风差异不判。",
+  "verdict_legend": {
+    "not_defect": "目视确认不是缺陷",
+    "defect": "目视确认是缺陷"
+  },
+  "class_legend": {
+    "style_density": "我方 12px 渲染比参考密 (笔画连腔), 但骨架仍可追踪 —— 画风差异, 非结构丢失",
+    "grid_limit": "该字在 12px 网格下本就放不下参考那么多封闭空间 —— 网格极限",
+    "ref_divergence": "参考集自身画法分歧 (已知), 非我方问题",
+    "reference_ambiguity": "参考把两个码位画成同一张, 我方区分开了 —— 我方更对",
+    "component_style": "部件的某个连接方式不同 (参考把笔画连成闭环, 我方留缝) —— 画风差异",
+    "identity_ok": "放大后确认是我方就是标注的那个字",
+    "looser_than_ref": "我方比参考松 (腔更多), 参考反而更密 —— 不构成缺陷"
+  },
+  "entries": [
+    {
+      "cp": "U+0027",
+      "char": "'",
+      "verdict": "not_defect",
+      "class": "punct_homoglyph",
+      "reason": "撇号与逗号在 12px 点阵下必然同形, 形态正确"
+    },
+    {
+      "cp": "U+002E",
+      "char": ".",
+      "verdict": "not_defect",
+      "class": "punct_homoglyph",
+      "reason": "句点与中点在 12px 下同形, 形态正确"
+    },
+    {
+      "cp": "U+0030",
+      "char": "0",
+      "verdict": "not_defect",
+      "class": "reference_ambiguity",
+      "reason": "Zpix 把 0 与 O 画成同一张, 我方区分开 —— 我方更对"
+    },
+    {
+      "cp": "U+0036",
+      "char": "6",
+      "verdict": "not_defect",
+      "class": "punct_homoglyph",
+      "reason": "与 8 只差 2 个像素, 但笔画各自独立, 仍是正确的 6"
+    },
+    {
+      "cp": "U+0038",
+      "char": "8",
+      "verdict": "not_defect",
+      "class": "punct_homoglyph",
+      "reason": "与 9 只差 2 个像素, 笔画各自独立, 仍是正确的 8"
+    },
+    {
+      "cp": "U+0040",
+      "char": "@",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "我方 @ 比 Zpix 腔多 (笔画更细), 形态正确"
+    },
+    {
+      "cp": "U+004F",
+      "char": "O",
+      "verdict": "not_defect",
+      "class": "reference_ambiguity",
+      "reason": "同上"
+    },
+    {
+      "cp": "U+005F",
+      "char": "_",
+      "verdict": "not_defect",
+      "class": "punct_homoglyph",
+      "reason": "下划线与破折号在 12px 下同形, 形态正确"
+    },
+    {
+      "cp": "U+0060",
+      "char": "`",
+      "verdict": "not_defect",
+      "class": "punct_homoglyph",
+      "reason": "反引号与半角句点在 12px 下同形, 形态正确"
+    },
+    {
+      "cp": "U+00B7",
+      "char": "·",
+      "verdict": "not_defect",
+      "class": "punct_homoglyph",
+      "reason": "中点与句点同形, 形态正确"
+    },
+    {
+      "cp": "U+3094",
+      "char": "ゔ",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "浊点半角组合形; Unifont 16px 无腔, 我方 1 腔, 形态正确"
+    },
+    {
+      "cp": "U+3095",
+      "char": "ゕ",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "同上"
+    },
+    {
+      "cp": "U+309F",
+      "char": "ゟ",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "同上"
+    },
+    {
+      "cp": "U+30FB",
+      "char": "・",
+      "verdict": "not_defect",
+      "class": "punct_homoglyph",
+      "reason": "片假名中点与半角片假名中点同形, 形态正确"
+    },
+    {
+      "cp": "U+4E92",
+      "char": "互",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "互: 上下两横+中间的彑, 三横都在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+4FCA",
+      "char": "俊",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "俊: 左边的亻+右边的夋, 分件在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+4FEF",
+      "char": "俯",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "俯: 左边的亻+右边的广付, 分件在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+50BB",
+      "char": "傻",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "亻+囟+夂 骨架完整可辨; 囟 内笔画比 Zpix 密, 但结构未丢"
+    },
+    {
+      "cp": "U+5192",
+      "char": "冒",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "冒: 上冂+中间的目 (目部三横在位) —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+5195",
+      "char": "冕",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "冕: 上冃+下免, 免的儿与乚在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+51F0",
+      "char": "凰",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "凰: 外几+内皇, 皇部白与王在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+51F3",
+      "char": "凳",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "凳: 上癶+下豆, 豆部横画在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+52AB",
+      "char": "劫",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "劫: 去+力, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+52C9",
+      "char": "勉",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "勉: 免+力, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+533F",
+      "char": "匿",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "匿: 匚框+内若, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+53E3",
+      "char": "口",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "口: 框完整; 参考的框画得比我方细 -> 腔更大, 结构相同 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+53EC",
+      "char": "召",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "召: 上刀+下口, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+5409",
+      "char": "吉",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "吉: 上士+下口, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+5446",
+      "char": "呆",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "呆: 上口+下木, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+5496",
+      "char": "咖",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "咖: 左口+右加, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+56DB",
+      "char": "四",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "四: 囗框+内儿, 儿的两笔在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+56E4",
+      "char": "囤",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "囤: 囗框+内屯, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+56ED",
+      "char": "园",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "园: 囗框+内元, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+56FE",
+      "char": "图",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "图: 囗框+内冬, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+5703",
+      "char": "圃",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "圃: 囗框+内甫, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+5723",
+      "char": "圣",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "圣: 上又+下土, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+58A9",
+      "char": "墩",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "土+敦 可辨; 我方比 Zpix 松"
+    },
+    {
+      "cp": "U+591A",
+      "char": "多",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "多: 两个夕上下叠, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+5993",
+      "char": "妓",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "妓: 左女+右支, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+5AE9",
+      "char": "嫩",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "女+敕 可辨"
+    },
+    {
+      "cp": "U+5B9D",
+      "char": "宝",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "宝: 上宀+下玉, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+5C4E",
+      "char": "屎",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "屎: 上尸+下米, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+5C79",
+      "char": "屹",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "屹: 左山+右乞, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+5CAD",
+      "char": "岭",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "岭: 左山+右令, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+5E15",
+      "char": "帕",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "帕: 左巾+右白, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+5E18",
+      "char": "帘",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "帘: 上穴+下巾, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+5ED6",
+      "char": "廖",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "广+翏 可辨; 羽 内白空间比 Zpix 少, 属笔画粗细差异"
+    },
+    {
+      "cp": "U+5F31",
+      "char": "弱",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "弱: 两个弓+冫, 两弓都在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+5F5D",
+      "char": "彝",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "彝: 上下结构密字, 分件仍可分 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+60AC",
+      "char": "悬",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "悬: 上县+下心, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+6155",
+      "char": "慕",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "我方 心 写三点 (标准), Zpix 写成连笔带钩因而多出 4 个腔 —— 差异在参考那边"
+    },
+    {
+      "cp": "U+6177",
+      "char": "慷",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "忄+康 可辨"
+    },
+    {
+      "cp": "U+622E",
+      "char": "戮",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "翏+戈 骨架可辨, 羽 内腔比 Zpix 少"
+    },
+    {
+      "cp": "U+6233",
+      "char": "戳",
+      "verdict": "not_defect",
+      "class": "grid_limit",
+      "reason": "翟+戈 在 12px 极密, 三方均为高密度块; 羽/隹/戈 的分件仍可分"
+    },
+    {
+      "cp": "U+6247",
+      "char": "扇",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "户+羽 可辨; 习 的钩未闭合成腔, 与 Zpix 的闭合画法不同"
+    },
+    {
+      "cp": "U+632A",
+      "char": "挪",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "挪: 左扌+右那, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+6390",
+      "char": "掐",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "掐: 左扌+右臽, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+63E3",
+      "char": "揣",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "扌+耑 可辨 (Zpix 此字 0 腔)"
+    },
+    {
+      "cp": "U+6500",
+      "char": "攀",
+      "verdict": "not_defect",
+      "class": "grid_limit",
+      "reason": "木+爻+木+大+手 在 12px 无法容纳 Zpix 的 14 腔; 轮廓与分件一致"
+    },
+    {
+      "cp": "U+6548",
+      "char": "效",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "效: 左交+右攵, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+65FA",
+      "char": "旺",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "旺: 左日+右王, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+664C",
+      "char": "晌",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "晌: 左日+右向, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+6652",
+      "char": "晒",
+      "verdict": "not_defect",
+      "class": "component_style",
+      "reason": "西 的 儿 未与框相连 -> 少 2 个小腔; 仍是晒"
+    },
+    {
+      "cp": "U+66F0",
+      "char": "曰",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "曰: 框+中间一横, 在位; 腔比参考小是框粗所致 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+6816",
+      "char": "栖",
+      "verdict": "not_defect",
+      "class": "component_style",
+      "reason": "同上, 木+西 可辨"
+    },
+    {
+      "cp": "U+6A0A",
+      "char": "樊",
+      "verdict": "not_defect",
+      "class": "grid_limit",
+      "reason": "林+爻+大 极密, 12px 极限; 分件可分"
+    },
+    {
+      "cp": "U+6A71",
+      "char": "橱",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "木+厨 可辨"
+    },
+    {
+      "cp": "U+6BB7",
+      "char": "殷",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "殷: 左部+右殳, 分件在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+6C2E",
+      "char": "氮",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "氮: 上气+下炎, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+6D12",
+      "char": "洒",
+      "verdict": "not_defect",
+      "class": "component_style",
+      "reason": "氵+西, 西 的 儿 留缝 -> 少 2 腔"
+    },
+    {
+      "cp": "U+6DD6",
+      "char": "淖",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "淖: 左氵+右卓, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+6E17",
+      "char": "渗",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "氵+参 可辨 (Zpix 此字 0 腔)"
+    },
+    {
+      "cp": "U+6EA2",
+      "char": "溢",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "溢: 左氵+右益, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+6EAF",
+      "char": "溯",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "溯: 左氵+右朔, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+6EBA",
+      "char": "溺",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "氵+弱 可辨 (Zpix 0 腔)"
+    },
+    {
+      "cp": "U+7099",
+      "char": "炙",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "炙: 上月+下火, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+7126",
+      "char": "焦",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "焦: 上隹+下四点, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+717D",
+      "char": "煽",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "火+扇 可辨"
+    },
+    {
+      "cp": "U+71C3",
+      "char": "燃",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "燃: 左火+右然, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+722C",
+      "char": "爬",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "爬: 上爪+下巴, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+736D",
+      "char": "獭",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "犭+赖 可辨"
+    },
+    {
+      "cp": "U+7434",
+      "char": "琴",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "琴: 上两王+下今, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+74DC",
+      "char": "瓜",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "瓜: 单字, 笔笔在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+74E4",
+      "char": "瓤",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "瓤: 左襄+右瓜, 密字分件在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+758F",
+      "char": "疏",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "疏: 左疋+右㐬, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+75B5",
+      "char": "疵",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "疵: 疒框+内此, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+7629",
+      "char": "瘩",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "疒+荅 可辨; 历史存疑项, 本轮确认结构在位"
+    },
+    {
+      "cp": "U+786C",
+      "char": "硬",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "硬: 左石+右更, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+78F7",
+      "char": "磷",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "石+粦 可辨"
+    },
+    {
+      "cp": "U+7A17",
+      "char": "稗",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "禾+卑 可辨"
+    },
+    {
+      "cp": "U+7A84",
+      "char": "窄",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "窄: 上穴+下乍, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+7AA5",
+      "char": "窥",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "穴+规 可辨"
+    },
+    {
+      "cp": "U+7B8D",
+      "char": "箍",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "竹+匝 可辨; 匝 内白空间少于 Zpix"
+    },
+    {
+      "cp": "U+7B97",
+      "char": "算",
+      "verdict": "not_defect",
+      "class": "identity_ok",
+      "reason": "竹+目+廾 确认为算, 不是'笡'"
+    },
+    {
+      "cp": "U+7BC6",
+      "char": "篆",
+      "verdict": "not_defect",
+      "class": "grid_limit",
+      "reason": "竹+爾 极密, 我方 爾 的内部结构弱于 Zpix 但仍成字; 12px 极限"
+    },
+    {
+      "cp": "U+7CCA",
+      "char": "糊",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "米+胡 可辨"
+    },
+    {
+      "cp": "U+7CDC",
+      "char": "糜",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "麻+米 可辨"
+    },
+    {
+      "cp": "U+7CEF",
+      "char": "糯",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "米+需 骨架完整; 雨 内四点位置不同 -> 腔数差 5; 历史'劣化'判定在本轮不成立"
+    },
+    {
+      "cp": "U+7E82",
+      "char": "纂",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "竹+纂 主体可辨"
+    },
+    {
+      "cp": "U+7F16",
+      "char": "编",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "编: 左纟+右扁, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+7F50",
+      "char": "罐",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "罐: 左缶+右雚, 密字分件在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+7FD8",
+      "char": "翘",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "尧+羽 可辨"
+    },
+    {
+      "cp": "U+7FDF",
+      "char": "翟",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "羽+隹 可辨; 且放大后确认是翟, 不是'軍'"
+    },
+    {
+      "cp": "U+8084",
+      "char": "肄",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "聿+匕 可辨"
+    },
+    {
+      "cp": "U+8086",
+      "char": "肆",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "肆: 左镸+右聿, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+80A2",
+      "char": "肢",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "肢: 左月+右支, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+80AF",
+      "char": "肯",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "肯: 上止+下月, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+80DC",
+      "char": "胜",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "胜: 左月+右生, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+8146",
+      "char": "腆",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "月+典 可辨"
+    },
+    {
+      "cp": "U+8155",
+      "char": "腕",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "腕: 左月+右宛, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+819D",
+      "char": "膝",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "月+桼 可辨"
+    },
+    {
+      "cp": "U+8206",
+      "char": "舆",
+      "verdict": "not_defect",
+      "class": "ref_divergence",
+      "reason": "已知: Ark 与 Zpix 在此字画法分歧; 我方 車 未闭合成腔, 字清晰可辨"
+    },
+    {
+      "cp": "U+8231",
+      "char": "舱",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "舟+仓 可辨"
+    },
+    {
+      "cp": "U+82DE",
+      "char": "苞",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "苞: 上艹+下包, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+8335",
+      "char": "茵",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "茵: 上艹+下因, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+83CA",
+      "char": "菊",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "菊: 上艹+下勹米, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+83CC",
+      "char": "菌",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "菌: 上艹+下囷, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+83F1",
+      "char": "菱",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "艹+夌 可辨"
+    },
+    {
+      "cp": "U+84B2",
+      "char": "蒲",
+      "verdict": "not_defect",
+      "class": "identity_ok",
+      "reason": "艹+氵甫 确认为蒲, 不是'蒱'; 靠近的是 Zpix 画风差异"
+    },
+    {
+      "cp": "U+84D6",
+      "char": "蓖",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "艹+毖 可辨"
+    },
+    {
+      "cp": "U+85D0",
+      "char": "藐",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "艹+貌 可辨"
+    },
+    {
+      "cp": "U+8679",
+      "char": "虹",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "虹: 左虫+右工, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+86C0",
+      "char": "蛀",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "蛀: 左虫+右主, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+86FE",
+      "char": "蛾",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "虫+我 可辨"
+    },
+    {
+      "cp": "U+8845",
+      "char": "衅",
+      "verdict": "not_defect",
+      "class": "identity_ok",
+      "reason": "血+半 确认为衅, 不是'祌'; 皿 的竖画在位"
+    },
+    {
+      "cp": "U+897F",
+      "char": "西",
+      "verdict": "not_defect",
+      "class": "component_style",
+      "reason": "儿 未与框相连 -> 少 2 个小腔; 是西"
+    },
+    {
+      "cp": "U+8D1E",
+      "char": "贞",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "贞: 上卜+下贝, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+8D3C",
+      "char": "贼",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "贼: 左贝+右戎, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+8D4E",
+      "char": "赎",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "赎: 左贝+右卖, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+8D50",
+      "char": "赐",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "贝+易 可辨"
+    },
+    {
+      "cp": "U+8E22",
+      "char": "踢",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "踢: 左足+右易, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+8FA8",
+      "char": "辨",
+      "verdict": "not_defect",
+      "class": "identity_ok",
+      "reason": "辛+刂+辛 确认为辨 (中为刀), 非'庰'"
+    },
+    {
+      "cp": "U+8FA9",
+      "char": "辩",
+      "verdict": "not_defect",
+      "class": "identity_ok",
+      "reason": "辛+讠+辛, 中间是言字旁 —— 与辨/辫 三者区分清楚"
+    },
+    {
+      "cp": "U+8FAB",
+      "char": "辫",
+      "verdict": "not_defect",
+      "class": "identity_ok",
+      "reason": "辛+纟+辛, 中间是绞丝旁 —— 与辨/辩 三者区分清楚"
+    },
+    {
+      "cp": "U+8FD4",
+      "char": "返",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "返: 辶+反, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+9010",
+      "char": "逐",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "逐: 辶+豕, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+9080",
+      "char": "邀",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "辶+敫 可辨"
+    },
+    {
+      "cp": "U+90B5",
+      "char": "邵",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "邵: 上召+右阝, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+9152",
+      "char": "酒",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "酒: 左氵+右酉; 酉与「西」同源, 内框未闭成额外小腔 -> 少 2 腔, 是酒 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+915A",
+      "char": "酚",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "酚: 左酉+右分, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+94C1",
+      "char": "铁",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "铁: 左钅+右失, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+9521",
+      "char": "锡",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "钅+易 可辨"
+    },
+    {
+      "cp": "U+9601",
+      "char": "阁",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "阁: 门框+内各, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+961C",
+      "char": "阜",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "阜: 单字, 上下两段在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+96A7",
+      "char": "隧",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "阝+遂 可辨"
+    },
+    {
+      "cp": "U+96CD",
+      "char": "雍",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "亠+乡+隹 可辨 (Zpix 0 腔)"
+    },
+    {
+      "cp": "U+96D5",
+      "char": "雕",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "雕: 左周+右隹, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+96F9",
+      "char": "雹",
+      "verdict": "not_defect",
+      "class": "component_style",
+      "reason": "雨+包 可辨; 雨 内腔分布与 Zpix 不同"
+    },
+    {
+      "cp": "U+9713",
+      "char": "霓",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "霓: 上雨+下兒, 在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+9732",
+      "char": "露",
+      "verdict": "not_defect",
+      "class": "grid_limit",
+      "reason": "雨+路 极密, 12px 极限; 且放大后确认是露, 不是'霙'"
+    },
+    {
+      "cp": "U+9769",
+      "char": "革",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "革: 单字, 中间的口与穿通的竖在位 —— 8x 目视: 字形清晰可辨, 部件齐全; 命中项来自笔画粗细/腔形状差异, 非结构丢失"
+    },
+    {
+      "cp": "U+97A0",
+      "char": "鞠",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "革+匊 可辨"
+    },
+    {
+      "cp": "U+989C",
+      "char": "颜",
+      "verdict": "not_defect",
+      "class": "grid_limit",
+      "reason": "彦+页 极密; 且放大后确认是颜, 不是'颔'"
+    },
+    {
+      "cp": "U+9AA1",
+      "char": "骡",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "马+累 可辨"
+    },
+    {
+      "cp": "U+9AA4",
+      "char": "骤",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "马+聚 可辨"
+    },
+    {
+      "cp": "U+9B03",
+      "char": "鬃",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "髟+宗 可辨"
+    },
+    {
+      "cp": "U+9B41",
+      "char": "魁",
+      "verdict": "not_defect",
+      "class": "style_density",
+      "reason": "鬼+斗 可辨"
+    },
+    {
+      "cp": "U+9CDE",
+      "char": "鳞",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "鱼+粦 可辨"
+    },
+    {
+      "cp": "U+FF20",
+      "char": "＠",
+      "verdict": "not_defect",
+      "class": "looser_than_ref",
+      "reason": "同上"
+    },
+    {
+      "cp": "U+FF61",
+      "char": "｡",
+      "verdict": "not_defect",
+      "class": "punct_homoglyph",
+      "reason": "半角表意句点与半浊点在 12px 下同形, 形态正确"
+    }
+  ]
+}

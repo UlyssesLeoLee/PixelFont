@@ -14,6 +14,7 @@
 | 硬检查命中 | **64 条，error 2 / warn 62**（`STRUCTURE_OUTLIER` 41 / `COUNTER_LOST` 13 / `OWN_COLLIDE` 7 / `EXACT_COLLIDE` 3） |
 | 修复后全量回归 | 4140 字 / 43 批 **0 error 0 warn**；连续两次构建产物 sha256 逐字节一致 |
 | 最终字体的目视覆盖 | 4140 字里 **4075 个与被复核版本逐像素相同**，其余 **65 个**（换源所致）另有定点重核：**65/65 全过，0 身份错误 / 0 确认劣化 / 3 存疑** |
+| **第三轮对抗式审核** | 4140 字过 3 轮**互相独立**的攻击面（身份反查 / 部件级结构 / 链条）；机器命中 160 例 → 逐格目视裁决 **0 例确认缺陷**；溯源与产物 **4139/4139 逐字节一致** → 详见 [`adversarial-review.md`](adversarial-review.md) |
 | 字体来源 | SimHei（汉字兜底） + MS Gothic（PC-98 点阵） + **Fusion Pixel 12px 简体**（OFL-1.1 + Cubic 11 + Galmuri，开源免费，已裁剪入库 746 KB） |
 
 ---
@@ -639,6 +640,7 @@ python tools/fontgen/verify_all.py
 | 4 | 字形硬检查 | 参考集 Zpix + Unifont（**与生产源独立**） |
 | 5 | 产物与源同步 | **独立读 dist/** 与当前源逐字比对（不靠构建脚本自证） |
 | 6 | 路由名单自检 | 按名单自述的输入重新推导，与入库名单比对 |
+| 7 | **对抗式审核** | 三轮独立攻击面（身份反查 / 部件级结构 / 链条），阈值按对照集标定 → 详见 [`adversarial-review.md`](adversarial-review.md) |
 
 第 5 步单独存在的理由：构建脚本会自检"产物 == 源位图"，但那是**同一次运行内部**的自证。
 真正会出事的是**改了名单却忘了重建**——那时产物还是旧的，而构建脚本根本不会被执行。
@@ -726,4 +728,5 @@ python tools/fontgen/regress_all.py
 
 - 参考字体来源 / 版本 / 许可证 / sha256 + 生产源清单：[`reference-fonts.md`](reference-fonts.md)
 - 目视复核作业协议：[`glyph-review-protocol.md`](glyph-review-protocol.md)
+- **第三轮对抗式审核**（换攻击面而不是重复测量）：[`adversarial-review.md`](adversarial-review.md)
 - 回归测试方法：[`regression.md`](regression.md)

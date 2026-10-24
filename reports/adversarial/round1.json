@@ -1,0 +1,550 @@
+{
+  "tool": "adversarial_review",
+  "round": 1,
+  "name": "身份反查",
+  "attacks": "上一轮结论: 身份错误 0 例 (4140/4140 目视)。本轮从**四个方向**反查换字。",
+  "generated_at": "2026-10-24T06:41:13.268488+00:00",
+  "findings": [
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+0040",
+      "char": "@",
+      "cat": "ascii",
+      "detail": "我方腔数 3, zpix 1 —— 我方比参考多 2 腔 (> 同类噪声底 1.1)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+3094",
+      "char": "ゔ",
+      "cat": "kana",
+      "detail": "我方腔数 1, unifont-16 0 —— 我方比参考多 1 腔 (> 同类噪声底 0.5)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+3095",
+      "char": "ゕ",
+      "cat": "kana",
+      "detail": "我方腔数 1, unifont-16 0 —— 我方比参考多 1 腔 (> 同类噪声底 0.5)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+309F",
+      "char": "ゟ",
+      "cat": "kana",
+      "detail": "我方腔数 1, unifont-16 0 —— 我方比参考多 1 腔 (> 同类噪声底 0.5)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+58A9",
+      "char": "墩",
+      "cat": "hanzi",
+      "detail": "我方腔数 7, zpix 2 —— 我方比参考多 5 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+5AE9",
+      "char": "嫩",
+      "cat": "hanzi",
+      "detail": "我方腔数 10, zpix 6 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+6177",
+      "char": "慷",
+      "cat": "hanzi",
+      "detail": "我方腔数 8, zpix 4 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+63E3",
+      "char": "揣",
+      "cat": "hanzi",
+      "detail": "我方腔数 4, zpix 0 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+6A71",
+      "char": "橱",
+      "cat": "hanzi",
+      "detail": "我方腔数 7, zpix 3 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+6E17",
+      "char": "渗",
+      "cat": "hanzi",
+      "detail": "我方腔数 4, zpix 0 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+6EBA",
+      "char": "溺",
+      "cat": "hanzi",
+      "detail": "我方腔数 4, zpix 0 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+78F7",
+      "char": "磷",
+      "cat": "hanzi",
+      "detail": "我方腔数 8, zpix 3 —— 我方比参考多 5 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+7A17",
+      "char": "稗",
+      "cat": "hanzi",
+      "detail": "我方腔数 9, zpix 4 —— 我方比参考多 5 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+7CCA",
+      "char": "糊",
+      "cat": "hanzi",
+      "detail": "我方腔数 7, zpix 3 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+7CDC",
+      "char": "糜",
+      "cat": "hanzi",
+      "detail": "我方腔数 5, zpix 1 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+7E82",
+      "char": "纂",
+      "cat": "hanzi",
+      "detail": "我方腔数 10, zpix 6 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+7FD8",
+      "char": "翘",
+      "cat": "hanzi",
+      "detail": "我方腔数 6, zpix 1 —— 我方比参考多 5 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+819D",
+      "char": "膝",
+      "cat": "hanzi",
+      "detail": "我方腔数 6, zpix 2 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+8231",
+      "char": "舱",
+      "cat": "hanzi",
+      "detail": "我方腔数 5, zpix 1 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+86FE",
+      "char": "蛾",
+      "cat": "hanzi",
+      "detail": "我方腔数 8, zpix 4 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+8FA8",
+      "char": "辨",
+      "cat": "hanzi",
+      "detail": "我方腔数 4, zpix 0 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+8FA9",
+      "char": "辩",
+      "cat": "hanzi",
+      "detail": "我方腔数 4, zpix 0 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+8FAB",
+      "char": "辫",
+      "cat": "hanzi",
+      "detail": "我方腔数 5, zpix 0 —— 我方比参考多 5 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+96A7",
+      "char": "隧",
+      "cat": "hanzi",
+      "detail": "我方腔数 7, zpix 3 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+96CD",
+      "char": "雍",
+      "cat": "hanzi",
+      "detail": "我方腔数 5, zpix 0 —— 我方比参考多 5 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+9AA1",
+      "char": "骡",
+      "cat": "hanzi",
+      "detail": "我方腔数 11, zpix 7 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+9CDE",
+      "char": "鳞",
+      "cat": "hanzi",
+      "detail": "我方腔数 11, zpix 7 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "COUNTER_GAINED",
+      "cp": "U+FF20",
+      "char": "＠",
+      "cat": "punct",
+      "detail": "我方腔数 5, zpix 1 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "severity": "warn"
+    },
+    {
+      "id": "REVERSE_NN",
+      "cp": "U+6247",
+      "char": "扇",
+      "cat": "hanzi",
+      "detail": "我方离参考里别的字 U+6CC9 ('泉') 更近 (近 17px, 离同码位参考 107px, 领先 90px > 噪声底 72px)",
+      "best_cp": 27849,
+      "severity": "error"
+    },
+    {
+      "id": "REVERSE_NN",
+      "cp": "U+7FDF",
+      "char": "翟",
+      "cat": "hanzi",
+      "detail": "我方离参考里别的字 U+8ECD ('軍') 更近 (近 35px, 离同码位参考 120px, 领先 85px > 噪声底 72px)",
+      "best_cp": 36557,
+      "severity": "warn"
+    },
+    {
+      "id": "REVERSE_NN",
+      "cp": "U+989C",
+      "char": "颜",
+      "cat": "hanzi",
+      "detail": "我方离参考里别的字 U+9894 ('颔') 更近 (近 18px, 离同码位参考 102px, 领先 84px > 噪声底 72px)",
+      "best_cp": 39060,
+      "severity": "warn"
+    },
+    {
+      "id": "REVERSE_NN",
+      "cp": "U+7B97",
+      "char": "算",
+      "cat": "hanzi",
+      "detail": "我方离参考里别的字 U+7B21 ('笡') 更近 (近 12px, 离同码位参考 94px, 领先 82px > 噪声底 72px)",
+      "best_cp": 31521,
+      "severity": "warn"
+    },
+    {
+      "id": "REVERSE_NN",
+      "cp": "U+84B2",
+      "char": "蒲",
+      "cat": "hanzi",
+      "detail": "我方离参考里别的字 U+84B1 ('蒱') 更近 (近 9px, 离同码位参考 89px, 领先 80px > 噪声底 72px)",
+      "best_cp": 33969,
+      "severity": "warn"
+    },
+    {
+      "id": "REVERSE_NN",
+      "cp": "U+8845",
+      "char": "衅",
+      "cat": "hanzi",
+      "detail": "我方离参考里别的字 U+794C ('祌') 更近 (近 24px, 离同码位参考 101px, 领先 77px > 噪声底 72px)",
+      "best_cp": 31052,
+      "severity": "warn"
+    },
+    {
+      "id": "REVERSE_NN",
+      "cp": "U+8FA8",
+      "char": "辨",
+      "cat": "hanzi",
+      "detail": "我方离参考里别的字 U+5EB0 ('庰') 更近 (近 30px, 离同码位参考 105px, 领先 75px > 噪声底 72px)",
+      "best_cp": 24240,
+      "severity": "warn"
+    },
+    {
+      "id": "REVERSE_NN",
+      "cp": "U+9732",
+      "char": "露",
+      "cat": "hanzi",
+      "detail": "我方离参考里别的字 U+9719 ('霙') 更近 (近 32px, 离同码位参考 107px, 领先 75px > 噪声底 72px)",
+      "best_cp": 38681,
+      "severity": "warn"
+    },
+    {
+      "id": "REF_AMBIGUITY_DIVERGENCE",
+      "cp": "U+0030",
+      "char": "0",
+      "cat": "ascii",
+      "detail": "参考(zpix) 把 U+0030 与 U+004F 画成同一张位图, 我方却画得不同 —— 我方是异类, 需目视确认",
+      "severity": "warn"
+    },
+    {
+      "id": "REF_AMBIGUITY_DIVERGENCE",
+      "cp": "U+004F",
+      "char": "O",
+      "cat": "ascii",
+      "detail": "参考(zpix) 把 U+004F 与 U+0030 画成同一张位图, 我方却画得不同 —— 我方是异类, 需目视确认",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_EXACT_DUP",
+      "cp": "U+0027",
+      "char": "'",
+      "cat": "ascii",
+      "detail": "我方 U+0027 与 U+002C 位图逐像素完全相同",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_EXACT_DUP",
+      "cp": "U+002E",
+      "char": ".",
+      "cat": "ascii",
+      "detail": "我方 U+002E 与 U+00B7 位图逐像素完全相同",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_EXACT_DUP",
+      "cp": "U+00B7",
+      "char": "·",
+      "cat": "punct",
+      "detail": "我方 U+00B7 与 U+30FB 位图逐像素完全相同",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_EXACT_DUP",
+      "cp": "U+30FB",
+      "char": "・",
+      "cat": "kana",
+      "detail": "我方 U+30FB 与 U+FF65 位图逐像素完全相同",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_EXACT_DUP",
+      "cp": "U+005F",
+      "char": "_",
+      "cat": "ascii",
+      "detail": "我方 U+005F 与 U+2014 位图逐像素完全相同",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_EXACT_DUP",
+      "cp": "U+0060",
+      "char": "`",
+      "cat": "ascii",
+      "detail": "我方 U+0060 与 U+FF64 位图逐像素完全相同",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_EXACT_DUP",
+      "cp": "U+FF61",
+      "char": "｡",
+      "cat": "kana",
+      "detail": "我方 U+FF61 与 U+FF9F 位图逐像素完全相同",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_NEAR_DUP",
+      "cp": "U+0027",
+      "char": "'",
+      "cat": "ascii",
+      "detail": "我方 U+0027 与 U+002C (',') 只差 0 个像素",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_NEAR_DUP",
+      "cp": "U+30FB",
+      "char": "・",
+      "cat": "kana",
+      "detail": "我方 U+30FB 与 U+FF65 ('･') 只差 0 个像素",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_NEAR_DUP",
+      "cp": "U+0036",
+      "char": "6",
+      "cat": "ascii",
+      "detail": "我方 U+0036 与 U+0038 ('8') 只差 2 个像素",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_NEAR_DUP",
+      "cp": "U+0038",
+      "char": "8",
+      "cat": "ascii",
+      "detail": "我方 U+0038 与 U+0039 ('9') 只差 2 个像素",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_NEAR_DUP",
+      "cp": "U+FF61",
+      "char": "｡",
+      "cat": "kana",
+      "detail": "我方 U+FF61 与 U+FF9F ('ﾟ') 只差 0 个像素",
+      "severity": "warn"
+    }
+  ],
+  "per_cp": {
+    "U+0040": {
+      "r1a_gain": 2
+    },
+    "U+3094": {
+      "r1a_gain": 1
+    },
+    "U+3095": {
+      "r1a_gain": 1
+    },
+    "U+309F": {
+      "r1a_gain": 1
+    },
+    "U+58A9": {
+      "r1a_gain": 5
+    },
+    "U+5AE9": {
+      "r1a_gain": 4
+    },
+    "U+6177": {
+      "r1a_gain": 4
+    },
+    "U+63E3": {
+      "r1a_gain": 4
+    },
+    "U+6A71": {
+      "r1a_gain": 4
+    },
+    "U+6E17": {
+      "r1a_gain": 4
+    },
+    "U+6EBA": {
+      "r1a_gain": 4
+    },
+    "U+78F7": {
+      "r1a_gain": 5
+    },
+    "U+7A17": {
+      "r1a_gain": 5
+    },
+    "U+7CCA": {
+      "r1a_gain": 4
+    },
+    "U+7CDC": {
+      "r1a_gain": 4
+    },
+    "U+7E82": {
+      "r1a_gain": 4
+    },
+    "U+7FD8": {
+      "r1a_gain": 5
+    },
+    "U+819D": {
+      "r1a_gain": 4
+    },
+    "U+8231": {
+      "r1a_gain": 4
+    },
+    "U+86FE": {
+      "r1a_gain": 4
+    },
+    "U+8FA8": {
+      "r1a_gain": 4,
+      "r1b_nn": "我方离参考里别的字 U+5EB0 ('庰') 更近 (近 30px, 离同码位参考 105px, 领先 75px > 噪声底 72px)"
+    },
+    "U+8FA9": {
+      "r1a_gain": 4
+    },
+    "U+8FAB": {
+      "r1a_gain": 5
+    },
+    "U+96A7": {
+      "r1a_gain": 4
+    },
+    "U+96CD": {
+      "r1a_gain": 5
+    },
+    "U+9AA1": {
+      "r1a_gain": 4
+    },
+    "U+9CDE": {
+      "r1a_gain": 4
+    },
+    "U+FF20": {
+      "r1a_gain": 4
+    },
+    "U+6247": {
+      "r1b_nn": "我方离参考里别的字 U+6CC9 ('泉') 更近 (近 17px, 离同码位参考 107px, 领先 90px > 噪声底 72px)"
+    },
+    "U+7FDF": {
+      "r1b_nn": "我方离参考里别的字 U+8ECD ('軍') 更近 (近 35px, 离同码位参考 120px, 领先 85px > 噪声底 72px)"
+    },
+    "U+989C": {
+      "r1b_nn": "我方离参考里别的字 U+9894 ('颔') 更近 (近 18px, 离同码位参考 102px, 领先 84px > 噪声底 72px)"
+    },
+    "U+7B97": {
+      "r1b_nn": "我方离参考里别的字 U+7B21 ('笡') 更近 (近 12px, 离同码位参考 94px, 领先 82px > 噪声底 72px)"
+    },
+    "U+84B2": {
+      "r1b_nn": "我方离参考里别的字 U+84B1 ('蒱') 更近 (近 9px, 离同码位参考 89px, 领先 80px > 噪声底 72px)"
+    },
+    "U+8845": {
+      "r1b_nn": "我方离参考里别的字 U+794C ('祌') 更近 (近 24px, 离同码位参考 101px, 领先 77px > 噪声底 72px)"
+    },
+    "U+9732": {
+      "r1b_nn": "我方离参考里别的字 U+9719 ('霙') 更近 (近 32px, 离同码位参考 107px, 领先 75px > 噪声底 72px)"
+    },
+    "U+0027": {
+      "r1d_neardup": 44
+    },
+    "U+30FB": {
+      "r1d_neardup": 65381
+    },
+    "U+0036": {
+      "r1d_neardup": 56
+    },
+    "U+0038": {
+      "r1d_neardup": 57
+    },
+    "U+FF61": {
+      "r1d_neardup": 65439
+    }
+  },
+  "thresholds": {
+    "COUNTER_GAINED": "我方多腔数 (按类别标定): 阈值 3.000 (对照集中位 0.000, 样本 3967) | 分类别: ascii:1.1, hanzi:3.0, kana:0.5",
+    "REVERSE_NN": "反向近邻领先量: 阈值 72.100 px (对照集中位 7.000 px, 样本 3956)"
+  },
+  "nn": {
+    "margin_threshold": 72.1,
+    "ref_n": 22228,
+    "ours_n": 4127,
+    "skipped_no_ref": 12
+  }
+}
