@@ -1,9 +1,9 @@
 {
   "tool": "adversarial_review",
-  "generated_at": "2026-10-24T11:41:01.639663+00:00",
+  "generated_at": "2026-10-24T12:16:08.145421+00:00",
   "inputs": {
-    "chars_total": 4140,
-    "glyphs_with_ink": 4139,
+    "chars_total": 4161,
+    "glyphs_with_ink": 4158,
     "refs": {
       "zpix": 22228,
       "unifont-16": 58909
@@ -14,11 +14,11 @@
       "unsure": 109,
       "changed": 65
     },
-    "control_set": 3968
+    "control_set": 3989
   },
   "self_check": {
     "impl_agree_ours": {
-      "checked": 4139,
+      "checked": 4158,
       "disagree": 0,
       "examples": []
     },
@@ -32,7 +32,7 @@
       "note": "注入=填掉最大的腔; 检出=腔数下降"
     },
     "negative_control_self": {
-      "n": 4139,
+      "n": 4158,
       "false_positive": 0
     }
   },
@@ -40,44 +40,44 @@
     "1": {
       "name": "身份反查",
       "attacks": "上一轮结论: 身份错误 0 例 (4140/4140 目视)。本轮从**四个方向**反查换字。",
-      "findings": 50,
+      "findings": 60,
       "by_id": {
         "COUNTER_GAINED": 28,
         "REVERSE_NN": 8,
         "REF_AMBIGUITY_DIVERGENCE": 2,
-        "OWN_EXACT_DUP": 7,
-        "OWN_NEAR_DUP": 5
+        "OWN_EXACT_DUP": 14,
+        "OWN_NEAR_DUP": 8
       },
       "by_severity": {
-        "warn": 49,
+        "warn": 59,
         "error": 1
       },
       "thresholds": {
-        "COUNTER_GAINED": "我方多腔数 (按类别标定): 阈值 3.000 (对照集中位 0.000, 样本 3967) | 分类别: ascii:1.1, hanzi:3.0, kana:0.5",
-        "REVERSE_NN": "反向近邻领先量: 阈值 72.100 px (对照集中位 7.000 px, 样本 3956)"
+        "COUNTER_GAINED": "我方多腔数 (按类别标定): 阈值 3.000 (对照集中位 0.000, 样本 3986) | 分类别: ascii:1.1, hanzi:3.0, kana:0.5, punct:2.6",
+        "REVERSE_NN": "反向近邻领先量: 阈值 72.100 px (对照集中位 7.000 px, 样本 3974)"
       }
     },
     "2": {
       "name": "部件级结构攻击",
       "attacks": "上一轮结论: 结构劣化已修完 (确认劣化 0)。本轮放弃全字腔数, 改在部件尺度上找。",
-      "findings": 137,
+      "findings": 139,
       "by_id": {
-        "MAX_CAVITY_GAP": 30,
+        "MAX_CAVITY_GAP": 31,
         "CAVITY_AREA_L1": 30,
-        "BRIDGED_GAP": 39,
+        "BRIDGED_GAP": 40,
         "HOLE_DEFICIT": 31,
         "COMPONENT_DEFICIT": 7
       },
       "by_severity": {
-        "warn": 99,
+        "warn": 101,
         "error": 38
       },
       "thresholds": {
-        "HOLE_DEFICIT": "腔数缺口: 阈值 3.000 (对照集中位 0.000, 样本 3956) | 分类别: ascii:0.0, hanzi:3.0, kana:0.0",
-        "CAVITY_AREA_L1": "腔面积 L1: 阈值 21.450 (对照集中位 2.000, 样本 3956) | 分类别: ascii:8.2, hanzi:22.0, kana:0.0",
-        "MAX_CAVITY_GAP": "最大腔面积差: 阈值 12.000 (对照集中位 0.000, 样本 3956) | 分类别: ascii:6.1, hanzi:12.0, kana:0.0",
-        "BRIDGED_GAP": "桥接处数: 阈值 3.000 (对照集中位 0.000, 样本 3956) | 分类别: ascii:1.0, hanzi:3.0, kana:1.0",
-        "COMPONENT_DEFICIT": "单部件腔数缺口: 阈值 1.000 (对照集中位 0.000, 样本 2689) | 分类别: ascii:1.0, hanzi:1.0, kana:0.0"
+        "HOLE_DEFICIT": "腔数缺口: 阈值 3.000 (对照集中位 0.000, 样本 3974) | 分类别: ascii:0.0, hanzi:3.0, kana:0.0, punct:0.0",
+        "CAVITY_AREA_L1": "腔面积 L1: 阈值 21.270 (对照集中位 2.000, 样本 3974) | 分类别: ascii:8.2, hanzi:22.0, kana:0.0, punct:14.6",
+        "MAX_CAVITY_GAP": "最大腔面积差: 阈值 12.000 (对照集中位 0.000, 样本 3974) | 分类别: ascii:6.1, hanzi:12.0, kana:0.0, punct:3.1",
+        "BRIDGED_GAP": "桥接处数: 阈值 3.000 (对照集中位 0.000, 样本 3974) | 分类别: ascii:1.0, hanzi:3.0, kana:1.0, punct:2.1",
+        "COMPONENT_DEFICIT": "单部件腔数缺口: 阈值 1.000 (对照集中位 0.000, 样本 2706) | 分类别: ascii:1.0, hanzi:1.0, kana:0.0, punct:1.0"
       }
     },
     "3": {
@@ -96,11 +96,11 @@
     }
   },
   "verdict": {
-    "covered": 4139,
+    "covered": 4158,
     "flagged_open": 0,
-    "adjudicated_not_defect": 160,
+    "adjudicated_not_defect": 169,
     "defect": 0,
-    "clean": 3979
+    "clean": 3989
   },
   "per_cp": {
     "U+0021": {
@@ -204,10 +204,17 @@
     "U+002C": {
       "char": ",",
       "cat": "ascii",
-      "r1": [],
+      "r1": [
+        "OWN_EXACT_DUP"
+      ],
       "r2": [],
       "r3": [],
-      "verdict": "clean"
+      "adjudication": {
+        "verdict": "not_defect",
+        "class": "punct_homoglyph",
+        "reason": "12px 下逗号与右单引号同为 2x3 的逗号形, 只差竖直位置 (逗号落在基线下方第 9-11 行, 引号落在字顶第 1-3 行) —— 各字体的通例, 形态正确"
+      },
+      "verdict": "adjudicated_not_defect"
     },
     "U+002D": {
       "char": "-",
@@ -642,10 +649,17 @@
     "U+005D": {
       "char": "]",
       "cat": "ascii",
-      "r1": [],
+      "r1": [
+        "OWN_EXACT_DUP"
+      ],
       "r2": [],
       "r3": [],
-      "verdict": "clean"
+      "adjudication": {
+        "verdict": "not_defect",
+        "class": "punct_homoglyph",
+        "reason": "半角 ] 与全角 ］ 笔画形状相同 (3x11), 但格宽不同 (6 vs 12) 且全角闭括号按中文排版落在字的左半 —— 是正确的全角括号位置"
+      },
+      "verdict": "adjudicated_not_defect"
     },
     "U+005E": {
       "char": "^",
@@ -896,10 +910,17 @@
     "U+007B": {
       "char": "{",
       "cat": "ascii",
-      "r1": [],
+      "r1": [
+        "OWN_EXACT_DUP"
+      ],
       "r2": [],
       "r3": [],
-      "verdict": "clean"
+      "adjudication": {
+        "verdict": "not_defect",
+        "class": "punct_homoglyph",
+        "reason": "半角 { 与全角 ｛ 笔画形状相同 (3x11), 全角落在格中央 —— 形态正确"
+      },
+      "verdict": "adjudicated_not_defect"
     },
     "U+007C": {
       "char": "|",
@@ -912,10 +933,17 @@
     "U+007D": {
       "char": "}",
       "cat": "ascii",
-      "r1": [],
+      "r1": [
+        "OWN_EXACT_DUP"
+      ],
       "r2": [],
       "r3": [],
-      "verdict": "clean"
+      "adjudication": {
+        "verdict": "not_defect",
+        "class": "punct_homoglyph",
+        "reason": "半角 } 与全角 ｝ 笔画形状相同 (3x11), 全角落在格中央 —— 形态正确"
+      },
+      "verdict": "adjudicated_not_defect"
     },
     "U+007E": {
       "char": "~",
@@ -925,8 +953,16 @@
       "r3": [],
       "verdict": "clean"
     },
-    "U+00B7": {
-      "char": "·",
+    "U+00A5": {
+      "char": "¥",
+      "cat": "punct",
+      "r1": [],
+      "r2": [],
+      "r3": [],
+      "verdict": "clean"
+    },
+    "U+00B0": {
+      "char": "°",
       "cat": "punct",
       "r1": [
         "OWN_EXACT_DUP"
@@ -936,9 +972,34 @@
       "adjudication": {
         "verdict": "not_defect",
         "class": "punct_homoglyph",
+        "reason": "度符号与片假名浊点゜ 在 12px 下同为 3x3 的小圈 —— 形态正确"
+      },
+      "verdict": "adjudicated_not_defect"
+    },
+    "U+00B7": {
+      "char": "·",
+      "cat": "punct",
+      "r1": [
+        "OWN_EXACT_DUP",
+        "OWN_NEAR_DUP",
+        "OWN_NEAR_DUP"
+      ],
+      "r2": [],
+      "r3": [],
+      "adjudication": {
+        "verdict": "not_defect",
+        "class": "punct_homoglyph",
         "reason": "中点与句点同形, 形态正确"
       },
       "verdict": "adjudicated_not_defect"
+    },
+    "U+00BD": {
+      "char": "½",
+      "cat": "punct",
+      "r1": [],
+      "r2": [],
+      "r3": [],
+      "verdict": "clean"
     },
     "U+00D7": {
       "char": "×",
@@ -956,6 +1017,14 @@
       "r3": [],
       "verdict": "clean"
     },
+    "U+2013": {
+      "char": "–",
+      "cat": "punct",
+      "r1": [],
+      "r2": [],
+      "r3": [],
+      "verdict": "clean"
+    },
     "U+2014": {
       "char": "—",
       "cat": "punct",
@@ -964,8 +1033,111 @@
       "r3": [],
       "verdict": "clean"
     },
+    "U+2018": {
+      "char": "‘",
+      "cat": "punct",
+      "r1": [],
+      "r2": [],
+      "r3": [],
+      "verdict": "clean"
+    },
+    "U+2019": {
+      "char": "’",
+      "cat": "punct",
+      "r1": [],
+      "r2": [],
+      "r3": [],
+      "verdict": "clean"
+    },
+    "U+201C": {
+      "char": "“",
+      "cat": "punct",
+      "r1": [],
+      "r2": [],
+      "r3": [],
+      "verdict": "clean"
+    },
+    "U+201D": {
+      "char": "”",
+      "cat": "punct",
+      "r1": [],
+      "r2": [],
+      "r3": [],
+      "verdict": "clean"
+    },
+    "U+2022": {
+      "char": "•",
+      "cat": "punct",
+      "r1": [
+        "OWN_EXACT_DUP",
+        "OWN_NEAR_DUP"
+      ],
+      "r2": [],
+      "r3": [],
+      "adjudication": {
+        "verdict": "not_defect",
+        "class": "punct_homoglyph",
+        "reason": "项目符号与数字点/间隔号在 12px 下同为 2x2 点块, 只差水平位置 (分别在格内左/中/右) —— 形态正确"
+      },
+      "verdict": "adjudicated_not_defect"
+    },
     "U+2026": {
       "char": "…",
+      "cat": "punct",
+      "r1": [],
+      "r2": [],
+      "r3": [],
+      "verdict": "clean"
+    },
+    "U+2027": {
+      "char": "‧",
+      "cat": "punct",
+      "r1": [
+        "OWN_EXACT_DUP"
+      ],
+      "r2": [],
+      "r3": [],
+      "adjudication": {
+        "verdict": "not_defect",
+        "class": "punct_homoglyph",
+        "reason": "数字点与项目符号/间隔号同为 2x2 点块, 只差水平位置 —— 形态正确"
+      },
+      "verdict": "adjudicated_not_defect"
+    },
+    "U+20AC": {
+      "char": "€",
+      "cat": "punct",
+      "r1": [],
+      "r2": [],
+      "r3": [],
+      "verdict": "clean"
+    },
+    "U+2192": {
+      "char": "→",
+      "cat": "punct",
+      "r1": [],
+      "r2": [],
+      "r3": [],
+      "verdict": "clean"
+    },
+    "U+2260": {
+      "char": "≠",
+      "cat": "punct",
+      "r1": [],
+      "r2": [],
+      "r3": [],
+      "verdict": "clean"
+    },
+    "U+2264": {
+      "char": "≤",
+      "cat": "punct",
+      "r1": [],
+      "r2": [],
+      "r3": [],
+      "verdict": "clean"
+    },
+    "U+2265": {
+      "char": "≥",
       "cat": "punct",
       "r1": [],
       "r2": [],
@@ -33779,9 +33951,16 @@
       "char": "＆",
       "cat": "punct",
       "r1": [],
-      "r2": [],
+      "r2": [
+        "MAX_CAVITY_GAP"
+      ],
       "r3": [],
-      "verdict": "clean"
+      "adjudication": {
+        "verdict": "not_defect",
+        "class": "component_style",
+        "reason": "全角＆ 的斜画与参考的连接方式不同 (我方墨框 8x8, 参考腔更大), 笔画与字腔都在位 —— 画风差异, 非结构丢失"
+      },
+      "verdict": "adjudicated_not_defect"
     },
     "U+FF08": {
       "char": "（",
@@ -33879,6 +34058,38 @@
         "reason": "同上"
       },
       "verdict": "adjudicated_not_defect"
+    },
+    "U+FF3B": {
+      "char": "［",
+      "cat": "punct",
+      "r1": [],
+      "r2": [],
+      "r3": [],
+      "verdict": "clean"
+    },
+    "U+FF3D": {
+      "char": "］",
+      "cat": "punct",
+      "r1": [],
+      "r2": [],
+      "r3": [],
+      "verdict": "clean"
+    },
+    "U+FF5B": {
+      "char": "｛",
+      "cat": "punct",
+      "r1": [],
+      "r2": [],
+      "r3": [],
+      "verdict": "clean"
+    },
+    "U+FF5D": {
+      "char": "｝",
+      "cat": "punct",
+      "r1": [],
+      "r2": [],
+      "r3": [],
+      "verdict": "clean"
     },
     "U+FF5E": {
       "char": "～",
@@ -34404,9 +34615,16 @@
       "char": "￥",
       "cat": "punct",
       "r1": [],
-      "r2": [],
+      "r2": [
+        "BRIDGED_GAP"
+      ],
       "r3": [],
-      "verdict": "clean"
+      "adjudication": {
+        "verdict": "not_defect",
+        "class": "component_style",
+        "reason": "量具把 ￥ 两条横杠与竖干的相交判成搭桥 —— 那正是 ￥ 的形状本身 (横杠必须穿过竖干), 不是笔画粘连"
+      },
+      "verdict": "adjudicated_not_defect"
     }
   }
 }

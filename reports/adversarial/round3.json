@@ -3,7 +3,7 @@
   "round": 3,
   "name": "链条攻击",
   "attacks": "前两轮都默认「我方这一列 = 字体的字形」。本轮证伪这个前提本身。",
-  "generated_at": "2026-10-24T11:41:01.639663+00:00",
+  "generated_at": "2026-10-24T12:16:08.145421+00:00",
   "findings": [
     {
       "id": "REGRESS_DEGRADED",
@@ -160,11 +160,11 @@
   ],
   "per_cp": {},
   "provenance": {
-    "ok": 4139,
+    "ok": 4158,
     "bad": 0
   },
   "product_sync": {
-    "checked": 4139,
+    "checked": 4158,
     "bad": [],
     "bdf": "E:\\PixelFont\\dist\\PixelFontPC98-12.bdf"
   },
@@ -204,15 +204,22 @@
       "U+9CD6 劣化修复成立 (第二轮不再命中)"
     ],
     "adjudicated_new": [
+      "U+002C , (punct_homoglyph)",
       "U+002E . (punct_homoglyph)",
       "U+0030 0 (reference_ambiguity)",
       "U+0036 6 (punct_homoglyph)",
       "U+0038 8 (punct_homoglyph)",
       "U+0040 @ (looser_than_ref)",
       "U+004F O (reference_ambiguity)",
+      "U+005D ] (punct_homoglyph)",
       "U+005F _ (punct_homoglyph)",
       "U+0060 ` (punct_homoglyph)",
+      "U+007B { (punct_homoglyph)",
+      "U+007D } (punct_homoglyph)",
+      "U+00B0 ° (punct_homoglyph)",
       "U+00B7 · (punct_homoglyph)",
+      "U+2022 • (punct_homoglyph)",
+      "U+2027 ‧ (punct_homoglyph)",
       "U+3094 ゔ (looser_than_ref)",
       "U+3095 ゕ (looser_than_ref)",
       "U+309F ゟ (looser_than_ref)",
@@ -342,8 +349,10 @@
       "U+9B03 鬃 (style_density)",
       "U+9B41 魁 (style_density)",
       "U+9CDE 鳞 (looser_than_ref)",
+      "U+FF06 ＆ (component_style)",
       "U+FF20 ＠ (looser_than_ref)",
-      "U+FF61 ｡ (punct_homoglyph)"
+      "U+FF61 ｡ (punct_homoglyph)",
+      "U+FFE5 ￥ (component_style)"
     ],
     "history": {
       "identity": 1,

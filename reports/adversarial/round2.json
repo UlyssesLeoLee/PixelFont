@@ -3,7 +3,7 @@
   "round": 2,
   "name": "部件级结构攻击",
   "attacks": "上一轮结论: 结构劣化已修完 (确认劣化 0)。本轮放弃全字腔数, 改在部件尺度上找。",
-  "generated_at": "2026-10-24T11:41:01.639663+00:00",
+  "generated_at": "2026-10-24T12:16:08.145421+00:00",
   "findings": [
     {
       "id": "MAX_CAVITY_GAP",
@@ -1094,11 +1094,27 @@
       "severity": "error"
     },
     {
+      "id": "MAX_CAVITY_GAP",
+      "cp": "U+FF06",
+      "char": "＆",
+      "cat": "punct",
+      "detail": "最大腔面积 差 4px (我方 7 vs 参考 11) > 同类噪声底 3.1",
+      "severity": "warn"
+    },
+    {
       "id": "CAVITY_AREA_L1",
       "cp": "U+FF20",
       "char": "＠",
       "cat": "punct",
-      "detail": "腔面积 L1 = 22px > 同类噪声底 21.4 (我方 [10, 9, 3, 3, 3] vs 参考 [6]) —— 封闭白空间明显不对",
+      "detail": "腔面积 L1 = 22px > 同类噪声底 14.6 (我方 [10, 9, 3, 3, 3] vs 参考 [6]) —— 封闭白空间明显不对",
+      "severity": "warn"
+    },
+    {
+      "id": "BRIDGED_GAP",
+      "cp": "U+FFE5",
+      "char": "￥",
+      "cat": "punct",
+      "detail": "3 处笔画被搭桥连上 > 同类噪声底 2.1: 第 2 行 墨点 2 但分段 1<2; 第 3 列 墨点 3 但分段 2<3; 第 4 列 墨点 3 但分段 2<3",
       "severity": "warn"
     }
   ],
@@ -1481,18 +1497,24 @@
     "U+9B41": {
       "r2d_cell": 2
     },
+    "U+FF06": {
+      "r2c_max_gap": 4.0
+    },
     "U+FF20": {
       "r2b_area_l1": 22.0
+    },
+    "U+FFE5": {
+      "r2e_gap": 3
     }
   },
   "thresholds": {
-    "HOLE_DEFICIT": "腔数缺口: 阈值 3.000 (对照集中位 0.000, 样本 3956) | 分类别: ascii:0.0, hanzi:3.0, kana:0.0",
-    "CAVITY_AREA_L1": "腔面积 L1: 阈值 21.450 (对照集中位 2.000, 样本 3956) | 分类别: ascii:8.2, hanzi:22.0, kana:0.0",
-    "MAX_CAVITY_GAP": "最大腔面积差: 阈值 12.000 (对照集中位 0.000, 样本 3956) | 分类别: ascii:6.1, hanzi:12.0, kana:0.0",
-    "BRIDGED_GAP": "桥接处数: 阈值 3.000 (对照集中位 0.000, 样本 3956) | 分类别: ascii:1.0, hanzi:3.0, kana:1.0",
-    "COMPONENT_DEFICIT": "单部件腔数缺口: 阈值 1.000 (对照集中位 0.000, 样本 2689) | 分类别: ascii:1.0, hanzi:1.0, kana:0.0"
+    "HOLE_DEFICIT": "腔数缺口: 阈值 3.000 (对照集中位 0.000, 样本 3974) | 分类别: ascii:0.0, hanzi:3.0, kana:0.0, punct:0.0",
+    "CAVITY_AREA_L1": "腔面积 L1: 阈值 21.270 (对照集中位 2.000, 样本 3974) | 分类别: ascii:8.2, hanzi:22.0, kana:0.0, punct:14.6",
+    "MAX_CAVITY_GAP": "最大腔面积差: 阈值 12.000 (对照集中位 0.000, 样本 3974) | 分类别: ascii:6.1, hanzi:12.0, kana:0.0, punct:3.1",
+    "BRIDGED_GAP": "桥接处数: 阈值 3.000 (对照集中位 0.000, 样本 3974) | 分类别: ascii:1.0, hanzi:3.0, kana:1.0, punct:2.1",
+    "COMPONENT_DEFICIT": "单部件腔数缺口: 阈值 1.000 (对照集中位 0.000, 样本 2706) | 分类别: ascii:1.0, hanzi:1.0, kana:0.0, punct:1.0"
   },
-  "measured": 4127,
+  "measured": 4145,
   "control_top": [
     {
       "cp": 25856,

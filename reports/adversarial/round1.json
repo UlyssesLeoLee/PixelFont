@@ -3,7 +3,7 @@
   "round": 1,
   "name": "身份反查",
   "attacks": "上一轮结论: 身份错误 0 例 (4140/4140 目视)。本轮从**四个方向**反查换字。",
-  "generated_at": "2026-10-24T11:41:01.639663+00:00",
+  "generated_at": "2026-10-24T12:16:08.145421+00:00",
   "findings": [
     {
       "id": "COUNTER_GAINED",
@@ -226,7 +226,7 @@
       "cp": "U+FF20",
       "char": "＠",
       "cat": "punct",
-      "detail": "我方腔数 5, zpix 1 —— 我方比参考多 4 腔 (> 同类噪声底 3.0)",
+      "detail": "我方腔数 5, zpix 1 —— 我方比参考多 4 腔 (> 同类噪声底 2.6)",
       "severity": "warn"
     },
     {
@@ -327,6 +327,14 @@
     },
     {
       "id": "OWN_EXACT_DUP",
+      "cp": "U+002C",
+      "char": ",",
+      "cat": "ascii",
+      "detail": "我方 U+002C 与 U+2019 位图逐像素完全相同",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_EXACT_DUP",
       "cp": "U+002E",
       "char": ".",
       "cat": "ascii",
@@ -338,7 +346,23 @@
       "cp": "U+00B7",
       "char": "·",
       "cat": "punct",
-      "detail": "我方 U+00B7 与 U+30FB 位图逐像素完全相同",
+      "detail": "我方 U+00B7 与 U+2022 位图逐像素完全相同",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_EXACT_DUP",
+      "cp": "U+2022",
+      "char": "•",
+      "cat": "punct",
+      "detail": "我方 U+2022 与 U+2027 位图逐像素完全相同",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_EXACT_DUP",
+      "cp": "U+2027",
+      "char": "‧",
+      "cat": "punct",
+      "detail": "我方 U+2027 与 U+30FB 位图逐像素完全相同",
       "severity": "warn"
     },
     {
@@ -347,6 +371,14 @@
       "char": "・",
       "cat": "kana",
       "detail": "我方 U+30FB 与 U+FF65 位图逐像素完全相同",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_EXACT_DUP",
+      "cp": "U+005D",
+      "char": "]",
+      "cat": "ascii",
+      "detail": "我方 U+005D 与 U+FF3D 位图逐像素完全相同",
       "severity": "warn"
     },
     {
@@ -367,6 +399,30 @@
     },
     {
       "id": "OWN_EXACT_DUP",
+      "cp": "U+007B",
+      "char": "{",
+      "cat": "ascii",
+      "detail": "我方 U+007B 与 U+FF5B 位图逐像素完全相同",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_EXACT_DUP",
+      "cp": "U+007D",
+      "char": "}",
+      "cat": "ascii",
+      "detail": "我方 U+007D 与 U+FF5D 位图逐像素完全相同",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_EXACT_DUP",
+      "cp": "U+00B0",
+      "char": "°",
+      "cat": "punct",
+      "detail": "我方 U+00B0 与 U+309C 位图逐像素完全相同",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_EXACT_DUP",
       "cp": "U+FF61",
       "char": "｡",
       "cat": "kana",
@@ -379,6 +435,30 @@
       "char": "'",
       "cat": "ascii",
       "detail": "我方 U+0027 与 U+002C (',') 只差 0 个像素",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_NEAR_DUP",
+      "cp": "U+00B7",
+      "char": "·",
+      "cat": "punct",
+      "detail": "我方 U+00B7 与 U+2022 ('•') 只差 0 个像素",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_NEAR_DUP",
+      "cp": "U+00B7",
+      "char": "·",
+      "cat": "punct",
+      "detail": "我方 U+00B7 与 U+2027 ('‧') 只差 0 个像素",
+      "severity": "warn"
+    },
+    {
+      "id": "OWN_NEAR_DUP",
+      "cp": "U+2022",
+      "char": "•",
+      "cat": "punct",
+      "detail": "我方 U+2022 与 U+2027 ('‧') 只差 0 个像素",
       "severity": "warn"
     },
     {
@@ -524,6 +604,12 @@
     "U+0027": {
       "r1d_neardup": 44
     },
+    "U+00B7": {
+      "r1d_neardup": 8231
+    },
+    "U+2022": {
+      "r1d_neardup": 8231
+    },
     "U+30FB": {
       "r1d_neardup": 65381
     },
@@ -538,13 +624,13 @@
     }
   },
   "thresholds": {
-    "COUNTER_GAINED": "我方多腔数 (按类别标定): 阈值 3.000 (对照集中位 0.000, 样本 3967) | 分类别: ascii:1.1, hanzi:3.0, kana:0.5",
-    "REVERSE_NN": "反向近邻领先量: 阈值 72.100 px (对照集中位 7.000 px, 样本 3956)"
+    "COUNTER_GAINED": "我方多腔数 (按类别标定): 阈值 3.000 (对照集中位 0.000, 样本 3986) | 分类别: ascii:1.1, hanzi:3.0, kana:0.5, punct:2.6",
+    "REVERSE_NN": "反向近邻领先量: 阈值 72.100 px (对照集中位 7.000 px, 样本 3974)"
   },
   "nn": {
     "margin_threshold": 72.1,
     "ref_n": 22228,
-    "ours_n": 4127,
-    "skipped_no_ref": 12
+    "ours_n": 4145,
+    "skipped_no_ref": 13
   }
 }

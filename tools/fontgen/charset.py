@@ -59,6 +59,22 @@ EXCLUDE: dict[int, str] = {
 }
 
 
+# 非汉字码位的**源例外**。
+#
+# ideo_route.json 只覆盖汉字 (推导脚本按 cat == "hanzi" 逐字选源), 而这里有个 ASCII
+# 码位带着**源字体的语系惯例**问题, 必须单独切源:
+#
+#   U+005C 反斜杠 —— MS Gothic 按 **JIS 惯例**把 U+005C 画成 ¥ (日文键盘的反斜杠
+#   键位就是 ¥), 于是我方的 ASCII 反斜杠与 U+00A5 日元符号**整格逐字节完全相同**
+#   (两者的整格 sha256 都是 d647537c5cbf50a9)。2026-10-24 补入 U+00A5 之后,
+#   这个一直存在的缺陷被对抗审核的"我方近重复"检测抓了出来。
+#   对面向中文用户的字体来说这是**真缺陷**: 写文件路径/正则的人会看到 ¥。
+#
+#   切到 fusion 的理由: Fusion Pixel 也是 12px 点阵, 画的是真反斜杠; 实测它的 '/'
+#   与 MS Gothic 的 '/' 几乎同形 (1px 斜线、起止行一致), 所以画风上最贴。
+SOURCE_OVERRIDES: dict[int, str] = {0x005C: "fusion"}
+
+
 def gb2312_level1() -> list[str]:
     """GB2312 一级汉字 (区位 16-55 区, 3755 字), 按 GB2312 码位顺序 = 拼音序。"""
     out: list[str] = []
@@ -92,8 +108,33 @@ def kana_chars() -> list[str]:
 
 
 def extras() -> list[str]:
-    """游戏里高频但不属于三大块的符号与标点。"""
-    return list("·—…、。，．！？；：（）【】「」『』《》〈〉～－＋×÷＝％＄￥＃＆＠")
+    """游戏里高频但不属于三大块的符号与标点。
+
+    第一组是游戏/正文里常见的全角标点与数学符号。
+
+    第二组 (word_extra) 是 **Word/Office 排版真正绕不开**的那批 —— 2026-10-24 补入:
+        · 中文输入法直接输出的弯引号 “ ” ‘ ’ (Word 自动更正也会把直引号转成弯引号),
+          缺了它们, 中文文档里的引号必然走字体回退;
+        · 全角空格 U+3000 (中文段落缩进/首行缩进) 与不换行空格 U+00A0;
+        · 箭头 →、数学符号 ≠ ≤ ≥、全角括号 ［］｛｝、项目符号 •、连接号 –、
+          欧元 €、日元 ¥、度 °、二分之一 ½、数字点 ‧。
+
+    这 21 个字形已逐个在 12px 下目视确认 (墨迹清晰、无粘连), 生产源全部有:
+    弯引号/箭头/数学符号等走 MS Gothic (非汉字源), 全角括号走 SimHei (汉字源),
+    全角空格走 MS Gothic —— 零墨迹字形走 BDF 写入器已有的 "BBX 0 0 0 0" 分支。
+    """
+    punct = "·—…、。，．！？；：（）【】「」『』《》〈〉～－＋×÷＝％＄￥＃＆＠"
+    # 用转义写, 免得 NBSP / 全角空格这类**看不见**的字符在源码里变成幽灵
+    word_extra = (
+        "\u201c\u201d\u2018\u2019"  # “ ” ‘ ’
+        "\u2013\u2022\u2027"  # – • ‧
+        "\u00a5\u00b0\u00bd"  # ¥ ° ½
+        "\u20ac\u2192"  # € →
+        "\u2260\u2264\u2265"  # ≠ ≤ ≥
+        "\uff3b\uff3d\uff5b\uff5d"  # ［ ］ ｛ ｝
+        "\u00a0\u3000"  # NBSP 全角空格
+    )
+    return list(punct) + list(word_extra)
 
 
 def build_charset() -> list[tuple[str, str]]:
@@ -194,6 +235,7 @@ def build_stack(route: dict[int, object] | None = None) -> ScriptStack:
         non_ideo=non_ideo,
         third=ark,
         route=route_source_map(route),
+        overrides=SOURCE_OVERRIDES,
     )
     a, b = ideo.metrics, non_ideo.metrics
     if (a.ascent, a.descent) != (b.ascent, b.descent):

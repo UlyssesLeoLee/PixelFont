@@ -59,7 +59,10 @@ from bitfont import ScriptStack  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 PS_NAME = bf.PS_NAME
-WHITESPACE = {" ", "　", "\t"}
+# 空白字符: 本来就没有墨迹, **不能**按"缺字/豆腐块"判。
+# U+0020 空格 / U+3000 全角空格 / U+00A0 不换行空格 / U+0009 制表符。
+# 用转义写 —— 这些字符在源码里是看不见的, 写成字面量等于埋雷 (见 charset.extras 的同一条纪律)。
+WHITESPACE = {"\u0020", "\u3000", "\u00a0", "\t"}
 
 # 严重级别
 ERROR = "error"

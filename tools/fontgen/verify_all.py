@@ -38,7 +38,7 @@ STEPS: list[tuple[str, list[str], str]] = [
         "构建",
     ),
     (
-        "全量回归 (4140 字分批: 产物与源位图逐像素一致)",
+        "全量回归 (4161 字分批: 产物与源位图逐像素一致)",
         [str(TOOLS / "regress_all.py")],
         "回归",
     ),

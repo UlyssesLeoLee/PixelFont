@@ -1,6 +1,6 @@
 {
   "tool": "compare_refs_screen",
-  "generated_at": "2026-10-24T11:40:46.229580+00:00",
+  "generated_at": "2026-10-24T12:15:49.805249+00:00",
   "selection": {
     "cats": [
       "<all>"
@@ -9,8 +9,8 @@
     "label": ""
   },
   "inputs": {
-    "chars_selected": 4140,
-    "ours_glyphs": 4139,
+    "chars_selected": 4161,
+    "ours_glyphs": 4158,
     "refs": {
       "zpix": 22228,
       "unifont-16": 58909
@@ -53,6 +53,14 @@
       "id": "OWN_COLLIDE",
       "severity": "warn",
       "ref": "ours",
+      "cp": "U+002C",
+      "char": ",",
+      "detail": "我方 U+002C ',' 与 U+2019 '’' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
+    },
+    {
+      "id": "OWN_COLLIDE",
+      "severity": "warn",
+      "ref": "ours",
       "cp": "U+002E",
       "char": ".",
       "detail": "我方 U+002E '.' 与 U+00B7 '·' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
@@ -63,7 +71,23 @@
       "ref": "ours",
       "cp": "U+00B7",
       "char": "·",
-      "detail": "我方 U+00B7 '·' 与 U+30FB '・' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
+      "detail": "我方 U+00B7 '·' 与 U+2022 '•' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
+    },
+    {
+      "id": "OWN_COLLIDE",
+      "severity": "warn",
+      "ref": "ours",
+      "cp": "U+2022",
+      "char": "•",
+      "detail": "我方 U+2022 '•' 与 U+2027 '‧' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
+    },
+    {
+      "id": "OWN_COLLIDE",
+      "severity": "warn",
+      "ref": "ours",
+      "cp": "U+2027",
+      "char": "‧",
+      "detail": "我方 U+2027 '‧' 与 U+30FB '・' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
     },
     {
       "id": "OWN_COLLIDE",
@@ -72,6 +96,14 @@
       "cp": "U+30FB",
       "char": "・",
       "detail": "我方 U+30FB '・' 与 U+FF65 '･' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
+    },
+    {
+      "id": "OWN_COLLIDE",
+      "severity": "warn",
+      "ref": "ours",
+      "cp": "U+005D",
+      "char": "]",
+      "detail": "我方 U+005D ']' 与 U+FF3D '］' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
     },
     {
       "id": "OWN_COLLIDE",
@@ -88,6 +120,30 @@
       "cp": "U+0060",
       "char": "`",
       "detail": "我方 U+0060 '`' 与 U+FF64 '､' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
+    },
+    {
+      "id": "OWN_COLLIDE",
+      "severity": "warn",
+      "ref": "ours",
+      "cp": "U+007B",
+      "char": "{",
+      "detail": "我方 U+007B '{' 与 U+FF5B '｛' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
+    },
+    {
+      "id": "OWN_COLLIDE",
+      "severity": "warn",
+      "ref": "ours",
+      "cp": "U+007D",
+      "char": "}",
+      "detail": "我方 U+007D '}' 与 U+FF5D '｝' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
+    },
+    {
+      "id": "OWN_COLLIDE",
+      "severity": "warn",
+      "ref": "ours",
+      "cp": "U+00B0",
+      "char": "°",
+      "detail": "我方 U+00B0 '°' 与 U+309C '゜' 渲染成完全相同的位图 —— 标点/符号天然同形, 12px 下必然一致"
     },
     {
       "id": "OWN_COLLIDE",
@@ -532,6 +588,7 @@
   ],
   "coverage": {
     "zpix": [
+      "U+2027",
       "U+3094",
       "U+3095",
       "U+3096",
@@ -548,7 +605,7 @@
     "unifont-16": []
   },
   "counter_holes": {
-    "ours_mean": 2.15,
+    "ours_mean": 2.14,
     "ref_mean": {
       "zpix": 3.691,
       "unifont-16": 2.241
@@ -579,22 +636,6 @@
       "rel": 0.5,
       "ink_ours": 8,
       "ink_ref": 4
-    },
-    {
-      "ref": "zpix",
-      "cp": "U+005C",
-      "char": "\\",
-      "rel": 0.5714285714285714,
-      "ink_ours": 21,
-      "ink_ref": 9
-    },
-    {
-      "ref": "unifont-16",
-      "cp": "U+005C",
-      "char": "\\",
-      "rel": 0.5238095238095238,
-      "ink_ours": 21,
-      "ink_ref": 10
     },
     {
       "ref": "unifont-16",
@@ -646,6 +687,30 @@
     },
     {
       "ref": "unifont-16",
+      "cp": "U+2013",
+      "char": "–",
+      "rel": -0.5,
+      "ink_ours": 3,
+      "ink_ref": 6
+    },
+    {
+      "ref": "unifont-16",
+      "cp": "U+2022",
+      "char": "•",
+      "rel": -0.8095238095238095,
+      "ink_ours": 4,
+      "ink_ref": 21
+    },
+    {
+      "ref": "unifont-16",
+      "cp": "U+00B0",
+      "char": "°",
+      "rel": -0.5,
+      "ink_ours": 4,
+      "ink_ref": 8
+    },
+    {
+      "ref": "unifont-16",
       "cp": "U+309C",
       "char": "゜",
       "rel": -0.5,
@@ -670,15 +735,15 @@
     }
   ],
   "summary": {
-    "findings": 64,
+    "findings": 71,
     "by_id": {
       "EXACT_COLLIDE": 3,
-      "OWN_COLLIDE": 7,
+      "OWN_COLLIDE": 14,
       "COUNTER_LOST": 13,
       "STRUCTURE_OUTLIER": 41
     },
     "by_severity": {
-      "warn": 62,
+      "warn": 69,
       "error": 2
     }
   }

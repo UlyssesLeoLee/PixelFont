@@ -259,6 +259,7 @@ class ScriptStack:
         non_ideo: BitmapFont,
         third: BitmapFont | None = None,
         route: dict[int, str] | None = None,
+        overrides: dict[int, str] | None = None,
     ):
         self.ideo = ideo
         self.non_ideo = non_ideo
@@ -269,13 +270,18 @@ class ScriptStack:
             self.name += f" + {third.name}"
         self.weight = ideo.weight
         self.route = dict(route or {})
+        # overrides: **非汉字码位**的单独切源 (route 只覆盖汉字, 见 derive_ideo_route.py)。
+        # 优先于 route —— 它是"这个码位带着源字体的语系惯例, 必须例外"的显式声明。
+        self.overrides = dict(overrides or {})
         self.sources: dict[str, BitmapFont] = {"ideo": ideo, "non_ideo": non_ideo}
         if third is not None:
             self.sources["fusion"] = third
 
     def _pick(self, ch: str) -> BitmapFont:
         cp = ord(ch)
-        src = self.route.get(cp)
+        src = self.overrides.get(cp)
+        if src is None:
+            src = self.route.get(cp)
         if src is not None:
             f = self.sources.get(src)
             if f is not None:

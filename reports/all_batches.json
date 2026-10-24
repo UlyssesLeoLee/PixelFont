@@ -1,7 +1,7 @@
 {
   "tool": "regress_all",
   "version": 1,
-  "generated_at": "2026-10-24T11:40:28.013573+00:00",
+  "generated_at": "2026-10-24T12:15:25.097108+00:00",
   "selection": {
     "label": "all-batches",
     "cats": [
@@ -10,8 +10,8 @@
     "batch_size": 100
   },
   "inputs": {
-    "charset_total": 4140,
-    "chars_checked": 4140,
+    "charset_total": 4161,
+    "chars_checked": 4161,
     "batches": 43,
     "sections": 4,
     "no_data_sections": []
@@ -19,18 +19,18 @@
   "reference": {
     "density_median": 0.32051282051282054,
     "density_mad": 0.04487179487179482,
-    "density_sigma": 0.07597877438450479,
+    "density_sigma": 0.07771508232390432,
     "density_p95": 0.41025641025641024,
     "density_max": 0.4935897435897436,
     "ink_top_median": 1,
     "ink_bottom_median": 11,
     "cat_density_median": {
-      "ascii": 0.19230769230769232,
+      "ascii": 0.1794871794871795,
       "punct": 0.07692307692307693,
       "kana": 0.16666666666666666,
       "hanzi": 0.3269230769230769
     },
-    "chars": 4140
+    "chars": 4161
   },
   "sections": [
     {
@@ -40,12 +40,14 @@
         "punct"
       ],
       "slice": null,
-      "chars_checked": 130,
+      "chars_checked": 151,
       "batches": 2,
       "errors": 0,
       "warnings": 0,
-      "infos": 0,
-      "anomaly_ids": {},
+      "infos": 2,
+      "anomaly_ids": {
+        "DUPLICATE_BITMAP": 2
+      },
       "batch_stats": [
         {
           "batch": 0,
@@ -59,12 +61,12 @@
         },
         {
           "batch": 1,
-          "chars": 30,
+          "chars": 51,
           "density_median": 0.0833,
-          "density_max": 0.2564,
+          "density_max": 0.3077,
           "ink_top_median": 2,
           "ink_bottom_median": 10,
-          "wide_ratio": 1.0,
+          "wide_ratio": 0.8235,
           "empty_ink": 0
         }
       ]
@@ -531,12 +533,39 @@
       ]
     }
   ],
-  "anomalies": [],
-  "anomaly_by_id": {},
+  "anomalies": [
+    {
+      "id": "DUPLICATE_BITMAP",
+      "severity": "info",
+      "detail": "位图完全相同的字符: ' '(U+0020,ascii), '\\xa0'(U+00A0,punct)",
+      "evidence": {
+        "sha1": "56615cdf87de",
+        "members": [
+          "U+0020",
+          "U+00A0"
+        ]
+      }
+    },
+    {
+      "id": "DUPLICATE_BITMAP",
+      "severity": "info",
+      "detail": "位图完全相同的字符: '·'(U+00B7,punct), '•'(U+2022,punct)",
+      "evidence": {
+        "sha1": "f7eddbde1db7",
+        "members": [
+          "U+00B7",
+          "U+2022"
+        ]
+      }
+    }
+  ],
+  "anomaly_by_id": {
+    "DUPLICATE_BITMAP": 2
+  },
   "summary": {
     "errors": 0,
     "warnings": 0,
-    "infos": 0,
+    "infos": 2,
     "verdict": "PASS"
   }
 }
