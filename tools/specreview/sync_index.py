@@ -31,11 +31,22 @@ ROW_RE = re.compile(r"^(\|\s*(?:--|\d+|—)\s*\|\s*\[`([^`]+\.md)`\]\([^)]+\)\s*
                     r"(\d+)\s*行(\s*\|)\s*$")
 
 
-def head_sha() -> str:
-    return subprocess.run(
-        ["git", "-C", str(REPO), "rev-parse", "--short", "HEAD"],
+def baseline_date() -> str:
+    """事实底稿的日期 —— 取**入库 commit 的日期**, 而不是工作区 mtime。
+
+    mtime 会因为 checkout / touch 漂移, commit 日期才是事实底稿真正被固定的时刻。
+    """
+    r = subprocess.run(
+        ["git", "-C", str(REPO), "log", "-1", "--format=%cd", "--date=short",
+         "--", str(BASELINE)],
         capture_output=True, text=True, encoding="utf-8", errors="replace",
-    ).stdout.strip()
+    )
+    d = r.stdout.strip()
+    if d:
+        return d
+    if BASELINE.exists():
+        return datetime.fromtimestamp(BASELINE.stat().st_mtime).strftime("%Y-%m-%d")
+    return ""
 
 
 def line_count(p: Path) -> int:
@@ -61,14 +72,13 @@ def main() -> int:
 
     t = sync_rows(t)
 
-    if BASELINE.exists():
-        d = datetime.fromtimestamp(BASELINE.stat().st_mtime).strftime("%Y-%m-%d")
+    d = baseline_date()
+    if d:
         t = re.sub(r"事实底稿日期：\*\*\d{4}-\d{2}-\d{2}\*\*",
                    f"事实底稿日期：**{d}**", t)
 
-    sha = head_sha()
-    t = re.sub(r"对应仓库 HEAD `[0-9a-f]{7,40}`",
-               f"对应仓库 HEAD `{sha}`（随提交推进变化）", t)
+    # 刻意**不**同步仓库 HEAD 的短 SHA: 它每次提交都会变, 钉进索引只会制造
+    # 「刚提交完 --check 就失败」的假告警。索引里改成用命令查询的表述。
 
     if t == orig:
         print("[OK  ] 索引已是最新, 无需改动")
@@ -77,7 +87,7 @@ def main() -> int:
         print("[FAIL] 索引与实际文件不一致, 跑 sync_index.py 更新")
         return 1
     README.write_text(t, encoding="utf-8")
-    print(f"[OK  ] 索引已同步: 篇幅列 / 底稿日期 / HEAD {sha}")
+    print(f"[OK  ] 索引已同步: 篇幅列 / 底稿日期 {d}")
     return 0
 
 
