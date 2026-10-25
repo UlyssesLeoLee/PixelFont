@@ -25,7 +25,7 @@ from bitfont import BitmapFont  # noqa: E402
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "tools" / "fontgen" / "route_multi12.json"
 
-CELL_W, CELL_H = 12, 13
+CELL_H = 13
 FULL, HALF = 12, 6
 
 
@@ -208,7 +208,7 @@ def main() -> int:
         return 1
 
     print("=" * 74)
-    print(f"门禁 10/10 PASS" + (f" (另有 {len(warnings)} 条警告)" if warnings else ""))
+    print("门禁 10/10 PASS" + (f" (另有 {len(warnings)} 条警告)" if warnings else ""))
     print("=" * 74)
 
     if "--write" in sys.argv:
@@ -230,7 +230,7 @@ def main() -> int:
                 }
                 for k, v in rm.SOURCES.items()
             },
-            "layer_tags": {name: tag for name, _d, tag in m12.layers()},
+            "layer_tags": dict(m12.LAYER_TAGS),
             "stats": {
                 "total": len(route),
                 "per_source": dict(counts),

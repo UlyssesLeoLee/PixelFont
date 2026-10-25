@@ -255,7 +255,9 @@ def verify_snapshot() -> dict[str, int]:
       2. 路由指向未登记的源键;
       3. 某个码位在**它被指派的源**里其实不存在 (源缺字 / 路由指错);
       4. 层归属与编码判定自相矛盾 (例如 L6 里混进了非 JIS 一级汉字的码位);
-      5. 各层互相重叠 (层必须是增量)。
+      5. 层集合不完整 (多一层、少一层、或某层是空的);
+      6. `layer` 没覆盖 `route` 的每一个码位 (少掉的码位会静默变成
+         分类 "unknown", 构建照样成功)。
     """
     from fontTools.ttLib import TTFont
 
@@ -264,18 +266,21 @@ def verify_snapshot() -> dict[str, int]:
     layer = _snap_cps(d, "layer")
     tags = d.get("layer_tags") or {}
 
-    problems: list[str] = []
+    problems: dict[str, list[str]] = {}
+
+    def add(kind: str, msg: str) -> None:
+        problems.setdefault(kind, []).append(msg)
 
     # 1. 总量
     if len(route) != TARGET_TOTAL:
-        problems.append(f"路由表 {len(route)} 条 != 目标 {TARGET_TOTAL}")
+        add("总量", f"路由表 {len(route)} 条 != 目标 {TARGET_TOTAL}")
     if d.get("stats", {}).get("total") != len(route):
-        problems.append("stats.total 与路由表条数不符")
+        add("总量", "stats.total 与路由表条数不符")
 
     # 2. 源键
     unknown = sorted(set(route.values()) - set(SOURCES))
     if unknown:
-        problems.append(f"路由指向未登记的源: {unknown}")
+        add("源键", f"路由指向未登记的源: {unknown}")
 
     # 2b. 分类标签必须齐全 (快照里的 layer_tags 是分类的唯一来源)
     missing_tag = sorted({
@@ -283,16 +288,20 @@ def verify_snapshot() -> dict[str, int]:
         if layer.get(cp, "?") not in tags
     })
     if missing_tag:
-        problems.append(f"这些层没有登记分类标签 (layer_tags 缺项): {missing_tag}")
+        add("分类标签", f"这些层没有登记分类标签 (layer_tags 缺项): {missing_tag}")
 
     # 3. 每个码位在它被指派的源里确实存在
     cmaps: dict[str, set[int]] = {}
     for key in sorted(set(route.values())):
         if key == "handdrawn":
             continue
+        if key not in SOURCES:
+            # 门禁 2 已经记下「未登记的源」了 —— 这里必须跳过,
+            # 否则会崩成 KeyError, 把那条清楚的报错盖成 traceback。
+            continue
         p = SOURCES[key][0]
         if not p.exists():
-            problems.append(f"缺少入库生产源: {p}")
+            add("生产源", f"缺少入库生产源: {p}")
             continue
         f = TTFont(str(p), fontNumber=0, lazy=True)
         cmaps[key] = set(f.getBestCmap())
@@ -300,51 +309,71 @@ def verify_snapshot() -> dict[str, int]:
     for cp, key in sorted(route.items()):
         if key == "handdrawn":
             continue
-        if key in cmaps and cp not in cmaps[key]:
-            problems.append(f"U+{cp:04X} 路由到 {key}, 但该源没有这个字形")
-            if len(problems) > 20:
+        allowed = cmaps.get(key)
+        if allowed is not None and cp not in allowed:
+            add("字形覆盖", f"U+{cp:04X} 路由到 {key}, 但该源没有这个字形")
+            if len(problems["字形覆盖"]) >= 20:
                 break
 
     # 4. 层归属自洽 (编码判定, 不依赖任何字体文件)
     import charset_multi12 as m12
 
-    blocks = {
-        "L1 Latin Ext A/B": lambda c: 0x0100 <= c <= 0x024F,
-        "L2 Greek": lambda c: 0x0370 <= c <= 0x03FF,
-        "L3 Cyrillic": lambda c: 0x0400 <= c <= 0x04FF,
-        "L4 Hangul syllables": lambda c: 0xAC00 <= c <= 0xD7AF,
-        "L6 JIS X 0208 一级汉字": m12.jis_x0208_kanji().__contains__,
-        "L7 CJK 其余": lambda c: 0x4E00 <= c <= 0x9FFF,
-    }
-    l5_ok = m12.jis_x0208_level2_kanji() | m12.jis_x0208_kana_punct()
-    cur = m12.current_family()
+    block_sets = m12.layer_block_sets()
     for cp, lname in sorted(layer.items()):
-        if lname == "L5 JIS X 0208 二级汉字 + 符号/假名":
-            if cp not in l5_ok:
-                problems.append(f"U+{cp:04X} 在 L5, 但不属于 JIS 二级汉字/符号假名")
-        elif lname == "L0 当前家族":
-            if cp not in cur:
-                problems.append(f"U+{cp:04X} 在 L0, 但不属于当前家族字符集")
-        elif lname in blocks:
-            if not blocks[lname](cp):
-                problems.append(f"U+{cp:04X} 在 {lname}, 但不在该层的编码块内")
-        else:
-            problems.append(f"U+{cp:04X} 的层名 {lname!r} 未登记")
-        if len(problems) > 20:
+        allowed = block_sets.get(lname)
+        if allowed is None:
+            add("层归属", f"U+{cp:04X} 的层名 {lname!r} 未登记")
+        elif cp not in allowed:
+            add("层归属", f"U+{cp:04X} 在 {lname}, 但不在该层的编码块内")
+        if len(problems.get("层归属", [])) >= 20:
             break
 
-    # 5. 层必须互斥 (增量语义)
-    seen: dict[int, str] = {}
-    for cp, lname in layer.items():
-        if cp in seen and seen[cp] != lname:
-            problems.append(f"U+{cp:04X} 同时属于 {seen[cp]} 和 {lname}")
+    # 5. 层集合完整
+    #
+    # 这里查的是「层名集合」与「每层非空」, **不是**「层之间是否重叠」——
+    # `layer` 是 {码位: 层名} 的字典, 一个码位只可能有一个层名, 「重叠」
+    # 在这个结构里**不可能发生**, 查它是查不出东西的 (曾误写过这样一条死门禁)。
+    # 真正能查、且查得动的两件事:
+    #   a) 快照里的层名必须是代码登记的那 8 个 (多一层/少一层都算错);
+    #   b) 每层至少要有一个码位 (空层 = 层定义坏了)。
+    got_layers = set(layer.values())
+    want_layers = set(m12.layer_names())
+    extra = sorted(got_layers - want_layers)
+    if extra:
+        add("层集合", f"快照出现未登记的层: {extra}")
+    missing = sorted(want_layers - got_layers)
+    if missing:
+        add("层集合", f"快照缺少这些层: {missing}")
+    for lname in sorted(want_layers & got_layers):
+        if not any(v == lname for v in layer.values()):
+            add("层集合", f"层 {lname} 是空的")
+
+    # 6. layer 必须覆盖 route 的每一个码位
+    # (少了的码位在 `snapshot_charset()` 里会拿到 "unknown" 分类, 构建照样成功 —— 静默)
+    only_route = set(route) - set(layer)
+    only_layer = set(layer) - set(route)
+    if only_route:
+        add("层覆盖", f"有 {len(only_route)} 个码位在 route 里但 layer 里没有 "
+                      f"(如 U+{min(only_route):04X})")
+    if only_layer:
+        add("层覆盖", f"有 {len(only_layer)} 个码位在 layer 里但 route 里没有 "
+                      f"(如 U+{min(only_layer):04X})")
 
     if problems:
-        head = problems[:20]
+        # **按门禁分类汇总**, 不做全局截断 ——
+        # 全局截断会让「99 条编码块问题」把「缺少这些层」这类根因挤掉,
+        # 用户看到一堆表象却看不到真正的原因。
+        lines: list[str] = []
+        total = 0
+        for kind, msgs in problems.items():
+            total += len(msgs)
+            lines.append(f"  [{kind}] {len(msgs)} 条")
+            for m in msgs[:5]:
+                lines.append(f"    - {m}")
+            if len(msgs) > 5:
+                lines.append(f"    ... 还有 {len(msgs) - 5} 条")
         raise SystemExit(
-            "路由快照自洽门禁未过:\n"
-            + "\n".join("  " + p for p in head)
-            + (f"\n  ... 共 {len(problems)} 条" if len(problems) > len(head) else "")
+            "路由快照自洽门禁未过:\n" + "\n".join(lines) + f"\n  合计 {total} 条"
         )
 
     return {

@@ -51,6 +51,27 @@ TARGET_A = 19_816
 #: MS Gothic / SimHei 路径（与 `docs/reference-fonts.md` 记载一致）。
 NON_THIRD_SOURCE = {0x20AC, 0x2260, 0x2264, 0x2265}  # € ≠ ≤ ≥
 
+#: **层名 -> 分类标签**。层名与标签的唯一定义处。
+#:
+#: 为什么放在代码里而不是只放在快照里: 快照是**派生物**, 规则才是产物。
+#: 若层名只在快照里, 快照与代码就无从互相印证 —— 快照被改成什么, 它自己都自洽。
+#: 放在代码里, 快照的层名就有了**外部基准**可对。
+LAYER_TAGS: dict[str, str] = {
+    "L0 当前家族": "current",
+    "L1 Latin Ext A/B": "latin-ext",
+    "L2 Greek": "greek",
+    "L3 Cyrillic": "cyrillic",
+    "L4 Hangul syllables": "hangul",
+    "L5 JIS X 0208 二级汉字 + 符号/假名": "jis-l2",
+    "L6 JIS X 0208 一级汉字": "jis-kanji",
+    "L7 CJK 其余": "cjk-ext",
+}
+
+
+def layer_names() -> list[str]:
+    """8 个层名 (顺序即累加顺序) —— **不需要参考字体**。"""
+    return list(LAYER_TAGS)
+
 
 class ReferenceFontsMissing(RuntimeError):
     """参考字体不在位 —— 无法确定覆盖边界。"""
@@ -141,6 +162,29 @@ def current_family() -> set[int]:
     return {ord(c) for c, _ in charset.build_charset()}
 
 
+def layer_block_sets() -> dict[str, set[int]]:
+    """每层的**候选码位集合** —— 纯编码判定，**不需要参考字体**。
+
+    这是快照自洽门禁（`route_multi12.verify_snapshot`）的**外部基准**：
+    快照说某码位属于 L6，这里说 L6 只收 Shift-JIS 首字节 0x88–0x9F 的一级汉字，
+    两者对不上就是有一方错了。
+
+    集合是「候选」而非最终成员 —— 最终成员还要 ∩ 源的覆盖，那一步需要
+    `third_party/`。所以这里只用来判**方向**：快照的层归属必须是候选集的子集。
+    """
+    return {
+        "L0 当前家族": current_family(),
+        "L1 Latin Ext A/B": set(range(0x0100, 0x0250)),
+        "L2 Greek": set(range(0x0370, 0x0400)),
+        "L3 Cyrillic": set(range(0x0400, 0x0500)),
+        "L4 Hangul syllables": set(range(0xAC00, 0xD7B0)),
+        "L5 JIS X 0208 二级汉字 + 符号/假名":
+            jis_x0208_level2_kanji() | jis_x0208_kana_punct(),
+        "L6 JIS X 0208 一级汉字": jis_x0208_kanji(),
+        "L7 CJK 其余": set(range(0x4E00, 0xA000)),
+    }
+
+
 def layers() -> list[tuple[str, set[int], str]]:
     """返回 [(层名, 该层码位集合, 分类标签)]，顺序即累加顺序。
 
@@ -166,6 +210,16 @@ def layers() -> list[tuple[str, set[int], str]]:
         ("L6 JIS X 0208 一级汉字", jis_x0208_kanji() & ja, "jis-kanji"),
         ("L7 CJK 其余", _rng(0x4E00, 0x9FFF) & ja, "cjk-ext"),
     ]
+
+    # 层名与标签必须与 `LAYER_TAGS` **逐项相同** —— 它是快照自洽门禁的外部基准,
+    # 两边对不上, 门禁就失去了判别力。
+    got = [(n, t) for n, _d, t in raw]
+    want = list(LAYER_TAGS.items())
+    if got != want:
+        raise SystemExit(
+            "层定义与 LAYER_TAGS 不一致 —— 两者必须逐项相同:\n"
+            f"  layers()  : {got}\n  LAYER_TAGS: {want}"
+        )
 
     # 扣掉与前面各层的重叠，得到增量
     out: list[tuple[str, set[int], str]] = []

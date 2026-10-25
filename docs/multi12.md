@@ -285,6 +285,7 @@ python tools/fontgen/vendor_multi12_sources.py --check
 | 26 | DEFAULT 质量下抗锯齿像素 | 同上 | 0 |
 | 27 | **回下载逐字节一致**（6 个资产） | 发布流程阶段 8 | 一致 |
 | 28 | **回下载产物可渲染** | `verify_gdi_multi12.py --ttf <回下载路径> --bdf <回下载 zip 内路径>` | 5 个 charset + 4 × 31,392 逐格一致 |
+| 29 | **快照门禁的故障注入自测** | `verify_snapshot_gate.py` | 8/8 种损坏全部被抓到 |
 
 GDI 门禁的额外一条：繁体（`lfCharSet=BIG5`）**必须选不中**本字体 ——
 字符集里没有 zh_hant 码位，选中了反而是 bug。实测选中的是系统字体 `Ebrima`，符合预期。
