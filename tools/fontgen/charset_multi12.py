@@ -82,7 +82,7 @@ def _rng(a: int, b: int) -> set[int]:
 
 
 def jis_x0208_kanji() -> set[int]:
-    """JIS X 0208 第 1–2 区汉字：Shift-JIS 双字节且首字节 0x88–0x9F。
+    """JIS X 0208 第 1–2 区**一级**汉字：Shift-JIS 双字节且首字节 0x88–0x9F。
 
     与 `charset.gb2312_level1()` 同一套方法论 —— 靠编码判定，不靠人列。
     """
@@ -97,15 +97,41 @@ def jis_x0208_kanji() -> set[int]:
     return out
 
 
-def jis_x0208_kana_punct() -> set[int]:
-    """JIS X 0208 假名 / 符号 / 全角：Shift-JIS 首字节 0x81–0x87 或 0xE0–0xEF。"""
+def jis_x0208_level2_kanji() -> set[int]:
+    """JIS X 0208 **二级**汉字：Shift-JIS 双字节且首字节 0xE0–0xEF。
+
+    为什么必须和一级汉字分开: 首字节 0xE0–0xEF 是 JIS X 0208 的**二级汉字行**
+    (第 48–84 区), 落在 U+4E00–U+9FFF 里 —— 实测这 1,980 个码位**全是汉字**。
+    早先把它当成「假名/符号/全角」, 于是 L5 那一层名义上写的是「假名/符号/全角」,
+    实际内容却有 1,689 个汉字, 层名与内容对不上。
+
+    判据: 一级 = 0x88–0x9F, 二级 = 0xE0–0xEF, 符号/假名/希腊/西里尔 = 0x81–0x87。
+    """
     out: set[int] = set()
     for cp in range(0x3000, 0xA000):
         try:
             b = chr(cp).encode("shift_jis")
         except UnicodeEncodeError:
             continue
-        if len(b) == 2 and (0x81 <= b[0] <= 0x87 or 0xE0 <= b[0] <= 0xEF):
+        if len(b) == 2 and (0xE0 <= b[0] <= 0xEF):
+            out.add(cp)
+    return out
+
+
+def jis_x0208_kana_punct() -> set[int]:
+    """JIS X 0208 第 1–8 区符号 / 假名 / 希腊 / 西里尔：首字节 0x81–0x87。
+
+    注意: 这里**不含**二级汉字 (那是 0xE0–0xEF, 见 `jis_x0208_level2_kanji()`),
+    也不含全角形式 (U+FF00–U+FFEF 在 0x3000–0xA000 扫描范围之外, 靠首字节
+    0x81–0x87 判定时需要单独扫 0xFF00 以上的区间)。
+    """
+    out: set[int] = set()
+    for cp in range(0x3000, 0xA000):
+        try:
+            b = chr(cp).encode("shift_jis")
+        except UnicodeEncodeError:
+            continue
+        if len(b) == 2 and (0x81 <= b[0] <= 0x87):
             out.add(cp)
     return out
 
@@ -133,8 +159,11 @@ def layers() -> list[tuple[str, set[int], str]]:
         ("L2 Greek", _rng(0x0370, 0x03FF) & la, "greek"),
         ("L3 Cyrillic", _rng(0x0400, 0x04FF) & la, "cyrillic"),
         ("L4 Hangul syllables", _rng(0xAC00, 0xD7AF) & ko, "hangul"),
-        ("L5 JIS X 0208 假名/符号/全角", jis_x0208_kana_punct() & ja, "kana"),
-        ("L6 JIS X 0208 汉字", jis_x0208_kanji() & ja, "jis-kanji"),
+        # L5 的内容是**二级汉字 + 少量符号**, 不是"假名/符号/全角" ——
+        # 详见 `jis_x0208_level2_kanji()` 的注释与门禁 5。
+        ("L5 JIS X 0208 二级汉字 + 符号/假名",
+         (jis_x0208_level2_kanji() | jis_x0208_kana_punct()) & ja, "jis-l2"),
+        ("L6 JIS X 0208 一级汉字", jis_x0208_kanji() & ja, "jis-kanji"),
         ("L7 CJK 其余", _rng(0x4E00, 0x9FFF) & ja, "cjk-ext"),
     ]
 
@@ -228,6 +257,28 @@ def gate_multi12() -> None:
         if cp in got_cps:
             raise SystemExit(f"排除项被收进来了: U+{cp:04X}")
 
+    # 门禁 5: L5 的**层名必须与内容对得上**
+    #
+    # 为什么要专门加这一条: JIS X 0208 的首字节 0xE0–0xEF 是**二级汉字行**,
+    # 落在 U+4E00–U+9FFF 里。早先把它当成"假名/符号/全角", 于是 L5 名义上写的是
+    # "假名/符号/全角", 实际内容却有 1,689 个汉字 —— 总量照样对得上 (31,392),
+    # 所以前三道门禁全绿, 但**层名是错的**。门禁必须盯住构成, 不能只盯总量。
+    cjk_block = _rng(0x4E00, 0x9FFF)
+    l5 = next(d for n, d, _ in layers() if n.startswith("L5"))
+    l5_cjk = l5 & cjk_block
+    l5_sym = l5 - cjk_block
+    if len(l5_cjk) != 1689 or len(l5_sym) != 6:
+        raise SystemExit(
+            f"L5 构成变了: 汉字 {len(l5_cjk)} (期望 1689) / 符号 {len(l5_sym)} (期望 6) "
+            "—— 层名或底层判定需要重新核对"
+        )
+    # 二级汉字集必须整体落在 CJK 块内 (这是 0xE0–0xEF 行的定义性质)
+    l2 = jis_x0208_level2_kanji()
+    if not l2 <= cjk_block:
+        raise SystemExit(
+            f"JIS X 0208 二级汉字集里有 {len(l2 - cjk_block)} 个不在 CJK 块内"
+        )
+
 
 def main() -> None:
     print("=== PixelFont Multi 12 字符集账目 (方案 C) ===")
@@ -250,7 +301,7 @@ def main() -> None:
     print()
     print("=== 门禁 ===")
     gate_multi12()
-    print("  4/4 PASS  (总量 / 方案A交叉 / A∪CJK交叉 / 非第三源与排除项)")
+    print("  5/5 PASS  (总量 / 方案A交叉 / A∪CJK交叉 / 非第三源与排除项 / L5 构成)")
 
 
 if __name__ == "__main__":

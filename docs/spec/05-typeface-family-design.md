@@ -252,8 +252,8 @@
 | L2 | +Greek（U+0370–U+03FF ∩ Fusion latin） | 99 | 4,501 |
 | L3 | +Cyrillic（U+0400–U+04FF ∩ Fusion latin） | 151 | 4,652 |
 | L4 | +Hangul syllables（U+AC00–U+D7AF ∩ Fusion ko） | 11,172 | 15,824 |
-| L5 | +JIS X 0208 假名/符号/全角（Shift-JIS 首字节 0x81–0x87 / 0xE0–0xEF ∩ Fusion ja） | 1,695 | 17,519 |
-| L6 | +JIS X 0208 汉字 4,375（Shift-JIS 首字节 0x88–0x9F ∩ Fusion ja） | 2,297 | 19,816 |
+| L5 | +JIS X 0208 **二级汉字**（首字节 0xE0–0xEF）+ 符号/假名（0x81–0x87）∩ Fusion ja | 1,695（汉字 1,689 / 符号 6） | 17,519 |
+| L6 | +JIS X 0208 **一级**汉字 4,375（Shift-JIS 首字节 0x88–0x9F ∩ Fusion ja） | 2,297 | 19,816 |
 | L7 | +CJK 其余（U+4E00–U+9FFF ∩ Fusion ja） | 11,576 | **31,392** |
 
 交叉核对：方案 A（L0–L6）= 19,816；CJK 整块 U+4E00–U+9FFF ∩ Fusion ja = 19,317；A ∪ CJK = 31,392 ✔。

@@ -202,7 +202,7 @@ python tools/fontgen/vendor_fusion_pixel.py --check
 - **没有** Arabic / Hebrew / Devanagari / Thai 的 12px 点阵源 —— 只有 Unifont 16（16×16 网格），塞不进 12px 格。
 - **单字重** Regular，无 Bold / Italic / 无可变字体轴。
 - **无 kerning、无连字、无 OpenType 特性**（除 `gasp`）。
-- 本机已安装的是 10-23 旧版（1,362,480 字节，sha256 `FCC65BCBCD8A1A022007065E3444464916EDB537BB172B6F2ACDC9596DE3303B`），**尚未覆盖**。
+- 本机已安装的是**当前版**（973,712 字节，sha256 `3298AE4D…F69FB1`），与发布产物逐字节一致；四层复核（文件指纹 / 枚举 / 选择 / 全字符集渲染）全过，见 `tools/fontgen/verify_install.py`。
 - 成品字形派生自 **SimHei / MS Gothic**（微软专有）→ `dist/` **不入库**；仓库 `LICENSE` = **GNU AGPL-3.0**（覆盖 `tools/fontgen/` 代码）；`vendor/` 的 Fusion = **OFL-1.1**（三份许可随附）。
 
 ---
@@ -220,8 +220,8 @@ python tools/fontgen/vendor_fusion_pixel.py --check
 | L2 | +Greek（U+0370–U+03FF ∩ Fusion latin） | 99 | 4,501 |
 | L3 | +Cyrillic（U+0400–U+04FF ∩ Fusion latin） | 151 | 4,652 |
 | L4 | +Hangul syllables（U+AC00–U+D7AF ∩ Fusion ko） | 11,172 | 15,824 |
-| L5 | +JIS X 0208 假名/符号/全角（Shift-JIS 首字节 0x81–0x87 / 0xE0–0xEF ∩ Fusion ja） | 1,695 | 17,519 |
-| L6 | +JIS X 0208 汉字 4,375（Shift-JIS 首字节 0x88–0x9F ∩ Fusion ja） | 2,297 | 19,816 |
+| L5 | +JIS X 0208 **二级汉字**（首字节 0xE0–0xEF）+ 符号/假名（0x81–0x87）∩ Fusion ja | 1,695（汉字 1,689 / 符号 6） | 17,519 |
+| L6 | +JIS X 0208 **一级**汉字 4,375（Shift-JIS 首字节 0x88–0x9F ∩ Fusion ja） | 2,297 | 19,816 |
 | L7 | +CJK 其余（U+4E00–U+9FFF ∩ Fusion ja） | 11,576 | **31,392** |
 
 交叉核对：方案 A（L0–L6）= **19,816**；CJK 整块 U+4E00–U+9FFF ∩ Fusion ja = **19,317**；A ∪ CJK = **31,392** ✔（与逐层累加一致）。

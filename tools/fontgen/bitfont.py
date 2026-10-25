@@ -62,6 +62,7 @@ class BitmapFont:
     name: str = ""
     cell_ascent: int = 0
     cell_descent: int = 0
+    cell_w: int = 0
     _font: ImageFont.FreeTypeFont = field(init=False, repr=False)
     _metrics: FontMetrics = field(init=False, repr=False)
     _cache: dict[str, Image.Image] = field(init=False, repr=False, default_factory=dict)
@@ -84,15 +85,20 @@ class BitmapFont:
         # 的 offset 贴 (Pillow 返回的 dy 是相对该字体 ascender 的)。实测这样处理后
         # Ark 与 MS Gothic 的同一个字墨迹范围完全一致 (都是 1..11 行),
         # 与 SimHei 的 1..10 行相差 1 行 —— 那 1 行是字体设计差异, 不是错位。
+        #
+        # cell_w: 全角 cell 宽的**显式覆盖**。Zpix 的 advance 是 13px (12px 内容
+        # + 1px 间隔), 但本项目要的是 12px 等宽网格; 它的墨迹整体落在第 0..10 列,
+        # 裁到 12 列不丢任何墨迹, 所以覆盖成 12 是安全的。
         if self.cell_ascent > 0:
             ascent = self.cell_ascent
             if self.cell_descent > 0:
                 descent = self.cell_descent
+        cell_w = self.cell_w if self.cell_w > 0 else cjk_adv + self.stretch
         self._metrics = FontMetrics(
             px=self.px,
             ascent=ascent,
             descent=descent,
-            cell_w=cjk_adv + self.stretch,
+            cell_w=cell_w,
             cell_h=ascent + descent,
             half_w=half,
         )
