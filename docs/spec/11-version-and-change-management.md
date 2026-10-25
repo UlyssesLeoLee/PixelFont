@@ -102,7 +102,7 @@ PixelFont 当前处于 **v1.0.0 已发布**状态，发布链已闭环：注解 
 | 家族 | name ID 1 / 16 | PostScript 名 | achVendID | 当前版本 | 版本序列规则 |
 |---|---|---|---|---|---|
 | `PixelFont PC98 12` | `PixelFont PC98 12` | `PixelFontPC98-12` | `PXLF` | **v1.0.0**（已发布，2026-10-24） | 自 v1.0.0 起按 §2.1 三段规则递增；单序列，无并行版本线 |
-| `PixelFont Multi 12` | `PixelFont Multi 12` | `PixelFontMulti-12`（**已构建验证**，2026-10-25） | `PXLF`（**已验证**，沿用项目 vendor ID） | **v1.0.1**（独立序列） | **独立版本序列**，自 v1.0.0 起编号，与 `PixelFont PC98 12` 互不递增、互不覆盖 |
+| `PixelFont Multi 12` | `PixelFont Multi 12` | `PixelFontMulti-12`（**已构建验证**，2026-10-25） | `PXLF`（**已验证**，沿用项目 vendor ID） | **v1.1.0**（独立序列） | **独立版本序列**，自 v1.0.0 起编号，与 `PixelFont PC98 12` 互不递增、互不覆盖 |
 
 **多家族并存时的 tag 命名**（2026-10-25 补）：
 
@@ -112,7 +112,7 @@ PixelFont 当前处于 **v1.0.0 已发布**状态，发布链已闭环：注解 
 | 家族 | tag 形式 | 例 |
 |---|---|---|
 | `PixelFont PC98 12` | `v<版本>`（**已发布，不可改**） | `v1.0.0` |
-| `PixelFont Multi 12` | `<家族短名>-v<版本>` | `multi12-v1.0.0`、`multi12-v1.0.1` |
+| `PixelFont Multi 12` | `<家族短名>-v<版本>` | `multi12-v1.0.0`、`multi12-v1.0.1`、`multi12-v1.1.0` |
 
 `multi12` 短名取自 PostScript 名 `PixelFontMulti-12` 的小写化短形式。
 先发布的家族保留无前缀形式（历史既成），后发布的家族必须带前缀。
@@ -121,12 +121,16 @@ PixelFont 当前处于 **v1.0.0 已发布**状态，发布链已闭环：注解 
 | 项 | 值 | 来源 |
 |---|---|---|
 | 形态决策 | 新增独立家族，现有 `PixelFont PC98 12` 不动 | 底稿 §13 拍板决策 ② |
-| 范围决策 | 方案 C（A + 全部 CJK）= **31,392 码位** | 底稿 §13 逐层账目（19,816 + 11,576 = 31,392） |
+| 范围决策 | 方案 C（A + 全部 CJK）= **31,753 码位**（原决策 31,392，2026-10-25 扩到 31,753） | 底稿 §13 逐层账目 + `multi12-v1.1.0` 变更记录（19,816 + 11,937 = 31,753） |
 | 中日共享汉字 | **2,078**；共享字默认取**中文形（zh_hans 源）**，JIS 独有 **2,297** 走 ja 源 | 底稿 §13.2 |
 | 中日字形分歧 | 共享字中 **434 / 2,078（20.9%）** 像素不同 | 底稿 §13.3 实测 |
 | 变体机制 | GSUB `locl` **未选**（架构改动过大） | 底稿 §13 拍板决策 ③ |
 
-> 版本序列协调的**拟议**结论：两个家族并行推进期间各自独立递增；发布说明与产物名必须带家族名（如 `PixelFontMulti-12-YYYY-MM-DD.zip`）以免混淆。该命名规则未在任何仓库文件中落地，属拟议。
+> **产物名必须带家族名**（已落地）：发布包名形如 `PixelFontMulti-12-<发布日>.zip`；
+> **同一发布日在同一家族上发布多次时改用 `PixelFontMulti-12-<版本>.zip`**
+> —— v1.0.0 与 v1.0.1 就撞在同一天，日期式命名会让两个 Release 出现
+> **同名但内容不同**的附件。`multi12-v1.1.0` 起用的是后者
+> （`PixelFontMulti-12-v1.1.0.zip`）。打包脚本 `tools/fontgen/package_multi12.py`。
 
 ### 2.3 兼容性判定
 
@@ -235,7 +239,7 @@ PixelFont 当前处于 **v1.0.0 已发布**状态，发布链已闭环：注解 
 | 3 验收 | `python tools/fontgen/verify_all.py`（8 步，约 6 分钟） | **8/8 PASS**；回归 0 error 0 warn；硬检查命中 71（warn 69 / error 2，参考集分歧）；对抗审核三轮 60 / 139 / 19，待裁决 0，确认缺陷 0 | 任一步失败即中止发布，修复后从阶段 2 重跑全链 |
 | 4 Windows 兼容门禁 | `python tools/fontgen/verify_gdi.py`（全字符集，约 9 秒） | 12ppem 与 24ppem 各 **4,161 / 4,161** 逐格一致；抗锯齿像素 **0** | 同上 |
 | 5 产物指纹 | 计算 `dist/` 产物 sha256 | TTF = `3298AE4D9E28E7F3D5939E007DF43EA82B64860922AB246FC7A4B82414F69FB1`；zip = `96EE924E853FCE5A29EDA0990ED4B68EFEF46B74F7782B764053CB2AD150FDE8` | 与预期不符 → 查构建是否含未提交改动，禁止发布 |
-| 6 打包 | 产出 `PixelFontPC98-12-<发布日>.zip` | zip 内实际 **9 项**：`PixelFontPC98-12.ttf` / `.bdf` / `-atlas.png` / `-specimen.png` / `安装与使用说明.md` / `word-compat.md` / `SHA256SUMS.txt` / `说明-各字号渲染对比.png` / `说明-轮廓合并前后对比.png` | 条目数或内容不符 → 重打包 |
+| 6 打包 | 产出 `PixelFontPC98-12-<发布日>.zip`；**同一发布日在同一家族上发布多次时改用 `<家族>-<版本>.zip`** | zip 内实际 **9 项**：`PixelFontPC98-12.ttf` / `.bdf` / `-atlas.png` / `-specimen.png` / `安装与使用说明.md` / `word-compat.md` / `SHA256SUMS.txt` / `说明-各字号渲染对比.png` / `说明-轮廓合并前后对比.png` | 条目数或内容不符 → 重打包 |
 | 7 发布前自检 | 逐字节核对 zip 与 `dist/` 内对应文件 | 完全一致 | 重打包 |
 | 8 **回下载校验** | 从 GitHub 重新下载已上传资产，逐字节比对 | 与上传件**逐字节一致**（v1.0.0 已做过：一致） | 不一致 → 撤回 Release 重传 |
 | 9 **实际渲染抽检** | 用回下载回来的 TTF 在 GDI 中选中并渲染 | 正常被选中、正常渲染（v1.0.0 已做过：通过） | 不通过 → 撤回 Release |
@@ -254,20 +258,21 @@ PixelFont 当前处于 **v1.0.0 已发布**状态，发布链已闭环：注解 
 | **v1.0.0** | **2026-10-24** | ① `OS/2` 元数据三处修复（`cef4a22`）；② 字符集 4,140 → **4,161**，补 21 个 Word 常用字符，新增 `charset.SOURCE_OVERRIDES` 与 `bitfont.ScriptStack` 的 `overrides` 通道，修 `U+005C` 被 MS Gothic 按 JIS 惯例画成 `¥` 的缺陷（`729403c`）；③ GDI 门禁从 6 样字扩到全字符集逐格验证，新增 `docs/install.md`（`c403eea`）；④ 合并竖向相邻等宽游程，轮廓 107,209 → **73,933**、TTF 1,364,528 → **973,712** 字节，整数倍精确性 **12,483 / 12,483** 未破（`8ae04fc`）；⑤ 刷新可复现性表（`4300fc1`） | **973,712 字节** / `3298AE4D9E28E7F3D5939E007DF43EA82B64860922AB246FC7A4B82414F69FB1` | **注解 tag `v1.0.0`** → `main` 的 `4300fc1`，说明「feat(font): v1.0.0 -- 首个实测可在 Word 中使用的版本」 |
 | **multi12-v1.0.0** | **2026-10-24** | **`PixelFont Multi 12` 家族的首个版本** —— 独立序列，与上表互不递增。字符集 **31,392** 码位（汉字 19,317 / 谚文 11,172 / 拉丁系 593 / 假名全角标点 305 / 其它 5），生产源全部 OFL-1.1（Fusion Pixel 12px + 4 个原创手绘），成品可自由分发、可商用（`ec064e4`、`b6350ef`）；`OS/2` 声明 bit19 韩文代码页，否则 GDI 在 `lfCharSet=HANGEUL` 下根本不会考虑本字体（`b6350ef`）；PostScript 名定为 `PixelFontMulti-12`，与 `PixelFontPC98-12` 同一套风格（`8c19d9d`） | **7,736,520 字节** / `D28E0FB5134415319A9A42F19A706463C9FDDC8A992F76729BAB7F9FF5131913` | **注解 tag `multi12-v1.0.0`** → `main` 的 `a3509b3` |
 | **multi12-v1.0.1** | **2026-10-25** | **PATCH** —— 字体产物与 v1.0.0 **逐字节相同**（重建后 6 个产物 sha256 全部 IDENTICAL），改的是**验证门禁**：① 快照自洽门禁的「层必须互斥」是永不触发的死门禁（`layer` 是 `{码位: 层名}` 字典，一个码位只可能有一个层名）；② 门禁记下「未登记的源」后没中止，下一步崩成 `KeyError` 盖住报错；③ 错误报告 `problems[:20]` 全局截断，把「缺少这些层」这类根因挤掉；④ 层名与标签只存在于快照里，没有外部基准。配套新增 `tools/fontgen/verify_snapshot_gate.py`（8 种故障注入全抓到，并区分「报错」与「崩了」）—— 该自测当场抓出了 ② 与 ③ | **7,736,520 字节**（同 v1.0.0） / `D28E0FB5134415319A9A42F19A706463C9FDDC8A992F76729BAB7F9FF5131913` | **注解 tag `multi12-v1.0.1`** → `main` 的 `0b9c686` |
+| **multi12-v1.1.0** | **2026-10-25** | **MINOR** —— 字符集 **31,392 → 31,753**（新增 361 个码位），**已发布码位的位图一个都没变**（纯新增）。① 引入 **ZLabs Pixel 12px CN**（OFL-1.1）作简体补源：实测 Fusion 与 Ark 的**七个变体全都缺 128 个 GB2312 二级汉字**，只有 ZLabs 覆盖 GB2312 全部 6,763 个；② 把「日语字和中文简体都是全量」写成**硬门禁**（字符集门禁 6/7，口径由 `gb2312` / `shift_jis` 编码器机械判定），并新增 `tools/fontgen/verify_coverage_gates.py` 对 4 道新门禁做故障注入（7/7 抓到）；③ 新增推导门禁 11「zlabs_cn 只承接 Fusion 两源都不覆盖的码位」，从**规则结构**上保证已发布码位路由不变；④ 修「裁剪不是逐字节可复现」（差异只在 head 表 `modified` 一个字段）；⑤ 修 `vendor_multi12_sources.py --check` 文档与实现矛盾（它需要 third_party，干净克隆上会抛错）；⑥ 打包流程入库为 `tools/fontgen/package_multi12.py`（**可复现**，此前是临时脚本）；⑦ 发布包 `OFL.txt` 改为列出**全部**三个上游的版权声明与保留字体名（此前漏了 Fusion 的）；⑧ 发布包名改用版本号（`PixelFontMulti-12-v1.1.0.zip`），避免同日重名 | **7,853,876 字节** / `B844D8C1F92114ACFCB2745DCFF6C1C13711BB6853B372D6BAB6B8137BF87C15` | **注解 tag `multi12-v1.1.0`** → `main` 的 `（见 CHANGELOG §multi12-v1.1.0）` |
 
 `PixelFont Multi 12` 的发布事实（独立于上表的 PC98 12 行）：
 
 | 发布事实 | 值 |
 |---|---|
 | Release 状态 | 正式版（`draft=false`） |
-| 最新 Release | `multi12-v1.0.1` → <https://github.com/UlyssesLeoLee/PixelFont/releases/tag/multi12-v1.0.1>（标记为 Latest） |
-| 上一版 | `multi12-v1.0.0` → <https://github.com/UlyssesLeoLee/PixelFont/releases/tag/multi12-v1.0.0> |
-| 附件数 | **6**（两版都是） |
-| zip 附件 | v1.0.1：`PixelFontMulti-12-2026-10-25.zip`，2,626,345 字节 / `729C3D457C3AB331B50BC330EE129DD592E82B98BD9360D73D711C8A1C0EFB78`；v1.0.0：`PixelFontMulti-12-2026-10-24.zip`，2,626,345 字节 / `6EAB85EAECB1DEE433DC7F40E43F554AB9023D81475D96C554AE9FF903012FD9`（**包内 7 项**：TTF / BDF / 图集 / 样张 / 安装说明 / OFL 全文 / 校验和。zip 的 sha256 两版不同，**仅因为包内条目时间戳跟着发布日走**；字体产物字节完全相同） |
-| ttf 附件 | `PixelFontMulti-12.ttf`，7,736,520 字节 / `D28E0FB5134415319A9A42F19A706463C9FDDC8A992F76729BAB7F9FF5131913`（两版相同） |
-| 图集 / 样张附件 | `PixelFontMulti-12-atlas.png` 764,187 字节 / `6DF3BFCE5E24CA135D94F7D12BA836F352908C2DF4627752C8D43021C1EE63CA`；`PixelFontMulti-12-specimen.png` 3,174 字节 / `C9D93FF4E4EFEAE4C0C61BB5E96342584AC77D8E0475755566A1BF0B75931A25`（两版相同） |
-| 许可附件 | `OFL.txt` 4,518 字节 / `983AF89B36518A85EE5205B6CAD1DE232DBC2852B536C50FF2956BF74DB3B5A4`（OFL-1.1 要求随包附全文，**必须项**） |
-| 回下载校验 | 6 个资产重新下载后**逐字节一致**；下载回的 TTF 在 GDI 中被正常选中，全字符集 31,392 码位 × (12 ppem + 24 ppem) 与设计位图**逐格一致**，抗锯齿像素 **0**（`python tools/fontgen/verify_gdi_multi12.py --ttf <回下载路径> --bdf <回下载 zip 内路径>`） |
+| 最新 Release | `multi12-v1.1.0` → <https://github.com/UlyssesLeoLee/PixelFont/releases/tag/multi12-v1.1.0>（标记为 Latest） |
+| 上一版 | `multi12-v1.0.1` → <https://github.com/UlyssesLeoLee/PixelFont/releases/tag/multi12-v1.0.1> |
+| 附件数 | **6**（三版都是） |
+| zip 附件 | v1.1.0：`PixelFontMulti-12-v1.1.0.zip`，2,681,102 字节 / `68FC526C9566AEE4B3C76EECCEC9A5ECCDD15495EE1337CBEB5A46E2FDB44C7AC`；v1.0.1：`PixelFontMulti-12-2026-10-25.zip`，2,626,345 字节 / `729C3D457C3AB331B50BC330EE129DD592E82B98BD9360D73D711C8A1C0EFB78`；v1.0.0：`PixelFontMulti-12-2026-10-24.zip`，2,626,345 字节 / `6EAB85EAECB1DEE433DC7F40E43F554AB9023D81475D96C554AE9FF903012FD9`（**包内 7 项**：TTF / BDF / 图集 / 样张 / 安装说明 / OFL 全文 / 校验和。v1.0.0 与 v1.0.1 的 zip sha256 不同，**仅因为包内条目时间戳跟着发布日走**；字体产物字节完全相同。v1.1.0 起打包由 `tools/fontgen/package_multi12.py` 生成，**条目时间戳固定** —— 同样的输入产出同样的字节） |
+| ttf 附件 | v1.1.0：`PixelFontMulti-12.ttf`，7,853,876 字节 / `B844D8C1F92114ACFCB2745DCFF6C1C13711BB6853B372D6BAB6B8137BF87C15`；v1.0.0 / v1.0.1：7,736,520 字节 / `D28E0FB5134415319A9A42F19A706463C9FDDC8A992F76729BAB7F9FF5131913`（两版相同） |
+| 图集 / 样张附件 | v1.1.0：`PixelFontMulti-12-atlas.png` 780,395 字节 / `6012EDAB6E61BD11EF680B40B69E51FAA07B8A57D01B609AB053AB681EA1A9BC`；v1.0.0 / v1.0.1：764,187 字节 / `6DF3BFCE5E24CA135D94F7D12BA836F352908C2DF4627752C8D43021C1EE63CA`。样张三版相同：3,174 字节 / `C9D93FF4E4EFEAE4C0C61BB5E96342584AC77D8E0475755566A1BF0B75931A25` |
+| 许可附件 | v1.1.0：`OFL.txt` 5,360 字节 / `18B74DA7A733340EAD037E30EAA63FF5C4CB58E02ADD5DF77A5B2F1D79E98E87`（**列出全部三个上游的版权声明与保留字体名**）；v1.0.0 / v1.0.1：4,518 字节 / `983AF89B36518A85EE5205B6CAD1DE232DBC2852B536C50FF2956BF74DB3B5A4`（OFL-1.1 要求随包附全文，**必须项**；此前**漏了 Fusion 的版权声明** —— v1.1.0 修掉） |
+| 回下载校验 | 6 个资产重新下载后**逐字节一致**；下载回的 TTF 在 GDI 中被正常选中，全字符集 **31,753** 码位 × (12 ppem + 24 ppem) 与设计位图**逐格一致**，抗锯齿像素 **0**（`python tools/fontgen/verify_gdi_multi12.py --ttf <回下载路径> --bdf <回下载 zip 内路径>`）；另与 `multi12-v1.0.1` 的 TTF 逐字形比对，**31,392 个已发布码位的位图全一致** |
 
 `PixelFont PC98 12` 的发布事实：
 
@@ -303,7 +308,7 @@ PixelFont 当前处于 **v1.0.0 已发布**状态，发布链已闭环：注解 
 | 路径 | 是否入库 | 理由 |
 |---|---|---|
 | `dist/` | **不入库** | 成品字形派生自 **SimHei / MS Gothic**（微软专有），分发权受限，不进公开仓库。**注意**：`PixelFont Multi 12` 的生产源全部是宽松许可（Fusion Pixel OFL-1.1 + 本仓库原创手绘 OFL-1.1），**不受这条限制** —— 它可自由分发、可商用；但为保持「产物不入库、走 Release」这一条政策不变，本项目对**两个家族一视同仁**，`dist/` 仍不入库 |
-| `vendor/` | **入库** | 生产源参与构建（Fusion Pixel 12px 简体，OFL-1.1）：不入库则换台机器构建不出同一结果。裁剪后入库：`vendor/fusion-pixel-12px/fusion-pixel-12px-monospaced-zh_hans-subset.ttf`（**764,748 字节**，sha256 `FC910F23FF8EE2DF8F2FEC6F91381A60DF812E3A16CE177F48528F1DB6551A37`），许可随附三份：`vendor/fusion-pixel-12px/LICENSES/ark-pixel-OFL.txt`、`cubic-11-OFL.txt`、`galmuri-LICENSE.txt` |
+| `vendor/` | **入库** | 生产源参与构建（Fusion Pixel 12px 的四个变体 + ZLabs Pixel 12px CN 简体补源 + 本仓库原创手绘，均 OFL-1.1）：不入库则换台机器构建不出同一结果。裁剪后入库：`vendor/multi12/`（5 个裁剪版 + `handdrawn-glyphs.txt` + `OFL.txt` + `LICENSES/` 下 5 份许可）。**裁剪必须逐字节可复现** —— 2026-10-25 修掉了「重新裁剪产出字节不同的文件」（差异只在 head 表 `modified`） |
 | `third_party/` | **不入库** | 参考字体只用于校验（Ark Pixel 12px、Zpix v3.3.0、GNU Unifont 16.0.01 等），只记来源 / 版本 / 许可证 / sha256 清单（`docs/reference-fonts.md`），由 `tools/fontgen/fetch_ref_fonts.py` 按需抓取、`--verify` 只校验不重下 |
 | `tools/fontgen/` | **入库** | 构建与门禁代码，仓库 `LICENSE` = **GNU AGPL-3.0** 覆盖此目录 |
 | 报告 `reports/` | 入库 | 门禁证据（`gdi_compat.json` 摘要 1.5KB、`gdi_raster_scan.tsv` 逐码位 4,162 行） |
@@ -440,7 +445,9 @@ python tools/fontgen/fetch_ref_fonts.py --verify
 | B-08 | `dist/` 不入库 → 仓库内没有产物历史 | 已知边界 | 版本识别只能靠 §2.9 的字节数 / sha256；台账（见 B-02）落地后可作为补充索引 |
 | B-09 | 无 CI 流水线（仓库无 `.github/` 目录），发布全靠人工按 §2.7 执行 | 已知边界 | 若要自动化，需先解决 `dist/` 不入库与「发布前人工抽检」两步的机器化 |
 | B-10 | **没有** Arabic / Hebrew / Devanagari / Thai 的 12px 点阵源（只有 Unifont 16 的 16×16 网格，塞不进 12px 格） | 已知边界 | 这四条语系不在任何当前版本的覆盖范围内 |
-| B-11 | 许可边界：成品字形派生自 **SimHei / MS Gothic**（微软专有）→ `dist/` 不入库；仓库 `LICENSE` = **GNU AGPL-3.0**（覆盖 `tools/fontgen/` 代码）；`vendor/` 的 Fusion Pixel = **OFL-1.1**（三份许可随附） | 已知边界 | 任何新增分发渠道前先复核许可边界。**注意**：`PixelFont Multi 12` 的生产源全部宽松许可（Fusion Pixel OFL-1.1 + 本仓库手绘 OFL-1.1），**不受微软专有的限制** —— 但 `dist/` 仍按统一政策不入库，成品走 Release |
+| B-11 | 许可边界：成品字形派生自 **SimHei / MS Gothic**（微软专有）→ `dist/` 不入库；仓库 `LICENSE` = **GNU AGPL-3.0**（覆盖 `tools/fontgen/` 代码）；`vendor/` 的 Fusion Pixel = **OFL-1.1**（三份许可随附） | 已知边界 | 任何新增分发渠道前先复核许可边界。**注意**：`PixelFont Multi 12` 的生产源全部宽松许可（Fusion Pixel OFL-1.1 + ZLabs Pixel OFL-1.1 + 本仓库手绘 OFL-1.1），**不受微软专有的限制** —— 但 `dist/` 仍按统一政策不入库，成品走 Release |
+| B-14 | `Multi 12` 的 `PostScript 名` / `achVendID` / 产物命名 | **已解决**（2026-10-25） | `PixelFontMulti-12` / `PixelFontMulti` / `PXLF` 均已由 fontTools 回读校验；见 §2.2 |
+| B-15 | **规格书 05–12 与事实底稿仍写着「多语言版尚未开工」** | 已知边界（**先于** `multi12-v1.0.0` 存在） | 那几份设计书是**基线冻结**文档（写明「事实截止 2026-10-24，基线 commit `4300fc1`」），其「尚未开工」是写作当时的状态。多语言版的**现行**数据以 `docs/multi12.md` + `CHANGELOG.md` + 本文 §2.2 / §2.8 为准；彻底改写那几份设计书属独立的文档债 |
 | B-12 | zip 内 5 个条目（`.bdf` / `-atlas.png` / `-specimen.png` / `安装与使用说明.md` / `word-compat.md`）的 sha256 **未收录**于 zip 内 `SHA256SUMS.txt` | 待验证 + 待补 | 验证方法：`Expand-Archive` 后逐个 `Get-FileHash` 并与 `SHA256SUMS.txt` 对照；建议把 9 项全部纳入 `SHA256SUMS.txt` 后重新打包 |
 | B-13 | 参考字体在上游可获取性未做持续校验 | 已知边界 | `fetch_ref_fonts.py --verify` 仅在本地有缓存时有效；上游变动需重抓后复核 sha256 清单 |
 | B-14 | `Multi 12` 的 `PostScript 名` / `achVendID` / 产物命名 | 待验证 | 家族尚未构建，命名未经 fontTools 校验；开工后以实际构建产物回填 §2.2 |

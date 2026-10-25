@@ -4,12 +4,24 @@
 > 事实底稿日期：**2026-10-24**；对应仓库 HEAD 随提交推进变化，以 `git log -1 --format=%h` 为准（v1.0.0 已发布）。
 > 全部数值均可追溯到仓库文件路径 / 命令 / commit / 报告文件；核不实的项一律标「待验证」并附验证方法 —— **禁止编数字**。
 
+> ⚠️ **这 12 份是「基线冻结」的设计书** —— 写作时的状态写在纸上，事实截止 2026-10-24
+> （基线 commit `4300fc1`）。此后项目继续推进，其中「多语言版 `PixelFont Multi 12`
+> 尚未开工」这类表述**已经过时**：
+>
+> - `PixelFont Multi 12` **已于 2026-10-25 发布到 `multi12-v1.1.0`**（31,753 码位，
+>   简体中文 GB2312 与日文 JIS X 0208 全量覆盖）；
+> - 多语言版的**现行**数据以 [`../multi12.md`](../multi12.md)、
+>   [`../install-multi12.md`](../install-multi12.md)、[`../../CHANGELOG.md`](../../CHANGELOG.md)
+>   与本目录的 **02**（字符集账目，可执行版）、**11**（版本与发布历史）为准；
+> - 文档 02 与 11 随每次发布同步更新；文档 01、03–10、12 与 `_facts-baseline.md`
+>   保留基线原样（改写它们是另一件独立的文档债，见 `11` §5 的 **B-15**）。
+
 ## 文档索引
 
 | # | 文件 | 内容 | 篇幅 |
 |---|---|---|---|
 | 01 | [`01-font-design-requirements.md`](01-font-design-requirements.md) | 字体设计需求规格书：用途、目标用户、支持语言、风格、字重、使用场景 | 389 行 |
-| 02 | [`02-charset-definition.md`](02-charset-definition.md) | 字符集定义书：收录范围、规则、优先级、缺字策略 | 537 行 |
+| 02 | [`02-charset-definition.md`](02-charset-definition.md) | 字符集定义书：收录范围、规则、优先级、缺字策略 | 554 行 |
 | 03 | [`03-visual-design-spec.md`](03-visual-design-spec.md) | 字体视觉设计规范：气质、笔画风格、粗细、曲线、重心、设计原则 | 306 行 |
 | 04 | [`04-glyph-structure-design.md`](04-glyph-structure-design.md) | 字形结构设计书：字形比例、部件复用、字面框、笔画交接、构造规则 | 375 行 |
 | 05 | [`05-typeface-family-design.md`](05-typeface-family-design.md) | 字体家族设计书：命名规范、字重 / 字宽 / 斜体 / 可变字体轴 | 390 行 |
@@ -18,7 +30,7 @@
 | 08 | [`08-font-production-design.md`](08-font-production-design.md) | 字体制作详细设计书：Glyph 命名、轮廓规则、构建流程、字体格式、工具链 | 329 行 |
 | 09 | [`09-glyph-quality-check-spec.md`](09-glyph-quality-check-spec.md) | 字形质量检查规范：轮廓完整性、曲线质量、结构一致性、视觉平衡 | 297 行 |
 | 10 | [`10-font-test-spec.md`](10-font-test-spec.md) | 字体测试规格书：字符覆盖、渲染兼容性、多平台、多字号、排版测试 | 344 行 |
-| 11 | [`11-version-and-change-management.md`](11-version-and-change-management.md) | 版本与变更管理书：版本规则、字形修改记录、兼容性、发布历史 | 466 行 |
+| 11 | [`11-version-and-change-management.md`](11-version-and-change-management.md) | 版本与变更管理书：版本规则、字形修改记录、兼容性、发布历史 | 473 行 |
 | 12 | [`12-license-and-delivery-manual.md`](12-license-and-delivery-manual.md) | 字体授权与交付说明书：许可证、版权、安装方法、格式、使用限制 | 382 行 |
 | — | [`_facts-baseline.md`](_facts-baseline.md) | **统一事实底稿 v2**（2026-10-24 核实）：12 份文档共用的唯一数字来源，文档中「底稿 §N」即指本文件 | 284 行 |
 
@@ -48,7 +60,7 @@
 | FreeType 实测 | 12px 平均偏差 **19.00 px/字**（最坏 44），24px+ 偏差 0 |
 | 质量门禁 | `tools/fontgen/verify_all.py` 8 步全 PASS；回归 4,161 字分 43 批，0 error 0 warn |
 | 成品 | `dist/PixelFontPC98-12.ttf` 973,712 字节 / sha256 `3298AE4D…F69FB1` |
-| 多语言版 | `PixelFont Multi 12`，**31,392** 码位（方案 C），**独立家族**，计划中未开工 |
+| 多语言版 | `PixelFont Multi 12`，**31,753** 码位（方案 C），**独立家族**，**已发布**（`multi12-v1.1.0`，2026-10-25）；简体 GB2312 6,763/6,763、日文 JIS X 0208 6,355/6,355 + 200/200 全量覆盖（硬门禁） |
 
 ## 已知的硬边界（写清楚，不夸大）
 

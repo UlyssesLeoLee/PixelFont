@@ -53,6 +53,25 @@ KNOWN_SHA = {
     "2b6e5938e5cffa0b9e183bd05f8c363e174e7ebed1a0556e2855fd1707fa2188": "Cubic 11 OFL 全文",
     "86a3ee9495f942f0243f18c103da9faca27adb88142613edb8bb852e56c892c1": "Galmuri LICENSE 全文",
     "04b7da50afa9395023c620db459602ea7fd23d49a7e9167e4eb1a60e48e2c2f9": "multi12 路由快照",
+    # --- PixelFont Multi 12 家族 (multi12-v1.1.0) ---
+    # 2026-10-25: 接入 ZLabs 简体补源, 字符集 31,392 -> 31,753 (纯新增)。
+    # 裁剪版哈希全部变了 —— 差异只在 head 表的 `modified` 一个字段,
+    # 因为当时裁剪器没关掉时间戳重算 (已修, 见 vendor_multi12_sources.py)。
+    "b844d8c1f92114acfcb2745dcff6c1c13711bb6853b372d6bab6b8137bf87c15": "multi12 TTF 成品 (v1.1.0)",
+    "64b6f8518eeddc1af50e1364e3389fd8d07f059156d46253fb3f0f6c68dddb76": "multi12 BDF (v1.1.0)",
+    "6ab373e4bf976f0bcd8c2cdd5f73be6010371f3aba200a6f7f443d629d0f7b31": "multi12 bdf.map (v1.1.0)",
+    "6012edab6e61bd11ef680b40b69e51faa07b8a57d01b609ab053ab681ea1a9bc": "multi12 图集 PNG (v1.1.0)",
+    "37bec853390fa093e92173ee1dd1a1a175c91f346aacfae56ae937bcd3b8cb08": "multi12 图集 JSON (v1.1.0)",
+    "68fc526c9566aee4b3c76eecce9a5eccdd15495ee1337cbeb5a46e2fdb44c7ac": "multi12 发布包 zip (v1.1.0)",
+    "445e3f3e24f252f2099fb5980fc204b61bf058244f9e869b35017ca5078d2797": "multi12 发布级 SHA256SUMS (v1.1.0)",
+    "18b74da7a733340ead037e30eaa63ff5c4cb58e02add5df77a5b2f1d79e98e87": "multi12 OFL 全文 (v1.1.0, 含全部上游版权声明)",
+    "3eac69c9c43c1a4822c09b85bf9e1ac83099fe1da157cadbf9ad6adda2f7b152": "vendor multi12 ja 裁剪版 (v1.1.0)",
+    "fdb0c7df9acee449c59f6614051589d770cb96596d3ece0facf6fcea190e03ac": "vendor multi12 ko 裁剪版 (v1.1.0)",
+    "67d36dce34b9d9b2e5ba12dfec3f8613bb61e6a5e1e7216d3364c7ae68558680": "vendor multi12 zh_hans 裁剪版 (v1.1.0)",
+    "e475a74809b25d9c8ad322e4281ca04e342fbe5642c4ee4799105fa678cfad73": "vendor multi12 latin 裁剪版 (v1.1.0)",
+    "1daf313ed9b2aa0697de3f3828d2c01f585e6972c0e515f15a16fa0ce10da679": "vendor multi12 zlabs_cn 裁剪版 (v1.1.0)",
+    "c4bf6069b8e5e31dc42c81f310afbc322c2cbc843ceba6c871358f9f1aaae033": "ZLabs Pixel 12px CN 原始下载",
+    "1b4d4877cb561c1800e3a2eacdbcd024760d20971656cec042d434ae9ee33c1d": "ZLabs Pixel OFL 全文",
 }
 
 # --- 已知码位 (白名单: 出现的必须属于这些集合) ---

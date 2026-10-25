@@ -18,7 +18,7 @@ python tools/fontgen/vendor_fusion_pixel.py           # 裁剪并验证生产源
 python tools/fontgen/vendor_fusion_pixel.py --check   # 只验证已入库的裁剪版
 ```
 
-## 为什么是这四套
+## 为什么是这五套
 
 判据是**设计谱系互相独立**——只有独立来源画出来的字，才能当"这个字本来就该长这样"的基准。
 如果拿同一套点阵的衍生字体互相比对，就成了自己证明自己。
@@ -26,7 +26,8 @@ python tools/fontgen/vendor_fusion_pixel.py --check   # 只验证已入库的裁
 | 字体 | 版式 | 谱系 | 许可证 | 在校验里的角色 |
 |---|---|---|---|---|
 | Ark Pixel | 12px 等宽 | 日系点阵，笔画方正规整，作者自绘 | OFL-1.1 | 主力 12px 基准；**同时是生产源**（见下） |
-| Fusion Pixel | 12px 等宽 | **缝合字体**：把 Ark / Cubic11 / Galmuri 等多套点阵缝进同一套字重体系 | OFL-1.1 | 交叉验证 Ark 的结论 |
+| Fusion Pixel | 12px 等宽 | **缝合字体**：把 Ark / Cubic11 / Galmuri 等多套点阵缝进同一套字重体系 | OFL-1.1 | 交叉验证 Ark 的结论；**Multi 12 的主力生产源** |
+| **ZLabs Pixel** | 12px 等宽 | 国产点阵，作者自绘，**简体覆盖最全** | OFL-1.1（保留字体名「Z工坊/ZLabs」） | **Multi 12 的简体补源**（见下）；12px 层面与 Ark / Fusion 正交的第三票 |
 | Zpix（最像素） | 12px | 国产点阵，笔画带手绘味，作者自绘 | **非 MIT**（商用付费，且禁止修改/拆分/再分发，见下文更正） | 与日系谱系正交的第三票；**引入 Ark 作生产源后, 它成了唯一独立的 12px 票** |
 | GNU Unifont | 16×16 | 学术项目，**八字节点阵**直写渲染，与 CJK 点阵毫无血缘 | GPL-2.0+ （含字体嵌入例外） | 非 CJK 谱系基准；因是 16px，不参与 12px 的笔画数比对 |
 
@@ -121,6 +122,40 @@ Cubic 11 / Galmuri 落在日文与韩文变体上，简体变体没用到。
 > 教训：许可证字段要**以上游原文为准**，不能凭印象填。
 > 「看起来像开源字体」不等于「可以随便改、随便发」。
 
+### ZLabs Pixel 12px — Build_20260519
+
+- 来源：<https://github.com/Astro-2539/ZLabs-Pixel-12px>（release `Build_20260519`）
+- 下载 URL：`https://github.com/Astro-2539/ZLabs-Pixel-12px/releases/download/Build_20260519/ZLabsPixel_12px_M_CN.ttf`
+- sha256：`c4bf6069b8e5e31dc42c81f310afbc322c2cbc843ceba6c871358f9f1aaae033`（3 350 152 字节）
+- 许可证：SIL Open Font License 1.1，`Copyright (c) 2023-2025, Astro_2539`，
+  **保留字体名 "Z工坊/ZLabs"**
+  （许可文件 sha256 `1b4d4877cb561c1800e3a2eacdbcd024760d20971656cec042d434ae9ee33c1d`）
+- 落地路径：`third_party/ref_fonts/zlabs-pixel-12px/ZLabsPixel_12px_M_CN.ttf`
+- 抓取：`python tools/fontgen/fetch_ref_fonts.py`（按 sha256 校验）
+
+**为什么需要它（2026-10-25 实测）**：Fusion Pixel 与 Ark Pixel 的**七个变体全部**
+缺少 **128 个 GB2312 二级汉字**（生僻字，如 `劐 唣 垡 墚 墼 娈 媵 嫠 嬷 尜 峁 嵴`）。
+实测覆盖对照：
+
+| 源 | GB2312 汉字覆盖 |
+|---|---|
+| Fusion Pixel 12px（七个变体） | 6,635 / 6,763（98.11%） |
+| Ark Pixel 12px（七个变体） | 6,635 / 6,763（98.11%） |
+| **ZLabs Pixel 12px CN** | **6,763 / 6,763（100%）** |
+
+也就是说，**12px 开源点阵里只有 ZLabs 覆盖 GB2312 全部汉字**。
+GNU Unifont 也能覆盖全部，但它是 16×16 网格，降到 12×13 需要重采样，
+生僻字的笔画会因降采样失真 —— 质量不可控，所以不选。
+
+**网格同构（实测）**：ZLabs CN 与 Fusion ja 的自然度量完全一致 ——
+`ascent=10 / descent=2`、CJK advance 12px、拉丁 advance 6px、upm 1200；
+墨迹都落在第 0..11 行。可以直接拼进同一个家族而不错基线。
+
+> **保留字体名**：ZLabs 的 OFL-1.1 带保留字体名「Z工坊/ZLabs」。
+> OFL-1.1 §3 要求派生作品**不得使用**保留字体名 ——
+> 本家族叫 `PixelFont Multi 12` / `PixelFontMulti-12`，与它无关，**未使用**任何保留字体名。
+> 发布包的 `OFL.txt` 里显式写明了这一点。
+
 ### GNU Unifont — 16.0.01
 
 - 来源：<https://unifoundry.com/unifont/>
@@ -162,6 +197,27 @@ Ark 覆盖 3990（缺 150），**Fusion 覆盖 4157 / 4161**（缺的 4 个是 �
 不入库就等于构建依赖"这台机器上恰好下载过它"，换台机器构建不出同一个结果。
 （参考字体则相反 —— 它们不参与构建，所以只记清单。）
 
+### Multi 12 的生产源（`vendor/multi12/`）
+
+`PixelFont Multi 12` 的生产源是 **5 个裁剪版 + 1 个手绘数据文件**，全部 OFL-1.1：
+
+| 入库文件 | 负责范围 | 字节 | sha256 |
+|---|---|---|---|
+| `fusion-pixel-12px-monospaced-ja-subset.ttf` | 日文形汉字 / 假名 / CJK 标点 / 全角（17,544 码位） | 3,648,456 | `3eac69c9c43c1a4822c09b85bf9e1ac83099fe1da157cadbf9ad6adda2f7b152` |
+| `fusion-pixel-12px-monospaced-ko-subset.ttf` | 谚文音节（11,172 码位） | 1,699,732 | `fdb0c7df9acee449c59f6614051589d770cb96596d3ece0facf6fcea190e03ac` |
+| `fusion-pixel-12px-monospaced-zh_hans-subset.ttf` | 中日共享的 2,078 汉字（中文形） | 386,868 | `67d36dce34b9d9b2e5ba12dfec3f8613bb61e6a5e1e7216d3364c7ae68558680` |
+| `fusion-pixel-12px-monospaced-latin-subset.ttf` | Latin / Greek / Cyrillic / 西文标点（594 码位） | 53,420 | `e475a74809b25d9c8ad322e4281ca04e342fbe5642c4ee4799105fa678cfad73` |
+| `ZLabsPixel_12px_M_CN-subset.ttf` | **简体补源**：Fusion 两源都不覆盖的 361 个汉字 | 93,128 | `1daf313ed9b2aa0697de3f3828d2c01f585e6972c0e515f15a16fa0ce10da679` |
+| `handdrawn-glyphs.txt` | `€` `≠` `≤` `≥` 4 个原创手绘字形 | 1,443 | `745dc5dd0b9b7b2f2b5e8af4829ca7d9b8ee88c68d3f2fb0c6181843bc0a4cc1` |
+
+许可随附在 `vendor/multi12/LICENSES/`：
+`fusion-pixel-OFL.txt`（TakWolf）/ `ark-pixel-OFL.txt` / `cubic-11-OFL.txt` /
+`galmuri-LICENSE.txt`（以上三份是 Fusion 缝进去的上游）/ `zlabs-pixel-OFL.txt`（Astro_2539）；
+手绘字形的许可在 `vendor/multi12/OFL.txt`。
+
+裁剪脚本：`tools/fontgen/vendor_multi12_sources.py`（两层验证：
+逐像素一致 + cmap 覆盖相符；连续两次裁剪**逐字节可复现**）。
+
 ## 发布
 
 | 项 | 状态 | 理由 |
@@ -181,6 +237,7 @@ Ark 覆盖 3990（缺 150），**Fusion 覆盖 4157 / 4161**（缺的 4 个是 �
 | Fusion Pixel（**生产源**，`vendor/`） | **是** | OFL-1.1：保留版权与许可证声明，随附 OFL 全文（已放在 `vendor/fusion-pixel-12px/OFL.txt`），不得单独售卖字体本身，不得用保留字体名 |
 | Fusion Pixel 原始包 | 否 | 若将来打包分发，需保留 OFL 声明 |
 | **Multi 12 手绘 4 字形**（`vendor/multi12/`，**生产源**） | **是** | OFL-1.1：本仓库原创，按标准几何形制手绘，版权与 OFL 全文见 `vendor/multi12/OFL.txt` |
+| **ZLabs Pixel 12px CN**（`vendor/multi12/`，**生产源**） | **是** | OFL-1.1：版权与保留字体名见 `vendor/multi12/LICENSES/zlabs-pixel-OFL.txt`；**不得使用保留字体名「Z工坊/ZLabs」**（本家族未使用）；不得单独售卖字体本身 |
 | Zpix | **否，且不得修改/拆分/再分发** | 商用需付费；上游明确禁止修改与再分发，**不能**当生产源、不能随包分发 |
 | GNU Unifont | 否 | GPL-2.0+ 字体嵌入例外；按例外条款随附声明即可 |
 

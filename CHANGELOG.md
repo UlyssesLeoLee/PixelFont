@@ -12,7 +12,7 @@
 > | 家族 | 版本序列 | tag 形式 |
 > |---|---|---|
 > | `PixelFont PC98 12` | `[1.0.0]` | `v1.0.0` |
-> | `PixelFont Multi 12` | `[multi12-v1.0.0]` → `[multi12-v1.0.1]` | `multi12-v1.0.x` |
+> | `PixelFont Multi 12` | `[multi12-v1.0.0]` → `[multi12-v1.0.1]` → `[multi12-v1.1.0]` | `multi12-v1.0.x` / `multi12-v1.1.0` |
 >
 > 两个家族都可以同时安装、同时使用，字体名与文件名不冲突。
 
@@ -76,6 +76,117 @@
   —— 见 [`docs/multi12.md`](docs/multi12.md) §9.2 的待验证表。
 - `PixelFont Multi 12` 的**字形修改记录台账** —— 规格 §2.4 要求能机器化回答
   「某码位何时、为何、由哪个 commit 改成现在这样」，目前只有 git 历史。
+
+---
+
+## [multi12-v1.1.0] - 2026-10-25
+
+**MINOR —— 新增 361 个码位（纯新增，已发布码位的位图一个都没变）。**
+
+来源：用户 2026-10-25 的两句指令 —— 「确保日语字和中文简体都是全量」、
+「最终审核后发表最新版」。第一句在实测时发现**做不到**：日文已经 100%，
+但简体中文缺 **128 个 GB2312 二级汉字**，所以这一版先补齐，再发布。
+
+- tag `multi12-v1.1.0` 指向 commit `（见 §8.2）`；
+  GitHub Release：<https://github.com/UlyssesLeoLee/PixelFont/releases/tag/multi12-v1.1.0>
+- 资产 6 个：`PixelFontMulti-12-v1.1.0.zip`、`PixelFontMulti-12.ttf`、
+  `PixelFontMulti-12-atlas.png`、`PixelFontMulti-12-specimen.png`、
+  `PixelFontMulti-12-SHA256SUMS.txt`、`OFL.txt`
+
+### 新增
+
+- **简体中文补源：ZLabs Pixel 12px CN**（OFL-1.1）——
+  接入前实测：Fusion Pixel 与 Ark Pixel 的**七个变体全部**缺 128 个 GB2312
+  二级汉字（`劐 唣 垡 墚 墼 娈 媵 嫠 嬷 尜 峁 嵴 …`），
+  **12px 开源点阵里只有 ZLabs 覆盖 GB2312 全部 6,763 个汉字**。
+  GNU Unifont 也覆盖全部，但它是 16×16 网格，降到 12×13 要重采样，
+  生僻字笔画会失真 —— 不选。
+  裁剪版入库 `vendor/multi12/ZLabsPixel_12px_M_CN-subset.ttf`（93,128 字节），
+  许可随附 `vendor/multi12/LICENSES/zlabs-pixel-OFL.txt`。
+- **「简日全量」写成硬门禁** —— `charset_multi12.gate_multi12()` 新增门禁 6/7：
+  简体中文 GB2312 **6,763/6,763**、日文 JIS X 0208 **6,355/6,355 汉字 + 200/200
+  符号假名**。口径由 `gb2312` / `shift_jis` **编码器机械判定**，
+  不凭记忆列字表（字表靠记忆列就是编造）。
+- **全量门禁的故障注入自测** —— `tools/fontgen/verify_coverage_gates.py`。
+  4 道新门禁各注入 7 种损坏，**7/7 全部被抓到**，并区分「报出了问题」与「崩了」。
+  注入点打在「口径」与「路由表」上，不动磁盘上的快照。
+- **发布打包脚本入库** —— `tools/fontgen/package_multi12.py`。
+  此前 v1.0.0 / v1.0.1 的打包是临时脚本做的、没入库 ——
+  「发布包长什么样」这件事**无法复现**，也没法在干净克隆上核对。
+  现在的打包**同样的输入产出同样的字节**（条目时间戳固定为发布日正午）。
+- **向后兼容不变式的门禁** —— 推导门禁 11：`zlabs_cn` 只承接 Fusion 两个汉字源
+  都不覆盖的码位。这从**规则结构**上保证已发布码位的路由一个都不变
+  （比「拿旧快照比一遍」更耐改）。
+
+### 变更
+
+- **字符集 31,392 → 31,753**（+361）：GB2312 二级汉字 **128**
+  \+ GB2312/JIS 之外的简体生僻字 **233**。
+  逐层账目：L7 由 11,576 → **11,937**，L0–L6 不变（方案 A 交叉口径仍是 19,816）。
+- **CJK 层的可用源从「fusion_ja」改为「并集」**（`fusion_ja ∪ zlabs_cn`）——
+  用并集而不是「特判那 128 个」，层定义里就不留一个只为修一个数字而存在的特例。
+- **发布包名带版本号** —— `PixelFontMulti-12-v1.1.0.zip`。
+  v1.0.0 与 v1.0.1 同一天发布过，日期式命名会让两个 Release 出现
+  **同名但内容不同**的附件。规则：同日多次发布时改用 `<家族>-<版本>.zip`。
+- **`OFL.txt` 改为列出全部版权声明** —— 此前 v1.0.0 / v1.0.1 的包里
+  只有**手绘字形**的版权声明，漏了 Fusion Pixel 12px 的 ——
+  而成品 TTF 的字形大量派生自 Fusion。接入 ZLabs 之后上游变成三个，
+  缺口更明显。现在 `OFL.txt` 列出全部三个上游的版权声明与保留字体名
+  （含 ZLabs 的「Z工坊/ZLabs」），再附一份 OFL-1.1 全文
+  （三个上游是同一个许可版本，全文一份就够），并显式声明
+  **本字体不使用任何保留字体名**（OFL-1.1 §3）。
+
+### 修复
+
+- **裁剪不是逐字节可复现的** —— 同一份源重新裁剪两次，字节数完全相同、
+  sha256 却不同：差异只在 head 表的 `modified` 一个字段
+  （实测两次裁剪相差 14,974 秒 = 两次裁剪的间隔）。
+  git 里因此冒出一堆内容其实没变的假 diff。
+  现在关掉 fontTools 的时间戳重算，裁剪版**继承源字体自己的** `modified`
+  —— 裁剪版是源字体的派生物，继承源的时间戳既语义正确又稳定。
+  实测连续两次裁剪 sha256 完全相同。
+- **`vendor_multi12_sources.py --check` 的文档与实现矛盾** —— 它写着
+  「只验证已入库的裁剪版，不需要原始」，实现却走「临场重算规则」，
+  而那需要参考字体 —— 于是在干净克隆上直接抛「缺少参考字体」。
+  现在 `--check` 按**入库快照**核对，不碰 `third_party/`。
+
+### 验证结论
+
+| 项 | 结果 |
+|---|---|
+| 字符集门禁 | **7/7 PASS** |
+| 路由推导门禁 | **12/12 PASS** |
+| 裁剪逐像素对照（5 个源） | **31,749 个字形，0 不一致** |
+| 裁剪逐字节可复现 | **连续两次 sha256 相同** |
+| BDF / 图集 / TTF 三重回读 | **31,753 字形全一致** |
+| GDI 栅格化 vs 设计位图 | **4 × 31,753 逐格一致**，抗锯齿像素 **0** |
+| 干净克隆构建 | **134 个入库文件 / 12,852,292 字节，6 个产物逐字节一致** |
+| 故障注入自测 | 快照门禁 **8/8**；全量门禁 **7/7** |
+| 与 v1.0.1 逐字形比对 | **31,392 个已发布码位位图全一致** |
+| 回下载校验 | 6 个资产逐字节一致；回下载 TTF 在 GDI 中被正常选中、全字符集逐格一致 |
+
+### 产物
+
+| 产物 | 字节 | sha256 |
+|---|---|---|
+| `PixelFontMulti-12.ttf` | 7,853,876 | `b844d8c1f92114acfcb2745dcff6c1c13711bb6853b372d6bab6b8137bf87c15` |
+| `PixelFontMulti-12.bdf` | 5,147,221 | `64b6f8518eeddc1af50e1364e3389fd8d07f059156d46253fb3f0f6c68dddb76` |
+| `PixelFontMulti-12.bdf.map` | 1,396,265 | `6ab373e4bf976f0bcd8c2cdd5f73be6010371f3aba200a6f7f443d629d0f7b31` |
+| `PixelFontMulti-12-atlas.png` | 780,395 | `6012edab6e61bd11ef680b40b69e51faa07b8a57d01b609ab053ab681ea1a9bc` |
+| `PixelFontMulti-12-atlas.json` | 686,595 | `37bec853390fa093e92173ee1dd1a1a175c91f346aacfae56ae937bcd3b8cb08` |
+| `PixelFontMulti-12-specimen.png` | 3,174 | `c9d93ff4e4efeae4c0c61bb5e96342584ac77d8e0475755566a1bf0b75931a25` |
+| `PixelFontMulti-12-v1.1.0.zip` | 2,681,102 | `68fc526c9566aee4b3c76eecce9a5eccdd15495ee1337cbeb5a46e2fdb44c7ac` |
+| `OFL.txt` | 5,360 | `18b74da7a733340ead037e30eaa63ff5c4cb58e02add5df77a5b2f1d79e98e87` |
+| `PixelFontMulti-12-SHA256SUMS.txt` | 453 | `445e3f3e24f252f2099fb5980fc204b61bf058244f9e869b35017ca5078d2797` |
+
+### 许可
+
+SIL OFL 1.1（详见发布包的 `OFL.txt`）。字形派生自 Fusion Pixel 12px
+（Copyright (c) 2022, TakWolf）与 ZLabs Pixel 12px
+（Copyright (c) 2023-2025, Astro_2539，保留字体名「Z工坊/ZLabs」—— 本字体未使用），
+其中 4 个字形（`€` `≠` `≤` `≥`）为本项目原创手绘
+（Copyright (c) 2026 UlyssesLeoLee）。
+**保留字体名 `PixelFont Multi 12`；不得单独售卖字体本身。**
 
 ---
 
