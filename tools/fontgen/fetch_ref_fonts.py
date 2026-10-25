@@ -4,14 +4,20 @@
     third_party/ 在 .gitignore 里。仓库只提交"来源 + 版本 + 许可证 + sha256"清单
     (docs/reference-fonts.md), 任何人按清单都能取到同一份字节。
 
-为什么是这四套 —— 设计谱系互相独立, 才叫"独立基准":
+为什么是这五套 —— 设计谱系互相独立, 才叫"独立基准":
     · Ark Pixel   : 日系点阵, 12px, 笔画方正规整          (OFL-1.1)
     · Fusion Pixel: 缝合字体, 把 Ark/Cubic11/Galmuri 等多套点阵缝在一起, 12px (OFL-1.1)
     · Zpix 最像素 : 国产点阵, 12px, 笔画带手绘味          (MIT)
     · GNU Unifont : 16x16, 学术项目, BMP 全覆盖, 与 CJK 点阵毫无血缘 (GPL-2.0+ 字体嵌入例外)
+    · ZLabs Pixel : 国产点阵, 12px, **简体覆盖最全** (OFL-1.1)
 
     Fusion 是缝合产物, 不算完全独立 —— 但它缝进去的底料多数不在这一档,
     且实测它与 Ark 的判定结论高度一致 (见 docs/glyph-identity-verification.md)。
+
+    ZLabs Pixel 12px 是 **Multi 12 的简体补源**: 实测 Fusion 与 Ark 的七个变体
+    都缺 128 个 GB2312 二级汉字, 只有 ZLabs 覆盖 GB2312 全部 6,763 个汉字。
+    它与 Fusion 的网格同构 (ascent=10 / descent=2 / CJK advance=12px), 可以直接
+    拼进同一个家族。它是**生产源**, 不只是校验基准。
 
 用法:
     python tools/fontgen/fetch_ref_fonts.py            # 下载并校验 sha256
@@ -48,17 +54,34 @@ ARCHIVES = [
     ),
 ]
 
-# (落地文件名, 下载 URL, sha256)
+# (落地文件名, 下载 URL, sha256, 子目录 or None)
 SINGLES = [
     (
         "zpix.bin",
         "https://github.com/SolidZORO/zpix-pixel-font/releases/download/v3.3.0/zpix.ttf",
         "a67917d94bb597acbdf3bfe1cf97047cc3e1cdd3839d21da188e35cc0737e828",
+        None,
     ),
     (
         "unifont-16.bin",
         "https://unifoundry.com/pub/unifont/unifont-16.0.01/font-builds/unifont-16.0.01.otf",
         "ea39a0e614e7486490239c5759e1a0cd86fd49e335c4b08d2fd13e313147f022",
+        None,
+    ),
+    # ZLabs Pixel 12px —— Multi 12 的简体补源 (生产源, 见 route_multi12.py)
+    (
+        "ZLabsPixel_12px_M_CN.ttf",
+        "https://github.com/Astro-2539/ZLabs-Pixel-12px/releases/download/"
+        "Build_20260519/ZLabsPixel_12px_M_CN.ttf",
+        "c4bf6069b8e5e31dc42c81f310afbc322c2cbc843ceba6c871358f9f1aaae033",
+        "zlabs-pixel-12px",
+    ),
+    (
+        "LICENSE-OFL",
+        "https://github.com/Astro-2539/ZLabs-Pixel-12px/releases/download/"
+        "Build_20260519/LICENSE-OFL",
+        "1b4d4877cb561c1800e3a2eacdbcd024760d20971656cec042d434ae9ee33c1d",
+        "zlabs-pixel-12px",
     ),
 ]
 
@@ -112,8 +135,10 @@ def main() -> int:
                 z.extractall(DEST)
             print(f"  已解压 -> {subdir}/")
 
-    for name, url, want in SINGLES:
-        p = DEST / name
+    for name, url, want, subdir in SINGLES:
+        target_dir = DEST / subdir if subdir else DEST
+        target_dir.mkdir(parents=True, exist_ok=True)
+        p = target_dir / name
         if not p.exists():
             if args.verify:
                 print(f"✘ 缺失 {name}")

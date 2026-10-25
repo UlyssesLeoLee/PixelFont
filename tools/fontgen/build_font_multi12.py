@@ -2,8 +2,9 @@
 
 与当前家族 `PixelFont PC98 12` 的三点关键差别:
 
-1. **字符集**: 4,161 → **31,392** (方案 C), 见 `charset_multi12.py` 的逐层账目。
-2. **生产源全部宽松许可**: Fusion Pixel 12px (OFL-1.1) 四个变体 + 本仓库
+1. **字符集**: 4,161 → **31,753** (方案 C), 见 `charset_multi12.py` 的逐层账目。
+2. **生产源全部宽松许可**: Fusion Pixel 12px (OFL-1.1) 四个变体
+   + ZLabs Pixel 12px CN (OFL-1.1) 简体补源 + 本仓库
    **原创手绘**的 4 个字形 (OFL-1.1)。当前家族有 3,053/4,161 个码位派生自
    SimHei / MS Gothic (微软专有), 所以 `dist/` 不入库; Multi 12 没有这个问题,
    成品**可以入库存放、用户可自由分发**。
@@ -51,20 +52,20 @@ NEED_CP = {0: "1252 Latin1 (ANSI)", 17: "932 日文", 18: "936 简体中文",
            19: "949 韩文"}
 
 COPYRIGHT = (
-    "PixelFont Multi 12. Glyphs derived from Fusion Pixel 12px (SIL OFL 1.1); "
-    "4 hand-drawn glyphs (c) 2026 UlyssesLeoLee, also SIL OFL 1.1."
+    "PixelFont Multi 12. Glyphs derived from Fusion Pixel 12px and ZLabs Pixel 12px "
+    "(SIL OFL 1.1); 4 hand-drawn glyphs (c) 2026 UlyssesLeoLee, also SIL OFL 1.1."
 )
 LICENSE = (
-    "12px monospaced bitmap font covering 31,392 code points "
+    "12px monospaced bitmap font covering 31,753 code points "
     "(Simplified Chinese / Japanese / Korean / Latin / Greek / Cyrillic). "
     "Licensed under the SIL Open Font License 1.1."
 )
 
 
 def build_stack() -> RouteStack:
-    """按路由表建 5 源的字形栈。生产源读**入库的裁剪版** (不读 third_party)。"""
+    """按路由表建 6 源的字形栈。生产源读**入库的裁剪版** (不读 third_party)。"""
     sources = {}
-    for key in ("fusion_latin", "fusion_ko", "fusion_ja", "fusion_zh_hans"):
+    for key in ("fusion_latin", "fusion_ko", "fusion_ja", "fusion_zh_hans", "zlabs_cn"):
         p = subset_path(key)
         if not p.exists():
             raise SystemExit(

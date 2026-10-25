@@ -43,6 +43,54 @@ def _font(key: str):
                       cell_ascent=11, cell_descent=2)
 
 
+def gate_zlabs_only_holes(route: dict[int, str]) -> list[str]:
+    """门禁 11: `zlabs_cn` 只承接 Fusion 两个汉字源都不覆盖的码位。
+
+    这条门禁守的是**向后兼容不变式**: v1.0.0 / v1.0.1 已经发布过的字形,
+    位图一个都不许变。只要「Fusion 优先、ZLabs 只补洞」这条次序不被破坏,
+    旧码位的路由就必然不变 —— 这比「拿旧快照比一遍」更耐改:
+    后者要靠一份历史文件, 前者是规则的**结构性质**。
+
+    2026-10-25 首次接入 ZLabs 时实测: 旧 31,392 个码位路由**逐条不变**,
+    纯新增 361 个 (GB2312 二级汉字 128 + 其余简体生僻字 233)。
+
+    抽成独立函数是为了**能被故障注入自测** —— 藏在 `main()` 里的检查
+    等于没有测试覆盖。
+    """
+    ja_cps = m12.cjk_source_cmaps()["fusion_ja"]
+    # fusion_zh_hans 的覆盖 = 中日共享的那 2,078 字 (路由规则里就是这么定的)
+    zh_cps = set(rm._cjk_shared())
+    illegal = sorted(cp for cp, s in route.items()
+                     if s == "zlabs_cn" and (cp in ja_cps or cp in zh_cps))
+    if illegal:
+        return [f"zlabs_cn 抢了 Fusion 能提供的 {len(illegal)} 个码位 "
+                f"(如 U+{illegal[0]:04X}) —— 已发布字形的位图会变"]
+    return []
+
+
+def gate_full_coverage(route: dict[int, str]) -> list[str]:
+    """门禁 12: 简体中文 / 日文全量 —— 每个码位都要**有路由**。
+
+    用户 2026-10-25 的原话「确保日语字和中文简体都是全量」的可执行版。
+    口径由编码器机械推导 (GB2312 双字节区 / Shift-JIS 双字节区), 不凭记忆列字表。
+
+    注意与字符集层的门禁 6/7 的分工: 那边查「字符集里有没有」, 这边查
+    「路由表里指不指得出源」。一个码位在字符集里、却没被路由, 是另一种缺字。
+    """
+    bad: list[str] = []
+    blocks = (
+        ("简体中文 GB2312", m12.gb2312_hanzi()),
+        ("日文 JIS 汉字", m12.jis_x0208_all()),
+        ("日文 JIS 符号/假名", m12.jis_x0208_kana_punct()),
+    )
+    for label, block in blocks:
+        unrouted = sorted(block - set(route))
+        if unrouted:
+            bad.append(f"{label} 有 {len(unrouted)} 个码位没有路由 "
+                       f"(如 U+{unrouted[0]:04X} {chr(unrouted[0])})")
+    return bad
+
+
 def main() -> int:
     rm.require_sources()
     route = rm.build_route()
@@ -147,10 +195,15 @@ def main() -> int:
           f"{'OK' if bs != yen else 'FAIL'}")
 
     # ---- 门禁 9: 缺口前提没变 ----
-    # 前提 = 「任何 Fusion 变体都不覆盖这 4 个码位」。这必须查**原始全字集版**的 cmap:
+    # 前提 = 「Fusion 的任何变体都不覆盖这 4 个码位」。这必须查**原始全字集版**的 cmap:
     # 入库的裁剪版只含路由分配给它的码位, 缺口当然不在里面, 查它证明不了任何事。
     # 原始下载不在 (`third_party/` 不入库) 时, 这一条**无法独立复核** ——
     # 必须显式说「没验」, 不能让它变成一个看起来在通过的假门禁。
+    #
+    # 注: ZLabs Pixel 12px CN **确实**覆盖这 4 个码位, 但我们**仍然保留本仓库的
+    # 原创手绘字形** —— v1.0.0 / v1.0.1 已发布过它们的位图, 换字形属于对已发布
+    # 码位做视觉不兼容的改动 (见 `docs/spec/11` §2.10)。门禁 3 盯住「这 4 个
+    # 码位必须走 handdrawn」。
     fusion_all: set[int] = set()
     scanned = 0
     for v in ("latin", "ko", "ja", "zh_hans", "zh_hant", "zh_hk", "zh_tw"):
@@ -178,6 +231,22 @@ def main() -> int:
         bad.append(f"出现非 OFL-1.1 的源: {sorted(licenses - {'OFL-1.1'})}")
     print(f"[10] 全部源均为 OFL-1.1: "
           f"{'OK' if not licenses - {'OFL-1.1'} else 'FAIL'}  {sorted(licenses)}")
+
+    # ---- 门禁 11: zlabs_cn 只承接 Fusion 两个汉字源都不覆盖的码位 ----
+    problems11 = gate_zlabs_only_holes(route)
+    bad.extend(problems11)
+    print(f"[11] zlabs_cn 只承接 Fusion 两源都不覆盖的码位 "
+          f"({counts.get('zlabs_cn', 0)} 个): "
+          f"{'OK' if not problems11 else 'FAIL'}")
+
+    # ---- 门禁 12: 简体中文 / 日文全量 ----
+    problems12 = gate_full_coverage(route)
+    bad.extend(problems12)
+    for label, block in (("简体中文 GB2312", m12.gb2312_hanzi()),
+                         ("日文 JIS 汉字", m12.jis_x0208_all()),
+                         ("日文 JIS 符号/假名", m12.jis_x0208_kana_punct())):
+        print(f"[12] {label} 全量 {len(block & set(route))}/{len(block)}  "
+              f"{'OK' if not problems12 else 'FAIL'}")
 
     # ---- 汇总 ----
     print()
@@ -208,7 +277,7 @@ def main() -> int:
         return 1
 
     print("=" * 74)
-    print("门禁 10/10 PASS" + (f" (另有 {len(warnings)} 条警告)" if warnings else ""))
+    print("门禁 12/12 PASS" + (f" (另有 {len(warnings)} 条警告)" if warnings else ""))
     print("=" * 74)
 
     if "--write" in sys.argv:

@@ -7,14 +7,23 @@
 路由规则**完全机械推导**，不靠记忆、不靠人工挑字：
 
   1. 4 个缺口码位 `U+20AC €` `U+2260 ≠` `U+2264 ≤` `U+2265 ≥`
-     → `handdrawn`（本仓库**原创手绘**）。任何 12px 开源点阵字体都不覆盖这四个
+     → `handdrawn`（本仓库**原创手绘**）。Fusion 的七个变体都没覆盖这四个
      (Ark / Fusion 七个变体的 cmap 里都没有)；Zpix 虽覆盖，但上游许可**禁止
-     修改/拆分/再分发** 且商用需付费，不能当生产源。详见 `handdrawn.py`。
+     修改/拆分/再分发** 且商用需付费，不能当生产源。ZLabs CN 虽也覆盖，
+     但 v1.0.0 / v1.0.1 已发布过这 4 个字形的位图，换字形属于对已发布码位做
+     视觉不兼容的改动（见 `docs/spec/11` §2.10），所以保留手绘字形。
+     详见 `handdrawn.py`。
   2. 谚文音节 `U+AC00`–`U+D7AF` → `fusion_ko`。
   3. 汉字 `U+4E00`–`U+9FFF`:
      - 中日共享的 2,078 字 (GB2312 一级 ∩ JIS X 0208 一级汉字) → `fusion_zh_hans`
        —— 已拍板决策 ③「中文形为主」;
-     - 其余 → `fusion_ja` (JIS 独有 2,297 + 二级汉字 1,689 + GB 独有 1,677 + CJK 其余 11,576)。
+     - Fusion ja 覆盖的其余汉字 → `fusion_ja`
+       (JIS 独有 2,297 + 二级汉字 1,689 + GB 独有 1,677 + CJK 其余 11,576);
+     - **Fusion 两个汉字源都不覆盖的** → `zlabs_cn`（简体补源，361 个：
+       GB2312 二级罕用字 128 + GB2312/JIS 之外的简体生僻字 233）。
+       接入它是为了让「简体中文全量 = GB2312 6,763/6,763」成立 ——
+       接入之前差 128 个**GB2312 二级汉字**（生僻字，例如 劐 唣 垡 墚 墼 娈 媵，
+       Fusion 与 Ark 的七个变体**都**缺）。
   4. CJK 标点 / 假名 / 全角 (`U+3000`–`U+30FF`、`U+FF00`–`U+FFEF`) → `fusion_ja`。
   5. 通用标点 `U+2000`–`U+206F` → `fusion_ja`。
      为什么不用 latin: Fusion 的 latin 把 `‘ ’ “ ” …` 排成**半角 6px**,
@@ -23,7 +32,7 @@
   6. 其余 (ASCII / Latin-1 / Latin Ext / Greek / Cyrillic / 箭头 / 数学符号) → `fusion_latin`。
 
 **为什么规则本身就是产物**: 这张表 100% 由上面 6 条推导, 没有任何人工判断成分,
-所以存一份 31,392 条的名单文件只是冗余 —— 真正的产物是**规则**,
+所以存一份 31,753 条的名单文件只是冗余 —— 真正的产物是**规则**,
 名单随时可以重算。`derive_route_multi12.py` 负责把它算出来、逐条渲染验证、
 并导出一份可 diff 的 JSON 快照。
 
@@ -43,6 +52,10 @@ REF = Path(
     os.environ.get("PIXELFONT_REF_FONTS", str(ROOT / "third_party" / "ref_fonts"))
 )
 FUS = REF / "fusion-pixel-12px"
+
+#: ZLabs Pixel 12px CN —— 简体补源 (OFL-1.1)。见 `charset_multi12` 的说明。
+ZL = REF / "zlabs-pixel-12px"
+ZL_CN = ZL / "ZLabsPixel_12px_M_CN.ttf"
 
 #: **构建输入**目录 —— 生产源裁剪版, 入库。构建只读这里。
 VENDOR_MULTI12 = ROOT / "vendor" / "multi12"
@@ -73,6 +86,11 @@ SOURCES: dict[str, tuple[Path, str, str]] = {
         "OFL-1.1",
         "中日共享的 2,078 汉字 —— 中文形为主 (已拍板决策 ③)",
     ),
+    "zlabs_cn": (
+        VENDOR_MULTI12 / "ZLabsPixel_12px_M_CN-subset.ttf",
+        "OFL-1.1",
+        "Fusion 两个汉字源都不覆盖的简体汉字 (含 GB2312 二级罕用字) —— 简体补源",
+    ),
     "handdrawn": (
         VENDOR_MULTI12 / "handdrawn-glyphs.txt",
         "OFL-1.1",
@@ -86,6 +104,7 @@ ORIGINS: dict[str, Path] = {
     "fusion_ko": FUS / "fusion-pixel-12px-monospaced-ko.ttf",
     "fusion_ja": FUS / "fusion-pixel-12px-monospaced-ja.ttf",
     "fusion_zh_hans": FUS / "fusion-pixel-12px-monospaced-zh_hans.ttf",
+    "zlabs_cn": ZL_CN,
 }
 
 #: 任何 12px 开源字体都不覆盖的码位 -> 必须走手绘源
@@ -114,13 +133,24 @@ def _cjk_shared() -> set[int]:
 
 
 def build_route() -> dict[int, str]:
-    """返回 {码位: 源键}，覆盖 Multi 12 全部 31,392 个码位。
+    """返回 {码位: 源键}，覆盖 Multi 12 全部 31,753 个码位。
 
     判据顺序即规则优先级 —— 缺口 > 谚文 > 汉字 > CJK 标点/假名/全角 > 通用标点 > 其余。
+
+    **汉字这一层的次序是有讲究的**:
+      1. 中日共享的 2,078 字 → `fusion_zh_hans` (已拍板决策 ③「中文形为主」);
+      2. Fusion ja 覆盖的其余汉字 → `fusion_ja`;
+      3. **Fusion 两个汉字源都不覆盖的** → `zlabs_cn` (简体补源)。
+
+    第 3 步的次序保证了「**已有码位的路由一个都不变**」—— v1.0.0 / v1.0.1
+    已经发布过的 31,392 个码位仍然走原来的源, 新增的码位才落到 ZLabs。
+    门禁 `derive_route_multi12.py` 的第 11 条专门盯这条不变式。
     """
     import charset_multi12 as m12
 
     shared = _cjk_shared()
+    cmaps = m12.cjk_source_cmaps()
+    ja_cps = cmaps["fusion_ja"]
     out: dict[int, str] = {}
     for ch, _tag in m12.build_charset_multi12():
         cp = ord(ch)
@@ -129,7 +159,12 @@ def build_route() -> dict[int, str]:
         elif 0xAC00 <= cp <= 0xD7AF:
             out[cp] = "fusion_ko"
         elif 0x4E00 <= cp <= 0x9FFF:
-            out[cp] = SHARED_CJK if cp in shared else "fusion_ja"
+            if cp in shared:
+                out[cp] = SHARED_CJK
+            elif cp in ja_cps:
+                out[cp] = "fusion_ja"
+            else:
+                out[cp] = "zlabs_cn"
         elif 0x3000 <= cp <= 0x30FF or 0xFF00 <= cp <= 0xFFEF:
             out[cp] = "fusion_ja"
         elif 0x2000 <= cp <= 0x206F:
@@ -209,7 +244,7 @@ def require_origins() -> None:
 SNAPSHOT = ROOT / "tools" / "fontgen" / "route_multi12.json"
 
 #: Multi 12 的字符集总量 (与 `charset_multi12.TARGET_TOTAL` 一致)
-TARGET_TOTAL = 31_392
+TARGET_TOTAL = 31_753
 
 
 def load_snapshot() -> dict:
