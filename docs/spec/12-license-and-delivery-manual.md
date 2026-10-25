@@ -240,6 +240,9 @@ Word 的字体对话框分**中文字体**栏与**西文字体**栏（两栏各�
 
 ### 4.1 校验发布包 zip
 
+> **前置**：`cd` 到**zip 所在的下载目录**（命令用的是相对路径 `'.\PixelFontPC98-12-2026-10-24.zip'`）。
+> 注意这个 zip **不在**解压后的包目录里 —— 它**就是**解压的那个包本身。
+
 ```powershell
 $ErrorActionPreference = 'Stop'
 $zip = '.\PixelFontPC98-12-2026-10-24.zip'
@@ -254,6 +257,8 @@ sha256sum ./PixelFontPC98-12-2026-10-24.zip
 
 ### 4.2 校验成品 TTF
 
+> **前置**：`cd` 到**解压后的包目录**（TTF 在里面；zip 本身不在里面）。
+
 ```powershell
 Get-FileHash -Algorithm SHA256 -LiteralPath '.\PixelFontPC98-12.ttf'
 # 期望: 3298AE4D9E28E7F3D5939E007DF43EA82B64860922AB246FC7A4B82414F69FB1
@@ -266,7 +271,11 @@ sha256sum ./PixelFontPC98-12.ttf
 
 ### 4.3 列出 zip 内容并核对清单
 
+> **前置**：`cd` 到**zip 所在的下载目录**（同 §4.1）。
+> `$zip` 需在**本块内重新定义** —— 各代码块彼此独立，不共享上一节设的变量。
+
 ```powershell
+$zip = '.\PixelFontPC98-12-2026-10-24.zip'
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 [System.IO.Compression.ZipFile]::OpenRead((Resolve-Path $zip)).Entries |
   Select-Object FullName, Length, CompressedLength
@@ -276,6 +285,7 @@ Add-Type -AssemblyName System.IO.Compression.FileSystem
 
 ```bash
 unzip -l ./PixelFontPC98-12-2026-10-24.zip
+# 期望 9 项
 ```
 
 ### 4.4 校验已安装到系统的字体（用户侧）

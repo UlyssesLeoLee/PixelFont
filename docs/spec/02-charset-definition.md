@@ -386,31 +386,110 @@ python -c "import sys;sys.path.insert(0,'tools/fontgen');import charset;from col
 
 ### 4.3 复核方案 C 的逐层账目
 
+逐层账目已经**落成可执行代码**：`tools/fontgen/charset_multi12.py`。
+
 ```powershell
-python -c "import sys;sys.path.insert(0,'tools/fontgen');import charset;from fontTools.ttLib import TTFont;..."
+cd E:\PixelFont
+python tools/fontgen/charset_multi12.py
 ```
 
-完整逐层脚本见本文件 §2.7 表；关键口径：
+它打印 §2.7 的整张表，并跑 **4 道硬门禁**（总量 / 方案 A 交叉 / A∪CJK 整块交叉 / 非第三源与排除项）。
+关键口径：
 - L4 = `U+AC00`–`U+D7AF` ∩ Fusion ko = 11,172
 - L6 = JIS X 0208 汉字 ∩ Fusion ja = 4,375（净增 2,297）
 - L7 = `U+4E00`–`U+9FFF` ∩ Fusion ja（净增 11,576）
 
+> 该模块需要参考字体（`third_party/ref_fonts/`，不入库）。在 worktree 里跑时用环境变量指路：
+> `$env:PIXELFONT_REF_FONTS = 'E:\PixelFont\third_party\ref_fonts'`
+
 ### 4.4 复核中日重叠与字形分歧
 
 ```powershell
-# 重叠数: Shift-JIS 双字节判定 (首字节 0x88-0x9F) 与 GB2312 一级求交
-# 字形分歧: 逐字渲染 12x13 单色 cell 比对 Fusion ja 与 Fusion zh_hans
+cd E:\PixelFont
+@'
+import sys
+from pathlib import Path
+import numpy
+sys.path.insert(0, r"tools/fontgen")
+from bitfont import BitmapFont
+import charset
+
+FUS = Path(r"third_party/ref_fonts/fusion-pixel-12px")
+ja = BitmapFont(path=str(FUS / "fusion-pixel-12px-monospaced-ja.ttf"),
+                px=12, cell_ascent=11, cell_descent=2)
+zh = BitmapFont(path=str(FUS / "fusion-pixel-12px-monospaced-zh_hans.ttf"),
+                px=12, cell_ascent=11, cell_descent=2)
+
+def ink(font, ch):
+    arr = numpy.array(font.glyph(ch).convert("L"), dtype=numpy.uint8)
+    h, w = arr.shape
+    return {(x, y) for y in range(h) for x in range(w) if arr[y, x] > 127}
+
+def jis_kanji():
+    out = set()
+    for cp in range(0x3000, 0xA000):
+        try:
+            b = chr(cp).encode("shift_jis")
+        except UnicodeEncodeError:
+            continue
+        if len(b) == 2 and (0x88 <= b[0] <= 0x9F):
+            out.add(cp)
+    return out
+
+gb = {ord(c) for c in charset.gb2312_level1()}
+jk = jis_kanji()
+shared = sorted(gb & jk)
+diff = sum(1 for cp in shared if ink(ja, chr(cp)) != ink(zh, chr(cp)))
+print("GB2312 一级汉字:", len(gb))
+print("JIS X 0208 汉字:", len(jk))
+print("中日共享:", len(shared))
+print("JIS 独有:", len(jk - gb))
+print("像素不同:", diff)
+'@ | python -
 ```
 
-结果应分别为：共享 2,078、JIS 独有 2,297、像素不同 434。
+期望输出（2026-10-25 实测）：
+
+```
+GB2312 一级汉字: 3755
+JIS X 0208 汉字: 4375
+中日共享: 2078
+JIS 独有: 2297
+像素不同: 434
+```
 
 ### 4.5 复核 Fusion 七变体并集与 4 个缺口码位
 
 ```powershell
-python -c "from fontTools.ttLib import TTFont;..."
+cd E:\PixelFont
+@'
+from pathlib import Path
+from fontTools.ttLib import TTFont
+import sys
+sys.path.insert(0, r"tools/fontgen")
+import charset_multi12 as m12
+
+FUS = Path(r"third_party/ref_fonts/fusion-pixel-12px")
+NAMES = ("ja", "ko", "latin", "zh_hans", "zh_hant", "zh_hk", "zh_tw")
+
+def cps(p):
+    return set(TTFont(str(p), fontNumber=0, lazy=True).getBestCmap().keys())
+
+union = set()
+for n in NAMES:
+    s = cps(FUS / f"fusion-pixel-12px-monospaced-{n}.ttf")
+    union |= s
+    print(f"  {n:<8} {len(s)}")
+print("七变体并集:", len(union))
+
+got = {ord(c) for c, _ in m12.build_charset_multi12()}
+print("方案 C 不被任何 Fusion 变体覆盖:",
+      [f"U+{c:04X}" for c in sorted(got - union)])
+'@ | python -
 ```
 
-期望：并集 37,415；方案 C 中不被覆盖的恰为 `U+20AC`、`U+2260`、`U+2264`、`U+2265`。
+期望输出（2026-10-25 实测）：七变体各 37,415，并集 **37,415**；方案 C 中不被覆盖的恰为
+`U+20AC`、`U+2260`、`U+2264`、`U+2265`。
 
 ### 4.6 跑全量门禁
 

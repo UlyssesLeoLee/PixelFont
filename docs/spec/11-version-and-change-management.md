@@ -287,7 +287,7 @@ PixelFont 当前处于 **v1.0.0 已发布**状态，发布链已闭环：注解 
 | V-01 | `dev` 与 `main` 零分叉 | `git rev-list main..dev` 与 `git rev-list dev..main` 输出行数均为 **0** | §4 命令块 A1 |
 | V-02 | `main` 可被 `dev` 快进 | `git merge-base --is-ancestor main dev` 退出码 **0** | §4 命令块 A2 |
 | V-03 | 发布镜像无自动副作用 | 仓库存在 `.github/` 目录 = **否** | §4 命令块 A3 |
-| V-04 | 提交信息前缀合规 | 最近 **20** 条提交全部匹配 `^(docs(spec)|feat(font)|feat(verify)|fix(font)|docs|chore): ` | §4 命令块 A4 |
+| V-04 | 提交信息前缀合规 | 最近 **20** 条提交全部匹配 `^(docs(spec)\|feat(font)\|feat(verify)\|fix(font)\|docs\|chore): ` | §4 命令块 A4 |
 | V-05 | 产物指纹与已发布版一致 | `dist/PixelFontPC98-12.ttf` 字节 = **973,712**，sha256 = `3298AE4D9E28E7F3D5939E007DF43EA82B64860922AB246FC7A4B82414F69FB1` | §4 命令块 B1 |
 | V-06 | 质量门禁全通过 | `verify_all.py` **8/8 PASS**；回归 **0 error / 0 warn** | §4 命令块 B2 |
 | V-07 | 字形硬检查结果已知 | 命中 **71**（warn 69 / error 2，参考集分歧） | §4 命令块 B2 输出 |

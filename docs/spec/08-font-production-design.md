@@ -115,7 +115,7 @@
 
 | 产物 | 命名格式 | 示例 | 说明 |
 |---|---|---|---|
-| TTF 字形名 | `u{cp:04X}`（四位十六进制**大写**） | `中` = `u4E2D` | 大写十六进制，保证排序与人工比对一致 |
+| TTF 字形名 | **构建期内存键名** `u{cp:04X}`（四位十六进制大写）；**文件里不落盘** | 构建期 `中` = `u4E2D`；重新打开后显示为 `uni4E2D` | `fb.setupPost(keepGlyphNames=False)` → `post` 表 **format 3.0**，**不保存字形名**。fontTools 重新打开时按 cmap 反推：有 AGL 名的用 AGL 名（`ellipsis` / `multiply` / `divide`），其余用 `uniXXXX`（实测 4,047 个）。**别拿 `ttx` 里看到的名字去核对 `uXXXX` 规则** —— 文件里根本没有那个名字 |
 | TTF `.notdef` | `.notdef` | — | **独立于命名序列**，位于 glyph order **首位**；不占用 `uXXXX` 命名空间 |
 | BDF 字形块 | `STARTCHAR uni{cp:04X}` + `ENCODING {cp}` | `STARTCHAR uni4E2D` / `ENCODING 20013` | `ENCODING` 写**十进制**码位 |
 | `.bdf.map` 条目 | `STARTCHAR uni{cp:04X}` + `ENCODING {cp}` + `ENDCHAR` | `STARTCHAR uni4E2D` / `ENCODING 20013` / `ENDCHAR` | 与 BDF 块保持同一命名，便于机器双向索引 |
@@ -167,7 +167,7 @@
 | 1 字符集构建 | `ascii_chars()` 95 + `extras()` 56 + `kana_chars()` **258** + `gb2312_level1()` 3,755（源列表合计 **4,164**） | `charset.build_charset()` 去重（重复 3 个：`ヶ` U+30F6、`ー` U+30FC、`～` U+FF5E） | **4,161** 码位集合 | `gate_full_coverage()`：缺字门禁 |
 | 2 路由名单 | `ideo_route.json`（**3,010** 条记录） | `charset.load_ideo_route()` 载入；`derive_ideo_route.py` / `route_rule.py::sig_of()` 推导 | 汉字→源字体映射 | `gate_ideo_route()`：路由名单门禁；名单自检（按名单自述输入重新推导并比对） |
 | 3 字形采集 | SimHei（汉字）/ MS Gothic（拉丁·假名）/ vendor Fusion Pixel 12px（第三源） | `bitfont.ScriptStack` 按优先级取形，`overrides` 通道处理源字体语系惯例（如 `U+005C` 在 MS Gothic 按 JIS 惯例画成 `¥`）；栅格化为 12×13 `BitmapFont` | `BitmapFont` 集合 | 源自检：Fusion 裁剪版与原字体逐像素一致 + cmap 覆盖相符（`vendor_fusion_pixel.py --check`） |
-| 4 BDF 写出 | `BitmapFont` 集合 | `write_bdf()`：写 `STARTCHAR` / `ENCODING` / `SWIDTH` / `DWIDTH` / `BBX` / `BITON` | `dist/PixelFontPC98-12.bdf`（**665,950** 字节）、`dist/PixelFontPC98-12-bdf.map`（**183,034** 字节） | `verify_bdf()` 回读校验 |
+| 4 BDF 写出 | `BitmapFont` 集合 | `write_bdf()`：写 `STARTCHAR` / `ENCODING` / `SWIDTH` / `DWIDTH` / `BBX` / `BITON` | `dist/PixelFontPC98-12.bdf`（**665,950** 字节）、`dist/PixelFontPC98-12.bdf.map`（**183,034** 字节） | `verify_bdf()` 回读校验 |
 | 5 图集 / 样张 | `BitmapFont` 集合 | `write_atlas()` / `write_specimen()` | `dist/PixelFontPC98-12-atlas.png`（**141,857**）、`-specimen.png`（**2,977**）、`-atlas.json`（**87,300**） | `verify_atlas()` 回读校验 |
 | 6 TTF 写出 | `BitmapFont` 集合 | `write_ttf()`：水平游程 → `_merge_vertical_runs()` → `_emit_rect()` → `TTGlyphPen(None)` → `FontBuilder` 装配 | `dist/PixelFontPC98-12.ttf`（**973,712** 字节，sha256 `3298AE4D9E28E7F3D5939E007DF43EA82B64860922AB246FC7A4B82414F69FB1`） | `verify_ttf()` 回读校验 + `verify_ttf_metadata()` 四组不变量（代码页位 / fsSelection / Unicode 区段位与 cmap 一致 / gasp 禁 DOGRAY\|GRIDFIT） |
 | 7 全量回归 | 产物 vs 源位图 | `regress.py` / `regress_all.py`：**4,161** 字分 **43** 批逐像素比对 | 回归报告 | 0 error 0 warn |
@@ -214,7 +214,7 @@
 | T-05 | **`eblc.strikes` 是 list 不是 dict** | 按 dict 访问即抛异常或误判 strike 命中 | 用列表下标遍历；GDI 内嵌位图命中判断必须比较**请求 ppem == strike ppem** 精确相等 |
 | T-06 | **`table_E_B_D_T_` 不是 dict** | 访问内嵌位图表内容时按 dict 处理会失败 | 走 fontTools 的 `EBDT` 表接口逐表读取 |
 | T-07 | **哈希比对必须统一小写** | sha256 十六进制大小写不一致导致「同一产物」被判为不同 | 比对前统一 `.lower()`；清单 `SHA256SUMS.txt` 与实测值同格式 |
-| T-08 | `ulCodePageRange1` 手写查表出错（历史值 `0x00030000` = 874 + 932） | 缺 1252 / 936 → Word 装了却用不上 | 固定写 `(1<<0)|(1<<17)|(1<<18)`，并由 `verify_ttf_metadata()` 硬拦 |
+| T-08 | `ulCodePageRange1` 手写查表出错（历史值 `0x00030000` = 874 + 932） | 缺 1252 / 936 → Word 装了却用不上 | 固定写 `(1<<0)\|(1<<17)\|(1<<18)`，并由 `verify_ttf_metadata()` 硬拦 |
 | T-09 | `fsSelection` 缺 REGULAR（历史值 `0x0000`） | Windows 可能不把它当正文常规字 | 固定 `0x0040`，`verify_ttf_metadata()` 硬拦 |
 | T-10 | 手写 `ulUnicodeRange1–4` | 与 cmap 实际覆盖不一致 | 不手写，交给 fontTools 按 cmap 重算 |
 | T-11 | `gasp` 请求灰度抗锯齿 / 网格拟合 | 点阵字被当矢量处理，出现抗锯齿边缘 | `gasp = {0xFFFF: 0}`，门禁禁 DOGRAY\|GRIDFIT |

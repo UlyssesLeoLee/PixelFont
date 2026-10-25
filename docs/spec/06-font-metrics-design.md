@@ -280,7 +280,9 @@ python -c "from fontTools.ttLib import TTFont; f=TTFont(r'E:\PixelFont\dist\Pixe
 
 ```powershell
 # ---- 5. 校验 lsb == glyf.xMin（期望输出：lsb!=xMin: 0）----
-python -c "from fontTools.ttLib import TTFont; f=TTFont(r'E:\PixelFont\dist\PixelFontPC98-12.ttf'); g=f['glyf']; bad=[n for n in f.getGlyphOrder() if g[n].numberOfContours>0 and f['hmtx'][n][1]!=g[n].xMin*64]; print('lsb!=xMin:',len(bad))"
+# 注意: hmtx 的 lsb 与 glyf 的 xMin **都是字体单位**, 直接比, 不需要再乘 64。
+#      若误写成 xMin*64, 会得到 821 个假失败(实测), 而正确值是 0。
+python -c "from fontTools.ttLib import TTFont; f=TTFont(r'E:\PixelFont\dist\PixelFontPC98-12.ttf'); g=f['glyf']; bad=[n for n in f.getGlyphOrder() if g[n].numberOfContours>0 and f['hmtx'][n][1]!=g[n].xMin]; print('lsb!=xMin:',len(bad))"
 
 # ---- 6. 校验 advance 只取 {384, 768}（期望输出：bad advance: 0）----
 python -c "from fontTools.ttLib import TTFont; f=TTFont(r'E:\PixelFont\dist\PixelFontPC98-12.ttf'); bad=[(n,a) for n,a in f['hmtx'].metrics.items() if a[0] not in (384,768)]; print('bad advance:',len(bad))"

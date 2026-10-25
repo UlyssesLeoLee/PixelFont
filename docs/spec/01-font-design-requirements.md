@@ -1,7 +1,7 @@
 # 01. 字体设计需求规格书
 
 > PixelFont 12 份设计规格文档中的第 1 份。
-> 事实底稿：`C:\Users\leo19\AppData\Local\Temp\pf_facts_v2.md`（2026-10-24 核实版）。
+> 事实底稿：[`_facts-baseline.md`](_facts-baseline.md)（v2，2026-10-24 核实，随仓库入库）。本文中的「底稿 §N」均指该文件第 N 节。
 > 仓库：`E:\PixelFont`（GitHub https://github.com/UlyssesLeoLee/PixelFont ，**PUBLIC**），当前 HEAD `4300fc1`。
 > 本文中每个数值均给出可追溯来源（仓库文件路径 / 命令 / commit / 报告文件）；底稿未覆盖的数字标「待验证」并给出验证方法，不做推断性补写。
 

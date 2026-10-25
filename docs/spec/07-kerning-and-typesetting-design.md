@@ -275,10 +275,11 @@ print("gasp:", f["gasp"].gaspRange)
 期望输出：
 
 ```
-tables: ['GDEF', 'GPOS', 'GSUB', 'OS/2', 'cmap', 'gasp', 'glyf', 'head', 'hhea', 'hmtx', 'loca', 'maxp', 'name', 'post', 'vhea', 'vmtx']
+tables: ['OS/2', 'cmap', 'gasp', 'glyf', 'head', 'hhea', 'hmtx', 'loca', 'maxp', 'name', 'post']
+gasp: {65535: 0}
 ```
 
-> ⚠️ 上述为**期望形态**说明，非实测输出。实测以本仓库构建产物为准；判定时以「`gasp` 存在且 `gaspRange == {0xFFFF: 0}`」与「**不含** `GPOS`/`GSUB` 承载排版特性」为准。具体表集合**待验证**（须在目标提交上重跑 R-01 取实测值）。
+> 上述为 **2026-10-25 实测值**（本仓库构建产物）。判定口径：「`gasp` 存在且 `gaspRange == {0xFFFF: 0}`」，且表清单中**不含** `GPOS` / `GSUB` / `GDEF` —— 整个字体**没有**任何承载排版特性的表。
 
 ### R-02 — 读取 `gasp` 与 `OS/2.usWidthClass`（验证 A-04 / A-02）
 
@@ -306,11 +307,9 @@ cd E:\PixelFont
 @'
 from fontTools.ttLib import TTFont
 f = TTFont(r"dist/PixelFontPC98-12.ttf")
-hmtx, cmap = f["hmtx"], f["cmap"]
-cmap = {cp for cp in cmap.getBestCmap()}
-adv = {}
-for cp in cmap:
-    adv[cp] = hmtx[cmap[cp]][0]
+hmtx = f["hmtx"]
+cmap = f["cmap"].getBestCmap()   # 保持 dict; 转成 set 后不能再 cmap[cp]
+adv = {cp: hmtx[name][0] for cp, name in cmap.items()}
 half = [cp for cp, a in adv.items() if a == 384]
 full = [cp for cp, a in adv.items() if a == 768]
 other = [(hex(cp), a) for cp, a in adv.items() if a not in (384, 768)]
@@ -351,12 +350,14 @@ for ch in "\u2026\u00d7\u00f7":
 期望输出：
 
 ```
-0x2026 EAW= A advance= 768 glyph= uni2026
-0xd7 EAW= A advance= 768 glyph= uni00D7
-0xf7 EAW= A advance= 768 glyph= uni00F7
+0x2026 EAW= A advance= 768 glyph= ellipsis
+0xd7 EAW= A advance= 768 glyph= multiply
+0xf7 EAW= A advance= 768 glyph= divide
 ```
 
 要点：**EAW = `'A'` 但 advance = 768（全角）** —— 这正是「事实优先于约定」的落点。
+
+> 字形名是 **AGL 名**（`ellipsis` / `multiply` / `divide`）而不是 `uniXXXX`：`post` 表为 format 3.0，不保存字形名，fontTools 重新打开时按 cmap 反推，有 AGL 名的优先用 AGL 名。详见 `08-font-production-design.md` §2.2。
 
 ### R-05 — 检查度量一致性（验证 A-07 / A-08）
 

@@ -1,7 +1,7 @@
 # PixelFont 设计规格文档集（12 份）
 
 > 本目录是 PixelFont 项目的完整设计规格文档集，共 12 份。
-> 事实底稿日期：**2026-10-24**；对应仓库 HEAD `4300fc1`（v1.0.0 已发布）。
+> 事实底稿日期：**2026-10-24**；对应仓库 HEAD `a4cece6`（随提交推进变化）（v1.0.0 已发布）。
 > 全部数值均可追溯到仓库文件路径 / 命令 / commit / 报告文件；核不实的项一律标「待验证」并附验证方法 —— **禁止编数字**。
 
 ## 文档索引
@@ -9,21 +9,22 @@
 | # | 文件 | 内容 | 篇幅 |
 |---|---|---|---|
 | 01 | [`01-font-design-requirements.md`](01-font-design-requirements.md) | 字体设计需求规格书：用途、目标用户、支持语言、风格、字重、使用场景 | 389 行 |
-| 02 | [`02-charset-definition.md`](02-charset-definition.md) | 字符集定义书：收录范围、规则、优先级、缺字策略 | 451 行 |
+| 02 | [`02-charset-definition.md`](02-charset-definition.md) | 字符集定义书：收录范围、规则、优先级、缺字策略 | 530 行 |
 | 03 | [`03-visual-design-spec.md`](03-visual-design-spec.md) | 字体视觉设计规范：气质、笔画风格、粗细、曲线、重心、设计原则 | 306 行 |
 | 04 | [`04-glyph-structure-design.md`](04-glyph-structure-design.md) | 字形结构设计书：字形比例、部件复用、字面框、笔画交接、构造规则 | 375 行 |
 | 05 | [`05-typeface-family-design.md`](05-typeface-family-design.md) | 字体家族设计书：命名规范、字重 / 字宽 / 斜体 / 可变字体轴 | 390 行 |
-| 06 | [`06-font-metrics-design.md`](06-font-metrics-design.md) | 字体度量设计书：UPM、Ascender、Descender、Baseline、行距 | 354 行 |
-| 07 | [`07-kerning-and-typesetting-design.md`](07-kerning-and-typesetting-design.md) | 字距与排版设计书：字间距、Kerning、标点处理、连字、OpenType 特性 | 453 行 |
+| 06 | [`06-font-metrics-design.md`](06-font-metrics-design.md) | 字体度量设计书：UPM、Ascender、Descender、Baseline、行距 | 356 行 |
+| 07 | [`07-kerning-and-typesetting-design.md`](07-kerning-and-typesetting-design.md) | 字距与排版设计书：字间距、Kerning、标点处理、连字、OpenType 特性 | 454 行 |
 | 08 | [`08-font-production-design.md`](08-font-production-design.md) | 字体制作详细设计书：Glyph 命名、轮廓规则、构建流程、字体格式、工具链 | 329 行 |
 | 09 | [`09-glyph-quality-check-spec.md`](09-glyph-quality-check-spec.md) | 字形质量检查规范：轮廓完整性、曲线质量、结构一致性、视觉平衡 | 297 行 |
 | 10 | [`10-font-test-spec.md`](10-font-test-spec.md) | 字体测试规格书：字符覆盖、渲染兼容性、多平台、多字号、排版测试 | 344 行 |
 | 11 | [`11-version-and-change-management.md`](11-version-and-change-management.md) | 版本与变更管理书：版本规则、字形修改记录、兼容性、发布历史 | 436 行 |
-| 12 | [`12-license-and-delivery-manual.md`](12-license-and-delivery-manual.md) | 字体授权与交付说明书：许可证、版权、安装方法、格式、使用限制 | 372 行 |
+| 12 | [`12-license-and-delivery-manual.md`](12-license-and-delivery-manual.md) | 字体授权与交付说明书：许可证、版权、安装方法、格式、使用限制 | 382 行 |
+| — | [`_facts-baseline.md`](_facts-baseline.md) | **统一事实底稿 v2**（2026-10-24 核实）：12 份文档共用的唯一数字来源，文档中「底稿 §N」即指本文件 | 284 行 |
 
 ## 每份文档的结构约定
 
-每份文档都保留以下五段，章节标题一致，便于横向对照：
+每份文档都保留以下六段，章节标题一致，便于横向对照：
 
 1. **结论先行** —— 开头直接下判断，不是目录式罗列
 2. **1. 范围与目的** —— 目的 / 适用范围 / 读者 / 术语
@@ -63,3 +64,5 @@
 - [`docs/reference-fonts.md`](../reference-fonts.md) —— 参考字体与生产源清单（含来源 / 版本 / sha256 / 许可证）
 - [`docs/glyph-identity-verification.md`](../glyph-identity-verification.md) —— 字形身份校验与可复现性
 - [`docs/adversarial-review.md`](../adversarial-review.md) —— 三轮对抗式审核方法与结论
+- [`_adversarial-review.md`](_adversarial-review.md) —— **本规格文档集**的对抗式审核报告（21 条缺陷与修复台账）
+- [`tools/specreview/`](../../tools/specreview/) —— 审核工具（`audit_identity` / `audit_structure` / `audit_chain` / `verify_facts` / `sync_index`）

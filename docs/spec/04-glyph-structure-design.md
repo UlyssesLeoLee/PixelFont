@@ -346,11 +346,11 @@ for cp, name in cmap.items():
     lsb = hmtx[name][1]
     if lsb != g.xMin:
         bad.append((hex(cp), name, lsb, g.xMin))
-    if cp in (0x21, 0x27, 0x28, 0x29, 0x2C) and lsb < 1:
+    if cp in (0x21, 0x27, 0x28, 0x29, 0x2C) and lsb < 64:
         narrow.append((hex(cp), name, lsb))
 
 print("lsb != xMin:", len(bad))     # 期望：0
-print("narrow lsb < 1:", len(narrow))  # 期望：0
+print("narrow lsb < 64:", len(narrow))  # 期望：0  (64 = 1 像素; 写 lsb<1 恒不触发, 会假通过)
 ```
 
 ---

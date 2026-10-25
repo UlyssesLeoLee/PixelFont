@@ -221,7 +221,7 @@
 | ID 6（PostScript 名） | `PixelFontPC98-12` | 命名规则（2.1） |
 | ID 16 / ID 17（排版家族/风格） | 与 ID 1 / ID 2 同值 | 单字重家族规范；ID 17 实际字符串**待验证** |
 | ID 5（版本） | `Version 1.0.0` | v1.0.0 已发布；实际字符串**待验证**（验证方法：`name.getDebugName(5)`） |
-| ID 3 / ID 4 / ID 13 / ID 14 | — | 唯一标识 / 全名 / 许可 / 许可 URL | 实际字符串**待验证**（验证方法：`name.getDebugName(n)`） |
+| ID 3 / ID 4 / ID 13 / ID 14 | — | 唯一标识 / 全名 / 许可 / 许可 URL；实际字符串**待验证**（验证方法：`name.getDebugName(n)`） |
 
 | 非 `OS/2` 表 | 值 | 依据 |
 |---|---|---|

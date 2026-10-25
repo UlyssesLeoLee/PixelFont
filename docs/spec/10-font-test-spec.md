@@ -224,7 +224,7 @@
 | `reports/gdi_raster_scan.tsv` | 逐码位明细，**4,162 行**（含表头） | 单码位失败定位、逐码位复核 |
 | `verify_all.py` 步骤 7 summary | 对抗式审核三轮裁决汇总 | 缺陷追溯（命中 60/139/19，待裁决 0） |
 | `dist/PixelFontPC98-12-atlas.json` | 图集元数据（**87,300** 字节） | 字形位置回读、缺字核对 |
-| `dist/PixelFontPC98-12-bdf.map` | BDF 映射（**183,034** 字节） | 码位 ↔ 字形名追溯 |
+| `dist/PixelFontPC98-12.bdf.map` | BDF 映射（**183,034** 字节） | 码位 ↔ 字形名追溯 |
 | `docs/word-compat.md` | §7.2 全字符集栅格化 / §7.5 渲染器相关性 / §7.6 只有 12 整数倍精确 / §7.7 内嵌位图路线 | 渲染结论的书面依据 |
 
 产物指纹（用于确认测的是同一份二进制）：
@@ -232,7 +232,7 @@
 | 产物 | 字节 | sha256 |
 |---|---|---|
 | `dist/PixelFontPC98-12.ttf` | **973,712** | `3298AE4D9E28E7F3D5939E007DF43EA82B64860922AB246FC7A4B82414F69FB1` |
-| `dist/PixelFontPC98-12.zip`（`dist/PixelFontPC98-12-2026-10-24.zip`） | **533,116** | `96EE924E853FCE5A29EDA0990ED4B68EFEF46B74F7782B764053CB2AD150FDE8` |
+| `dist/PixelFontPC98-12-2026-10-24.zip` | **533,116** | `96EE924E853FCE5A29EDA0990ED4B68EFEF46B74F7782B764053CB2AD150FDE8` |
 
 ### 2.11 已知测试盲区
 
@@ -277,7 +277,7 @@
 ```powershell
 # 0) 确认基线与被测产物指纹
 cd E:\PixelFont
-git log -1 --format=%h                                   # 期望 4300fc1（基线）
+git log -1 --format=%h                                   # 期望: 当前 HEAD 短 SHA（会随提交推进变化）
 Get-FileHash dist\PixelFontPC98-12.ttf -Algorithm SHA256
 #   期望 3298AE4D9E28E7F3D5939E007DF43EA82B64860922AB246FC7A4B82414F69FB1
 (Get-Item dist\PixelFontPC98-12.ttf).Length             # 期望 973712
@@ -313,8 +313,8 @@ cd E:\PixelFont; python tools/fontgen/vendor_fusion_pixel.py --check
 
 ```bash
 # bash 等价写法（CI / Linux 环境，仅只读校验部分）
-cd /e/PixelFont
-git log -1 --format=%h                      # 期望 4300fc1
+# 先 cd 到仓库路径: Git Bash 写 /e/PixelFont, Linux / CI 写实际路径
+git log -1 --format=%h                      # 期望: 当前 HEAD 短 SHA（会随提交推进变化）
 sha256sum dist/PixelFontPC98-12.ttf
 #   期望 3298ae4d9e28e7f3d5939e007df43ea82b64860922ab246fc7a4b82414f69fb1
 wc -l reports/gdi_raster_scan.tsv           # 期望 4162
