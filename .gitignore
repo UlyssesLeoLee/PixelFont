@@ -25,5 +25,10 @@ reports/adversarial/png/
 # 回归测试的临时工作目录
 .tmp/
 
+# 审核 / 打包流程的临时工作目录
+# (_dl = R3 审核回下载 release 资产时落地的位置; _pkg = 打包解包的暂存区)
+_dl/
+_pkg/
+
 # 分析过程的临时脚本与中间产物 (reports/_tmp_*.py, _tmp_*.txt, _tmp_*/)
 reports/_tmp_*
