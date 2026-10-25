@@ -18,7 +18,7 @@
 | 08 | [`08-font-production-design.md`](08-font-production-design.md) | 字体制作详细设计书：Glyph 命名、轮廓规则、构建流程、字体格式、工具链 | 329 行 |
 | 09 | [`09-glyph-quality-check-spec.md`](09-glyph-quality-check-spec.md) | 字形质量检查规范：轮廓完整性、曲线质量、结构一致性、视觉平衡 | 297 行 |
 | 10 | [`10-font-test-spec.md`](10-font-test-spec.md) | 字体测试规格书：字符覆盖、渲染兼容性、多平台、多字号、排版测试 | 344 行 |
-| 11 | [`11-version-and-change-management.md`](11-version-and-change-management.md) | 版本与变更管理书：版本规则、字形修改记录、兼容性、发布历史 | 464 行 |
+| 11 | [`11-version-and-change-management.md`](11-version-and-change-management.md) | 版本与变更管理书：版本规则、字形修改记录、兼容性、发布历史 | 466 行 |
 | 12 | [`12-license-and-delivery-manual.md`](12-license-and-delivery-manual.md) | 字体授权与交付说明书：许可证、版权、安装方法、格式、使用限制 | 382 行 |
 | — | [`_facts-baseline.md`](_facts-baseline.md) | **统一事实底稿 v2**（2026-10-24 核实）：12 份文档共用的唯一数字来源，文档中「底稿 §N」即指本文件 | 284 行 |
 

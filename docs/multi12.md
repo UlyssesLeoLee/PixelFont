@@ -16,10 +16,10 @@
    后者有 3,053/4,161 码位派生自 SimHei / MS Gothic（微软专有），所以成品不能入库。
 3. **可复现**：只 clone 本仓库、不下载任何参考字体，也能构建出**逐字节相同**的产物
    （已实测，见 §6）。
-4. **已发布**：`multi12-v1.0.0` ——
-   <https://github.com/UlyssesLeoLee/PixelFont/releases/tag/multi12-v1.0.0>
+4. **已发布**：`multi12-v1.0.1` ——
+   <https://github.com/UlyssesLeoLee/PixelFont/releases/tag/multi12-v1.0.1>
    （6 个资产，含 OFL 全文；回下载后逐字节一致，且回下载的 TTF 在 GDI 中
-   被正常选中、全字符集逐格一致）。
+   被正常选中、全字符集逐格一致）。上一版 `multi12-v1.0.0`。
 
 ---
 
@@ -311,23 +311,28 @@ GDI 门禁的额外一条：繁体（`lfCharSet=BIG5`）**必须选不中**本�
 
 ### 8.1 发布
 
-- Release：`multi12-v1.0.0` → `main` 的 `a3509b3`
+- 最新 Release：`multi12-v1.0.1` → `main` 的 `0b9c686`
+  —— <https://github.com/UlyssesLeoLee/PixelFont/releases/tag/multi12-v1.0.1>
+- 上一版：`multi12-v1.0.0` → `main` 的 `a3509b3`
   —— <https://github.com/UlyssesLeoLee/PixelFont/releases/tag/multi12-v1.0.0>
-- 附件 6 个：
+- 附件 6 个（v1.0.1）：
 
 | 附件 | 字节 | sha256 |
 |---|---|---|
-| `PixelFontMulti-12-2026-10-24.zip` | 2,626,345 | `6eab85eaecb1dee433dc7f40e43f554ab9023d81475d96c554ae9ff903012fd9` |
+| `PixelFontMulti-12-2026-10-25.zip` | 2,626,345 | `729c3d457c3ab331b50bc330ee129dd592e82b98bd9360d73d711c8a1c0efb78` |
 | `PixelFontMulti-12.ttf` | 7,736,520 | `d28e0fb5134415319a9a42f19a706463c9fddc8a992f76729bab7f9ff5131913` |
 | `PixelFontMulti-12-atlas.png` | 764,187 | `6df3bfce5e24ca135d94f7d12ba836f352908c2df4627752c8d43021c1ee63ca` |
 | `PixelFontMulti-12-specimen.png` | 3,174 | `c9d93ff4e4efeae4c0c61bb5e96342584ac77d8e0475755566a1bf0b75931a25` |
-| `PixelFontMulti-12-SHA256SUMS.txt` | 452 | `93f370b4b2e2971217c490e287d7fa8742f9a49e829d6982b54a9e752570a8e4` |
+| `PixelFontMulti-12-SHA256SUMS.txt` | 452 | `ce75495e82fbe77e17afb4e9cb330bd9c376a8ce2a2e6c02b8bf940b8a24afdc` |
 | `OFL.txt` | 4,518 | `983af89b36518a85ee5205b6cad1de232dbc2852b536c50ff2956bf74db3b5a4` |
 
 zip 内 7 项：TTF / BDF / 图集 / 样张 / `安装与使用说明.md` / `OFL.txt` / `SHA256SUMS.txt`。
 
 > **`OFL.txt` 是必须项** —— OFL-1.1 要求随字体分发附上许可证全文。
 > 它既在 zip 里，也作为独立附件发布。
+>
+> **v1.0.0 与 v1.0.1 的字体产物逐字节相同**，只有 zip 的 sha256 不同 ——
+> 因为包内条目时间戳跟着发布日走。v1.0.1 改的是验证门禁（见 CHANGELOG）。
 
 ---
 

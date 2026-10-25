@@ -102,7 +102,7 @@ PixelFont 当前处于 **v1.0.0 已发布**状态，发布链已闭环：注解 
 | 家族 | name ID 1 / 16 | PostScript 名 | achVendID | 当前版本 | 版本序列规则 |
 |---|---|---|---|---|---|
 | `PixelFont PC98 12` | `PixelFont PC98 12` | `PixelFontPC98-12` | `PXLF` | **v1.0.0**（已发布，2026-10-24） | 自 v1.0.0 起按 §2.1 三段规则递增；单序列，无并行版本线 |
-| `PixelFont Multi 12` | `PixelFont Multi 12` | `PixelFontMulti-12`（**已构建验证**，2026-10-25） | `PXLF`（**已验证**，沿用项目 vendor ID） | **v1.0.0**（独立序列） | **独立版本序列**，自 v1.0.0 起编号，与 `PixelFont PC98 12` 互不递增、互不覆盖 |
+| `PixelFont Multi 12` | `PixelFont Multi 12` | `PixelFontMulti-12`（**已构建验证**，2026-10-25） | `PXLF`（**已验证**，沿用项目 vendor ID） | **v1.0.1**（独立序列） | **独立版本序列**，自 v1.0.0 起编号，与 `PixelFont PC98 12` 互不递增、互不覆盖 |
 
 **多家族并存时的 tag 命名**（2026-10-25 补）：
 
@@ -112,7 +112,7 @@ PixelFont 当前处于 **v1.0.0 已发布**状态，发布链已闭环：注解 
 | 家族 | tag 形式 | 例 |
 |---|---|---|
 | `PixelFont PC98 12` | `v<版本>`（**已发布，不可改**） | `v1.0.0` |
-| `PixelFont Multi 12` | `<家族短名>-v<版本>` | `multi12-v1.0.0` |
+| `PixelFont Multi 12` | `<家族短名>-v<版本>` | `multi12-v1.0.0`、`multi12-v1.0.1` |
 
 `multi12` 短名取自 PostScript 名 `PixelFontMulti-12` 的小写化短形式。
 先发布的家族保留无前缀形式（历史既成），后发布的家族必须带前缀。
@@ -253,17 +253,19 @@ PixelFont 当前处于 **v1.0.0 已发布**状态，发布链已闭环：注解 
 | 中间版（10-24 早） | 2026-10-24 | 元数据已修（`cef4a22`），轮廓未合并 | 1,364,528 字节 / `269619D5EAA0B84BC478B550893C6F5CCAAB6B0709F86AB19433AD5A8A46B2D3` | 无（未发布） |
 | **v1.0.0** | **2026-10-24** | ① `OS/2` 元数据三处修复（`cef4a22`）；② 字符集 4,140 → **4,161**，补 21 个 Word 常用字符，新增 `charset.SOURCE_OVERRIDES` 与 `bitfont.ScriptStack` 的 `overrides` 通道，修 `U+005C` 被 MS Gothic 按 JIS 惯例画成 `¥` 的缺陷（`729403c`）；③ GDI 门禁从 6 样字扩到全字符集逐格验证，新增 `docs/install.md`（`c403eea`）；④ 合并竖向相邻等宽游程，轮廓 107,209 → **73,933**、TTF 1,364,528 → **973,712** 字节，整数倍精确性 **12,483 / 12,483** 未破（`8ae04fc`）；⑤ 刷新可复现性表（`4300fc1`） | **973,712 字节** / `3298AE4D9E28E7F3D5939E007DF43EA82B64860922AB246FC7A4B82414F69FB1` | **注解 tag `v1.0.0`** → `main` 的 `4300fc1`，说明「feat(font): v1.0.0 -- 首个实测可在 Word 中使用的版本」 |
 | **multi12-v1.0.0** | **2026-10-24** | **`PixelFont Multi 12` 家族的首个版本** —— 独立序列，与上表互不递增。字符集 **31,392** 码位（汉字 19,317 / 谚文 11,172 / 拉丁系 593 / 假名全角标点 305 / 其它 5），生产源全部 OFL-1.1（Fusion Pixel 12px + 4 个原创手绘），成品可自由分发、可商用（`ec064e4`、`b6350ef`）；`OS/2` 声明 bit19 韩文代码页，否则 GDI 在 `lfCharSet=HANGEUL` 下根本不会考虑本字体（`b6350ef`）；PostScript 名定为 `PixelFontMulti-12`，与 `PixelFontPC98-12` 同一套风格（`8c19d9d`） | **7,736,520 字节** / `D28E0FB5134415319A9A42F19A706463C9FDDC8A992F76729BAB7F9FF5131913` | **注解 tag `multi12-v1.0.0`** → `main` 的 `a3509b3` |
+| **multi12-v1.0.1** | **2026-10-25** | **PATCH** —— 字体产物与 v1.0.0 **逐字节相同**（重建后 6 个产物 sha256 全部 IDENTICAL），改的是**验证门禁**：① 快照自洽门禁的「层必须互斥」是永不触发的死门禁（`layer` 是 `{码位: 层名}` 字典，一个码位只可能有一个层名）；② 门禁记下「未登记的源」后没中止，下一步崩成 `KeyError` 盖住报错；③ 错误报告 `problems[:20]` 全局截断，把「缺少这些层」这类根因挤掉；④ 层名与标签只存在于快照里，没有外部基准。配套新增 `tools/fontgen/verify_snapshot_gate.py`（8 种故障注入全抓到，并区分「报错」与「崩了」）—— 该自测当场抓出了 ② 与 ③ | **7,736,520 字节**（同 v1.0.0） / `D28E0FB5134415319A9A42F19A706463C9FDDC8A992F76729BAB7F9FF5131913` | **注解 tag `multi12-v1.0.1`** → `main` 的 `0b9c686` |
 
 `PixelFont Multi 12` 的发布事实（独立于上表的 PC98 12 行）：
 
 | 发布事实 | 值 |
 |---|---|
 | Release 状态 | 正式版（`draft=false`） |
-| Release 页 | <https://github.com/UlyssesLeoLee/PixelFont/releases/tag/multi12-v1.0.0> |
-| 附件数 | **6** |
-| zip 附件 | `PixelFontMulti-12-2026-10-24.zip`，2,626,345 字节 / `6EAB85EAECB1DEE433DC7F40E43F554AB9023D81475D96C554AE9FF903012FD9`；包内 **7 项**（TTF / BDF / 图集 / 样张 / 安装说明 / OFL 全文 / 校验和） |
-| ttf 附件 | `PixelFontMulti-12.ttf`，7,736,520 字节 / `D28E0FB5134415319A9A42F19A706463C9FDDC8A992F76729BAB7F9FF5131913` |
-| 图集 / 样张附件 | `PixelFontMulti-12-atlas.png` 764,187 字节 / `6DF3BFCE5E24CA135D94F7D12BA836F352908C2DF4627752C8D43021C1EE63CA`；`PixelFontMulti-12-specimen.png` 3,174 字节 / `C9D93FF4E4EFEAE4C0C61BB5E96342584AC77D8E0475755566A1BF0B75931A25` |
+| 最新 Release | `multi12-v1.0.1` → <https://github.com/UlyssesLeoLee/PixelFont/releases/tag/multi12-v1.0.1>（标记为 Latest） |
+| 上一版 | `multi12-v1.0.0` → <https://github.com/UlyssesLeoLee/PixelFont/releases/tag/multi12-v1.0.0> |
+| 附件数 | **6**（两版都是） |
+| zip 附件 | v1.0.1：`PixelFontMulti-12-2026-10-25.zip`，2,626,345 字节 / `729C3D457C3AB331B50BC330EE129DD592E82B98BD9360D73D711C8A1C0EFB78`；v1.0.0：`PixelFontMulti-12-2026-10-24.zip`，2,626,345 字节 / `6EAB85EAECB1DEE433DC7F40E43F554AB9023D81475D96C554AE9FF903012FD9`（**包内 7 项**：TTF / BDF / 图集 / 样张 / 安装说明 / OFL 全文 / 校验和。zip 的 sha256 两版不同，**仅因为包内条目时间戳跟着发布日走**；字体产物字节完全相同） |
+| ttf 附件 | `PixelFontMulti-12.ttf`，7,736,520 字节 / `D28E0FB5134415319A9A42F19A706463C9FDDC8A992F76729BAB7F9FF5131913`（两版相同） |
+| 图集 / 样张附件 | `PixelFontMulti-12-atlas.png` 764,187 字节 / `6DF3BFCE5E24CA135D94F7D12BA836F352908C2DF4627752C8D43021C1EE63CA`；`PixelFontMulti-12-specimen.png` 3,174 字节 / `C9D93FF4E4EFEAE4C0C61BB5E96342584AC77D8E0475755566A1BF0B75931A25`（两版相同） |
 | 许可附件 | `OFL.txt` 4,518 字节 / `983AF89B36518A85EE5205B6CAD1DE232DBC2852B536C50FF2956BF74DB3B5A4`（OFL-1.1 要求随包附全文，**必须项**） |
 | 回下载校验 | 6 个资产重新下载后**逐字节一致**；下载回的 TTF 在 GDI 中被正常选中，全字符集 31,392 码位 × (12 ppem + 24 ppem) 与设计位图**逐格一致**，抗锯齿像素 **0**（`python tools/fontgen/verify_gdi_multi12.py --ttf <回下载路径> --bdf <回下载 zip 内路径>`） |
 
