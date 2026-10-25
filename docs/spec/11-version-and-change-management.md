@@ -19,7 +19,7 @@ PixelFont 当前处于 **v1.0.0 已发布**状态，发布链已闭环：注解 
 3. **字形修改记录目前没有台账。** 相关裁决结果散落在 `tools/fontgen/adversarial_review.py` 与 `reports/` 下，无法机器化回答「某码位何时、为何、由哪个 commit 改成现在这样」。这是本书 §5 的首要待办，不是已完成项。
 4. **发布历史的维系手段目前只有 GitHub Release notes + git 历史，仓库没有 `CHANGELOG.md`。** 是否补 `CHANGELOG.md` 在本书中记为**待评估**，不写成已决定 —— 它是一项需要拍板的取舍，不是本文可以替上游认领的事实。
 
-另：`PixelFont Multi 12`（多语言版）为**独立家族**，不继承本家族码位与外观，需要自己的版本序列与命名标识（§2.2，标注为拟议）。
+另：`PixelFont Multi 12`（多语言版）为**独立家族**，不继承本家族码位与外观，使用自己的版本序列与命名标识（§2.2）。命名标识已由构建验证落地（见 §2.2 与 `docs/multi12.md`）。
 
 ---
 
@@ -102,7 +102,7 @@ PixelFont 当前处于 **v1.0.0 已发布**状态，发布链已闭环：注解 
 | 家族 | name ID 1 / 16 | PostScript 名 | achVendID | 当前版本 | 版本序列规则 |
 |---|---|---|---|---|---|
 | `PixelFont PC98 12` | `PixelFont PC98 12` | `PixelFontPC98-12` | `PXLF` | **v1.0.0**（已发布，2026-10-24） | 自 v1.0.0 起按 §2.1 三段规则递增；单序列，无并行版本线 |
-| `PixelFont Multi 12` | `PixelFont Multi 12` | `PixelFontMulti-12`（**拟议**，未构建验证） | `PXLF`（**拟议**，沿用项目 vendor ID） | **尚未开工** | **拟议**：作为独立家族使用**独立版本序列**，自 v1.0.0 起编号，与 `PixelFont PC98 12` 互不递增、互不覆盖 |
+| `PixelFont Multi 12` | `PixelFont Multi 12` | `PixelFontMulti-12`（**已构建验证**，2026-10-25） | `PXLF`（**已验证**，沿用项目 vendor ID） | **v1.0.0**（独立序列） | **独立版本序列**，自 v1.0.0 起编号，与 `PixelFont PC98 12` 互不递增、互不覆盖 |
 
 多语言版的相关既有事实（用于说明为何必须独立成家族）：
 
@@ -272,7 +272,7 @@ PixelFont 当前处于 **v1.0.0 已发布**状态，发布链已闭环：注解 
 
 | 路径 | 是否入库 | 理由 |
 |---|---|---|
-| `dist/` | **不入库** | 成品字形派生自 **SimHei / MS Gothic**（微软专有），分发权受限，不进公开仓库 |
+| `dist/` | **不入库** | 成品字形派生自 **SimHei / MS Gothic**（微软专有），分发权受限，不进公开仓库。**注意**：`PixelFont Multi 12` 的生产源全部是宽松许可（Fusion Pixel OFL-1.1 + 本仓库原创手绘 OFL-1.1），**不受这条限制** —— 它可自由分发、可商用；但为保持「产物不入库、走 Release」这一条政策不变，本项目对**两个家族一视同仁**，`dist/` 仍不入库 |
 | `vendor/` | **入库** | 生产源参与构建（Fusion Pixel 12px 简体，OFL-1.1）：不入库则换台机器构建不出同一结果。裁剪后入库：`vendor/fusion-pixel-12px/fusion-pixel-12px-monospaced-zh_hans-subset.ttf`（**764,748 字节**，sha256 `FC910F23FF8EE2DF8F2FEC6F91381A60DF812E3A16CE177F48528F1DB6551A37`），许可随附三份：`vendor/fusion-pixel-12px/LICENSES/ark-pixel-OFL.txt`、`cubic-11-OFL.txt`、`galmuri-LICENSE.txt` |
 | `third_party/` | **不入库** | 参考字体只用于校验（Ark Pixel 12px、Zpix v3.3.0、GNU Unifont 16.0.01 等），只记来源 / 版本 / 许可证 / sha256 清单（`docs/reference-fonts.md`），由 `tools/fontgen/fetch_ref_fonts.py` 按需抓取、`--verify` 只校验不重下 |
 | `tools/fontgen/` | **入库** | 构建与门禁代码，仓库 `LICENSE` = **GNU AGPL-3.0** 覆盖此目录 |
@@ -402,7 +402,7 @@ python tools/fontgen/fetch_ref_fonts.py --verify
 |---|---|---|---|
 | B-01 | 仓库**没有 `CHANGELOG.md`**，发布历史只靠 GitHub Release notes + git 历史维系 | **待评估**（是否补 `CHANGELOG.md` 把发布历史固化进仓库 —— 本文不写成已决定） | 决策项：补 `CHANGELOG.md` 还是继续以 Release notes 为准；若补，需定义条目格式与「何时算一次发布」的判定（建议与 §2.7 阶段 10 对齐） |
 | B-02 | **没有独立的字形修改台账文件** —— 字形改动记录散落在 `adversarial_review.py` 裁决结果与 `reports/` 下 | 待办 | 按 §2.4 字段规范建台账；先落 2.4.1 的指纹定义（12×13 位图打包 + sha256），再回填 v1.0.0 涉及的码位（`U+005C` 及 21 个新增字符） |
-| B-03 | 多语言版 `PixelFont Multi 12` 的版本标识与命名规则未落地 | 拟议，未批准 | 按 §2.2 独立序列 + 独立产物名执行；需在开工前确认 `PixelFontMulti-12` 这个 PostScript 名与 `PXLF` vendor ID 的沿用 |
+| B-03 | 多语言版 `PixelFont Multi 12` 的版本标识与命名规则 | **已落地**（2026-10-25） | PostScript 名 `PixelFontMulti-12`、vendor ID `PXLF` 均经构建与 GDI 门禁验证；版本走**独立序列**自 v1.0.0 起。构建期曾误用 `PixelFontMulti12`（无连字符），已按 §2.2 与同项目 `PixelFontPC98-12` 的风格改回 |
 | B-04 | 单字重 **Regular**，无 Bold / Italic，无可变字体轴 | 已知边界 | 若未来加字重，须按 §2.1 判 MAJOR（度量与 advance 影响排版） |
 | B-05 | 无 kerning、无连字、无 OpenType 特性（除 `gasp`） | 已知边界 | 多语言版已因「架构改动过大」放弃 GSUB `locl`；如需变体机制须另立专项 |
 | B-06 | **只有 12 的整数倍字号能逐格还原设计**（12 / 24 / 36 ppem = 9 / 18 / 27 pt @96dpi）；非整数倍（如 18ppem = 1.5 倍）笔画断裂 + 墨迹量偏细 **43%** | 已知边界（已实测） | 在安装说明与发布说明中持续标注；`8ae04fc` 的游程合并已把断裂面从 107,209 轮廓降到 73,933，但非整数倍仍不精确 |

@@ -24,9 +24,10 @@
 | 项目 | 值 | 出处 |
 |---|---|---|
 | 家族名 | `PixelFont Multi 12` | TTF `name` ID 1 |
-| PostScript 名 | `PixelFontMulti12` | TTF `name` ID 6 |
+| PostScript 名 | `PixelFontMulti-12` | TTF `name` ID 6 |
 | 全名 | `PixelFont Multi 12` | TTF `name` ID 4 |
-| XLFD | `-PF-PixelFontMulti12-Medium-R-Normal--12-1200-72-72-c-1000-ISO10646-1` | BDF 头 |
+| Vendor ID | `PXLF` | TTF `OS/2` `achVendID` |
+| XLFD | `-PF-PixelFontMulti-Medium-R-Normal--12-1200-72-72-c-1000-ISO10646-1` | BDF 头 |
 | UPM | 768 | TTF `head` |
 | Ascender / Descender / LineGap | 704 / −128 / 0 | TTF `hhea` |
 | 字形数 | 31,393（31,392 码位 + `.notdef`） | TTF `maxp` |
@@ -45,6 +46,13 @@
 > 这条是硬门禁，`verify_ttf(need_cp=...)` 会直接失败。
 >
 > **bit20（950 繁体）不开**：字符集里没有 zh_hant 码位。
+
+**命名沿用同项目惯例**：PostScript 名 `PixelFontMulti-12` = 家族名 + 连字符 + 字号，
+与 `PixelFontPC98-12` 同一套风格；XLFD 的**家族名段**不含连字符
+（`-PF-PixelFontMulti-...`），也与 `-PF-PixelFontPC98-...` 一致 ——
+XLFD 用 `-` 分隔字段，家族名段里带连字符会与字段分隔符混淆。
+`docs/spec/11-version-and-change-management.md` §2.2 定的就是这个名（原先标注「拟议」，
+现已构建验证）。
 
 取数命令：
 
@@ -229,12 +237,12 @@ python tools/fontgen/vendor_multi12_sources.py --check
 
 | 产物 | 干净克隆 vs 主仓库 |
 |---|---|
-| `PixelFontMulti12.ttf` | MATCH |
-| `PixelFontMulti12.bdf` | MATCH |
-| `PixelFontMulti12.bdf.map` | MATCH |
-| `PixelFontMulti12-atlas.png` | MATCH |
-| `PixelFontMulti12-atlas.json` | MATCH |
-| `PixelFontMulti12-specimen.png` | MATCH |
+| `PixelFontMulti-12.ttf` | MATCH |
+| `PixelFontMulti-12.bdf` | MATCH |
+| `PixelFontMulti-12.bdf.map` | MATCH |
+| `PixelFontMulti-12-atlas.png` | MATCH |
+| `PixelFontMulti-12-atlas.json` | MATCH |
+| `PixelFontMulti-12-specimen.png` | MATCH |
 
 > 这条不是「推理」，是实跑出来的：93 个入库文件、12,015,822 字节、逐文件 sha256 比对 0 不一致，
 > 然后在空目录里跑 `build_font_multi12.py`，六个产物 sha256 全部 MATCH。
@@ -281,12 +289,12 @@ GDI 门禁的额外一条：繁体（`lfCharSet=BIG5`）**必须选不中**本�
 
 | 产物 | 字节 | sha256 |
 |---|---|---|
-| `dist/PixelFontMulti12.ttf` | 7,736,516 | `e6d608a94c83febd2186e6abd69a9163a0309541f09ff680595bd19b9a9043e6` |
-| `dist/PixelFontMulti12.bdf` | 5,086,240 | `75517ae3f520c2962a8ce5a35779e02ebb1e6d3c6ab8629a53d240c478bf9d4b` |
-| `dist/PixelFontMulti12.bdf.map` | 1,380,383 | `e4bc7487d7077272654fdee897872021d01e164c2e796666321892c272570415` |
-| `dist/PixelFontMulti12-atlas.png` | 764,187 | `6df3bfce5e24ca135d94f7d12ba836f352908c2df4627752c8d43021c1ee63ca` |
-| `dist/PixelFontMulti12-atlas.json` | 678,712 | `254c9d17e314d012428b3a5cc4bfe298c9471512880d929874e321de83141af9` |
-| `dist/PixelFontMulti12-specimen.png` | 3,174 | `c9d93ff4e4efeae4c0c61bb5e96342584ac77d8e0475755566a1bf0b75931a25` |
+| `dist/PixelFontMulti-12.ttf` | 7,736,520 | `d28e0fb5134415319a9a42f19a706463c9fddc8a992f76729bab7f9ff5131913` |
+| `dist/PixelFontMulti-12.bdf` | 5,086,238 | `af4baf59f7f8f88640d30a18928cd5335fa6265210c6776f279755ea4b6bb51a` |
+| `dist/PixelFontMulti-12.bdf.map` | 1,380,381 | `b8ed55582d072201604a6eadb60c130d781371853c0265fe46c1f8e18cdbb357` |
+| `dist/PixelFontMulti-12-atlas.png` | 764,187 | `6df3bfce5e24ca135d94f7d12ba836f352908c2df4627752c8d43021c1ee63ca` |
+| `dist/PixelFontMulti-12-atlas.json` | 678,713 | `5c662ce6b85ebf47ebf24a7c2b0f0b44e92c801223d94b3543f9b8712579a97a` |
+| `dist/PixelFontMulti-12-specimen.png` | 3,174 | `c9d93ff4e4efeae4c0c61bb5e96342584ac77d8e0475755566a1bf0b75931a25` |
 
 图集尺寸 768 × 6,383 px（64 列 × 12×13 单元）。
 

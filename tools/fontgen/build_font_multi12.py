@@ -30,8 +30,15 @@ from vendor_multi12_sources import subset_path  # noqa: E402
 
 OUTDIR = ROOT / "dist"
 FONT_NAME = "PixelFont Multi 12"
-PS_NAME = "PixelFontMulti12"
-XLFD_MULTI12 = "-PF-PixelFontMulti12-Medium-R-Normal--12-1200-72-72-c-1000-ISO10646-1"
+
+#: PostScript 名。**与同项目的 `PixelFontPC98-12` 同一套命名风格**:
+#: 家族名 + 连字符 + 字号。规格书 §2.2 定的就是这个名。
+PS_NAME = "PixelFontMulti-12"
+
+#: XLFD 的**家族名段**不含连字符 —— 与 `PixelFontPC98-12` 家族的做法一致
+#: (`-PF-PixelFontPC98-Medium-...`): XLFD 用 `-` 分隔字段, 家族名段里带连字符
+#: 会与字段分隔符混淆。
+XLFD_MULTI12 = "-PF-PixelFontMulti-Medium-R-Normal--12-1200-72-72-c-1000-ISO10646-1"
 
 #: OS/2 ulCodePageRange1: bit0=1252 ANSI / bit17=932 日文 / bit18=936 简体中文 /
 #: **bit19=949 韩文**。Multi 12 覆盖 11,172 个谚文音节, bit19 必须打开 ——

@@ -28,9 +28,11 @@ sys.path.insert(0, str(ROOT / "tools" / "fontgen"))
 import verify_gdi as vg  # noqa: E402
 from verify_products import read_bdf  # noqa: E402
 
-TTF = ROOT / "dist" / "PixelFontMulti12.ttf"
-BDF = ROOT / "dist" / "PixelFontMulti12.bdf"
-FONT_NAME = "PixelFont Multi 12"
+#: 产物路径**从构建模块派生**, 不在这里写死 —— 写死过一次, 改名就漂了。
+from build_font_multi12 import FONT_NAME, PS_NAME  # noqa: E402
+
+TTF = ROOT / "dist" / f"{PS_NAME}.ttf"
+BDF = ROOT / "dist" / f"{PS_NAME}.bdf"
 
 #: Multi 12 覆盖到的代码页 -> 必须能选中的 charset
 MUST_SELECT = {
