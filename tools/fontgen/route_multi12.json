@@ -1,41 +1,57 @@
 {
  "tool": "derive_route_multi12",
- "generated_at": "2026-10-25T03:16:37+00:00",
- "policy": "全开源路线 (OFL-1.1 + MIT) —— 2026-10-24 拍板",
+ "generated_at": "2026-10-25T04:31:14+00:00",
+ "policy": "全开源路线 (全部 OFL-1.1) —— 2026-10-24 拍板",
  "rule_module": "tools/fontgen/route_multi12.py",
+ "build_inputs": "全部在入库路径上 (vendor/multi12/); 构建不读 third_party",
  "sources": {
   "fusion_latin": {
-   "path": "third_party\\ref_fonts\\fusion-pixel-12px\\fusion-pixel-12px-monospaced-latin.ttf",
+   "build_path": "vendor\\multi12\\fusion-pixel-12px-monospaced-latin-subset.ttf",
+   "origin_path": "third_party\\ref_fonts\\fusion-pixel-12px\\fusion-pixel-12px-monospaced-latin.ttf",
    "license": "OFL-1.1",
    "role": "Latin / Latin Ext / Greek / Cyrillic / 通用西文标点"
   },
   "fusion_ko": {
-   "path": "third_party\\ref_fonts\\fusion-pixel-12px\\fusion-pixel-12px-monospaced-ko.ttf",
+   "build_path": "vendor\\multi12\\fusion-pixel-12px-monospaced-ko-subset.ttf",
+   "origin_path": "third_party\\ref_fonts\\fusion-pixel-12px\\fusion-pixel-12px-monospaced-ko.ttf",
    "license": "OFL-1.1",
    "role": "谚文音节 (Hangul syllables)"
   },
   "fusion_ja": {
-   "path": "third_party\\ref_fonts\\fusion-pixel-12px\\fusion-pixel-12px-monospaced-ja.ttf",
+   "build_path": "vendor\\multi12\\fusion-pixel-12px-monospaced-ja-subset.ttf",
+   "origin_path": "third_party\\ref_fonts\\fusion-pixel-12px\\fusion-pixel-12px-monospaced-ja.ttf",
    "license": "OFL-1.1",
    "role": "日文形汉字 (JIS 独有 + 二级) / 假名 / CJK 标点 / 全角"
   },
   "fusion_zh_hans": {
-   "path": "third_party\\ref_fonts\\fusion-pixel-12px\\fusion-pixel-12px-monospaced-zh_hans.ttf",
+   "build_path": "vendor\\multi12\\fusion-pixel-12px-monospaced-zh_hans-subset.ttf",
+   "origin_path": "third_party\\ref_fonts\\fusion-pixel-12px\\fusion-pixel-12px-monospaced-zh_hans.ttf",
    "license": "OFL-1.1",
    "role": "中日共享的 2,078 汉字 —— 中文形为主 (已拍板决策 ③)"
   },
-  "zpix": {
-   "path": "third_party\\ref_fonts\\zpix.bin",
-   "license": "MIT",
-   "role": "4 个缺口码位 (€ ≠ ≤ ≥); 13px advance, 裁到 12px 网格"
+  "handdrawn": {
+   "build_path": "vendor\\multi12\\handdrawn-glyphs.txt",
+   "origin_path": null,
+   "license": "OFL-1.1",
+   "role": "4 个缺口码位 (€ ≠ ≤ ≥) —— 本仓库原创手绘"
   }
+ },
+ "layer_tags": {
+  "L0 当前家族": "current",
+  "L1 Latin Ext A/B": "latin-ext",
+  "L2 Greek": "greek",
+  "L3 Cyrillic": "cyrillic",
+  "L4 Hangul syllables": "hangul",
+  "L5 JIS X 0208 二级汉字 + 符号/假名": "jis-l2",
+  "L6 JIS X 0208 一级汉字": "jis-kanji",
+  "L7 CJK 其余": "cjk-ext"
  },
  "stats": {
   "total": 31392,
   "per_source": {
    "fusion_latin": 594,
    "fusion_ja": 17544,
-   "zpix": 4,
+   "handdrawn": 4,
    "fusion_zh_hans": 2078,
    "fusion_ko": 11172
   },
@@ -650,11 +666,11 @@
   "U+2022": "fusion_ja",
   "U+2026": "fusion_ja",
   "U+2027": "fusion_ja",
-  "U+20AC": "zpix",
+  "U+20AC": "handdrawn",
   "U+2192": "fusion_latin",
-  "U+2260": "zpix",
-  "U+2264": "zpix",
-  "U+2265": "zpix",
+  "U+2260": "handdrawn",
+  "U+2264": "handdrawn",
+  "U+2265": "handdrawn",
   "U+3000": "fusion_ja",
   "U+3001": "fusion_ja",
   "U+3002": "fusion_ja",

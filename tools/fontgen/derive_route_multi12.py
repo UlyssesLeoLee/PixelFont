@@ -29,13 +29,18 @@ CELL_W, CELL_H = 12, 13
 FULL, HALF = 12, 6
 
 
-def _font(key: str) -> BitmapFont:
-    path = rm.source_path(key)
-    kw = {}
-    if key == "zpix":
-        # Zpix 的 advance 是 13px (12px 内容 + 1px 间隔), 裁到 12px 网格
-        kw["cell_w"] = CELL_W
-    return BitmapFont(path=str(path), index=0, px=12, cell_ascent=11, cell_descent=2, **kw)
+def _font(key: str):
+    """取该源的字体对象。
+
+    读的是**入库的裁剪版** (`vendor/multi12/`) —— 也就是构建真正用的那份,
+    这样门禁验的就是要出货的东西, 而不是本机恰好下载的原始版。
+    """
+    if key == "handdrawn":
+        from handdrawn import HanddrawnFont
+
+        return HanddrawnFont()
+    return BitmapFont(path=str(rm.source_path(key)), index=0, px=12,
+                      cell_ascent=11, cell_descent=2)
 
 
 def main() -> int:
@@ -49,6 +54,7 @@ def main() -> int:
     print("=" * 74)
 
     bad: list[str] = []
+    warnings: list[str] = []
 
     # ---- 门禁 1: 覆盖 ----
     if set(route) != chars:
@@ -65,12 +71,17 @@ def main() -> int:
         bad.append(f"出现未登记的源: {sorted(unknown)}")
     print(f"[2] 源集合: {dict(counts)} {'OK' if not unknown else 'FAIL'}")
 
-    # ---- 门禁 3: zpix 恰好 4 个缺口 ----
-    got_zpix = {cp for cp, s in route.items() if s == "zpix"}
-    if got_zpix != rm.GAPS:
-        bad.append(f"zpix 名单不对: {sorted(hex(c) for c in got_zpix)}")
-    print(f"[3] zpix = {len(got_zpix)} 个 (期望 4: € ≠ ≤ ≥) "
-          f"{'OK' if got_zpix == rm.GAPS else 'FAIL'}")
+    # ---- 门禁 3: handdrawn 恰好 4 个缺口 ----
+    got_hd = {cp for cp, s in route.items() if s == "handdrawn"}
+    if got_hd != rm.GAPS:
+        bad.append(f"handdrawn 名单不对: {sorted(hex(c) for c in got_hd)}")
+    print(f"[3] handdrawn = {len(got_hd)} 个 (期望 4: € ≠ ≤ ≥) "
+          f"{'OK' if got_hd == rm.GAPS else 'FAIL'}")
+    from handdrawn import check as hd_check
+    hd_problems = hd_check()
+    if hd_problems:
+        bad.append(f"手绘字形自检未过: {hd_problems}")
+    print(f"    手绘字形自检 (画布/宽度/墨迹): {'OK' if not hd_problems else 'FAIL'}")
 
     # ---- 门禁 4/5: 语系计数 ----
     if counts.get("fusion_ko", 0) != 11172:
@@ -136,23 +147,37 @@ def main() -> int:
           f"{'OK' if bs != yen else 'FAIL'}")
 
     # ---- 门禁 9: 缺口前提没变 ----
+    # 前提 = 「任何 Fusion 变体都不覆盖这 4 个码位」。这必须查**原始全字集版**的 cmap:
+    # 入库的裁剪版只含路由分配给它的码位, 缺口当然不在里面, 查它证明不了任何事。
+    # 原始下载不在 (`third_party/` 不入库) 时, 这一条**无法独立复核** ——
+    # 必须显式说「没验」, 不能让它变成一个看起来在通过的假门禁。
     fusion_all: set[int] = set()
+    scanned = 0
     for v in ("latin", "ko", "ja", "zh_hans", "zh_hant", "zh_hk", "zh_tw"):
         p = m12.FUS / f"fusion-pixel-12px-monospaced-{v}.ttf"
         if p.exists():
             fusion_all |= m12._cmap(p)
+            scanned += 1
     covered = rm.GAPS & fusion_all
     if covered:
         bad.append(f"缺口前提变了: {sorted(hex(c) for c in covered)} 现在被 Fusion 覆盖")
-    print(f"[9] 4 个缺口仍不被任何 Fusion 变体覆盖: "
-          f"{'OK' if not covered else 'FAIL'}")
+        print("[9] 4 个缺口仍不被任何 Fusion 变体覆盖: FAIL")
+    elif scanned == 0:
+        warnings.append(
+            "门禁 9 的前提未独立复核: third_party 原始下载不可用, "
+            "无法证明「Fusion 不覆盖这 4 个码位」")
+        print("[9] 4 个缺口仍不被任何 Fusion 变体覆盖: **未复核** "
+              "(缺 third_party 原始下载) —— 见下方警告")
+    else:
+        print(f"[9] 4 个缺口仍不被任何 Fusion 变体覆盖 "
+              f"(已扫 {scanned} 个变体): OK")
 
     # ---- 门禁 10: 全开源 ----
     licenses = {rm.source_license(k) for k in counts}
-    if licenses - {"OFL-1.1", "MIT"}:
-        bad.append(f"出现非宽松许可的源: {sorted(licenses - {'OFL-1.1', 'MIT'})}")
-    print(f"[10] 全部源均为宽松许可 (OFL-1.1 / MIT): "
-          f"{'OK' if not licenses - {'OFL-1.1', 'MIT'} else 'FAIL'}  {sorted(licenses)}")
+    if licenses - {"OFL-1.1"}:
+        bad.append(f"出现非 OFL-1.1 的源: {sorted(licenses - {'OFL-1.1'})}")
+    print(f"[10] 全部源均为 OFL-1.1: "
+          f"{'OK' if not licenses - {'OFL-1.1'} else 'FAIL'}  {sorted(licenses)}")
 
     # ---- 汇总 ----
     print()
@@ -168,6 +193,12 @@ def main() -> int:
         print(f"  {layer:<34} {src:<14}{n:>7}")
 
     print()
+    if warnings:
+        print("=== 警告 (不阻塞, 但结论未独立复核) ===")
+        for w in warnings:
+            print(f"  [WARN] {w}")
+        print()
+
     if bad:
         print("=" * 74)
         print(f"门禁未过 ({len(bad)} 条):")
@@ -177,20 +208,29 @@ def main() -> int:
         return 1
 
     print("=" * 74)
-    print("门禁 10/10 PASS")
+    print(f"门禁 10/10 PASS" + (f" (另有 {len(warnings)} 条警告)" if warnings else ""))
     print("=" * 74)
 
     if "--write" in sys.argv:
         snapshot = {
             "tool": "derive_route_multi12",
             "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-            "policy": "全开源路线 (OFL-1.1 + MIT) —— 2026-10-24 拍板",
+            "policy": "全开源路线 (全部 OFL-1.1) —— 2026-10-24 拍板",
             "rule_module": "tools/fontgen/route_multi12.py",
+            "build_inputs": "全部在入库路径上 (vendor/multi12/); 构建不读 third_party",
             "sources": {
-                k: {"path": str(v[0].relative_to(ROOT)) if ROOT in v[0].parents
-                    else str(v[0]), "license": v[1], "role": v[2]}
+                k: {
+                    "build_path": str(v[0].relative_to(ROOT)) if ROOT in v[0].parents
+                    else str(v[0]),
+                    "origin_path": str(rm.origin_path(k).relative_to(ROOT))
+                    if k in rm.ORIGINS and ROOT in rm.origin_path(k).parents
+                    else (str(rm.origin_path(k)) if k in rm.ORIGINS else None),
+                    "license": v[1],
+                    "role": v[2],
+                }
                 for k, v in rm.SOURCES.items()
             },
+            "layer_tags": {name: tag for name, _d, tag in m12.layers()},
             "stats": {
                 "total": len(route),
                 "per_source": dict(counts),

@@ -321,6 +321,64 @@ class ScriptStack:
         return sum(self.advance(c) for c in text) + spacing * (len(text) - 1)
 
 
+class RouteStack:
+    """按码位把字形路由到不同源字体, 但对外呈现一套统一的网格。
+
+    与 `ScriptStack` 的区别: **源的数量不固定**。`ScriptStack` 只有 ideo /
+    non_ideo / third 三个固定槽位, 路由表是「名单」语义 (默认 ideo, 名单里的切走);
+    `RouteStack` 是「全量映射」语义 —— 每个码位都必须在路由表里指明一个源键,
+    查不到就是配置错误, 不静默回退。
+
+    Multi 12 用它: 5 个源 (fusion_latin / fusion_ko / fusion_ja /
+    fusion_zh_hans / handdrawn), 路由表 31,392 条, 见 `route_multi12.py`。
+    """
+
+    def __init__(
+        self,
+        sources: dict[str, BitmapFont],
+        route: dict[int, str],
+        primary: str = "",
+    ):
+        self.sources = dict(sources)
+        self.route = dict(route)
+        self.primary = primary or next(iter(self.sources))
+        self.metrics = self.sources[self.primary].metrics
+        self.name = " + ".join(f.name for f in self.sources.values())
+        self.weight = self.sources[self.primary].weight
+
+    def _pick(self, ch: str):
+        key = self.route.get(ord(ch))
+        if key is None:
+            raise KeyError(f"码位 U+{ord(ch):04X} 没有路由 —— 路由表必须覆盖全部码位")
+        f = self.sources.get(key)
+        if f is None:
+            raise KeyError(f"路由指向未登记的源: {key}")
+        return f
+
+    def glyph(self, ch: str) -> Image.Image:
+        return self._pick(ch).glyph(ch)
+
+    def advance(self, ch: str) -> int:
+        return self.glyph(ch).width
+
+    @property
+    def cell(self) -> tuple[int, int]:
+        return self.metrics.cell_w, self.metrics.cell_h
+
+    def draw_text(self, target: Image.Image, xy: tuple[int, int], text: str, spacing: int = 0) -> int:
+        x, y = xy
+        for ch in text:
+            g = self.glyph(ch)
+            target.paste(g, (x, y))
+            x += g.width + spacing
+        return x
+
+    def text_width(self, text: str, spacing: int = 0) -> int:
+        if not text:
+            return 0
+        return sum(self.advance(c) for c in text) + spacing * (len(text) - 1)
+
+
 def count_runs(img: Image.Image, axis: str = "col") -> int:
     """笔画分段数: axis="col" 数竖笔画 (每列里的墨迹段), axis="row" 数横笔画。
 

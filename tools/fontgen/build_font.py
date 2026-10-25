@@ -94,10 +94,11 @@ def _bdf_row_bytes(row: list[int]) -> bytes:
 XLFD = "-PF-PixelFontPC98-Medium-R-Normal--12-1200-72-72-c-1000-ISO10646-1"
 
 
-def write_bdf(glyphs: list[GlyphData], ascent: int, descent: int, path: Path) -> Path:
+def write_bdf(glyphs: list[GlyphData], ascent: int, descent: int, path: Path,
+              xlfd: str = XLFD) -> Path:
     lines: list[str] = [
         "STARTFONT 2.1",
-        f"FONT {XLFD}",
+        f"FONT {xlfd}",
         f"SIZE 12 72 72",
         f"FONTBOUNDINGBOX 12 {ascent + descent} 0 -{descent}",
         "STARTPROPERTIES 5",
@@ -145,10 +146,11 @@ def write_bdf(glyphs: list[GlyphData], ascent: int, descent: int, path: Path) ->
     return path
 
 
-def write_bdf_map(glyphs: list[GlyphData], ascent: int, descent: int, path: Path) -> Path:
+def write_bdf_map(glyphs: list[GlyphData], ascent: int, descent: int, path: Path,
+                  xlfd: str = XLFD) -> Path:
     lines = [
         "STARTMAP 2.1",
-        f"FONT {XLFD}",
+        f"FONT {xlfd}",
         f"SIZE 12 72 72",
         f"FONTBOUNDINGBOX 12 {ascent + descent} 0 -{descent}",
         "STARTPROPERTIES 3",
@@ -168,7 +170,28 @@ def write_bdf_map(glyphs: list[GlyphData], ascent: int, descent: int, path: Path
 # ---------------------------------------------------------------- TTF
 
 
-def write_ttf(glyphs: list[GlyphData], ascent: int, descent: int, path: Path) -> Path:
+def write_ttf(
+    glyphs: list[GlyphData],
+    ascent: int,
+    descent: int,
+    path: Path,
+    family_name: str = FONT_NAME,
+    ps_name: str = PS_NAME,
+    copyright_text: str = "PixelFont project. Licensed under AGPL-3.0.",
+    license_text: str | None = None,
+    code_page_range1: int = (1 << 0) | (1 << 17) | (1 << 18),
+) -> Path:
+    """写 TTF。
+
+    `family_name` / `ps_name` / 许可文本 / 代码页位可覆盖 —— 同一个家族要出第二个
+    字体 (`PixelFont Multi 12`) 时复用这里的全部轮廓逻辑, 只换名表、许可与元数据。
+
+    `code_page_range1` 的位号依 OpenType OS/2 规范 (1.9.1) 的 ulCodePageRange 表:
+    bit0=1252 ANSI, bit17=932 日文, bit18=936 简体中文, **bit19=949 韩文**。
+    Multi 12 覆盖 11,172 个谚文音节, 必须把 bit19 打开 ——
+    否则 GDI 在 lfCharSet=HANGEUL 下**根本不会考虑本字体** (实测枚举到 0 族),
+    韩文正文会被回退到系统字体。
+    """
     from fontTools.fontBuilder import FontBuilder
     from fontTools.pens.ttGlyphPen import TTGlyphPen
     from fontTools.ttLib.tables import _g_a_s_p as gasp_mod
@@ -257,7 +280,7 @@ def write_ttf(glyphs: list[GlyphData], ascent: int, descent: int, path: Path) ->
         # 旧值 (1<<16)|(1<<17) 实际是 874 泰语 + 932 日文 —— 既没有 1252 也没有 936,
         # 而且泰语是我们根本没有的。后果实测过 (见 docs/word-compat.md):
         # GDI 在 lfCharSet=ANSI 时把本字体替换成 Arial, 在 GB2312 时替换成宋体。
-        ulCodePageRange1=(1 << 0) | (1 << 17) | (1 << 18),  # 1252 + 932 + 936
+        ulCodePageRange1=code_page_range1,  # 1252 + 932 + 936 (+ 949 由调用方决定)
         # ulUnicodeRange* 不手写: 不给这四个字段时 fontTools 会按 cmap 的实际覆盖
         # 自动重算 (O_S_2f_2.recalcUnicodeRanges)。手写曾虚报 拉丁扩展-A/B、
         # 拉丁扩展附加、希腊扩展 —— 系统于是把希腊/西里尔/拉丁扩展文本路由到本字体,
@@ -265,14 +288,14 @@ def write_ttf(glyphs: list[GlyphData], ascent: int, descent: int, path: Path) ->
     )
     fb.setupNameTable(
         {
-            "familyName": FONT_NAME,
+            "familyName": family_name,
             "styleName": "Regular",
-            "uniqueFontIdentifier": f"{FONT_NAME};1.000",
-            "fullName": FONT_NAME,
-            "psName": PS_NAME,
+            "uniqueFontIdentifier": f"{family_name};1.000",
+            "fullName": family_name,
+            "psName": ps_name,
             "version": "Version 1.000",
-            "copyright": "PixelFont project. Licensed under AGPL-3.0.",
-            "licenseDescription": (
+            "copyright": copyright_text,
+            "licenseDescription": license_text or (
                 "Retro 8-bit style tri-lingual bitmap font (Simplified Chinese / "
                 "Japanese / Latin). Licensed under the GNU AGPL-3.0."
             ),
@@ -370,7 +393,13 @@ def _emit_rect(pen, x0: int, y0: int, x1: int, y1: int, ascent: int, px: int) ->
 
 
 def write_atlas(
-    glyphs: list[GlyphData], ascent: int, descent: int, columns: int, outdir: Path
+    glyphs: list[GlyphData],
+    ascent: int,
+    descent: int,
+    columns: int,
+    outdir: Path,
+    ps_name: str = PS_NAME,
+    font_name: str = FONT_NAME,
 ) -> tuple[Path, Path]:
     cell_w = max(g.width for g in glyphs)
     cell_h = ascent + descent
@@ -390,12 +419,12 @@ def write_atlas(
         # 半角片假名 (U+FF61-FF9F) 和半角标点的 advance 是 6, 但只要分类不是 ascii
         # 就会被标成全角 —— 引擎按图集推进就会整体错位。
         meta.append([ord(g.ch), cx, cy, g.advance, 1 if g.advance == cell_w else 0])
-    png = outdir / f"{PS_NAME}-atlas.png"
+    png = outdir / f"{ps_name}-atlas.png"
     img.save(png)
 
     data = {
-        "name": FONT_NAME,
-        "postScriptName": PS_NAME,
+        "name": font_name,
+        "postScriptName": ps_name,
         "cell": {"w": cell_w, "h": cell_h},
         "baseline": ascent,
         "descent": descent,
@@ -408,7 +437,7 @@ def write_atlas(
         # [codepoint, x, y, advance, isWide]
         "glyphs": meta,
     }
-    js = outdir / f"{PS_NAME}-atlas.json"
+    js = outdir / f"{ps_name}-atlas.json"
     js.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     return png, js
 
@@ -549,7 +578,8 @@ def verify_atlas(glyphs: list[GlyphData], ascent: int, png: Path, js: Path) -> N
     print(f"  PNG 图集回读校验: {len(glyphs)} 字形一致, 尺寸 {img.size}, 单元 {cw}x{ch}")
 
 
-def verify_ttf(glyphs: list[GlyphData], ascent: int, descent: int, path: Path) -> None:
+def verify_ttf(glyphs: list[GlyphData], ascent: int, descent: int, path: Path,
+               need_cp: dict[int, str] | None = None) -> None:
     """从成品 TTF 的轮廓反向还原像素, 与源位图逐格比对。
 
     为什么不直接比"渲染出来的像素": Pillow 的 FreeType 默认带 hinting / 网格拟合,
@@ -616,23 +646,26 @@ def verify_ttf(glyphs: list[GlyphData], ascent: int, descent: int, path: Path) -
         raise SystemExit("TTF 内容校验失败: " + "; ".join(bad))
     print(f"  TTF 内容校验: {len(glyphs)} 字形轮廓全部落在像素网格上且与源位图一致")
 
-    verify_ttf_metadata(tt)
+    verify_ttf_metadata(tt, need_cp)
 
 
-def verify_ttf_metadata(tt) -> None:
+def verify_ttf_metadata(tt, need_cp: dict[int, str] | None = None) -> None:
     """OS/2 + gasp 的元数据不变量 —— 这几项直接决定"Word 里能不能用上本字体"。
 
     为什么单独拉出来: 字形轮廓对了, 不等于 Word 认得这个字体。
     实测过: 一份轮廓完全正确的 TTF, 因为 OS/2 的代码页位写错, 在 GDI 的 ANSI
     charset 请求下被替换成 Arial、在 GB2312 请求下被替换成宋体 —— 字是对的,
     字体却用不上。所以这组不变量是硬门禁, 不是注释。
+
+    `need_cp` 让每个家族声明自己**必须**声明的代码页: Multi 12 覆盖谚文,
+    就必须打开 bit19 (949 韩文), 否则 GDI 在 HANGEUL 下根本不考虑本字体。
     """
     from fontTools.ttLib.tables.O_S_2f_2 import intersectUnicodeRanges
 
     os2 = tt["OS/2"]
 
     # 1) 代码页位: 位号依 OpenType OS/2 规范 (1.9.1) 的 ulCodePageRange 表。
-    need_cp = {0: "1252 Latin1 (ANSI)", 17: "932 日文", 18: "936 简体中文"}
+    need_cp = need_cp or {0: "1252 Latin1 (ANSI)", 17: "932 日文", 18: "936 简体中文"}
     miss = [f"bit{b}({n})" for b, n in need_cp.items() if not (os2.ulCodePageRange1 & (1 << b))]
     if miss:
         raise SystemExit(
