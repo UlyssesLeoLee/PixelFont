@@ -9,7 +9,7 @@
 | # | 文件 | 内容 | 篇幅 |
 |---|---|---|---|
 | 01 | [`01-font-design-requirements.md`](01-font-design-requirements.md) | 字体设计需求规格书：用途、目标用户、支持语言、风格、字重、使用场景 | 389 行 |
-| 02 | [`02-charset-definition.md`](02-charset-definition.md) | 字符集定义书：收录范围、规则、优先级、缺字策略 | 530 行 |
+| 02 | [`02-charset-definition.md`](02-charset-definition.md) | 字符集定义书：收录范围、规则、优先级、缺字策略 | 537 行 |
 | 03 | [`03-visual-design-spec.md`](03-visual-design-spec.md) | 字体视觉设计规范：气质、笔画风格、粗细、曲线、重心、设计原则 | 306 行 |
 | 04 | [`04-glyph-structure-design.md`](04-glyph-structure-design.md) | 字形结构设计书：字形比例、部件复用、字面框、笔画交接、构造规则 | 375 行 |
 | 05 | [`05-typeface-family-design.md`](05-typeface-family-design.md) | 字体家族设计书：命名规范、字重 / 字宽 / 斜体 / 可变字体轴 | 390 行 |

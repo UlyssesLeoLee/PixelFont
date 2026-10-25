@@ -21,10 +21,29 @@
   版本变更 / 授权交付。每份统一六段结构：结论先行 → 范围与目的 → 正文 → 验收判据 →
   复现命令 → 已知边界与待办。commit `7fab2c7` ~ `44f04fc`，索引 `e2c9a13`。
 - **Multi 12 字符集定义模块** —— `tools/fontgen/charset_multi12.py`，
-  把文档 02 的逐层账目落成可执行代码，**31,392** 码位（方案 C）四道硬门禁全过：
+  把文档 02 的逐层账目落成可执行代码，**31,392** 码位（方案 C）五道硬门禁全过：
   逐层累加 = 31,392 / 方案 A 交叉 = 19,816 / A∪CJK 整块交叉 = 31,392 /
-  非第三源与排除项不变。commit `7dabdae`。
-  **注意：只出了字符集模块，Multi 12 字体本身尚未构建。**
+  非第三源与排除项不变 / L5 构成 = 1,689 汉字 + 6 符号。commit `7dabdae`。
+- **Multi 12 字形路由名单** —— `tools/fontgen/route_multi12.py`（规则）+ `derive_route_multi12.py`
+  （推导与 10 道门禁）+ `route_multi12.json`（可 diff 的展开，1,926,812 字节）。
+  源分布：`fusion_ja` 17,544 / `fusion_ko` 11,172 / `fusion_zh_hans` 2,078 /
+  `fusion_latin` 594 / `handdrawn` 4 = **31,392**。commit `ec064e4`。
+- **生产源裁剪并入库** —— `vendor/multi12/`，4 个 Fusion 裁剪版（合计 5.79 MB）
+  + 4 个原创手绘字形 + OFL 全文与 3 份上游许可。逐像素对照 31,388 个字形，
+  **不一致 0 个**。裁剪口径是「只留路由分配给该源的码位」。
+  工具 `tools/fontgen/vendor_multi12_sources.py`。commit `b6350ef`。
+- **4 个缺口码位改原创手绘** —— `€` `≠` `≤` `≥` 任何 12px 开源字体都不覆盖。
+  原计划用 Zpix 补，核实后发现 **Zpix 不是 MIT**（无 `LICENSE` 文件、license API 404、
+  商用付费 USD $1000 / ￥7000，且**明文禁止修改/拆分/再分发**），
+  故改为本仓库原创手绘，许可 OFL-1.1（`vendor/multi12/OFL.txt`）。
+  数据 `vendor/multi12/handdrawn-glyphs.txt`，代码 `tools/fontgen/handdrawn.py`。
+  commit `b6350ef`。
+- **`PixelFont Multi 12` 家族构建** —— `tools/fontgen/build_font_multi12.py`。
+  31,392 字形，UPM 768 / Ascender 704 / Descender −128，
+  BDF / PNG 图集 / TTF **三重回读全过**。
+  产物 sha256 见 [`docs/multi12.md`](docs/multi12.md) §8。commit `b6350ef`。
+- **Multi 12 专篇文档** —— [`docs/multi12.md`](docs/multi12.md)：
+  字符集账目、路由规则、许可义务、构建与可复现性、26 道验证门禁、已知边界。
 - **规格文档集审核工具** —— `tools/specreview/`，五个脚本让审核可复现而不是一次性结论：
   `audit_identity.py`（R1 身份反查）/ `audit_structure.py`（R2 部件级结构）/
   `audit_chain.py`（R3 链条复跑）/ `verify_facts.py`（事实核验 + 跨文档一致性）/
@@ -37,6 +56,29 @@
 
 ### 修复
 
+- **OS/2 `ulCodePageRange1` 漏掉 bit19（代码页 949 韩文）** —— Multi 12 覆盖 11,172 个
+  谚文音节，不声明 bit19 的话 GDI 在 `lfCharSet=HANGEUL` 下**根本不会考虑本字体**
+  （实测枚举到 0 族、选不中），韩文正文会静默回退到系统字体。
+  现在是 bit0 / 17 / 18 / 19（`0x000E0001`），并加 `need_cp` 硬门禁。
+  繁体 950 不开 —— 字符集里没有 zh_hant。commit `b6350ef`。
+- **`verify_gdi.pick()` 里族名写死** —— 只改了 `enum_has` 那处，`pick()` 仍在请求
+  `FONT_NAME`（PC98 12），导致选择检查一直测的是另一个字体，门禁等于没测。
+  已加 `name` 参数并修正，`verify_gdi_multi12.py` 据此新增。commit `ba6fd92`。
+- **JIS X 0208 二级汉字被误判成「假名/符号/全角」** —— Shift-JIS 首字节 `0xE0–0xEF`
+  实际是**二级汉字行**（1,980 个码位全是汉字），L5 那一层名义上写「假名/符号/全角」，
+  实际内容却有 1,689 个汉字。已拆成 `jis_x0208_level2_kanji()` /
+  `jis_x0208_kana_punct()`，L5 改名并加**盯构成**的第 5 道门禁。总量 31,392 不变。
+  commit `ec064e4`。
+- **构建不该依赖不入库的 `third_party/`** —— 原先 `require_sources()` 查的是
+  `third_party/ref_fonts/` 的原始下载，而构建实际读的是入库的裁剪版，
+  导致**干净克隆上直接退出**。现在分工明确：推导需要 `third_party`，
+  **构建只读入库的路由快照 + 入库的裁剪版**。
+  实测：93 个入库文件复制到空目录后构建，六个产物 sha256 与主仓库**逐字节一致**。
+  commit `b6350ef`。
+- **`route_multi12.json` 的 `sources[*].path` 语义含混** —— 原先只写 third_party 路径，
+  容易被误读为构建输入。现在分列 `build_path` / `origin_path`。
+- **`derive_route_multi12.py` 门禁 9 会静默失效** —— 查「Fusion 不覆盖 4 个缺口」
+  必须在缺原始下载时**显式标未复核**，不能变成一个看起来在通过的假门禁。
 - **规格文档集对抗式审核的 23 条缺陷** —— 详见
   [`docs/spec/_adversarial-review.md`](docs/spec/_adversarial-review.md) 的缺陷台账。
   最要紧的几条：
@@ -62,8 +104,9 @@
 
 ### 计划中（尚未实现，不构成任何发布内容）
 
-- `PixelFont Multi 12` —— 独立家族，**31,392** 码位。
-  已完成字符集定义模块，**尚未**推导字形路由名单、**尚未**构建字体。
+- `PixelFont Multi 12` 的**成品分发方式**待定：仓库政策是「构建产物不入库、走
+  GitHub Release」，但本家族生产源全为宽松许可，成品**可以**入库存放。
+  选哪一种是发布策略问题，不是许可问题。
 
 ---
 
