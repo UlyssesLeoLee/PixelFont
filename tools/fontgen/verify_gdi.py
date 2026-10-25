@@ -169,13 +169,14 @@ def _bind() -> None:
     user32.ReleaseDC.argtypes = [wintypes.HWND, wintypes.HDC]
 
 
-def pick(gdi32, user32, charset: int, height: int = -12, quality: int = 0) -> str | None:
+def pick(gdi32, user32, charset: int, height: int = -12, quality: int = 0,
+         name: str = FONT_NAME) -> str | None:
     """按某个 charset 请求字体, 返回 GDI 实际选中的族名。"""
     lf = LOGFONTW()
     lf.lfHeight = height
     lf.lfCharSet = charset
     lf.lfQuality = quality
-    lf.lfFaceName = FONT_NAME
+    lf.lfFaceName = name
     hf = gdi32.CreateFontIndirectW(ctypes.byref(lf))
     if not hf:
         return None
@@ -190,19 +191,19 @@ def pick(gdi32, user32, charset: int, height: int = -12, quality: int = 0) -> st
     return face
 
 
-def enum_has(gdi32, user32, charset: int) -> tuple[bool, int]:
+def enum_has(gdi32, user32, charset: int, name: str = FONT_NAME) -> tuple[bool, int]:
     found = {"hit": False, "n": 0}
 
     def cb(lf, _nt, _ft, _l):
         found["n"] += 1
-        if lf and lf.contents.lfFaceName == FONT_NAME:
+        if lf and lf.contents.lfFaceName == name:
             found["hit"] = True
             return 0
         return 1
 
     lf = LOGFONTW()
     lf.lfCharSet = charset
-    lf.lfFaceName = FONT_NAME
+    lf.lfFaceName = name
     hdc = user32.GetDC(None)
     gdi32.EnumFontFamiliesExW(hdc, ctypes.byref(lf), ENUMPROC(cb), 0, 0)
     user32.ReleaseDC(None, hdc)
@@ -219,12 +220,13 @@ class GdiCanvas:
 
     W, H = 64, 48
 
-    def __init__(self, gdi32, user32):
+    def __init__(self, gdi32, user32, name: str = FONT_NAME):
         import numpy as np
 
         self.np = np
         self.gdi32 = gdi32
         self.user32 = user32
+        self.name = name
         self.hdc_screen = user32.GetDC(None)
         self.hdc = gdi32.CreateCompatibleDC(self.hdc_screen)
         bmi = BITMAPINFO()
@@ -254,7 +256,7 @@ class GdiCanvas:
             lf.lfHeight = -ppem
             lf.lfCharSet = CS_ANSI
             lf.lfQuality = quality
-            lf.lfFaceName = FONT_NAME
+            lf.lfFaceName = self.name
             f = self.gdi32.CreateFontIndirectW(ctypes.byref(lf))
             self._fonts[key] = f
         return f
