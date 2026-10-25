@@ -87,7 +87,7 @@
 「最终审核后发表最新版」。第一句在实测时发现**做不到**：日文已经 100%，
 但简体中文缺 **128 个 GB2312 二级汉字**，所以这一版先补齐，再发布。
 
-- tag `multi12-v1.1.0` 指向 commit `（见 §8.2）`；
+- tag `multi12-v1.1.0` 指向 commit `334740c`（2026-10-25）；
   GitHub Release：<https://github.com/UlyssesLeoLee/PixelFont/releases/tag/multi12-v1.1.0>
 - 资产 6 个：`PixelFontMulti-12-v1.1.0.zip`、`PixelFontMulti-12.ttf`、
   `PixelFontMulti-12-atlas.png`、`PixelFontMulti-12-specimen.png`、

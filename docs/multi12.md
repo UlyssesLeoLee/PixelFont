@@ -380,7 +380,7 @@ GDI 门禁的额外一条：繁体（`lfCharSet=BIG5`）**必须选不中**本�
 
 ### 8.1 发布
 
-- 最新 Release：`multi12-v1.1.0` → `main` 的 `（见 §8.2）`
+- 最新 Release：`multi12-v1.1.0` → `main` 的 `334740c`
   —— <https://github.com/UlyssesLeoLee/PixelFont/releases/tag/multi12-v1.1.0>
 - 上一版：`multi12-v1.0.1` → `main` 的 `0b9c686`
   —— <https://github.com/UlyssesLeoLee/PixelFont/releases/tag/multi12-v1.0.1>
@@ -391,6 +391,17 @@ GDI 门禁的额外一条：繁体（`lfCharSet=BIG5`）**必须选不中**本�
 同样的输入产出同样的字节，条目时间戳固定为发布日正午）。
 
 zip 内 7 项：TTF / BDF / 图集 / 样张 / `安装与使用说明.md` / `OFL.txt` / `SHA256SUMS.txt`。
+
+Release 附件 6 个（v1.1.0）：
+
+| 附件 | 字节 | sha256 |
+|---|---|---|
+| `PixelFontMulti-12-v1.1.0.zip` | 2,681,102 | `68fc526c9566aee4b3c76eecce9a5eccdd15495ee1337cbeb5a46e2fdb44c7ac` |
+| `PixelFontMulti-12.ttf` | 7,853,876 | `b844d8c1f92114acfcb2745dcff6c1c13711bb6853b372d6bab6b8137bf87c15` |
+| `PixelFontMulti-12-atlas.png` | 780,395 | `6012edab6e61bd11ef680b40b69e51faa07b8a57d01b609ab053ab681ea1a9bc` |
+| `PixelFontMulti-12-specimen.png` | 3,174 | `c9d93ff4e4efeae4c0c61bb5e96342584ac77d8e0475755566a1bf0b75931a25` |
+| `PixelFontMulti-12-SHA256SUMS.txt` | 453 | `445e3f3e24f252f2099fb5980fc204b61bf058244f9e869b35017ca5078d2797` |
+| `OFL.txt` | 5,360 | `18b74da7a733340ead037e30eaa63ff5c4cb58e02add5df77a5b2f1d79e98e87` |
 
 > **打包流程为什么要入库**：v1.0.0 / v1.0.1 的打包是临时脚本做的，没入库 ——
 > 意味着「发布包长什么样」这件事**无法复现**，也没法在干净克隆上核对。
