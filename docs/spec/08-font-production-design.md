@@ -10,7 +10,7 @@
 
 这套构建管线是一台**单进程、纯脚本、无外部设计工具**的点阵字体编译器：它把 `tools/fontgen/` 里 30 余个 Python 模块串成一条从「码位集合」到「可安装 TTF」的确定性流水线，中间的每一层产物（点阵 → BDF → 图集 → TTF）都被回读校验，**没有任何一步依赖「人眼看着差不多」**。
 
-从字符集到 TTF 共 8 段：`charset.build_charset()`（4,164 条源列表去重为 **4,161** 码位）→ `charset.load_ideo_route()`（汉字路由名单 `ideo_route.json`，**3,010** 条记录）→ `bitfont.ScriptStack`（按 SimHei / MS Gothic / vendor Fusion Pixel 三源逐码位栅格化出 12×13 点阵）→ `build_font.collect_glyphs()`（收集为 `BitmapFont` 集合）→ `write_bdf()` / `write_atlas()` / `write_specimen()` / `write_ttf()`（并行产出 4 类产物）→ `verify_bdf()` / `verify_atlas()` / `verify_ttf()` / `verify_ttf_metadata()` 回读校验 → `regress.py` 全量回归（4,161 字分 **43** 批逐像素比对）→ `verify_gdi.py` Windows GDI 兼容性门禁。产出物 `dist/PixelFontPC98-12.ttf` 为 **973,712** 字节，sha256 `3298AE4D9E28E7F3D5939E007DF43EA82B64860922AB246FC7A4B82414F69FB1`。
+从字符集到 TTF 共 8 段：`charset.build_charset()`（4,164 条源列表去重为 **4,161** 码位）→ `charset.load_ideo_route()`（汉字路由名单 `ideo_route.json`，**3,010** 条记录）→ `bitfont.ScriptStack`（按 SimHei / MS Gothic / vendor Fusion Pixel 三源逐码位栅格化出 12×13 点阵）→ `build_font.collect_glyphs()`（收集为 `list[GlyphData]`）→ `write_bdf()` / `write_atlas()` / `write_specimen()` / `write_ttf()`（并行产出 4 类产物）→ `verify_bdf()` / `verify_atlas()` / `verify_ttf()` / `verify_ttf_metadata()` 回读校验 → `regress.py` 全量回归（4,161 字分 **43** 批逐像素比对）→ `verify_gdi.py` Windows GDI 兼容性门禁。产出物 `dist/PixelFontPC98-12.ttf` 为 **973,712** 字节，sha256 `3298AE4D9E28E7F3D5939E007DF43EA82B64860922AB246FC7A4B82414F69FB1`。
 
 真正决定成败的**不是**码位数量，而是三个数学硬约束，它们全部踩过坑、且坑的共同特征是「字体照样能打开、照样能显示」：
 
