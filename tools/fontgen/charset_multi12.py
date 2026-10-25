@@ -1,0 +1,257 @@
+"""Multi 12 字符集定义 —— `PixelFont Multi 12`（方案 C，31,392 码位）。
+
+本模块是 `docs/spec/02-charset-definition.md` §2.7 的**可执行版本**：分层账目、
+每一层的增量、交叉核对口径，全部在这里写成代码，而不是只写在文档里。
+
+设计原则与 `charset.py` 保持一致：
+
+* **机械推导优先** —— 汉字集用 GB2312 区位码区间与 Shift-JIS 双字节判定算出，
+  不凭记忆列字表；字表靠记忆列就是编造。
+* **每一层都是「实际字体 cmap 的交集」** —— 不是理论块大小。理论块与实际
+  覆盖的差额要显式留在账目里，不能悄悄抹平。
+* **总量必须能被独立口径复核** —— 逐层累加与「方案 A ∪ CJK 整块」两条路径
+  必须给出同一个数，否则其中一条是错的。
+
+依赖：参考字体（`third_party/ref_fonts/`，不入库）。抓取方式::
+
+    python tools/fontgen/fetch_ref_fonts.py          # 下载
+    python tools/fontgen/fetch_ref_fonts.py --verify  # 只校验 sha256
+
+参考字体只用于**确定覆盖边界**（哪些码位该收），不参与字形渲染 ——
+字形来源见 `charset.py` 与 `ideo_route.json`。
+"""
+
+from __future__ import annotations
+
+import os
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "tools" / "fontgen"))
+
+import charset  # noqa: E402
+
+#: 参考字体目录。默认在仓库内（不入库，需 `fetch_ref_fonts.py` 抓取）；
+#: 在 worktree 里跑时可用环境变量指向任一已抓好的副本：:
+#:
+#:     $env:PIXELFONT_REF_FONTS = 'E:\PixelFont\third_party\ref_fonts'
+REF = Path(
+    os.environ.get("PIXELFONT_REF_FONTS", str(ROOT / "third_party" / "ref_fonts"))
+)
+FUS = REF / "fusion-pixel-12px"
+
+#: 方案 C 的目标码位数。任何改动导致对不上，`gate_multi12()` 直接失败。
+TARGET_TOTAL = 31_392
+
+#: 方案 A（不追加全部 CJK）的码位数，作为交叉核对口径之一。
+TARGET_A = 19_816
+
+#: 方案 C 里**不被任何 Fusion 变体覆盖**的码位 —— 它们必须走
+#: MS Gothic / SimHei 路径（与 `docs/reference-fonts.md` 记载一致）。
+NON_THIRD_SOURCE = {0x20AC, 0x2260, 0x2264, 0x2265}  # € ≠ ≤ ≥
+
+
+class ReferenceFontsMissing(RuntimeError):
+    """参考字体不在位 —— 无法确定覆盖边界。"""
+
+
+def _require_fonts() -> None:
+    need = [
+        FUS / "fusion-pixel-12px-monospaced-ja.ttf",
+        FUS / "fusion-pixel-12px-monospaced-ko.ttf",
+        FUS / "fusion-pixel-12px-monospaced-latin.ttf",
+    ]
+    missing = [p for p in need if not p.exists()]
+    if missing:
+        raise ReferenceFontsMissing(
+            "缺少参考字体，无法确定 Multi 12 的覆盖边界：\n"
+            + "\n".join(f"  {p}" for p in missing)
+            + "\n先运行：python tools/fontgen/fetch_ref_fonts.py"
+        )
+
+
+def _cmap(path: Path) -> set[int]:
+    from fontTools.ttLib import TTFont
+
+    return set(TTFont(str(path), fontNumber=0, lazy=True).getBestCmap().keys())
+
+
+def _rng(a: int, b: int) -> set[int]:
+    return set(range(a, b + 1))
+
+
+def jis_x0208_kanji() -> set[int]:
+    """JIS X 0208 第 1–2 区汉字：Shift-JIS 双字节且首字节 0x88–0x9F。
+
+    与 `charset.gb2312_level1()` 同一套方法论 —— 靠编码判定，不靠人列。
+    """
+    out: set[int] = set()
+    for cp in range(0x3000, 0xA000):
+        try:
+            b = chr(cp).encode("shift_jis")
+        except UnicodeEncodeError:
+            continue
+        if len(b) == 2 and (0x88 <= b[0] <= 0x9F):
+            out.add(cp)
+    return out
+
+
+def jis_x0208_kana_punct() -> set[int]:
+    """JIS X 0208 假名 / 符号 / 全角：Shift-JIS 首字节 0x81–0x87 或 0xE0–0xEF。"""
+    out: set[int] = set()
+    for cp in range(0x3000, 0xA000):
+        try:
+            b = chr(cp).encode("shift_jis")
+        except UnicodeEncodeError:
+            continue
+        if len(b) == 2 and (0x81 <= b[0] <= 0x87 or 0xE0 <= b[0] <= 0xEF):
+            out.add(cp)
+    return out
+
+
+def current_family() -> set[int]:
+    """L0：`PixelFont PC98 12` 当前的 4,161 码位。"""
+    return {ord(c) for c, _ in charset.build_charset()}
+
+
+def layers() -> list[tuple[str, set[int], str]]:
+    """返回 [(层名, 该层码位集合, 分类标签)]，顺序即累加顺序。
+
+    每层的码位集合是**该层引入的增量**（已扣除与前面各层的重叠），
+    这样逐层加总才等于总数。集合本身仍是"该层应该覆盖的全部码位"，
+    分类标签用于 `build_charset_multi12()` 打标签。
+    """
+    _require_fonts()
+    ja = _cmap(FUS / "fusion-pixel-12px-monospaced-ja.ttf")
+    ko = _cmap(FUS / "fusion-pixel-12px-monospaced-ko.ttf")
+    la = _cmap(FUS / "fusion-pixel-12px-monospaced-latin.ttf")
+
+    raw = [
+        ("L0 当前家族", current_family(), "current"),
+        ("L1 Latin Ext A/B", _rng(0x0100, 0x024F) & la, "latin-ext"),
+        ("L2 Greek", _rng(0x0370, 0x03FF) & la, "greek"),
+        ("L3 Cyrillic", _rng(0x0400, 0x04FF) & la, "cyrillic"),
+        ("L4 Hangul syllables", _rng(0xAC00, 0xD7AF) & ko, "hangul"),
+        ("L5 JIS X 0208 假名/符号/全角", jis_x0208_kana_punct() & ja, "kana"),
+        ("L6 JIS X 0208 汉字", jis_x0208_kanji() & ja, "jis-kanji"),
+        ("L7 CJK 其余", _rng(0x4E00, 0x9FFF) & ja, "cjk-ext"),
+    ]
+
+    # 扣掉与前面各层的重叠，得到增量
+    out: list[tuple[str, set[int], str]] = []
+    seen: set[int] = set()
+    for name, s, tag in raw:
+        delta = s - seen
+        seen |= s
+        out.append((name, delta, tag))
+    return out
+
+
+def build_charset_multi12() -> list[tuple[str, str]]:
+    """返回 [(字符, 分类)]，按码位升序。分类沿用 `charset.py` 的风格并扩展。"""
+    out: list[tuple[str, str]] = []
+    for name, delta, tag in layers():
+        for cp in sorted(delta):
+            out.append((chr(cp), tag))
+    out.sort(key=lambda kv: ord(kv[0]))
+    return out
+
+
+def ledger() -> list[tuple[str, int, int]]:
+    """返回 [(层名, 增量, 累计)]，与文档 §2.7 的表一一对应。"""
+    rows: list[tuple[str, int, int]] = []
+    total = 0
+    for name, delta, _ in layers():
+        total += len(delta)
+        rows.append((name, len(delta), total))
+    return rows
+
+
+def gate_multi12() -> None:
+    """四道硬门禁。任何一条不过就抛错 —— 总量对不上时不能放行。"""
+    rows = ledger()
+    total = rows[-1][2]
+
+    # 门禁 1：逐层累加必须等于目标
+    if total != TARGET_TOTAL:
+        raise SystemExit(
+            f"字符集总量 {total} != 目标 {TARGET_TOTAL}；分层账目与文档 §2.7 不一致"
+        )
+
+    # 门禁 2：交叉核对口径 A（方案 A = 方案 C 去掉 L7 的增量）必须等于 19,816
+    a_total = rows[-2][2]
+    if a_total != TARGET_A:
+        raise SystemExit(f"方案 A 交叉核对 {a_total} != 目标 {TARGET_A}")
+
+    # 门禁 3：独立口径「方案 A ∪ CJK 整块」必须给出同一个总数
+    _require_fonts()
+    ja = _cmap(FUS / "fusion-pixel-12px-monospaced-ja.ttf")
+    ko = _cmap(FUS / "fusion-pixel-12px-monospaced-ko.ttf")
+    la = _cmap(FUS / "fusion-pixel-12px-monospaced-latin.ttf")
+    cur = current_family()
+    opt_a = (
+        cur
+        | (_rng(0x0100, 0x024F) & la)
+        | (_rng(0x0370, 0x03FF) & la)
+        | (_rng(0x0400, 0x04FF) & la)
+        | (_rng(0xAC00, 0xD7AF) & ko)
+        | (jis_x0208_kana_punct() & ja)
+        | (jis_x0208_kanji() & ja)
+    )
+    cjk_all = _rng(0x4E00, 0x9FFF) & ja
+    if len(opt_a | cjk_all) != TARGET_TOTAL:
+        raise SystemExit(
+            f"交叉口径「方案 A ∪ CJK 整块」= {len(opt_a | cjk_all)} != {TARGET_TOTAL}"
+        )
+
+    # 门禁 4：4 个不被任何 Fusion 变体覆盖的码位必须在集合里，且确实没被覆盖
+    all_fusion: set[int] = set()
+    for name in ("ja", "ko", "latin", "zh_hans", "zh_hant", "zh_hk", "zh_tw"):
+        p = FUS / f"fusion-pixel-12px-monospaced-{name}.ttf"
+        if p.exists():
+            all_fusion |= _cmap(p)
+    got = build_charset_multi12()
+    got_cps = {ord(c) for c, _ in got}
+    missing = NON_THIRD_SOURCE - got_cps
+    if missing:
+        raise SystemExit(f"非第三源码位缺失: {sorted(hex(c) for c in missing)}")
+    wrongly_covered = NON_THIRD_SOURCE & all_fusion
+    if wrongly_covered:
+        raise SystemExit(
+            "非第三源码位被 Fusion 覆盖了，账目前提变了: "
+            f"{sorted(hex(c) for c in wrongly_covered)}"
+        )
+
+    # 排除项仍然不收
+    for cp in charset.EXCLUDE:
+        if cp in got_cps:
+            raise SystemExit(f"排除项被收进来了: U+{cp:04X}")
+
+
+def main() -> None:
+    print("=== PixelFont Multi 12 字符集账目 (方案 C) ===")
+    print()
+    print(f"{'层':<32}{'增量':>8}{'累计':>10}")
+    print("-" * 50)
+    for name, delta, total in ledger():
+        print(f"  {name:<30}{delta:>8}{total:>10}")
+    print("-" * 50)
+    print(f"  {'合计':<30}{'':>8}{ledger()[-1][2]:>10}")
+    print()
+    got = build_charset_multi12()
+    cats: dict[str, int] = {}
+    for _, cat in got:
+        cats[cat] = cats.get(cat, 0) + 1
+    print("=== 分类构成 ===")
+    for cat, n in sorted(cats.items(), key=lambda kv: -kv[1]):
+        print(f"  {cat:<14}{n:>8}")
+    print(f"  {'TOTAL':<14}{len(got):>8}")
+    print()
+    print("=== 门禁 ===")
+    gate_multi12()
+    print("  4/4 PASS  (总量 / 方案A交叉 / A∪CJK交叉 / 非第三源与排除项)")
+
+
+if __name__ == "__main__":
+    main()
