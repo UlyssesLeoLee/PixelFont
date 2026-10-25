@@ -31,6 +31,26 @@ KNOWN_SHA = {
     "4ae459a3bdff66bcf430f1b1cd4641a0b4433732a70c57d6a975ab058b0a88e7": "Fusion zh_hans ttf",
     "a67917d94bb597acbdf3bfe1cf97047cc3e1cdd3839d21da188e35cc0737e828": "Zpix",
     "ea39a0e614e7486490239c5759e1a0cd49e335c4b08d2fd13e313147f022": "GNU Unifont",
+    # --- PixelFont Multi 12 家族 (multi12-v1.0.0) ---
+    "d28e0fb5134415319a9a42f19a706463c9fddc8a992f76729bab7f9ff5131913": "multi12 TTF 成品",
+    "6eab85eaecb1dee433dc7f40e43f554ab9023d81475d96c554ae9ff903012fd9": "multi12 发布包 zip",
+    "af4baf59f7f8f88640d30a18928cd5335fa6265210c6776f279755ea4b6bb51a": "multi12 BDF",
+    "b8ed55582d072201604a6eadb60c130d781371853c0265fe46c1f8e18cdbb357": "multi12 bdf.map",
+    "6df3bfce5e24ca135d94f7d12ba836f352908c2df4627752c8d43021c1ee63ca": "multi12 图集 PNG",
+    "5c662ce6b85ebf47ebf24a7c2b0f0b44e92c801223d94b3543f9b8712579a97a": "multi12 图集 JSON",
+    "c9d93ff4e4efeae4c0c61bb5e96342584ac77d8e0475755566a1bf0b75931a25": "multi12 样张 PNG",
+    "93f370b4b2e2971217c490e287d7fa8742f9a49e829d6982b54a9e752570a8e4": "multi12 发布级 SHA256SUMS",
+    "983af89b36518a85ee5205b6cad1de232dbc2852b536c50ff2956bf74db3b5a4": "multi12 OFL 全文",
+    "d9cd278dd5752273154bf26aa9e5f30d3b7a8582bceab830f48f7f822be46b38": "vendor multi12 ja 裁剪版",
+    "83a14eacdbfa07718698969a6630681ec423caf3fac1c0f668f72fea0818d3a9": "vendor multi12 ko 裁剪版",
+    "a63c7eab7ca519d6b2aba0ef825d87f5ccb110801b61fa51b02277559c5264cf": "vendor multi12 zh_hans 裁剪版",
+    "26f7d76c6d6be40ec47659286486f21fb5da328b22b89867717505f1beecb69d": "vendor multi12 latin 裁剪版",
+    "745dc5dd0b9b7b2f2b5e8af4829ca7d9b8ee88c68d3f2fb0c6181843bc0a4cc1": "multi12 手绘字形数据",
+    "bc518cf64b8032c07690f33cc270c35c179255a6ac8efa7c165ebae7e8f76a63": "Fusion Pixel OFL 全文",
+    "3ab41567e68e3988ba1ef16dd2644eca95ca5648ea12e7d46e6287fc0bbe5aee": "Ark Pixel OFL 全文",
+    "2b6e5938e5cffa0b9e183bd05f8c363e174e7ebed1a0556e2855fd1707fa2188": "Cubic 11 OFL 全文",
+    "86a3ee9495f942f0243f18c103da9faca27adb88142613edb8bb852e56c892c1": "Galmuri LICENSE 全文",
+    "04b7da50afa9395023c620db459602ea7fd23d49a7e9167e4eb1a60e48e2c2f9": "multi12 路由快照",
 }
 
 # --- 已知码位 (白名单: 出现的必须属于这些集合) ---

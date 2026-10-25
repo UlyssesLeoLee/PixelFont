@@ -13,11 +13,13 @@
 
 用法:
     python tools/fontgen/verify_gdi_multi12.py
+    python tools/fontgen/verify_gdi_multi12.py --ttf <回下载的 ttf 路径>
 退出码 0 = 全过
 """
 
 from __future__ import annotations
 
+import argparse
 import ctypes
 import sys
 from pathlib import Path
@@ -34,6 +36,12 @@ from build_font_multi12 import FONT_NAME, PS_NAME  # noqa: E402
 TTF = ROOT / "dist" / f"{PS_NAME}.ttf"
 BDF = ROOT / "dist" / f"{PS_NAME}.bdf"
 
+
+def bdf_path_of(ttf: Path) -> Path:
+    """由 TTF 路径推导同名 BDF 路径 (回下载验证用)。"""
+    return ttf.with_suffix(".bdf")
+
+
 #: Multi 12 覆盖到的代码页 -> 必须能选中的 charset
 MUST_SELECT = {
     vg.CS_ANSI: "ANSI (西文)",
@@ -49,19 +57,33 @@ MUST_NOT_SELECT = {
 
 
 def main() -> int:
-    if not TTF.exists():
-        raise SystemExit(f"找不到成品字体: {TTF}\n先跑 tools/fontgen/build_font_multi12.py")
-    if not BDF.exists():
-        raise SystemExit(f"找不到 BDF: {BDF}")
+    ap = argparse.ArgumentParser(
+        description="PixelFont Multi 12 的 GDI 兼容门禁")
+    ap.add_argument("--ttf", default=None,
+                    help="要验证的 TTF 路径 (默认 dist/ 里的)。"
+                         "发布流程用它验证**回下载回来的**那份")
+    ap.add_argument("--bdf", default=None,
+                    help="对应的 BDF 路径 (默认与 --ttf 同名)")
+    args = ap.parse_args()
+
+    ttf = Path(args.ttf) if args.ttf else TTF
+    bdf_path = Path(args.bdf) if args.bdf else (
+        bdf_path_of(ttf) if args.ttf else BDF)
+
+    if not ttf.exists():
+        raise SystemExit(f"找不到成品字体: {ttf}\n先跑 tools/fontgen/build_font_multi12.py")
+    if not bdf_path.exists():
+        raise SystemExit(f"找不到 BDF: {bdf_path}")
 
     vg._bind()
     gdi32 = ctypes.WinDLL("gdi32", use_last_error=True)
     user32 = ctypes.WinDLL("user32", use_last_error=True)
 
-    bdf = read_bdf(BDF)
+    bdf = read_bdf(bdf_path)
 
     print("== 0. 注册字体 ==")
-    n = gdi32.AddFontResourceExW(str(TTF), vg.FR_PRIVATE, None)
+    n = gdi32.AddFontResourceExW(str(ttf), vg.FR_PRIVATE, None)
+    print(f"  {ttf}")
     print(f"  AddFontResourceExW -> {n}")
     if n == 0:
         raise SystemExit("GDI 拒绝注册该字体")

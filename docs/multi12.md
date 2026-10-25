@@ -16,6 +16,10 @@
    后者有 3,053/4,161 码位派生自 SimHei / MS Gothic（微软专有），所以成品不能入库。
 3. **可复现**：只 clone 本仓库、不下载任何参考字体，也能构建出**逐字节相同**的产物
    （已实测，见 §6）。
+4. **已发布**：`multi12-v1.0.0` ——
+   <https://github.com/UlyssesLeoLee/PixelFont/releases/tag/multi12-v1.0.0>
+   （6 个资产，含 OFL 全文；回下载后逐字节一致，且回下载的 TTF 在 GDI 中
+   被正常选中、全字符集逐格一致）。
 
 ---
 
@@ -279,6 +283,8 @@ python tools/fontgen/vendor_multi12_sources.py --check
 | 24 | GDI 枚举：同上 5 个 charset 均含本族 | 同上 | 5/5 |
 | 25 | GDI 栅格化 vs 设计位图：31,392 码位 × (12ppem + 24ppem) | 同上 | 4 × 31,392 全一致 |
 | 26 | DEFAULT 质量下抗锯齿像素 | 同上 | 0 |
+| 27 | **回下载逐字节一致**（6 个资产） | 发布流程阶段 8 | 一致 |
+| 28 | **回下载产物可渲染** | `verify_gdi_multi12.py --ttf <回下载路径> --bdf <回下载 zip 内路径>` | 5 个 charset + 4 × 31,392 逐格一致 |
 
 GDI 门禁的额外一条：繁体（`lfCharSet=BIG5`）**必须选不中**本字体 ——
 字符集里没有 zh_hant 码位，选中了反而是 bug。实测选中的是系统字体 `Ebrima`，符合预期。
@@ -301,6 +307,26 @@ GDI 门禁的额外一条：繁体（`lfCharSet=BIG5`）**必须选不中**本�
 > `dist/` 按仓库政策不入库（见 `.gitignore`）。本家族与 `PixelFont PC98 12` 的
 > 区别是**生产源全为宽松许可**，所以成品**可以**入库存放 ——
 > 是否入库是发布策略选择，不是许可问题。
+
+### 8.1 发布
+
+- Release：`multi12-v1.0.0` → `main` 的 `a3509b3`
+  —— <https://github.com/UlyssesLeoLee/PixelFont/releases/tag/multi12-v1.0.0>
+- 附件 6 个：
+
+| 附件 | 字节 | sha256 |
+|---|---|---|
+| `PixelFontMulti-12-2026-10-24.zip` | 2,626,345 | `6eab85eaecb1dee433dc7f40e43f554ab9023d81475d96c554ae9ff903012fd9` |
+| `PixelFontMulti-12.ttf` | 7,736,520 | `d28e0fb5134415319a9a42f19a706463c9fddc8a992f76729bab7f9ff5131913` |
+| `PixelFontMulti-12-atlas.png` | 764,187 | `6df3bfce5e24ca135d94f7d12ba836f352908c2df4627752c8d43021c1ee63ca` |
+| `PixelFontMulti-12-specimen.png` | 3,174 | `c9d93ff4e4efeae4c0c61bb5e96342584ac77d8e0475755566a1bf0b75931a25` |
+| `PixelFontMulti-12-SHA256SUMS.txt` | 452 | `93f370b4b2e2971217c490e287d7fa8742f9a49e829d6982b54a9e752570a8e4` |
+| `OFL.txt` | 4,518 | `983af89b36518a85ee5205b6cad1de232dbc2852b536c50ff2956bf74db3b5a4` |
+
+zip 内 7 项：TTF / BDF / 图集 / 样张 / `安装与使用说明.md` / `OFL.txt` / `SHA256SUMS.txt`。
+
+> **`OFL.txt` 是必须项** —— OFL-1.1 要求随字体分发附上许可证全文。
+> 它既在 zip 里，也作为独立附件发布。
 
 ---
 
